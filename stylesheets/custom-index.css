@@ -1,0 +1,9 @@
+#container{ width:100%;}
+#container .container-left{ float:left; width:720px; }
+#container .container-right{ float:right; width:225px;  padding: 30px 20px 40px 20px;}
+#container .container-right h4{ width: 200px; padding-left: 15px;color: #2d6213;border-bottom: 1px solid #b9b9b9;margin-bottom: 6px; text-align: left;}
+#container .container-right .photo-frame{width: 200px;height: 200px;}
+#container .container-right .photo-frame .photo{position: absolute; z-index: -1; width: 155px; height: 155px; margin: 20px 0 0 20px; background: url(../images/photo.png);background-size:100% 100%;}
+#container .container-right .photo-frame .photo-f{position: absolute; z-index: 1; width: 200px; height: 200px;background: url(../images/photoframe.png);background-size:100% 100%;}
+#container .container-right article{border-bottom: 1px solid #b9b9b9;}
+#container .container-right article p{ padding-bottom: 10px; font-size: 15px; }

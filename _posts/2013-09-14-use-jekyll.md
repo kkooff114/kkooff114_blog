@@ -21,7 +21,7 @@
            (又报错,使用--debug看异常Exception `Errno::ENOENT' at /usr/local/rvm/rubies/ruby-2.0.0-p247/lib/ruby/2.0.0/rubygems/remote_fetcher.rb:296 - No such file or directory - /Users/LJW/.gem/specs/rubygems.org%443/latest_specs.4.8)
         7. 6中问题无法解决,睡一觉起来改用ruby 1.9.3,喵的又报错:ERROR:Could not find a valid gem 'jekyll' (>= 0) in any repository
         ERROR:  Possible alternatives: jekyll`
-        (解决:后来在[这里](http://blog.ownlinux.net/2012/08/fix-gem-install-jekyll-problem.html)找到了答案。原来rubygems.org是因为国内网络的原因。至于github的源，打开这个页面可以看到提示，"We've stopped building gems"。
+        (解决:后来在[这里](http://blog.ownlinux.net/2012/08/fix-gem-install-jekyll-problem.html/)找到了答案。原来rubygems.org是因为国内网络的原因。至于github的源，打开这个页面可以看到提示，"We've stopped building gems"。
         $ gem sources --remove http://rubygems.org/
         $ gem sources -a http://ruby.taobao.org/
         $ gem sources -l
@@ -47,10 +47,10 @@
     gem install RDiscount
     (喵的错误:could not find gem RDiscount locally or in a repository
         解决:下载源码自己编译.
-            通过[github](https://github.com/davidfstr/rdiscount)下载源码
+            通过[github](https://github.com/davidfstr/rdiscount/)下载源码
             cd rdiscount
             LJW-Mac:rdiscount LJW$ sudo rake install)
 
 参考:[像黑客一样写博客——Jekyll入门](http://www.soimort.org/posts/101/)
-    [告别wordpress，拥抱jekyll](http://www.yangzhiping.com/tech/wordpress-to-jekyll.html)
-    [通过GitHub Pages建立个人站点（详细步骤）](http://www.cnblogs.com/purediy/archive/2013/03/07/2948892.html)
+    [告别wordpress，拥抱jekyll](http://www.yangzhiping.com/tech/wordpress-to-jekyll.html/)
+    [通过GitHub Pages建立个人站点（详细步骤）](http://www.cnblogs.com/purediy/archive/2013/03/07/2948892.html/)

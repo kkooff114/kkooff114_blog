@@ -1,14 +1,50 @@
-<!DOCTYPE html>
-　　<html>
-　　<head>
-　　　　<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-　　　　<title>{{ page.title }}</title>
-　　</head>
-　　<body>
+<!DOCTYPE html>　
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<!-- github auto css star -->
+<link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+<!-- github auto css end -->
+　　
+<link rel="stylesheet" type="text/css" href="stylesheets/custom.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="stylesheets/LJWstylesheets.css" media="screen" />
 
+{% if(page.isIndex) %}
+<link rel="stylesheet" type="text/css" href="stylesheets/custom-index.css" media="screen" />
+{% endif %}
+
+<title>{{ page.title }}</title>　
+</head>
+<body>
+<header class="header">
+    <!-- header_up -->
+	<div class="header_up">
+    	<a onfocus="this.blur()" href="http://blog.loujiwei.cn" id="logo" title="loujiwei Blog"><cite>kkooff114</cite></a>
+        <span class="subtitle">Lou Jiwei' Blog</span>
+    </div>
+    <!-- header_down -->
+    <div class="header_down">
+        <div class="menu">
+            <ul class="menu-nav">
+                <li class="menu-item"><a href="">首页</a></li>
+                <li class="menu-item"><a href="">博客分类</a></li>
+                <li class="menu-item"><a href="">工具收集</a></li>
+                <li class="menu-item"><a href="">个人经历</a></li>
+                <li class="menu-item"><a href="">留言板</a></li>
+                <li class="menu-item"><a href="">关于本站</a></li>
+            </ul>   
+        </div>
+    </div>
+</header>
+<div class="main">
 　　　　{{ content }}
+</div>
+<!--评论功能
 <div id="disqus_thread"></div>
-    <script type="text/javascript">
+<script type="text/javascript">
         /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
         var disqus_shortname = 'kkooff114'; // required: replace example with your forum shortname
 
@@ -19,9 +55,10 @@
             (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
         })();
     </script>
-    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-    
-
-　　</body>
-　　</html>
+<noscript>
+Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+</noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a> 　　-->
+</body>
+　　
+</html>

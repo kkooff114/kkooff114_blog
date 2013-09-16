@@ -1,0 +1,47 @@
+
+.header{
+	margin-top:-24px;
+	height:130px;
+}
+.header .header_up{ height:85px; background:url(../images/headbg.png) /*background-color:#3C5A76;*/}
+.header .header_up a#logo{float: left; width:279px; height: 62px;overflow: hidden;margin: 5px 0 0 105px; color:#000;background:url(../images/logo.png) no-repeat; background-size:100% 100%;}
+.header .header_up a#logo cite{line-height:33px;display:none;text-indent:-999px;}
+.header .header_up .subtitle{color: white;top: 28px;font-size: 23px;position: relative;
+font-family: Michroma,'Segoe UI Light','Segoe UI','Segoe UI WP','Microsoft Jhenghei','微软雅黑',tahoma,'Hiragino Sans GB W3';-webkit-font-smoothing: antialiased;font-family: Michroma,'Segoe UI WP','Microsoft Jhenghei','微软雅黑',sans-serif /9;text-shadow: 0 0 5px rgba(0, 0, 0, 1);}
+.header .header_down{ height: 35px; width: 100%}
+.header .header_down .menu{ margin: 0 auto;width: 990px;}
+.header .header_down .menu .menu-nav{height: 32px;clear: both;padding: 8px 0 43px 0;font-size: 24px;text-align: left;width: 100%;}
+.header .header_down .menu .menu-nav .menu-item{float: left;padding-right: 50px;padding-right: 25px \9;list-style: none;position: relative;}
+.header .header_down .menu .menu-nav .menu-item a{
+	font-family:Michroma,'Segoe UI Light','Segoe UI','Segoe UI WP','Microsoft Jhenghei','微软雅黑',tahoma,'Hiragino Sans GB W3';
+	-webkit-font-smoothing:antialiased;
+	font-family:Michroma,'Segoe UI WP','Microsoft Jhenghei','微软雅黑',sans-serif /9;}
+.header .header_down .menu .menu-nav .menu-item a:link,
+.header .header_down .menu .menu-nav .menu-item a:visited,
+.header .header_down .menu .menu-nav .menu-item a:active {
+	color:#7e7e7e;
+	text-shadow:0 0 2px #aaa;
+	text-decoration:none;
+	
+	-webkit-transition: text-shadow 500ms ease-in 0ms, color 500ms ease-in 0ms;
+	-moz-transition: text-shadow 500ms ease-in 0ms, color 500ms ease-in 0ms;
+	-ms-transition: text-shadow 500ms ease-in 0ms, color 500ms ease-in 0ms;
+	-o-transition: text-shadow 500ms ease-in 0ms, color 500ms ease-in 0ms;
+	transition: text-shadow 500ms ease-in 0ms, color 500ms ease-in 0ms;
+
+}
+
+.header .header_down .menu .menu-nav .menu-item a:hover,
+.header .header_down .menu .menu-nav .menu-item a:focus{
+	color:#26394a;
+	text-shadow:0 0 1px #26394a,
+	0 0 2px #666;
+
+	-webkit-transition: text-shadow 250ms ease-in 0ms, color 250ms ease-in 0ms;
+	-moz-transition: text-shadow 250ms ease-in 0ms, color 250ms ease-in 0ms;
+	-ms-transition: text-shadow 250ms ease-in 0ms, color 250ms ease-in 0ms;
+	-o-transition: text-shadow 250ms ease-in 0ms, color 250ms ease-in 0ms;
+	transition: text-shadow 250ms ease-in 0ms, color 250ms ease-in 0ms;
+}
+
+.main{margin: 0 auto;width: 990px;overflow: hidden;z-index: 1;position: relative;clear: both;}

@@ -1,17 +1,22 @@
-<!doctype html>
-<html>
-<head>
-<meta charset="UTF-8">
-
-<!-- github auto css star -->
-<link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
-<link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
-<link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
-<link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
-<!-- github auto css end -->
-<title>kkooff114 blog by kkooff114</title>
-</head>
-<body>
-<div id="container"> </div>
-</body>
-</html>
+---
+layout: default
+title:
+description: 这是loujiwei的博客kkooff114
+keywords: kkooff114, GitHub, Jekyll, Plugins, Works, Archives, Quotes, Violet, css, html, javascript, wordpress, logo, design, geek
+isIndex: true
+---
+<div id="container">
+  <div class="container-left">
+    <section> {% for rpost in site.posts %}
+      <div>
+        <h3><a href="{{ rpost.url }}" title="{{ rpost.title }}" rel="bookmark">{{ rpost.title }}</a></h3>
+        <p><span>&#8227;</span>
+          <time pubdate="{{ rpost.date | date_to_utc | date: '%Y-%m-%d' }}">{{ rpost.date | date_to_utc | date: "%Y-%m-%d" }}</time>
+        </p>
+      </div>
+      {% endfor %} </section>
+  </div>
+  <div class="container-right">
+  	{% include infoaside.html %}
+  </div>
+</div>
