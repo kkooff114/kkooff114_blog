@@ -1,0 +1,45 @@
+#tui-animation {
+overflow: hidden;
+position: relative;
+background-color: #ffffff;
+width: 1366px;
+height: 768px;
+-webkit-font-smoothing: antialiased;
+-webkit-touch-callout: none;
+-webkit-user-select: none;
+-khtml-user-select: none;
+-moz-user-select: none;
+-ms-user-select: none;
+user-select: none;
+}
+#tui-ct {
+position: absolute;
+width: 1366px;
+height: 768px;
+z-index: 4;
+background-color: #fff;
+}
+#tui-9 {
+position: absolute;
+z-index: 3;
+}
+#tui-8 {
+font-weight: normal;
+color: #2c2c2c;
+text-align: center;
+font-family: 'Permanent Marker';
+font-size: 33px;
+white-space: nowrap;
+position: absolute;
+z-index: 2;
+}
+#tui-7 {
+font-weight: normal;
+color: #2c2c2c;
+text-align: center;
+font-family: 'Lora';
+font-size: 33px;
+white-space: nowrap;
+position: absolute;
+z-index: 1;
+}

@@ -279,10 +279,75 @@ p {
   margin-bottom: 20px;
 }
  */
-a {
+/*by tx start*/
+a{
+  color: #1982D1;
+  text-decoration: none;
+
+}
+a:hover {
+  color: orange;
   text-decoration: none;
 }
 
+a:link,
+a:visited,
+a:active {
+
+  
+  
+  text-decoration:none;
+  
+  -webkit-transition: text-shadow 500ms ease-in 0ms, color 500ms ease-in 0ms;
+  -moz-transition: text-shadow 500ms ease-in 0ms, color 500ms ease-in 0ms;
+  -ms-transition: text-shadow 500ms ease-in 0ms, color 500ms ease-in 0ms;
+  -o-transition: text-shadow 500ms ease-in 0ms, color 500ms ease-in 0ms;
+  transition: text-shadow 500ms ease-in 0ms, color 500ms ease-in 0ms;
+
+}
+
+a:hover,
+a:focus{
+  color: orange;
+  text-decoration: none;
+
+
+  -webkit-transition: text-shadow 250ms ease-in 0ms, color 250ms ease-in 0ms;
+  -moz-transition: text-shadow 250ms ease-in 0ms, color 250ms ease-in 0ms;
+  -ms-transition: text-shadow 250ms ease-in 0ms, color 250ms ease-in 0ms;
+  -o-transition: text-shadow 250ms ease-in 0ms, color 250ms ease-in 0ms;
+  transition: text-shadow 250ms ease-in 0ms, color 250ms ease-in 0ms;
+}
+/*******************/ 
+.-read-more:hover {
+  color: orange;
+  text-decoration: none;
+}
+
+.-read-more:link,
+.-read-more:visited,
+.-read-more:active {
+  text-decoration:none;
+  
+  -webkit-transition: background 500ms ease-in 0ms;
+  -moz-transition: background 500ms ease-in 0ms;
+  -ms-transition: background 500ms ease-in 0ms;
+  -o-transition: background 500ms ease-in 0ms;
+  transition: background 500ms ease-in 0ms;
+
+}
+
+.-read-more:hover,
+.-read-more:focus{
+  text-decoration: none;
+
+  -webkit-transition: background 250ms ease-in 0ms;
+  -moz-transition: background 250ms ease-in 0ms;
+  -ms-transition: background 250ms ease-in 0ms;
+  -o-transition: background 250ms ease-in 0ms;
+  transition: background 250ms ease-in 0ms;
+}
+/* by tx end*/
 p a {
   font-weight: 400;
 }

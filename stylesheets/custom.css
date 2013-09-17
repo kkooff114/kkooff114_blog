@@ -1,9 +1,27 @@
 
+/** violet-content **/
+.violet-content {
+    -webkit-animation-duration: .4s;
+    -webkit-animation-delay: .5s;
+    -webkit-animation-timing-function: ease;
+    -webkit-animation-fill-mode: backwards;
+    -webkit-animation-name: fadeInDown;
+    -moz-animation-duration: .4s;
+    -moz-animation-delay: .5s;
+    -moz-animation-timing-function: ease;
+    -moz-animation-fill-mode: backwards;
+    -moz-animation-name: fadeInDown;
+    animation-duration: .4s;
+    animation-delay: .5s;
+    animation-timing-function: ease;
+    animation-fill-mode: backwards;
+    animation-name: fadeInDown;
+}
 .header{
 	margin-top:-24px;
 	height:130px;
 }
-.header .header_up{ height:85px; background:url(../images/headbg.png) /*background-color:#3C5A76;*/}
+.header .header_up{ height:85px; background:url(../images/headbg.png) /*background-color:#3C5A76;*/} 
 .header .header_up a#logo{float: left; width:279px; height: 62px;overflow: hidden;margin: 5px 0 0 105px; color:#000;background:url(../images/logo.png) no-repeat; background-size:100% 100%;}
 .header .header_up a#logo cite{line-height:33px;display:none;text-indent:-999px;}
 .header .header_up .subtitle{color: white;top: 28px;font-size: 23px;position: relative;
