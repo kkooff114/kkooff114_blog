@@ -32,9 +32,13 @@
 
 jQuery(document).ready(function($) {
 
-    tweenui.init();
-    $(".header").animate({'top':'+=0'},6100,function(){
-        $("#start-bg").animate({height:0},1740,function(){
+    var checkCss=function(){
+
+        if($("#tui-9").css("top")=="305px"){
+            clearInterval(checkTimer);
+
+            $(".header").animate({'top':'+=0'},1760,function(){
+            $("#start-bg").animate({height:0},1740,function(){
             $(".header_up a").animate({opacity:"1"});
             $(".header_up span").animate({opacity:"1"});
             $("#tui-ct").hide();
@@ -44,7 +48,13 @@ jQuery(document).ready(function($) {
         });
         //$("#tweenuis").animate({marginTop:"-774px"},1740);
         //$(".header").animate({marginTop:"-24px"},800);
-    });
+        });
+        }
+    }
+    var checkTimer=setInterval(checkCss,200);
+
+    tweenui.init();
+    
     
 });
 </script>
