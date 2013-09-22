@@ -35,7 +35,7 @@
 .header .header_up .subtitle{color: white;top: 28px;font-size: 23px;position: relative;
 font-family: Michroma,'Segoe UI Light','Segoe UI','Segoe UI WP','Microsoft Jhenghei','微软雅黑',tahoma,'Hiragino Sans GB W3';-webkit-font-smoothing: antialiased;font-family: Michroma,'Segoe UI WP','Microsoft Jhenghei','微软雅黑',sans-serif /9;text-shadow: 0 0 5px rgba(0, 0, 0, 1);opacity: 0;}
 .header .header_down{ height: 35px; width: 100%}
-.header .header_down .menu{ margin: 0 auto;width: 990px;}
+.header .header_down .menu{ margin: 0 auto;width: 960px;}
 .header .header_down .menu .menu-nav{height: 32px;clear: both;padding: 8px 0 43px 0;font-size: 24px;text-align: left;width: 100%;}
 .header .header_down .menu .menu-nav .menu-item{float: left;padding-right: 50px;padding-right: 25px \9;list-style: none;position: relative;}
 .header .header_down .menu .menu-nav .menu-item a{
@@ -70,4 +70,12 @@ font-family: Michroma,'Segoe UI Light','Segoe UI','Segoe UI WP','Microsoft Jheng
 	transition: text-shadow 250ms ease-in 0ms, color 250ms ease-in 0ms;
 }
 
-.main{margin: 0 auto;width: 990px;overflow: hidden;z-index: 1;position: relative;clear: both;}
+.main{margin: 0 auto;width: 960px;overflow: hidden;z-index: 1;position: relative;clear: both;}
+footer{
+	margin: 0 auto;width: 960px;
+	/*background: transparent url('../images/hr.png') 0 0 no-repeat;*/
+margin-top: 40px;
+padding:50px 0 30px 270px;
+font-size: 13px;
+color: #aaa;
+}

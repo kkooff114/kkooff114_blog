@@ -193,7 +193,7 @@ pre code {
 }
 
 ul, ol, dl {
-  margin-bottom: 20px;
+  /*margin-bottom: 20px;*/
 }
 
 
@@ -374,16 +374,16 @@ dl dt {
 }
 
 footer {
-  background: transparent url('../images/hr.png') 0 0 no-repeat;
+ /* background: transparent url('../images/hr.png') 0 0 no-repeat;
   margin-top: 40px;
   padding-top: 20px;
   padding-bottom: 30px;
   font-size: 13px;
-  color: #aaa;
+  color: #aaa;*/
 }
 
 footer a {
-  color: #666;
+  color: #1982D1;
 }
 footer a:hover {
   color: #444;

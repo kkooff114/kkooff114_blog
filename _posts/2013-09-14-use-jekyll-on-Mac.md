@@ -1,3 +1,11 @@
+---
+layout:         post
+title:          在 mac 上使用 jekyll
+description:    在 mac 下搭建jekyll环境,并经行一些配置.这是第一个博客，此文记录博客搭建的过程，属于边搭建边记录。
+    搭建的环境为继伟 的MacBook Pro OS X 10.8.3
+tags:           jekyll
+keywords: mac, jekyll
+---
 博客搭建
 ===================
     这是第一个博客，此文记录博客搭建的过程，属于边搭建边记录。

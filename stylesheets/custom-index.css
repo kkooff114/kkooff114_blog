@@ -1,5 +1,5 @@
 #container{ width:100%;}
-#container .container-left{ float:left; width:720px; }
+#container .container-left{ float:left; width:630px; padding: 30px 0 0 0; }
 #container .container-right{ float:right; width:225px;  padding: 30px 20px 40px 20px;}
 #container .container-right h3{ width: 200px; padding-left: 5px;color: #2d6213;border-bottom: 1px solid #b9b9b9;margin-bottom: 6px; text-align: left;}
 #container .container-right .photo-frame{width: 200px;height: 200px;}
@@ -8,6 +8,42 @@
 #container .container-right article{/*border-bottom: 1px solid #b9b9b9;*/}
 #container .container-right article p{ padding-bottom: 10px; font-size: 15px; }
 #container .container-right article .readmore{padding: 10px 10px 0 0;text-align: right;line-height: 22px; padding-bottom: 10px;}
-#container .container-right article .readmore .-read-more{font-family: Georgia,sans-serif;line-height: 18px;padding: 2px 6px 2px 0;border-radius: 3px 3px;background: #1982D1;color: #fff;cursor: pointer; font-size: 13px;}
-#container .container-right article .readmore .-read-more:hover{ background: orange;}
-#container .container-right article .readmore a span{padding-right: 2px;color: #fff;} 
+
+ .readmore .-read-more{font-family: Georgia,sans-serif;line-height: 18px;padding: 2px 6px 2px 0;border-radius: 3px 3px;background: #1982D1;color: #fff;cursor: pointer; font-size: 13px;}
+ .readmore .-read-more:hover{ background: orange;}
+ .readmore a span{padding-right: 2px;color: #fff;}
+/* container-left */
+
+#container .container-left section .articlemenu{width: 630px; padding: 20px 0 0 0;}
+#container .container-left section .articlemenu:hover{
+	background: #e7e7e7;
+	background: -moz-linear-gradient(-90deg, #e7e7e7 0%, #e7e7e7 80%, #ececec 100%);
+    background: -webkit-linear-gradient(-90deg, #e7e7e7 0%, #e7e7e7 80%, #ececec 100%);
+    background: -ms-linear-gradient(to -90deg, #e7e7e7 0%, #e7e7e7 80%, #ececec 100%);
+    background: linear-gradient(to -90deg, #e7e7e7 0, #e7e7e7 80%, #ececec 100%)
+}
+#container .container-left section .articlemenu li a{
+	font-size:26px;
+	text-decoration:none;
+	height:33px;
+	line-height:33px;
+	font-family:Michroma,'Segoe UI Light','Segoe UI','Segoe UI WP','Microsoft Jhenghei','微软雅黑',sans-serif,Times;
+	font-family:Michroma,'Segoe UI WP','Microsoft Jhenghei','微软雅黑',sans-serif /9;}
+#container .container-left section .articlemenu li .blogPs{
+
+width: 500px;
+height: 16px;
+line-height: 16px;
+overflow: hidden;
+font-size: 12px;
+padding: 8px 0 0 18px;
+font-family: Tahoma, "宋体", sans-serif;
+}
+#container .container-left section .articlemenu li .blogPs a{font-size:12px; line-height: 16px;color: orange;}
+#container .container-left section .articlemenu li .blogPs a:hover{text-decoration: underline;}
+
+#container .container-left section .articlemenu li .blogDes p{ margin: 10px 0 0 20px; }
+#container .container-left section .articlemenu li .readmore{margin:0 0 0 20px;}
+#container .container-left section .articlemenu li .readmore .-read-more{ font-size: 13px;}
+#container .container-left section .articlemenu li .text-line{border-bottom: 1px dotted #bfbfbf; margin:20px 0 0 20px;}
+

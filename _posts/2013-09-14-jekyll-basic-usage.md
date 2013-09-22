@@ -1,3 +1,10 @@
+---
+layout:         post
+title:          Basic Usage
+description:    Basic Usage
+tags:           jekyll
+keywords:       jekyll
+---
 Basic Usage
 The Jekyll gem makes a jekyll executable available to you in your Terminal window. You can use this command in a number of ways:
 

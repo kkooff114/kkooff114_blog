@@ -12,14 +12,25 @@ isIndex: true
    -->
   <!-- TWEENUI ANIMATION END  -->
   <div class="container-left">
-    <section> {% for rpost in site.posts %}
-      <div>
-        <h3><a href="{{ rpost.url }}" title="{{ rpost.title }}" rel="bookmark">{{ rpost.title }}</a></h3>
-        <p><span>&#8227;</span>
-          <time pubdate="{{ rpost.date | date_to_utc | date: '%Y-%m-%d' }}">{{ rpost.date | date_to_utc | date: "%Y-%m-%d" }}</time>
-        </p>
-      </div>
-      {% endfor %} </section>
+    <section> 
+      {% for rpost in site.posts %}
+      <ul class="articlemenu">
+        <li>
+            <a href="{{ rpost.url }}" title="{{ rpost.title }}" rel="bookmark">{{ rpost.title }}</a>
+            <div class="blogPs">
+              <span>&#8227;</span>&nbsp;In&nbsp;<a href="{{rpost.tags}}">{{rpost.tags}}</a>&nbsp;on&nbsp;
+              <time pubdate="{{ rpost.date | date_to_utc | date: '%Y年%m月%d日' }}">{{ rpost.date | date_to_utc | date: "%Y年%m月%d日" }}</time>
+              &nbsp;by&nbsp;<a href="{{rpost.tags}}">Ji wei</a>
+            </div>
+            <div class="blogDes">
+              <p>{{ rpost.description }}</p>
+            </div>
+            <p class="readmore"><a class="-read-more" href=""><span>➥</span>Read More</a></p>
+            <div class="text-line"></div>
+        </li>
+      </ul>
+      {% endfor %} 
+    </section>
   </div>
   <div class="container-right">
   	{% include infoaside.html %}
