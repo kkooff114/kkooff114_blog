@@ -38,18 +38,23 @@ jQuery(document).ready(function($) {
             clearInterval(checkTimer);
 
             $(".header").animate({'top':'+=0'},1760,function(){
-            $("#start-bg").animate({height:0},1740,function(){
-            $(".header_up a").animate({opacity:"1"},20);
-            $(".header_up span").animate({opacity:"1"},400);
-            $("#tui-7").hide();
-            $("#tui-8").hide();
-            $("#tui-ct").hide();
-            $("#tui-9").hide();
+                $("#start-bg").animate({height:0},1740,function(){
+                    $(".header_up a").animate({opacity:"1"},20);
+                    $(".header_up span").animate({opacity:"1"},400,function(){
+                        //悬挂tags
+                        $(".hang-tag").css("visibility", "visible");
+                        $(".hang-tag-github").animate({top:-50},1000);
+                        $(".hang-tag-weibo").animate({top:-23},1000);
+                    });
+                    $("#tui-7").hide();
+                    $("#tui-8").hide();
+                    $("#tui-ct").hide();
+                    $("#tui-9").hide();
+                });
             });
-        });
         }
     }
-    var checkTimer=setInterval(checkCss,200);
+    var checkTimer=setInterval(checkCss,200);//监听
 
     tweenui.init();
     
@@ -69,6 +74,7 @@ jQuery(document).ready(function($) {
     	<a onfocus="this.blur()" href="http://blog.loujiwei.cn" id="logo" title="loujiwei Blog"><cite>kkooff114</cite></a>
         <span class="subtitle">Lou Jiwei' Blog</span>
     </div>
+    
     <!-- header_down -->
     <div class="header_down">
         <div class="menu">
@@ -80,6 +86,10 @@ jQuery(document).ready(function($) {
                 <li class="menu-item"><a href="">留言板</a></li>
                 <li class="menu-item"><a href="">关于本站</a></li>
             </ul>   
+        </div>
+        <div class="hang-tag">
+            <div class="hang-tag-weibo"></div>
+            <div class="hang-tag-github"></div>
         </div>
     </div>
 </header>
@@ -113,7 +123,7 @@ Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">c
     <!-- </div> -->
     <footer>
         <section>
-            Copyright © 2011–2013 <a href="http://loujiwei.cn" target="_blank" rel="nofollow">kkooff114</a> All rights reserved.
+            Copyright © 2013 <a href="http://loujiwei.cn" target="_blank" rel="nofollow">kkooff114</a> All rights reserved.
             Powered by <a href="http://jekyllrb.com" target="_blank" rel="nofollow">Jekyll</a> .designed by <a href="http://loujiwei.cn" rel="nofollow">loujiwei.cn</a>
             <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1000076578'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s22.cnzz.com/z_stat.php%3Fid%3D1000076578%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
         </section>

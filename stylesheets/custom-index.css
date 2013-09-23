@@ -1,6 +1,11 @@
 #container{ width:100%;}
 #container .container-left{ float:left; width:630px; padding: 30px 0 0 0; }
-#container .container-right{ float:right; width:225px;  padding: 30px 20px 40px 20px;}
+#container .container-right{ float:right; width:225px;  padding: 95px 20px 40px 20px;}
+ .hang-tag{ margin:0px 0 0 900px;visibility: hidden;}
+ .hang-tag .hang-tag-github{ position: absolute; top:-170px; /*margin:-260px 0 0 0;*/ width: 80px; height: 160px; background: url(../images/github_tag.png);background-size:100% 100%;
+ 	/*-webkit-transform: rotateY(120deg);*/
+ }
+ .hang-tag .hang-tag-weibo{ position: absolute; top:-170px;left:955px; /*margin:33px 0 0 55px;*/ float: left; width: 80px; height: 160px; background: url(../images/weibo_tag.png);background-size:100% 100%;}
 #container .container-right h3{ width: 200px; padding-left: 5px;color: #2d6213;border-bottom: 1px solid #b9b9b9;margin-bottom: 6px; text-align: left;}
 #container .container-right .photo-frame{width: 200px;height: 200px;}
 #container .container-right .photo-frame .photo{position: absolute; z-index: -1; width: 155px; height: 155px; margin: 20px 0 0 20px; background: url(../images/photo.png);background-size:100% 100%;}
@@ -12,7 +17,131 @@
  .readmore .-read-more{font-family: Georgia,sans-serif;line-height: 18px;padding: 2px 6px 2px 0;border-radius: 3px 3px;background: #1982D1;color: #fff;cursor: pointer; font-size: 13px;}
  .readmore .-read-more:hover{ background: orange;}
  .readmore a span{padding-right: 2px;color: #fff;}
-/* container-left */
+#container .container-right .follow-me ul li{list-style: none;}
+#container .container-right .follow-me ul li #github-icon{ border: 1px solid #757575; text-indent: -9999em; display: block;overflow: hidden;width: 20px; height: 20px;border-radius: 3px 3px; background: url(../images/github-icon.png);background-size:100% 100%;}
+ .animated {
+	-webkit-transition: none;
+	-moz-transition: none;
+	-ms-transition: none;
+	-o-transition: none;
+	transition: none;
+
+	-webkit-animation-fill-mode: both;
+	-moz-animation-fill-mode: both;
+	-ms-animation-fill-mode: both;
+	-o-animation-fill-mode: both;
+	animation-fill-mode: both;
+	-webkit-animation-duration: 1s;
+	-moz-animation-duration: 1s;
+	-ms-animation-duration: 1s;
+	-o-animation-duration: 1s;
+	animation-duration: 1s;
+}
+
+.animated.hinge {
+	-webkit-animation-duration: 2s;
+	-moz-animation-duration: 2s;
+	-ms-animation-duration: 2s;
+	-o-animation-duration: 2s;
+	animation-duration: 2s;
+}
+
+@-webkit-keyframes tada {
+	0% {-webkit-transform: scale(1);}	
+	10%, 20% {-webkit-transform: scale(0.9) rotate(-3deg);}
+	30%, 50%, 70%, 90% {-webkit-transform: scale(1.1) rotate(3deg);}
+	40%, 60%, 80% {-webkit-transform: scale(1.1) rotate(-3deg);}
+	100% {-webkit-transform: scale(1) rotate(0);}
+}
+
+@-moz-keyframes tada {
+	0% {-moz-transform: scale(1);}	
+	10%, 20% {-moz-transform: scale(0.9) rotate(-3deg);}
+	30%, 50%, 70%, 90% {-moz-transform: scale(1.1) rotate(3deg);}
+	40%, 60%, 80% {-moz-transform: scale(1.1) rotate(-3deg);}
+	100% {-moz-transform: scale(1) rotate(0);}
+}
+
+@-ms-keyframes tada {
+	0% {-ms-transform: scale(1);}	
+	10%, 20% {-ms-transform: scale(0.9) rotate(-3deg);}
+	30%, 50%, 70%, 90% {-ms-transform: scale(1.1) rotate(3deg);}
+	40%, 60%, 80% {-ms-transform: scale(1.1) rotate(-3deg);}
+	100% {-ms-transform: scale(1) rotate(0);}
+}
+
+@-o-keyframes tada {
+	0% {-o-transform: scale(1);}	
+	10%, 20% {-o-transform: scale(0.9) rotate(-3deg);}
+	30%, 50%, 70%, 90% {-o-transform: scale(1.1) rotate(3deg);}
+	40%, 60%, 80% {-o-transform: scale(1.1) rotate(-3deg);}
+	100% {-o-transform: scale(1) rotate(0);}
+}
+
+@keyframes tada {
+	0% {transform: scale(1);}	
+	10%, 20% {transform: scale(0.9) rotate(-3deg);}
+	30%, 50%, 70%, 90% {transform: scale(1.1) rotate(3deg);}
+	40%, 60%, 80% {transform: scale(1.1) rotate(-3deg);}
+	100% {transform: scale(1) rotate(0);}
+}
+
+.tada:hover {
+	-webkit-animation-name: tada;
+	-moz-animation-name: tada;
+	-ms-animation-name: tada;
+	-o-animation-name: tada;
+	animation-name: tada;
+}
+
+
+ @-webkit-keyframes icon{
+	0% {-webkit-transform: scale(1);}	
+	10%, 20% {-webkit-transform: scale(0.9) rotate(-3deg);}
+	30%, 50%, 70%, 90% {-webkit-transform: scale(1.1) rotate(3deg);}
+	40%, 60%, 80% {-webkit-transform: scale(1.1) rotate(-3deg);}
+	100% {-webkit-transform: scale(1) rotate(0);}
+}
+
+@-moz-keyframes icon {
+	0% {-moz-transform: scale(1);}	
+	10%, 20% {-moz-transform: scale(0.9) rotate(-3deg);}
+	30%, 50%, 70%, 90% {-moz-transform: scale(1.1) rotate(3deg);}
+	40%, 60%, 80% {-moz-transform: scale(1.1) rotate(-3deg);}
+	100% {-moz-transform: scale(1) rotate(0);}
+}
+
+@-ms-keyframes icon {
+	0% {-ms-transform: scale(1);}	
+	10%, 20% {-ms-transform: scale(0.9) rotate(-3deg);}
+	30%, 50%, 70%, 90% {-ms-transform: scale(1.1) rotate(3deg);}
+	40%, 60%, 80% {-ms-transform: scale(1.1) rotate(-3deg);}
+	100% {-ms-transform: scale(1) rotate(0);}
+}
+
+@-o-keyframes icon {
+	0% {-o-transform: scale(1);}	
+	10%, 20% {-o-transform: scale(0.9) rotate(-3deg);}
+	30%, 50%, 70%, 90% {-o-transform: scale(1.1) rotate(3deg);}
+	40%, 60%, 80% {-o-transform: scale(1.1) rotate(-3deg);}
+	100% {-o-transform: scale(1) rotate(0);}
+}
+
+@keyframes icon {
+	0% {transform: scale(1);}	
+	10%, 20% {transform: scale(0.9) rotate(-3deg);}
+	30%, 50%, 70%, 90% {transform: scale(1.1) rotate(3deg);}
+	40%, 60%, 80% {transform: scale(1.1) rotate(-3deg);}
+	100% {transform: scale(1) rotate(0);}
+}
+.icon:hover {
+	-webkit-animation-name: icon;
+	-moz-animation-name: icon;
+	-ms-animation-name: icon;
+	-o-animation-name: icon;
+	animation-name: icon;
+}
+/* container-left start*/
 
 #container .container-left section .articlemenu{width: 630px; padding: 20px 0 0 0;}
 #container .container-left section .articlemenu:hover{
