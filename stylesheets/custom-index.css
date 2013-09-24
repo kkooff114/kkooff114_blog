@@ -17,8 +17,53 @@
  .readmore .-read-more{font-family: Georgia,sans-serif;line-height: 18px;padding: 2px 6px 2px 0;border-radius: 3px 3px;background: #1982D1;color: #fff;cursor: pointer; font-size: 13px;}
  .readmore .-read-more:hover{ background: orange;}
  .readmore a span{padding-right: 2px;color: #fff;}
-#container .container-right .follow-me ul li{list-style: none;}
-#container .container-right .follow-me ul li #github-icon{ border: 1px solid #757575; text-indent: -9999em; display: block;overflow: hidden;width: 20px; height: 20px;border-radius: 3px 3px; background: url(../images/github-icon.png);background-size:100% 100%;}
+ #container .container-right .rtcode{width: 150px; height: 150px; margin:20px 0 15px 20px; background: url(../images/liantu.png);background-size: 100% 100%;}
+#container .container-right .follow-me ul {float: right; margin:25px 10px 0 0;border-bottom: 1px dashed #c9ccc9; line-height: 30px;font-size: 12px; padding:0 0 10px 0;} 
+#container .container-right .follow-me ul .follow-me-hidden{
+	list-style: none; float: left; margin:0 8px 0 0;
+	visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -ms-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+.follow-me-show{
+	visibility: visible;
+	list-style: none; float: left; margin:0 8px 0 0;
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -ms-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-delay: .2s;
+    -webkit-animation-timing-function: ease;
+    -webkit-animation-fill-mode: both;
+    -moz-animation-duration: 1s;
+    -moz-animation-delay: .2s;
+    -moz-animation-timing-function: ease;
+    -moz-animation-fill-mode: both;
+    -ms-animation-duration: 1s;
+    -ms-animation-delay: .2s;
+    -ms-animation-timing-function: ease;
+    -ms-animation-fill-mode: both;
+    animation-duration: 1s;
+    animation-delay: .2s;
+    animation-timing-function: ease;
+    animation-fill-mode: both;
+    -webkit-animation-name: bounceIn;
+    -moz-animation-name: bounceIn;
+    -ms-animation-name: bounceIn;
+    -o-animation-name: bounceIn;
+    animation-name: bounceIn;
+    cursor: pointer;
+}
+#container .container-right .follow-me ul li a{background: url(../images/jiathis_ico.png);background-repeat: no-repeat;}
+#container .container-right .follow-me ul li #github-icon{background-position: 0px -61px; border: 1px solid #757575; text-indent: -9999em; display: block;overflow: hidden;width: 16px; height: 16px;border-radius: 3px 3px; }
+#container .container-right .follow-me ul li #weibo-icon{background-position: 0px -16px; border: 1px solid #b2b2b2; text-indent: -9999em; display: block;overflow: hidden;width: 16px; height: 16px;border-radius: 3px 3px; }
+#container .container-right .follow-me ul li #baidu-icon{background-position: 0px 0px; border: 1px solid #b2b2b2; text-indent: -9999em; display: block;overflow: hidden;width: 16px; height: 16px;border-radius: 3px 3px; }
+#container .container-right .follow-me ul li #tx-icon{background-position: 0px -33px; border: 1px solid #b2b2b2; text-indent: -9999em; display: block;overflow: hidden;width: 16px; height: 16px;border-radius: 3px 3px; }
+#container .container-right .follow-me ul li #mail-icon{background-position: 0px -49px; border: 1px solid #b2b2b2; text-indent: -9999em; display: block;overflow: hidden;width: 16px; height: 12px;border-radius: 3px 3px; }
+#container .container-right .follow-me ul li #google-icon{background-position: 0px -77px; border: 1px solid #b2b2b2; text-indent: -9999em; display: block;overflow: hidden;width: 16px; height: 16px;border-radius: 3px 3px; }
  .animated {
 	-webkit-transition: none;
 	-moz-transition: none;
@@ -141,8 +186,47 @@
 	-o-animation-name: icon;
 	animation-name: icon;
 }
-/* container-left start*/
+/* bounceIn start */
+@-webkit-keyframes bounceIn {
+    0% { opacity: 0; -webkit-transform: scale(.3); }
+    50% { opacity: 1; -webkit-transform: scale(1.05); }
+    70% { -webkit-transform: scale(.9); }
+    100% { -webkit-transform: scale(1); }
+}
+@-moz-keyframes bounceIn {
+    0% { opacity: 0; -moz-transform: scale(.3); }
+    50% { opacity: 1; -moz-transform: scale(1.05); }
+    70% { -moz-transform: scale(.9); } 
+    100% { moz-transform: scale(1); }
+}
+@-ms-keyframes bounceIn {
+    0% { opacity: 0; -ms-transform: scale(.3); }
+    50% { opacity: 1; -ms-transform: scale(1.05); }
+    70% { -ms-transform: scale(.9); }
+    100% { -ms-transform: scale(1); }
+}
+@-o-keyframes bounceIn {
+    0% { opacity: 0; -o-transform: scale(.3); }
+    50% { opacity: 1; -o-transform: scale(1.05); }
+    70% { -o-transform: scale(.9); }
+    100% { -o-transform: scale(1); }
+}
+@keyframes bounceIn {
+    0% { opacity: 0; transform: scale(.3); }
+    50% { opacity: 1; transform: scale(1.05); }
+    70% { transform: scale(.9); }
+    100% { transform: scale(1); }
+}
+.bounceIn {
+    -webkit-animation-name: bounceIn;
+    -moz-animation-name: bounceIn;
+    -ms-animation-name: bounceIn;
+    -o-animation-name: bounceIn;
+    animation-name: bounceIn;
+}
+/* bounceIn  end */
 
+/* container-left start*/
 #container .container-left section .articlemenu{width: 630px; padding: 20px 0 0 0;}
 #container .container-left section .articlemenu:hover{
 	background: #e7e7e7;

@@ -1,6 +1,14 @@
+
 <!DOCTYPE html>　
 <html>
 <head>
+    <!--
+     **
+     * Author:         Lou Jiwei
+     * Contact:        kkooff114@gmail.com
+     * Create Date:    2013-09-02
+     **
+   -->
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <!-- js start -->
 <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
@@ -31,20 +39,24 @@
 <script type="text/javascript">
 
 jQuery(document).ready(function($) {
-
+    var isFirst=true;
     var checkCss=function(){
 
         if($("#tui-9").css("top")=="305px"){
             clearInterval(checkTimer);
 
             $(".header").animate({'top':'+=0'},1760,function(){
-                $("#start-bg").animate({height:0},1740,function(){
+                $("#start-bg").animate({height:0},1770,function(){
                     $(".header_up a").animate({opacity:"1"},20);
                     $(".header_up span").animate({opacity:"1"},400,function(){
                         //悬挂tags
+                        $(".hang-tag").css("marginLeft",$('#aboutsite').offset().left+110);
+                        $(".hang-tag-weibo").css("left",$('#aboutsite').offset().left+165);
                         $(".hang-tag").css("visibility", "visible");
-                        $(".hang-tag-github").animate({top:-50},1000);
-                        $(".hang-tag-weibo").animate({top:-23},1000);
+                        // $(".hang-tag-github").animate({top:-50},1500,'easeOutElastic');
+                        // $(".hang-tag-weibo").animate({top:-23},1700,'easeOutElastic');
+                        $(".hang-tag-github").animate({top:-50},{queue:false, duration:1500, easing: 'easeOutElastic'});
+                        $(".hang-tag-weibo").animate({top:-23},{queue:false, duration:1700, easing: 'easeOutElastic'});
                     });
                     $("#tui-7").hide();
                     $("#tui-8").hide();
@@ -57,6 +69,22 @@ jQuery(document).ready(function($) {
     var checkTimer=setInterval(checkCss,200);//监听
 
     tweenui.init();
+
+    window.onscroll = function(){ 
+        var t = document.documentElement.scrollTop || document.body.scrollTop;
+        if(t>400&&isFirst){
+            $(".follow-me ul li").each(function(){
+                var the=$(this);
+                $(".header").animate({'top':'+=0'},260,function(){
+                    $(the).removeClass('follow-me-hidden');
+                    $(the).addClass('follow-me-show');
+                });
+                
+            });
+            
+            isFirst=false;
+        }
+    }
     
     
 });
@@ -84,7 +112,7 @@ jQuery(document).ready(function($) {
                 <li class="menu-item"><a href="">工具收集</a></li>
                 <li class="menu-item"><a href="">个人经历</a></li>
                 <li class="menu-item"><a href="">留言板</a></li>
-                <li class="menu-item"><a href="">关于本站</a></li>
+                <li class="menu-item" id="aboutsite"><a href="">关于本站</a></li>
             </ul>   
         </div>
         <div class="hang-tag">
