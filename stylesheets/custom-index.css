@@ -1,15 +1,11 @@
 #container{ width:100%;}
 #container .container-left{ float:left; width:630px; padding: 30px 0 0 0; }
 #container .container-right{ float:right; width:225px;  padding: 95px 20px 40px 20px;}
- .hang-tag{ margin:0px 0 0 900px;visibility: hidden;}
- .hang-tag .hang-tag-github{ position: absolute; top:-170px; /*margin:-260px 0 0 0;*/ width: 80px; height: 160px; background: url(../images/github_tag.png);background-size:100% 100%;
- 	/*-webkit-transform: rotateY(120deg);*/
- }
- .hang-tag .hang-tag-weibo{ position: absolute; top:-170px;left:955px; /*margin:33px 0 0 55px;*/ float: left; width: 80px; height: 160px; background: url(../images/weibo_tag.png);background-size:100% 100%;}
+ 
 #container .container-right h3{ width: 200px; padding-left: 5px;color: #2d6213;border-bottom: 1px solid #b9b9b9;margin-bottom: 6px; text-align: left;}
 #container .container-right .photo-frame{width: 200px;height: 200px;}
-#container .container-right .photo-frame .photo{position: absolute; z-index: -1; width: 155px; height: 155px; margin: 20px 0 0 20px; background: url(../images/photo.png);background-size:100% 100%;}
-#container .container-right .photo-frame .photo-f{position: absolute; z-index: 1; width: 200px; height: 200px;background: url(../images/photoframe.png);background-size:100% 100%;}
+#container .container-right .photo-frame .photo{position: absolute; z-index: -1; width: 155px; height: 155px; margin: 20px 0 0 20px; background: url(../images/photo.png) no-repeat;background-size:100% 100%;}
+#container .container-right .photo-frame .photo-f{position: absolute; z-index: 1; width: 200px; height: 200px;background: url(../images/photoframe.png) no-repeat;background-size:100% 100%;}
 #container .container-right article{/*border-bottom: 1px solid #b9b9b9;*/}
 #container .container-right article p{ padding-bottom: 10px; font-size: 15px; }
 #container .container-right article .readmore{padding: 10px 10px 0 0;text-align: right;line-height: 22px; padding-bottom: 10px;}
@@ -17,7 +13,7 @@
  .readmore .-read-more{font-family: Georgia,sans-serif;line-height: 18px;padding: 2px 6px 2px 0;border-radius: 3px 3px;background: #1982D1;color: #fff;cursor: pointer; font-size: 13px;}
  .readmore .-read-more:hover{ background: orange;}
  .readmore a span{padding-right: 2px;color: #fff;}
- #container .container-right .rtcode{width: 150px; height: 150px; margin:20px 0 15px 20px; background: url(../images/liantu.png);background-size: 100% 100%;}
+ #container .container-right .rtcode{width: 150px; height: 150px; margin:20px 0 15px 20px; background: url(../images/liantu.png) no-repeat;background-size: 100% 100%;}
 #container .container-right .follow-me ul {float: right; margin:25px 10px 0 0;border-bottom: 1px dashed #c9ccc9; line-height: 30px;font-size: 12px; padding:0 0 10px 0;} 
 #container .container-right .follow-me ul .follow-me-hidden{
 	list-style: none; float: left; margin:0 8px 0 0;
@@ -57,7 +53,7 @@
     animation-name: bounceIn;
     cursor: pointer;
 }
-#container .container-right .follow-me ul li a{background: url(../images/jiathis_ico.png);background-repeat: no-repeat;}
+#container .container-right .follow-me ul li a{background: url(../images/jiathis_ico.png) no-repeat;background-repeat: no-repeat;}
 #container .container-right .follow-me ul li #github-icon{background-position: 0px -61px; border: 1px solid #757575; text-indent: -9999em; display: block;overflow: hidden;width: 16px; height: 16px;border-radius: 3px 3px; }
 #container .container-right .follow-me ul li #weibo-icon{background-position: 0px -16px; border: 1px solid #b2b2b2; text-indent: -9999em; display: block;overflow: hidden;width: 16px; height: 16px;border-radius: 3px 3px; }
 #container .container-right .follow-me ul li #baidu-icon{background-position: 0px 0px; border: 1px solid #b2b2b2; text-indent: -9999em; display: block;overflow: hidden;width: 16px; height: 16px;border-radius: 3px 3px; }

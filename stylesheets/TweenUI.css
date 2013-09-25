@@ -18,10 +18,12 @@ position: absolute;
 top:0;
 z-index: 4;
 background-color: #3b5873;
+visibility: hidden;
 }
 #tui-9 {
 position: absolute;
 z-index: 11;
+visibility: hidden;
 }
 #tui-8 {
 font-weight: normal;
@@ -32,6 +34,7 @@ font-size: 33px;
 white-space: nowrap;
 position: absolute;
 z-index: 2;
+visibility: hidden;
 }
 #tui-7 {
 font-weight: normal;
@@ -42,4 +45,5 @@ font-size: 33px;
 white-space: nowrap;
 position: absolute;
 z-index: 1;
+visibility: hidden;
 }
