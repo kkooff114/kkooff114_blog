@@ -11,8 +11,16 @@ isPost: true
                 <p class="description">{{ page.description }}</p>
                 {{ content }}
                 <div class="announce">
-                            <p>声明: 本文采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="nofollow" title="署名-非商业性使用-相同方式共享">BY-NC-SA</a> 协议进行授权. 转载请注明转自: <a href="{{ page.url }}" title="{{ page.title }}" rel="nofollow">{{ page.title }}</a></p>
+                            声明: 本文采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="nofollow" title="署名-非商业性使用-相同方式共享">BY-NC-SA</a> 协议进行授权. 转载请注明转自: <a href="{{ page.url }}" title="{{ page.title }}" rel="nofollow">{{ page.title }}</a>
                 </div>
+                 <nav class="pagination">
+                            {% if page.previous %}
+                            <a class="prev" href="{{ page.previous.url }}" rel="bookmark">&laquo;&nbsp;{{ page.previous.title | truncatewords:5 }}</a>
+                            {% endif %}
+                            {% if page.next %}
+                            <a class="next" href="{{ page.next.url }}" rel="bookmark">{{ page.next.title | truncatewords:5 }}&nbsp;&raquo;</a>
+                            {% endif %}
+                </nav>
             </section>
             <div class="comment">
                 <div id="disqus_thread"></div>
@@ -34,7 +42,16 @@ isPost: true
             </div>
         </div>
         <div class="container-right">
-        {% include infoaside.html %}
+            <article class="recent-post">
+                <h4 class="recent-acticles">最新文章</h4>
+                    <ul>
+                    {% for rpost in site.related_posts limit:8  %}   
+                        <li>
+                            <a href="{{ rpost.url }}" title="{{ rpost.title }}" rel="bookmark">{{ rpost.title }}</a>
+                        </li>                                   
+                    {% endfor %}
+                    </ul>
+            </article>
         </div>
     </div>
 </div>
