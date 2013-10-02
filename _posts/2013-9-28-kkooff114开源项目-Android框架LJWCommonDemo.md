@@ -1,6 +1,6 @@
 ---
 title:  kkooff114开源项目-Android框架LJWCommonDemo
-description:    LJWCommonDemo,包含常用功能的展示,可以基于本demo进行二次开发
+description:    LJWCommonDemo,是LJWCommon开源项目的功能展示,包含常用功能的展示及一些新功能的增加,可以基于本demo进行二次开发
 layout: post
 tag:    Android
 keywords:   kkooff114开源,Android,demo
