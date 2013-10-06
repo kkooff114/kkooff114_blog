@@ -7,15 +7,25 @@ keywords:   kkooff114开源,Android,demo
 ---
 
 ##目录结构
-- *com.loujiwei.Adapter*    基础adapter
 - *com.loujiwei.ADemo*  自己demo
+- - StartDemo.java 程序入口
+- *com.loujiwei.ADemo.Adapter*    基础adapter
 - *com.loujiwei.ADemo.basecontrol*  基础控制器
-- *com.loujiwei.ADemo.basecontrol.SrollableTabHost* 功能编号1
+- *com.loujiwei.ADemo.basecontrol.SrollableTabHost* *功能编号1.1*
+- *com.loujiwei.ADemo.function* 功能展示
+- - FunctionListActivity.java 功能展示目录
+- - PhotoActivity.java *功能编号3.1*
 
 
 ##功能编号
-+ 1 SrollableTabHost
++ 1 基础控制器
++ + 1.1 SrollableTabHost
++ 2 工具类
++ 3 功能类
++ + 3.1 相册相机获取图片
+
 
 ##log
-2013-9-28   完成基础框架搭建
-2013-9-28   完成SrollableTabHost集成
++ 2013-9-28   完成基础框架搭建
++ 2013-9-28   完成SrollableTabHost集成
++ 2013-10-5   相机相册获取图片
