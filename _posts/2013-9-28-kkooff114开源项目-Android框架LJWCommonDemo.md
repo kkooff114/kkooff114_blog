@@ -6,6 +6,7 @@ tag:    Android
 keywords:   kkooff114开源,Android,demo
 ---
 
+参考lib:[kkooff114开源项目--Android框架LJWCommon](http://blog.loujiwei.cn/2013/09/06/kkooff114%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE-Android%E6%A1%86%E6%9E%B6LJWCommon.html/)
 ##目录结构
 - *com.loujiwei.ADemo*  自己demo
 - - StartDemo.java 程序入口

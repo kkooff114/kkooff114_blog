@@ -5,6 +5,7 @@ description:    以lib的形式,在RTCommon上进行二次开发,集成Android�
 tags:           android
 keywords: kkooff114,android,框架
 ---
+参考Demo:[kkooff114开源项目-Android框架LJWCommonDemo](http://blog.loujiwei.cn/2013/09/28/kkooff114%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE-Android%E6%A1%86%E6%9E%B6LJWCommonDemo.html/)
 #### Structure
 以下是工程包结构，分别封装了自定义的Activity及Adapter，另外在db包下对db4o对象形数据库进行了封装，在pulllistview包下对下拉刷新控件进行了封装，utils包下封装各种类型的工具方法，slidingmenu包下是对滑动菜单SlidingMenu的封装。
 
