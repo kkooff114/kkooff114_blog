@@ -63,3 +63,5 @@ keywords: mac, jekyll
 参考:[像黑客一样写博客——Jekyll入门](http://www.soimort.org/posts/101/)
     [告别wordpress，拥抱jekyll](http://www.yangzhiping.com/tech/wordpress-to-jekyll.html/)
     [通过GitHub Pages建立个人站点（详细步骤）](http://www.cnblogs.com/purediy/archive/2013/03/07/2948892.html/)
+
+
