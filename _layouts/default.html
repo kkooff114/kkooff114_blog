@@ -24,6 +24,7 @@
 　　
 <link rel="stylesheet" type="text/css" href="/stylesheets/custom.css" media="screen" />
 <link rel="stylesheet" type="text/css" href="/stylesheets/LJWstylesheets.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="/stylesheets/toc.css" media="screen" />
 <link href="http://cdn.bootcss.com/highlight.js/8.9.1/styles/solarized_light.min.css" rel="stylesheet">
 
 <!-- 如果是首页 -->
@@ -137,7 +138,7 @@ jQuery(document).ready(function($) {
     </div>
 </header>
 
-　　　　{{ content }}
+    {{ content | toc_generate }}
 
 <!--评论功能
 <div id="disqus_thread"></div>
