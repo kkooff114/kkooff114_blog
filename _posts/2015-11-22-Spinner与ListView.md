@@ -13,12 +13,15 @@ noToc: 			  true
 返回值是当前可以看到的第一个item，在所有item中（包括看不到的）的位置。
 
 `ListView.getChildAt(int position)`    
+
 getChildAt（int position)返回的item都是指的***可视区域***内的第position个元素。
 
 `View.getTop()`    
+
 返回值是这个View相对于它的父控件的top值，对于item而言，如果item只有一半显示出来（下半部分），那么返回值应该是 - 这个item的高度
 
 `ListView.getChildCount()`    
+
 返回的是这个listView***当前显示***出来的item数量，也就是在屏幕上可以看到的数量。
 
 
