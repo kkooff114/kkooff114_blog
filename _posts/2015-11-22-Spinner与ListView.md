@@ -9,7 +9,8 @@ noToc: 			  true
 
 
 #几个比较有用的方法
-`ListView.getFirstVisiblePosition()`
+`ListView.getFirstVisiblePosition()`      
+
 返回值是当前可以看到的第一个item，在所有item中（包括看不到的）的位置。
 
 `ListView.getChildAt(int position)`
