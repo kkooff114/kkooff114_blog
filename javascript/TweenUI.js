@@ -13,10 +13,10 @@ timeline.insert(new TweenLite({}, 0.0, {}), 8.0);
 // TweenLite.set(mylayer_1, {css: {autoAlpha: 1.0, left: 0, top: 0, scale: 1.0, rotation: 0.0}});
 
 var layer_1 = document.getElementById("tui-9");
-timeline.insert(TweenLite.to(layer_1, 0.74, {css: {top: 305, left: 382}, ease: Bounce.easeOut}), 3.6);//第二个时间是等待时间
-timeline.insert(TweenLite.to(layer_1, 0.42, {css: {autoAlpha: 1.0}, ease: Power1.easeOut}), 3.6);
-timeline.insert(TweenLite.to(layer_1, 1.74, {css: {top: -11, left: 23}, ease: Linear.easeNone}), 6.1);//移动
-timeline.insert(TweenLite.to(layer_1, 1.74, {css: {scale: 0.6}, ease: Linear.easeNone}), 6.1);//变小
+timeline.insert(TweenLite.to(layer_1, 0.74, {css: {top: 305, left: 382}, ease: Bounce.easeOut}), 0);//第二个时间是等待时间
+timeline.insert(TweenLite.to(layer_1, 0.42, {css: {autoAlpha: 1.0}, ease: Power1.easeOut}), 0);
+timeline.insert(TweenLite.to(layer_1, 1.74, {css: {top: -11, left: 23}, ease: Linear.easeNone}), 2.5);//移动
+timeline.insert(TweenLite.to(layer_1, 1.74, {css: {scale: 0.6}, ease: Linear.easeNone}), 2.5);//变小
 TweenLite.set(layer_1, {css: {autoAlpha: 0.0, left: 382, top: -84, scale: 1.0, rotation: 0.0}});//原本的状态
 // var layer_2 = document.getElementById("tui-8");
 // timeline.insert(TweenLite.to(layer_2, 0.72, {css: {top: 283, left: 643}, ease: Power4.easeOut}), 1.2);
