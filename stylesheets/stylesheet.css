@@ -175,7 +175,7 @@ code, pre {
 code {
   padding: 2px 4px;
   font-size: 90%;
-  color: #c7254e;
+  rgba(199, 37, 78, 0.9)
   background-color: #f9f2f4;
   border-radius: 2px;
 }
