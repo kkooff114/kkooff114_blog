@@ -38,9 +38,17 @@ $ npm install history react-router@latest
 
 ----
 
+# npm install
+* 创建package.json文件
+
+安装相关依赖包:
+```
+$ npm install
+```
+
 # gulp配置
 
-#### .babelrc
+* .babelrc
 在项目根目录创建`.babelrc`文件
 
 ```
@@ -63,10 +71,10 @@ $ touch .babelrc
 ```
 
 
-#### gulpfile.babel.js
+* gulpfile.babel.js
 创建gulpfile.babel.js文件
 
-#### 执行gulp
+* 执行gulp
 ```
 $ gulp
 ```
