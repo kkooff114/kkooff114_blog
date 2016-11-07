@@ -1,0 +1,618 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Helvetica Neue:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="css,监听" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="blog开头动画有时候会出现第一轮动画不执行.解决方案,监听kkooff114 logo的css样式,当top属性达到时,触发事件.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="css属性改变监听">
+<meta property="og:url" content="http://blog.loujiwei.cn/2015/11/09/杂记/2013-09-21-自定义css改变监听器/index.html">
+<meta property="og:site_name" content="kkooff144`blog">
+<meta property="og:description" content="blog开头动画有时候会出现第一轮动画不执行.解决方案,监听kkooff114 logo的css样式,当top属性达到时,触发事件.">
+<meta property="og:updated_time" content="2015-11-09T07:00:42.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="css属性改变监听">
+<meta name="twitter:description" content="blog开头动画有时候会出现第一轮动画不执行.解决方案,监听kkooff114 logo的css样式,当top属性达到时,触发事件.">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> css属性改变监听 | kkooff144`blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">kkooff144`blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                css属性改变监听
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-11-09T15:00:42+08:00" content="2015-11-09">
+              2015-11-09
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="css属性改变监听"><a href="#css属性改变监听" class="headerlink" title="css属性改变监听"></a>css属性改变监听</h1><ul>
+<li><p>##问题描述<br>blog开头动画有时候会出现第一轮动画不执行.<br>解决方案:监听kkooff114 logo的css样式,当top属性达到时,触发事件.<br>自定义css属性改变监听</p>
+</li>
+<li><p>##思 路:<br>利用js定时器,每个几毫秒检查css的样式</p>
+<p>  var checkCss=function(){</p>
+<pre><code>if($(&quot;#tui-9&quot;).css(&quot;top&quot;)==&quot;305px&quot;){
+    //清除监听
+    clearInterval(checkTimer);
+    //do something...
+    $(&quot;.header&quot;).animate({&apos;top&apos;:&apos;+=0&apos;},1760,function(){
+    $(&quot;#start-bg&quot;).animate({height:0},1740,function(){
+    $(&quot;.header_up a&quot;).animate({opacity:&quot;1&quot;});
+    $(&quot;.header_up span&quot;).animate({opacity:&quot;1&quot;});
+    $(&quot;#tui-ct&quot;).hide();
+    $(&quot;#tui-9&quot;).hide();
+    $(&quot;#tui-8&quot;).hide();
+    $(&quot;#tui-7&quot;).hide();
+    });
+});
+}
+</code></pre><p>  }<br>  //设置监听,每隔200ms执行一次checkCss函数<br>  var checkTimer=setInterval(checkCss,200);</p>
+</li>
+</ul>
+<p>###资料:</p>
+<p>这是jqyery的Timer插件<br>提供了三个函式</p>
+<ol>
+<li>everyTime(时间间隔, [计时器名称], 函式名称, [次数限制], [等待函式程序完成])</li>
+<li>oneTime(时间间隔, [计时器名称], 呼叫的函式)</li>
+<li>stopTime ([计时器名称], [函式名称])<br>/<strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>*</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></li>
+</ol>
+<ul>
+<li>everyTime(时间间隔, [计时器名称], 函式名称, [次数限制], [等待函式程序完成])<br><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>*</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong>/<br>//每1秒执行函式test()<br>function test(){<br>//do something…<br>}<br>$(‘body’).everyTime(‘1s’,test);</li>
+</ul>
+<p>//每1秒执行<br>$(‘body’).everyTime(‘1s’,function(){<br>//do something…<br>});</p>
+<p>//每1秒执行，并命名计时器名称为A<br>$(‘body’).everyTime(‘1s’,’A’,function(){<br>//do something…<br>});</p>
+<p>//每20秒执行，最多5次，并命名计时器名称为B<br>$(‘body’).everyTime(‘2das’,’B’,function(){<br>//do something…<br>},5);</p>
+<p>//每20秒执行，无限次，并命名计时器名称为C<br>//若时间间隔抵到，但函式程序仍未完成则需等待执行函式完成后再继续计时<br>$(‘body’).everyTime(‘2das’,’C’,function(){<br>    //执行一个会超过20秒以上的程式<br>},0,true);</p>
+<p>/<strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><em>*</em></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></p>
+<ul>
+<li>oneTime(时间间隔, [计时器名称], 呼叫的函式)<br><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><em>*</em></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong>/<br>//倒数10秒后执行<br>$(‘body’).oneTime(‘1das’,function(){<br>//do something…<br>});</li>
+</ul>
+<p>//倒数100秒后执行，并命名计时器名称为D<br>$(‘body’).oneTime(‘1hs’,’D’,function(){<br>//do something…<br>});</p>
+<p>/<strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><em>**</em></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></p>
+<ul>
+<li>stopTime ([计时器名称], [函式名称])<br><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><em>**</em></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong>/<br>//停止所有的在$(‘body’)上计时器<br>$(‘body’).stopTime ();</li>
+</ul>
+<p>//停止$(‘body’)上名称为A的计时器<br>$(‘body’).stopTime (‘A’);</p>
+<p>//停止$(‘body’)上所有呼叫test()的计时器<br>$(‘body’).stopTime (test);<br>自定义时间单位<br>打开源代码<br>找到<br>powers: {<br>   // Yeah this is major overkill…<br>   ‘ms’: 1,<br>   ‘cs’: 10,<br>   ‘ds’: 100,<br>   ‘s’: 1000,<br>   ‘das’: 10000,<br>   ‘hs’: 100000,<br>   ‘ks’: 1000000<br>}<br>可以定制自己想要的单位</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/jqyery/" rel="tag">#jqyery</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/11/09/杂记/2013-10-2-直接拿来用！最火的前端开源项目/" rel="next" title="直接拿来用！最火的前端开源项目">
+                <i class="fa fa-chevron-left"></i> 直接拿来用！最火的前端开源项目
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/11/09/杂记/2013-09-17-jquery延迟执行代码/" rel="prev" title="Jquery优雅的实现延迟执行代码">
+                Jquery优雅的实现延迟执行代码 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Lou Jiwei" />
+          <p class="site-author-name" itemprop="name">Lou Jiwei</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">55</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#css属性改变监听"><span class="nav-number">1.</span> <span class="nav-text">css属性改变监听</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lou Jiwei</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

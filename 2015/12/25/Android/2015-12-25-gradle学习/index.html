@@ -1,0 +1,605 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Helvetica Neue:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Android, gradle" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="在实践Android热部署解决方案的时候需要用的gradle来动态修改class中的方法,以及在编译的时候比较两个版本之前修改的class">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Gradle学习">
+<meta property="og:url" content="http://blog.loujiwei.cn/2015/12/25/Android/2015-12-25-gradle学习/index.html">
+<meta property="og:site_name" content="kkooff144`blog">
+<meta property="og:description" content="在实践Android热部署解决方案的时候需要用的gradle来动态修改class中的方法,以及在编译的时候比较两个版本之前修改的class">
+<meta property="og:image" content="http://blog.loujiwei.cn/media/14522425746549.jpg">
+<meta property="og:image" content="http://blog.loujiwei.cn/media/14522425883559.jpg">
+<meta property="og:image" content="http://blog.loujiwei.cn/media/14522426056403.jpg">
+<meta property="og:image" content="http://blog.loujiwei.cn/media/14522426176157.jpg">
+<meta property="og:updated_time" content="2016-01-08T08:43:38.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Gradle学习">
+<meta name="twitter:description" content="在实践Android热部署解决方案的时候需要用的gradle来动态修改class中的方法,以及在编译的时候比较两个版本之前修改的class">
+<meta name="twitter:image" content="http://blog.loujiwei.cn/media/14522425746549.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> Gradle学习 | kkooff144`blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">kkooff144`blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Gradle学习
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-12-25T22:12:48+08:00" content="2015-12-25">
+              2015-12-25
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>#创建task</p>
+<p>##基础<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">task hello &lt;&lt; &#123;</div><div class="line">    println <span class="string">'Hello world!'</span></div><div class="line">&#125;</div><div class="line">hello.doFirst &#123;</div><div class="line">    println <span class="string">'Hello Venus'</span></div><div class="line">&#125;</div><div class="line">hello.doLast &#123;</div><div class="line">    println <span class="string">'Hello Mars'</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>以上定义了一个叫做hello的任务, 任务是一个可执行的<code>闭包</code><br>其中<code>&lt;&lt;</code>可以替换成<code>doLast</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">task hello &#123;</div><div class="line">    doLast &#123;</div><div class="line">        println <span class="string">'Hello world!'</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>最终输出</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Hello Venus</div><div class="line">Hello world!</div><div class="line">Hello Mars</div></pre></td></tr></table></figure>
+<p>##在 Gradle 任务里使用 Groovy<br>例子1:<br>build.gradle</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">task upper &lt;&lt; &#123;</div><div class="line">    String someString = <span class="string">'mY_nAmE'</span></div><div class="line">    println <span class="string">"Original: "</span> + someString</div><div class="line">    println <span class="string">"Upper case: "</span> + someString.toUpperCase()</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>cd到build.gradl路径下<code>gradle -q upper</code> 命令的输出</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&gt; gradle -q upper</div><div class="line">Original: mY_nAmE</div><div class="line">Upper case: MY_NAME</div></pre></td></tr></table></figure>
+<p>例子2:<br>build.gradle</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">task count &lt;&lt; &#123;</div><div class="line">    <span class="number">4</span>.times &#123; print <span class="string">"$it "</span> &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>cd到build.gradl路径下<code>gradle -q upper</code> 命令的输出</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt; gradle -q count</div><div class="line">0 1 2 3</div></pre></td></tr></table></figure>
+<p>##任务依赖<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">task hello &lt;&lt; &#123;</div><div class="line">    println <span class="string">'Hello world!'</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function">task <span class="title">intro</span><span class="params">(dependsOn: hello)</span> &lt;&lt; </span>&#123;</div><div class="line">    println <span class="string">"I'm Gradle"</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// 如果有多个任务需要被依赖</span></div><div class="line"><span class="function">task <span class="title">intro</span><span class="params">(dependsOn: [hello1, hello2])</span> &lt;&lt; </span>&#123;</div><div class="line">    println <span class="string">"I'm Gradle"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">gradle -q intro 命令的输出</div><div class="line"></div><div class="line">```java</div><div class="line">&gt; gradle -q intro</div><div class="line">Hello world!</div><div class="line">I&apos;m Gradle</div></pre></td></tr></table></figure>
+<p>任务intro依赖任务hello, 所以限制性hello, 再执行intro.</p>
+<p>#内置属性</p>
+<p>##操纵任务<br>普通的Java工程有一个有限的任务集合，这些任务相互配合创建一个输出。 classes 是一个编译Java源代码的任务。 在build.gradle中通过脚本访问和使用classes任务是很简单的。可以通过project.tasks.classes快捷访问。</p>
+<p>对于Android工程来说就比较复杂了，因为可能有很多相同的任务，他们的名字是基于 Build Types和Product Flavors 生成的。</p>
+<p>为了解决这个问题， android 对象提供了两个属性：</p>
+<ul>
+<li>applicationVariants (仅仅适用于app plugin)</li>
+<li>libraryVariants (仅仅适用于library plugin)</li>
+<li>testVariants (两种plugin都适用)<br>ApplicationVariant, LibraryVariant, and TestVariant这三个对象都会分别返回一个DomainObjectCollection。</li>
+</ul>
+<p>请注意访问这些集合中的任何一个都会触发生成所有的创建。这意味着访问这些集合后无须重新配置就会产生。</p>
+<p>DomainObjectCollection允许直接的访问所有对象，或者通过更为方便的过滤器访问。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">android.applicationVariants.each &#123; variant -&gt;</div><div class="line">    ....</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><img src="/media/14522425746549.jpg" alt=""><br><img src="/media/14522425883559.jpg" alt=""><br><img src="/media/14522426056403.jpg" alt=""><br><img src="/media/14522426176157.jpg" alt=""></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Android-gradle/" rel="tag">#Android, gradle</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/12/22/网页前端/2015-12-22-React组件间通信-EventBus的使用/" rel="next" title="React组件间通信-EventBus的使用">
+                <i class="fa fa-chevron-left"></i> React组件间通信-EventBus的使用
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/01/03/Android/2016-01-03-Nuwa项目的使用/" rel="prev" title="Nuwa项目的使用">
+                Nuwa项目的使用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Lou Jiwei" />
+          <p class="site-author-name" itemprop="name">Lou Jiwei</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">55</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <p class="post-toc-empty">此文章未包含目录</p>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lou Jiwei</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

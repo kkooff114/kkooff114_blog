@@ -1,0 +1,603 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Helvetica Neue:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="RxJava" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="RxJava如何应用于生产环境的常用代码">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RxJava实例对照解析">
+<meta property="og:url" content="http://blog.loujiwei.cn/2015/11/09/Android/2015-11-09-RxJava实例对照解析/index.html">
+<meta property="og:site_name" content="kkooff144`blog">
+<meta property="og:description" content="RxJava如何应用于生产环境的常用代码">
+<meta property="og:updated_time" content="2016-03-06T07:27:50.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="RxJava实例对照解析">
+<meta name="twitter:description" content="RxJava如何应用于生产环境的常用代码">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> RxJava实例对照解析 | kkooff144`blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">kkooff144`blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                RxJava实例对照解析
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-11-09T23:54:43+08:00" content="2015-11-09">
+              2015-11-09
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="RxJava实例对照解析"><a href="#RxJava实例对照解析" class="headerlink" title="RxJava实例对照解析"></a>RxJava实例对照解析</h1><blockquote>
+<p>RxJava如何引用于生产环境的常用代码解析</p>
+</blockquote>
+<p>[TOC]</p>
+<h2 id="基本"><a href="#基本" class="headerlink" title="基本"></a>基本</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line">_subscription = _getObservable()<span class="comment">//</span></div><div class="line">      .subscribeOn(Schedulers.io())</div><div class="line">      .observeOn(AndroidSchedulers.mainThread())</div><div class="line">      .subscribe(_getObserver());</div><div class="line">      </div><div class="line">   <span class="comment">/**</span></div><div class="line">  	* Observer that handles the result through the 3 important actions:</div><div class="line">     *</div><div class="line">     * 1. onCompleted</div><div class="line">     * 2. onError</div><div class="line">     * 3. onNext</div><div class="line">     */</div><div class="line">  <span class="function"><span class="keyword">private</span> Observer&lt;Boolean&gt; <span class="title">_getObserver</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Observer&lt;Boolean&gt;() &#123;</div><div class="line"></div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCompleted</span><span class="params">()</span> </span>&#123;</div><div class="line">                _log(<span class="string">"On complete"</span>);</div><div class="line">                _progress.setVisibility(View.INVISIBLE);</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onError</span><span class="params">(Throwable e)</span> </span>&#123;</div><div class="line">                Timber.e(e, <span class="string">"Error in RxJava Demo concurrency"</span>);</div><div class="line">                _log(String.format(<span class="string">"Boo! Error %s"</span>, e.getMessage()));</div><div class="line">                _progress.setVisibility(View.INVISIBLE);</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onNext</span><span class="params">(Boolean bool)</span> </span>&#123;</div><div class="line">                _log(String.format(<span class="string">"onNext with return value \"%b\""</span>, bool));</div><div class="line">            &#125;</div><div class="line">        &#125;;</div><div class="line">    &#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">private</span> Observable&lt;Boolean&gt; <span class="title">_getObservable</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> Observable.just(<span class="keyword">true</span>).map(<span class="keyword">new</span> Func1&lt;Boolean, Boolean&gt;() &#123;</div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> Boolean <span class="title">call</span><span class="params">(Boolean aBoolean)</span> </span>&#123;</div><div class="line">            _log(<span class="string">"Within Observable"</span>);</div><div class="line">            _doSomeLongOperation_thatBlocksCurrentThread();</div><div class="line">            <span class="keyword">return</span> aBoolean;</div><div class="line">        &#125;</div><div class="line">    &#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p><strong><em>注解:</em></strong></p>
+</blockquote>
+<p><code>just</code>: 发送一次广播.</p>
+<p><code>new Func1&lt;参数1, 参数2&gt;</code>: 参数1 传入参数; 参数2 为 返回参数.</p>
+<p><code>subscribeOn</code>: 为被订阅者运行的线程.</p>
+<p><code>observeOn</code>: 为观察者运行的线程.</p>
+<p><code>Schedulers.io()</code>: IO线程.</p>
+<p><code>AndroidSchedulers.mainThread()</code>: Android UI线程.</p>
+<p><code>subscribe</code>: 接受Observer<t>的参数, 即被订阅者发出的事件.</t></p>
+<hr>
+<h2 id="buffer"><a href="#buffer" class="headerlink" title="buffer"></a>buffer</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">private</span> Subscription <span class="title">_getBufferedSubscription</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> RxView.clickEvents(_tapBtn)</div><div class="line">          .map(<span class="keyword">new</span> Func1&lt;ViewClickEvent, Integer&gt;() &#123;</div><div class="line">              <span class="meta">@Override</span></div><div class="line">              <span class="function"><span class="keyword">public</span> Integer <span class="title">call</span><span class="params">(ViewClickEvent onClickEvent)</span> </span>&#123;</div><div class="line">                  Timber.d(<span class="string">"--------- GOT A TAP"</span>);</div><div class="line">                  _log(<span class="string">"GOT A TAP"</span>);</div><div class="line">                  <span class="keyword">return</span> <span class="number">1</span>;</div><div class="line">              &#125;</div><div class="line">          &#125;)</div><div class="line">          .buffer(<span class="number">2</span>, TimeUnit.SECONDS)</div><div class="line">          .observeOn(AndroidSchedulers.mainThread())</div><div class="line">          .subscribe(<span class="keyword">new</span> Observer&lt;List&lt;Integer&gt;&gt;() &#123;</div><div class="line"></div><div class="line">              <span class="meta">@Override</span></div><div class="line">              <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCompleted</span><span class="params">()</span> </span>&#123;</div><div class="line">                  <span class="comment">// fyi: you'll never reach here</span></div><div class="line">                  Timber.d(<span class="string">"----- onCompleted"</span>);</div><div class="line">              &#125;</div><div class="line"></div><div class="line">              <span class="meta">@Override</span></div><div class="line">              <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onError</span><span class="params">(Throwable e)</span> </span>&#123;</div><div class="line">                  Timber.e(e, <span class="string">"--------- Woops on error!"</span>);</div><div class="line">                  _log(<span class="string">"Dang error! check your logs"</span>);</div><div class="line">              &#125;</div><div class="line"></div><div class="line">              <span class="meta">@Override</span></div><div class="line">              <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onNext</span><span class="params">(List&lt;Integer&gt; integers)</span> </span>&#123;</div><div class="line">                  Timber.d(<span class="string">"--------- onNext"</span>);</div><div class="line">                  <span class="keyword">if</span> (integers.size() &gt; <span class="number">0</span>) &#123;</div><div class="line">                      _log(String.format(<span class="string">"%d taps"</span>, integers.size()));</div><div class="line">                  &#125; <span class="keyword">else</span> &#123;</div><div class="line">                      Timber.d(<span class="string">"--------- No taps received "</span>);</div><div class="line">                  &#125;</div><div class="line">              &#125;</div><div class="line">          &#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p><strong><em>注解:</em></strong></p>
+</blockquote>
+<p><code>buffer</code>: 接受一个时间参数; 表示在缓冲在这段时间内的所有Observable发出的事件; 并在参数时间<strong>周期结束</strong>的时候, 调用subscribe的方法执行这些事件.</p>
+<hr>
+<h2 id="debounce"><a href="#debounce" class="headerlink" title="debounce"></a>debounce</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">_subscription = RxTextView.textChangeEvents(_inputSearchText)<span class="comment">//</span></div><div class="line">              .debounce(<span class="number">400</span>, TimeUnit.MILLISECONDS)<span class="comment">// default Scheduler is Computation</span></div><div class="line">              .observeOn(AndroidSchedulers.mainThread())<span class="comment">//</span></div><div class="line">              .subscribe(_getSearchObserver());</div></pre></td></tr></table></figure>
+<blockquote>
+<p><strong><em>注解:</em></strong></p>
+</blockquote>
+<p><code>debounce</code>: 接受一个时间参数; 当收到Observable发出的一个事件后, 在参数时间内如果没有<strong>再次</strong>收到Observable发出的事件的时候, 调用subscribe的方法执行这些事件. </p>
+<hr>
+<h2 id="doNext"><a href="#doNext" class="headerlink" title="doNext"></a>doNext</h2><p>场景:<br>输入开始时间, 结束时间, 从数据库中查出这个区间范围内的数据<br>输入: [Date, Date], Date类型的数组<br>输出: ArrayList<arraylist<crmdz>&gt; 从数据库中查出的二维列表</arraylist<crmdz></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">PublishSubject&lt;Date[]&gt; mTimeSearchResultSubject; <span class="comment">// 定义一个发布者</span></div><div class="line">Subscription mTimeSearchSubscription;  <span class="comment">// 定义一个订阅者, 便于unsubscribe();</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">setupSearchTime</span><span class="params">()</span> </span>&#123;</div><div class="line">	mTimeSearchResultSubject = PublishSubject.create();</div><div class="line">	mTimeSearchSubscription = mTimeSearchResultSubject.asObservable()</div><div class="line">                .map(mController.getMapDateTrancform()) <span class="comment">//将Date[]转换为二维列表</span></div><div class="line">                .subscribe(mController.getRefreshListObserver());<span class="comment">//接受二维列表, 显示于界面</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">//当选择时间的时候</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">showSelectTimeDialog</span><span class="params">(<span class="keyword">final</span> View view)</span> </span>&#123;</div><div class="line">	Date[] d = &#123;mStartDate, mEndDate&#125;; <span class="comment">//所选的开始时间, 结束时间</span></div><div class="line">	mTimeSearchResultSubject.onNext(d);<span class="comment">//传入</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p><strong><em>注解:</em></strong><br><code>onNext</code>: 提前用<code>PublicshSubject</code>定义一个Observable, 并且将整个转换链路定义好, 调用<code>onNext</code>的时候相当于广播者发了一条广播</p>
+</blockquote>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/RxJava/" rel="tag">#RxJava</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/11/09/杂记/2015-11-09-重新开始/" rel="next" title="重新开始使用blog.loujiwei.cn记录笔记">
+                <i class="fa fa-chevron-left"></i> 重新开始使用blog.loujiwei.cn记录笔记
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/11/17/Android/2015-11-17-Android企业项目命名规范/" rel="prev" title="Android企业项目命名规范">
+                Android企业项目命名规范 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Lou Jiwei" />
+          <p class="site-author-name" itemprop="name">Lou Jiwei</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">55</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#RxJava实例对照解析"><span class="nav-number">1.</span> <span class="nav-text">RxJava实例对照解析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本"><span class="nav-number">1.1.</span> <span class="nav-text">基本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#buffer"><span class="nav-number">1.2.</span> <span class="nav-text">buffer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#debounce"><span class="nav-number">1.3.</span> <span class="nav-text">debounce</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#doNext"><span class="nav-number">1.4.</span> <span class="nav-text">doNext</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lou Jiwei</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

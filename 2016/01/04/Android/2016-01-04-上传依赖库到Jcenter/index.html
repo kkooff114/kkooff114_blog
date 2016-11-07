@@ -1,0 +1,624 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Helvetica Neue:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Android, gradle, Jcenter" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="如何上传Android依赖库到Jcenter中">
+<meta property="og:type" content="article">
+<meta property="og:title" content="上传依赖库到Jcenter">
+<meta property="og:url" content="http://blog.loujiwei.cn/2016/01/04/Android/2016-01-04-上传依赖库到Jcenter/index.html">
+<meta property="og:site_name" content="kkooff144`blog">
+<meta property="og:description" content="如何上传Android依赖库到Jcenter中">
+<meta property="og:image" content="http://blog.loujiwei.cn/media/14519204995360.jpg">
+<meta property="og:image" content="http://blog.loujiwei.cn/media/14519221074529.jpg">
+<meta property="og:image" content="http://blog.loujiwei.cn/media/14689242075547.jpg">
+<meta property="og:updated_time" content="2016-07-19T10:30:24.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="上传依赖库到Jcenter">
+<meta name="twitter:description" content="如何上传Android依赖库到Jcenter中">
+<meta name="twitter:image" content="http://blog.loujiwei.cn/media/14519204995360.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 上传依赖库到Jcenter | kkooff144`blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">kkooff144`blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                上传依赖库到Jcenter
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-01-04T22:54:00+08:00" content="2016-01-04">
+              2016-01-04
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>[TOC]</p>
+<p>#注册Jcenter账号<br>官网地址: <a href="https://bintray.com/" target="_blank" rel="external">https://bintray.com/</a><br>自行注册</p>
+<p>#项目配置</p>
+<p>##Step1: 项目根build.gradle<br>在项目根build.gradle中添加<br><code>Gradle &gt;= 2.1</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">plugins &#123;</div><div class="line">    id &quot;com.jfrog.bintray&quot; version &quot;1.4&quot;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><code>Gradle &lt; 2.1</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">buildscript &#123;</div><div class="line">    repositories &#123;</div><div class="line">        jcenter()</div><div class="line">    &#125;</div><div class="line">    dependencies &#123;</div><div class="line">        classpath &apos;com.jfrog.bintray.gradle:gradle-bintray-plugin:1.4&apos;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">apply plugin: &apos;com.jfrog.bintray&apos;</div></pre></td></tr></table></figure>
+<p>我gradle的版本是<code>1.5.0</code>, 所以我添加完大概长这个样子:</p>
+<p><img src="/media/14519204995360.jpg" alt=""></p>
+<p>同步Sync, 成功!</p>
+<p>##Step2: 配置user, key</p>
+<p>###方式一:gradle.properties(好像不行, 回头有时间研究下!)<br><img src="/media/14519221074529.jpg" alt=""></p>
+<p>在module的build.gradle中就可以通过<code>project.property(&#39;bintrayUser&#39;)</code>这种方式来访问</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">bintray &#123;</div><div class="line">    user = project.property(&apos;bintrayUser&apos;)</div><div class="line">    key = project.property(&apos;bintrayKey&apos;)</div><div class="line">    ...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>###方式二:local.properties<br><img src="/media/14689242075547.jpg" alt=""></p>
+<p>在module的build.gradle中就可以通过<code>System.getenv(&#39;BINTRAY_USER&#39;)</code>这种方式来访问</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">bintray &#123;</div><div class="line">    user = System.getenv(&apos;BINTRAY_USER&apos;)</div><div class="line">    key = System.getenv(&apos;BINTRAY_KEY&apos;)</div><div class="line">    ...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>##Step3: 增加package的一些信息到<code>bintray</code>闭包中<br><strong>必填:</strong></p>
+<ol>
+<li>repo - existing repository in bintray to add the artifacts to (for 2. example: ‘generic’, ‘maven’ etc)</li>
+<li>name - package name</li>
+<li>licenses - your package licenses</li>
+<li>vcsUrl - your VCS URL</li>
+</ol>
+<p><strong>可选:</strong></p>
+<ol>
+<li>userOrg – an optional organization name when the repo belongs to one of the user’s orgs. If not added will use ‘BINTRAY_USER’ by default</li>
+</ol>
+<p>所以我的<code>bintray</code>长这样子:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">def siteUrl = &apos;http://blog.loujiwei.cn&apos;   // 项目的主页</div><div class="line">def gitUrl = &apos;git@github.com:kkooff114/HotFit.git&apos;   // Git仓库的url</div><div class="line"></div><div class="line">bintray &#123;   </div><div class="line">    user = System.getenv(&apos;BINTRAY_USER&apos;)</div><div class="line">    key = System.getenv(&apos;BINTRAY_KEY&apos;)</div><div class="line">    pkg &#123;</div><div class="line">        repo = &apos;maven&apos;</div><div class="line">        name = &apos;cn.loujiwei.android&apos;</div><div class="line">        licenses = [&apos;Apache-2.0&apos;]</div><div class="line">        vcsUrl = gitUrl</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>##Step4: 增加Version 信息到<code>pkg</code>闭包中<br><strong>必选</strong></p>
+<ol>
+<li>name - Version name</li>
+</ol>
+<p><strong>可选</strong></p>
+<ol>
+<li>desc - Version description</li>
+<li>released - Date of the version release. Can accept one of the following formats:</li>
+<li>Date in the format of ‘yyyy-MM-dd’T’HH:mm:ss.SSSZZ’</li>
+<li>java.util.Date instance</li>
+<li>vcsTag - Version control tag name</li>
+<li>attributes - Attributes to be attached to the version</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">bintray &#123;</div><div class="line">    user = System.getenv(&apos;BINTRAY_USER&apos;)</div><div class="line">    key = System.getenv(&apos;BINTRAY_KEY&apos;)</div><div class="line">    pkg &#123;</div><div class="line">        repo = &apos;maven&apos;</div><div class="line">        name = &apos;cn.loujiwei.android&apos;</div><div class="line">        licenses = [&apos;Apache-2.0&apos;]</div><div class="line">        vcsUrl = gitUrl</div><div class="line"></div><div class="line">        version &#123;</div><div class="line">            name = &apos;1.0.0&apos;</div><div class="line">            desc = &apos;Android Hot Fit Plugin&apos;</div><div class="line">            released  = new Date()</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>##Step5: 设置artifacts<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">publishing &#123;</div><div class="line">    publications &#123;</div><div class="line">        mavenJava(MavenPublication) &#123;</div><div class="line">            from components.java</div><div class="line">            artifact sourcesJar</div><div class="line">            artifact javadocJar</div><div class="line">            groupId &apos;cn.loujiwei.android&apos;</div><div class="line">            artifactId &apos;hotfit&apos;</div><div class="line">            version versionName</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">bintray &#123;</div><div class="line">    user = System.getenv(&apos;BINTRAY_USER&apos;)</div><div class="line">    key = System.getenv(&apos;BINTRAY_KEY&apos;)</div><div class="line"></div><div class="line">    publications = [&apos;mavenJava&apos;]</div><div class="line"></div><div class="line">   ...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>##最终内容<br>根build.gradle</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">// Top-level build file where you can add configuration options common to all sub-projects/modules.</div><div class="line"></div><div class="line">buildscript &#123;</div><div class="line">    repositories &#123;</div><div class="line">        jcenter()</div><div class="line">    &#125;</div><div class="line">    dependencies &#123;</div><div class="line">        classpath &apos;com.android.tools.build:gradle:1.5.0&apos;</div><div class="line">        classpath &apos;com.jfrog.bintray.gradle:gradle-bintray-plugin:1.4&apos;</div><div class="line">        classpath &apos;com.github.dcendents:android-maven-gradle-plugin:1.3&apos;</div><div class="line">        // NOTE: Do not place your application dependencies here; they belong</div><div class="line">        // in the individual module build.gradle files</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">allprojects &#123;</div><div class="line">    repositories &#123;</div><div class="line">        jcenter()</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">task clean(type: Delete) &#123;</div><div class="line">    delete rootProject.buildDir</div><div class="line">&#125;</div><div class="line"></div><div class="line">//apply plugin: &apos;com.jfrog.bintray&apos;</div></pre></td></tr></table></figure>
+<p>app build.gradle</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div></pre></td><td class="code"><pre><div class="line">apply plugin: &apos;com.android.library&apos;</div><div class="line">apply plugin: &apos;com.github.dcendents.android-maven&apos;</div><div class="line">apply plugin: &apos;com.jfrog.bintray&apos;</div><div class="line"></div><div class="line">def versionName = &quot;1.0.0&quot; //插件版本</div><div class="line">def siteUrl = &apos;http://blog.loujiwei.cn&apos;   // 项目的主页</div><div class="line">def gitUrl = &apos;git@github.com:kkooff114/HotFit.git&apos;   // Git仓库的url</div><div class="line"></div><div class="line"></div><div class="line">android &#123;</div><div class="line">    compileSdkVersion 23</div><div class="line">    buildToolsVersion &quot;23.0.0&quot;</div><div class="line"></div><div class="line">    defaultConfig &#123;</div><div class="line">        minSdkVersion 15</div><div class="line">        targetSdkVersion 23</div><div class="line">        versionCode 1</div><div class="line">//        versionName &quot;1.0&quot;</div><div class="line">    &#125;</div><div class="line">    buildTypes &#123;</div><div class="line">        release &#123;</div><div class="line">            minifyEnabled false</div><div class="line">            proguardFiles getDefaultProguardFile(&apos;proguard-android.txt&apos;), &apos;proguard-rules.pro&apos;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">group = &quot;cn.loujiwei.android&quot;</div><div class="line">install &#123;</div><div class="line">    repositories.mavenInstaller &#123;</div><div class="line">        // This generates POM.xml with proper parameters</div><div class="line">        pom &#123;</div><div class="line">            project &#123;</div><div class="line">                packaging &apos;aar&apos;</div><div class="line">                // Add your description here</div><div class="line">                name &apos;Android Hot Fit&apos;     //项目的描述 你可以多写一点</div><div class="line">                url siteUrl</div><div class="line">                // Set your license</div><div class="line">                licenses &#123;</div><div class="line">                    license &#123;</div><div class="line">                        name &apos;The Apache Software License, Version 2.0&apos;</div><div class="line">                        url &apos;http://www.apache.org/licenses/LICENSE-2.0.txt&apos;</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">                developers &#123;</div><div class="line">                    developer &#123;</div><div class="line">                        id &apos;kkooff114&apos;        //填写的一些基本信息</div><div class="line">                        name &apos;loujiwei&apos;</div><div class="line">                        email &apos;kkooff114@gmail.com&apos;</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">                scm &#123;</div><div class="line">                    connection gitUrl</div><div class="line">                    developerConnection gitUrl</div><div class="line">                    url siteUrl</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">task sourcesJar(type: Jar) &#123;</div><div class="line">    from android.sourceSets.main.java.srcDirs</div><div class="line">    classifier = &apos;sources&apos;</div><div class="line">&#125;</div><div class="line">task javadoc(type: Javadoc) &#123;</div><div class="line">    source = android.sourceSets.main.java.srcDirs</div><div class="line">    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))</div><div class="line">&#125;</div><div class="line">task javadocJar(type: Jar, dependsOn: javadoc) &#123;</div><div class="line">    classifier = &apos;javadoc&apos;</div><div class="line">    from javadoc.destinationDir</div><div class="line">&#125;</div><div class="line">artifacts &#123;</div><div class="line">    archives javadocJar</div><div class="line">    archives sourcesJar</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">bintray &#123;</div><div class="line">    user = &apos;xxxxx&apos;//project.property(&apos;bintrayUser&apos;)//System.getenv(&apos;BINTRAY_USER&apos;)</div><div class="line">    key = &apos;xxxxx&apos;//project.property(&apos;bintrayApiKey&apos;)//System.getenv(&apos;BINTRAY_KEY&apos;)</div><div class="line">    configurations = [&apos;archives&apos;]</div><div class="line">    pkg &#123;</div><div class="line">        repo = &apos;maven&apos;</div><div class="line">        name = &apos;HotFit&apos;</div><div class="line">        licenses = [&apos;Apache-2.0&apos;]</div><div class="line">        vcsUrl = gitUrl</div><div class="line"></div><div class="line">        version &#123;</div><div class="line">            name = &apos;1.0.0&apos;</div><div class="line">            desc = &apos;Android Hot Fit Plugin&apos;</div><div class="line"></div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Android-gradle-Jcenter/" rel="tag">#Android, gradle, Jcenter</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/01/03/Android/2016-01-03-Nuwa项目的使用/" rel="next" title="Nuwa项目的使用">
+                <i class="fa fa-chevron-left"></i> Nuwa项目的使用
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/01/12/工具软件/2016-01-12-Commit Message格式/" rel="prev" title="">
+                 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Lou Jiwei" />
+          <p class="site-author-name" itemprop="name">Lou Jiwei</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">55</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <p class="post-toc-empty">此文章未包含目录</p>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lou Jiwei</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>
