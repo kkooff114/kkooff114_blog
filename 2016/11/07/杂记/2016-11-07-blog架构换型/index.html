@@ -96,7 +96,7 @@
 <meta property="og:url" content="http://blog.loujiwei.cn/2016/11/07/杂记/2016-11-07-blog架构换型/index.html">
 <meta property="og:site_name" content="kkooff144`blog">
 <meta property="og:description" content="blog架构换型">
-<meta property="og:updated_time" content="2016-11-07T16:05:18.000Z">
+<meta property="og:updated_time" content="2016-11-14T04:44:00.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="blog架构换型">
 <meta name="twitter:description" content="blog架构换型">
@@ -338,6 +338,10 @@
 <li>ERROR Deployer not found : github</li>
 </ul>
 <p>解决:<br>deploy的type改成git，然后运行下<code>npm install hexo-deployer-git --save</code><br>再<code>hexo g</code></p>
+<ul>
+<li>Please make sure you have the correct access rights</li>
+</ul>
+<p>解决:有可能是所使用的网络禁用了ssh的22端口,<br>修改其中的<br><code>url = git@github.com:username/repo.git</code><br>为<br><code>url = https://username@github.com/username/repo.git</code></p>
 
       
     </div>
