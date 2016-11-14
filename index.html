@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next muse use-motion">
+<html class="theme-next mist use-motion">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
@@ -102,7 +102,7 @@
 <script type="text/javascript" id="hexo.configuration">
   var NexT = window.NexT || {};
   var CONFIG = {
-    scheme: 'Muse',
+    scheme: 'Mist',
     sidebar: {"position":"left","display":"post","iXiaoZhi":"http://ixiaozhi.com/"},
     fancybox: true,
     motion: true,
@@ -187,6 +187,8 @@
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
             
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
             首页
           </a>
         </li>
@@ -194,6 +196,8 @@
         
         <li class="menu-item menu-item-categories">
           <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
             
             分类
           </a>
@@ -203,6 +207,8 @@
         <li class="menu-item menu-item-archives">
           <a href="/archives" rel="section">
             
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
             归档
           </a>
         </li>
@@ -211,6 +217,8 @@
         <li class="menu-item menu-item-tags">
           <a href="/tags" rel="section">
             
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
             标签
           </a>
         </li>
@@ -218,6 +226,8 @@
         
         <li class="menu-item menu-item-schedule">
           <a href="/schedule" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
             
             日程
           </a>
@@ -475,7 +485,7 @@
               
                 
                 <a class="post-title-link" href="/2016/11/06/Android/2016-11-06-Android与Java的一些方法的不同/" itemprop="url">
-                  Android与Java的一些方法的不同
+                  计划技术点规划
                 </a>
               
             
@@ -524,26 +534,12 @@
 
       
         
-          
-            <h2 id="Base64"><a href="#Base64" class="headerlink" title="Base64"></a>Base64</h2><p>Android自身带有Base64加密与解密的包，可以方便地加密密码方便传输。要注意decode的时候第二个参数<code>flag</code>的选值, 当使用<code>NO_WRAP</code>的时候, 是与apache的base64效果一致.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">String base64Token = Base64.encodeToString(token.trim().getBytes(), Base64.NO_WRAP);</div><div class="line"><span class="keyword">byte</span>[] mmmm = Base64.decode(base64Token,Base64.DEFAULT);</div></pre></td></tr></table></figure>
-<pre><code>1.    CRLF 这个参数看起来比较眼熟，它就是Win风格的换行符，意思就是使用CR LF这一对作为一行的结尾而不是Unix风格的LF  
-
-2.    DEFAULT 这个参数是默认，使用默认的方法来加密  
-
-3.    NO_PADDING 这个参数是略去加密字符串最后的”=”  
-
-4.    NO_WRAP 这个参数意思是略去所有的换行符（设置后CRLF就没用了）  
-
-5.    URL_SAFE 这个参数意思是加密时不使用对URL和文件名有特殊意义的字符来作为加密字符，具体就是以-和_取代+和/  
-</code></pre><h2 id="RSA加解密"><a href="#RSA加解密" class="headerlink" title="RSA加解密"></a>RSA加解密</h2><p>Android使用私钥加密后, Java服务器解密报错, 因为Android与Java使用了不同的RSA标准, 修改Android加密的代码如下:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line">    * 用私钥解密</div><div class="line">    *</div><div class="line">    * <span class="doctag">@param</span> encryptedData 经过encryptedData()加密返回的byte数据</div><div class="line">    * <span class="doctag">@param</span> privateKey    私钥</div><div class="line">    * <span class="doctag">@return</span></div><div class="line">    */</div><div class="line">   <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">byte</span>[] encryptData(<span class="keyword">byte</span>[] encryptedData, String privateKey) &#123;</div><div class="line">       <span class="keyword">try</span> &#123;</div><div class="line">           <span class="keyword">byte</span>[] keyBytes = Base64Utils.decode(privateKey);</div><div class="line">           PKCS8EncodedKeySpec pkcs8KeySpec = <span class="keyword">new</span> PKCS8EncodedKeySpec(keyBytes);</div><div class="line">           KeyFactory keyFactory = KeyFactory.getInstance(KEY_ALGORITHM);</div><div class="line">           PrivateKey privateK = keyFactory.generatePrivate(pkcs8KeySpec);</div><div class="line"></div><div class="line">           Cipher cipher = Cipher.getInstance(<span class="string">"RSA/ECB/PKCS1Padding"</span>);</div><div class="line">           cipher.init(Cipher.ENCRYPT_MODE, privateK);</div><div class="line">           <span class="keyword">return</span> cipher.doFinal(encryptedData);</div><div class="line">       &#125; <span class="keyword">catch</span> (Exception e) &#123;</div><div class="line">           <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">       &#125;</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
-<p>java:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Cipher cipher = Cipher.getInstance(<span class="string">"RSA/ECB/PKCS1Padding"</span>);</div></pre></td></tr></table></figure>
-<p>android :</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Cipher cipher = Cipher.getInstance(&quot;RSA/ECB/NoPadding&quot;);</div></pre></td></tr></table></figure>
-
-          
+          计划技术点规划
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/11/06/Android/2016-11-06-Android与Java的一些方法的不同/">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -1541,6 +1537,35 @@
 
         <div class="links-of-author motion-element">
           
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/kkooff114" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/2028380403" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.zhihu.com/people/lou-jerry" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
         </div>
 
         
@@ -1580,7 +1605,7 @@
 <div class="theme-info">
   主题 -
   <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Muse
+    NexT.Mist
   </a>
 </div>
 
