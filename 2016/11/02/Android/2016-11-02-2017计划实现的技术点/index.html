@@ -97,7 +97,7 @@
 <meta property="og:site_name" content="kkooff144`blog">
 <meta property="og:description" content="计划技术点规划">
 <meta property="og:image" content="http://blog.loujiwei.cn/../../images/14790965072997.jpg">
-<meta property="og:updated_time" content="2016-11-14T04:44:41.000Z">
+<meta property="og:updated_time" content="2016-11-17T05:05:36.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="计划技术点规划">
 <meta name="twitter:description" content="计划技术点规划">
@@ -349,6 +349,221 @@
 <p>#4. 用户数据采集</p>
 <p>##4.1 用户行为数据采集(无埋点技术)</p>
 <p>####业务价值:<br>统计业代每天日常操作, 可按不同条件(大区, 业代等)出各类报表, 比如每个手机模块使用情况, 某个季度某个sku的卖出情况, 某个促销活动的效果等, 可以更灵活准确的探究出大数据后潜在的商业价值.</p>
+<p>##4.2 用户业务数据采集(补录数据)</p>
+<p>####业务价值:<br>帮助运维人员更好更快的分析业代每天使用手机所出现的问题, 碰到无法提交的死数据, 可以实现数据的补录.</p>
+<p>####概要设计</p>
+<ul>
+<li>从服务器读取具体某一个业代的日志文件(输入业代编号和日期)</li>
+<li>罗列出某一天的所有提交日志(目前暂时只提取提交信息),<br>  <code>&gt;&gt;&gt;</code>开头的即为提交信息, <code>&lt;&lt;&lt;</code>开头的即为服务器返回信息, 将这俩信息以成对的形式展现, 重复的提交数据请<code>去重</code></li>
+<li>单独提取出报文中的<code>客户id</code>和<code>报文类别</code>, 并在标题处显示, 用来区分不同客户, 不同报文的显示, 同一类报文显示在一起.</li>
+<li>提供日志源文件的下载</li>
+</ul>
+<p>####详细设计</p>
+<p>#####显示字段对应</p>
+<ul>
+<li>创建订单  ZifSupOrderMain</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Partner</td>
+<td>客户编号</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>修改订单 ZifSupOrderModify</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Partner</td>
+<td>客户编号</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>删除订单 ZifSupOrderStatus</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ImBpKh</td>
+<td>客户编号</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>创建问卷 ZifSupSurveyCreate02</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Partner1</td>
+<td>客户编号</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>创建设备 ZifSupSbRequestCreate</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fromcustname</td>
+<td>从客户编号</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>修改设备 ZifSupSbRequestModify</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fromcustid</td>
+<td>从客户编号</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>新建客户 ZifSupCustmerCreate01</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Name</td>
+<td>客户名称</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>修改客户全部资料 ZifSupCustmerModifyAll</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Partner</td>
+<td>客户编号</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>修改客户部分资料 ZifSupCustmerModify</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CustCode</td>
+<td>客户编号</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>关联协议 ZifSupSpCustomerLink02</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Partner</td>
+<td>客户编号</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>解除协议 ZifSupSpCustomerUnlink</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Partner</td>
+<td>客户编号</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>促销执行 ZifSupSpExec</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Partner</td>
+<td>客户编号</td>
+</tr>
+</tbody>
+</table>
 
       
     </div>
@@ -380,8 +595,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/10/13/杂记/2016-10-13-简历/" rel="next" title="简历">
-                <i class="fa fa-chevron-left"></i> 简历
+              <a href="/2016/10/13/杂记/2016-10-13-简历(Android模板)/" rel="next" title="Android程序员简历模板">
+                <i class="fa fa-chevron-left"></i> Android程序员简历模板
               </a>
             
           </div>
@@ -462,7 +677,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">55</span>
+              <span class="site-state-item-count">56</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

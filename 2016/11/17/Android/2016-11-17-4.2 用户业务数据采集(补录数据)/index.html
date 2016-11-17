@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="博客升级" />
+  <meta name="keywords" content="Android" />
 
 
 
@@ -90,16 +90,16 @@
 
 
 
-<meta name="description" content="使用软件MWeb Lite编写, 这是在mac中不错的markdown编写编写管理软件, `快捷键`使用很方便">
+<meta name="description" content="计划技术点规划">
 <meta property="og:type" content="article">
-<meta property="og:title" content="重新开始使用blog.loujiwei.cn记录笔记">
-<meta property="og:url" content="http://blog.loujiwei.cn/2015/11/09/杂记/2015-11-09-重新开始/index.html">
+<meta property="og:title" content="4.2 用户业务数据采集(补录数据)">
+<meta property="og:url" content="http://blog.loujiwei.cn/2016/11/17/Android/2016-11-17-4.2 用户业务数据采集(补录数据)/index.html">
 <meta property="og:site_name" content="kkooff144`blog">
-<meta property="og:description" content="使用软件MWeb Lite编写, 这是在mac中不错的markdown编写编写管理软件, `快捷键`使用很方便">
-<meta property="og:updated_time" content="2015-12-08T15:29:38.000Z">
+<meta property="og:description" content="计划技术点规划">
+<meta property="og:updated_time" content="2016-11-17T05:08:02.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="重新开始使用blog.loujiwei.cn记录笔记">
-<meta name="twitter:description" content="使用软件MWeb Lite编写, 这是在mac中不错的markdown编写编写管理软件, `快捷键`使用很方便">
+<meta name="twitter:title" content="4.2 用户业务数据采集(补录数据)">
+<meta name="twitter:description" content="计划技术点规划">
 
 
 
@@ -120,10 +120,10 @@
 
 
 
-  <link rel="canonical" href="http://blog.loujiwei.cn/2015/11/09/杂记/2015-11-09-重新开始/"/>
+  <link rel="canonical" href="http://blog.loujiwei.cn/2016/11/17/Android/2016-11-17-4.2 用户业务数据采集(补录数据)/"/>
 
 
-  <title> 重新开始使用blog.loujiwei.cn记录笔记 | kkooff144`blog </title>
+  <title> 4.2 用户业务数据采集(补录数据) | kkooff144`blog </title>
 </head>
 
 <body itemscope itemtype="//schema.org/WebPage" lang="zh-Hans">
@@ -273,7 +273,7 @@
             
             
               
-                重新开始使用blog.loujiwei.cn记录笔记
+                4.2 用户业务数据采集(补录数据)
               
             
           </h1>
@@ -285,8 +285,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-11-09T16:09:43+08:00" content="2015-11-09">
-              2015-11-09
+            <time itemprop="dateCreated" datetime="2016-11-17T13:06:36+08:00" content="2016-11-17">
+              2016-11-17
             </time>
           </span>
 
@@ -296,8 +296,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/11/09/杂记/2015-11-09-重新开始/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/11/09/杂记/2015-11-09-重新开始/" itemprop="commentsCount"></span>
+                <a href="/2016/11/17/Android/2016-11-17-4.2 用户业务数据采集(补录数据)/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/17/Android/2016-11-17-4.2 用户业务数据采集(补录数据)/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -320,18 +320,221 @@
       
 
       
-        <h1 id="重新开始使用blog-loujiwei-cn记录笔记"><a href="#重新开始使用blog-loujiwei-cn记录笔记" class="headerlink" title="重新开始使用blog.loujiwei.cn记录笔记"></a>重新开始使用blog.loujiwei.cn记录笔记</h1><p>===================<br>    使用软件MWeb Lite编写, 这是在mac中不错的markdown编写编写管理软件, <code>快捷键</code>使用很方便. 完成blog的升级</p>
-<p> 为什么重新选择使用blog?</p>
-<ol>
-<li><p>印象笔记不支持Markdown语法, 输入代码的时候样式不好看</p>
-<p>代码的书写</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">_subscription = _getObservable()<span class="comment">//</span></div><div class="line">             .subscribeOn(Schedulers.io())</div><div class="line">             .observeOn(AndroidSchedulers.mainThread())</div><div class="line">             .subscribe(_getObserver());</div></pre></td></tr></table></figure>
-</li>
-</ol>
-<h3 id="TODO"><a href="#TODO" class="headerlink" title="TODO"></a>TODO</h3><ul>
-<li>code样式</li>
-<li>文章分类</li>
+        <p>#4.2 用户业务数据采集(补录数据)</p>
+<p>##业务价值:<br>帮助运维人员更好更快的分析业代每天使用手机所出现的问题, 碰到无法提交的死数据, 可以实现数据的补录.</p>
+<p>##概要设计</p>
+<ul>
+<li>从服务器读取具体某一个业代的日志文件(输入业代编号和日期)</li>
+<li>罗列出某一天的所有提交日志(目前暂时只提取提交信息),<br>  <code>&gt;&gt;&gt;</code>开头的即为提交信息, <code>&lt;&lt;&lt;</code>开头的即为服务器返回信息, 将这俩信息以成对的形式展现, 重复的提交数据请<code>去重</code></li>
+<li>单独提取出报文中的<code>客户id</code>和<code>报文类别</code>, 并在标题处显示, 用来区分不同客户, 不同报文的显示, 同一类报文显示在一起.</li>
+<li>提供日志源文件的下载</li>
 </ul>
+<p>##详细设计</p>
+<p>###显示字段对应</p>
+<ul>
+<li>创建订单  ZifSupOrderMain</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Partner</td>
+<td>客户编号</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>修改订单 ZifSupOrderModify</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Partner</td>
+<td>客户编号</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>删除订单 ZifSupOrderStatus</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ImBpKh</td>
+<td>客户编号</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>创建问卷 ZifSupSurveyCreate02</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Partner1</td>
+<td>客户编号</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>创建设备 ZifSupSbRequestCreate</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fromcustname</td>
+<td>从客户编号</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>修改设备 ZifSupSbRequestModify</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fromcustid</td>
+<td>从客户编号</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>新建客户 ZifSupCustmerCreate01</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Name</td>
+<td>客户名称</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>修改客户全部资料 ZifSupCustmerModifyAll</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Partner</td>
+<td>客户编号</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>修改客户部分资料 ZifSupCustmerModify</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CustCode</td>
+<td>客户编号</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>关联协议 ZifSupSpCustomerLink02</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Partner</td>
+<td>客户编号</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>解除协议 ZifSupSpCustomerUnlink</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Partner</td>
+<td>客户编号</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>促销执行 ZifSupSpExec</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Partner</td>
+<td>客户编号</td>
+</tr>
+</tbody>
+</table>
 
       
     </div>
@@ -354,7 +557,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/博客升级/" rel="tag">#博客升级</a>
+            <a href="/tags/Android/" rel="tag">#Android</a>
           
         </div>
       
@@ -363,17 +566,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/11/09/杂记/2013-09-17-jquery延迟执行代码/" rel="next" title="Jquery优雅的实现延迟执行代码">
-                <i class="fa fa-chevron-left"></i> Jquery优雅的实现延迟执行代码
+              <a href="/2016/11/07/杂记/2016-11-07-blog架构换型/" rel="next" title="blog架构换型">
+                <i class="fa fa-chevron-left"></i> blog架构换型
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2015/11/09/Android/2015-11-09-RxJava实例对照解析/" rel="prev" title="RxJava实例对照解析">
-                RxJava实例对照解析 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -399,8 +598,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2015/11/09/杂记/2015-11-09-重新开始/"
-           data-title="重新开始使用blog.loujiwei.cn记录笔记" data-url="http://blog.loujiwei.cn/2015/11/09/杂记/2015-11-09-重新开始/">
+      <div class="ds-thread" data-thread-key="2016/11/17/Android/2016-11-17-4.2 用户业务数据采集(补录数据)/"
+           data-title="4.2 用户业务数据采集(补录数据)" data-url="http://blog.loujiwei.cn/2016/11/17/Android/2016-11-17-4.2 用户业务数据采集(补录数据)/">
       </div>
     
   </div>
@@ -513,7 +712,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#重新开始使用blog-loujiwei-cn记录笔记"><span class="nav-number">1.</span> <span class="nav-text">重新开始使用blog.loujiwei.cn记录笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#TODO"><span class="nav-number">1.0.1.</span> <span class="nav-text">TODO</span></a></li></ol></li></ol></li></ol></div>
+              <p class="post-toc-empty">此文章未包含目录</p>
             
           </div>
         </section>
