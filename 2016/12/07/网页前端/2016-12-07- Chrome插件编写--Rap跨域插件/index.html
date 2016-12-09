@@ -1,0 +1,742 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|18:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Chrome插件, Rap" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.2" />
+
+
+
+
+
+
+<meta name="description" content="##项目结构
+主要分为三个重要的文件 
+
+manifest.json 配置各种信息, 相当于项目主入口
+background.js 项目后台跑的脚本,项目的主程序
+content_script.js 项目与前台dom网页交互的网页, 
+
+background.js 和 content_script.js 是运行在俩个独立的环境里,通信需要使用message
+manifest.json####配置b">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Chrome插件编写--Rap跨域插件">
+<meta property="og:url" content="http://blog.loujiwei.cn/2016/12/07/网页前端/2016-12-07- Chrome插件编写--Rap跨域插件/index.html">
+<meta property="og:site_name" content="kkooff144`blog">
+<meta property="og:description" content="##项目结构
+主要分为三个重要的文件 
+
+manifest.json 配置各种信息, 相当于项目主入口
+background.js 项目后台跑的脚本,项目的主程序
+content_script.js 项目与前台dom网页交互的网页, 
+
+background.js 和 content_script.js 是运行在俩个独立的环境里,通信需要使用message
+manifest.json####配置b">
+<meta property="og:image" content="http://blog.loujiwei.cn/../../images/14812139532644.jpg">
+<meta property="og:updated_time" content="2016-12-08T16:42:57.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chrome插件编写--Rap跨域插件">
+<meta name="twitter:description" content="##项目结构
+主要分为三个重要的文件 
+
+manifest.json 配置各种信息, 相当于项目主入口
+background.js 项目后台跑的脚本,项目的主程序
+content_script.js 项目与前台dom网页交互的网页, 
+
+background.js 和 content_script.js 是运行在俩个独立的环境里,通信需要使用message
+manifest.json####配置b">
+<meta name="twitter:image" content="http://blog.loujiwei.cn/../../images/14812139532644.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","iXiaoZhi":"http://ixiaozhi.com/"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://blog.loujiwei.cn/2016/12/07/网页前端/2016-12-07- Chrome插件编写--Rap跨域插件/"/>
+
+
+  <title> Chrome插件编写--Rap跨域插件 | kkooff144`blog </title>
+</head>
+
+<body itemscope itemtype="//schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?7d5d2bb40c2c103a074272772bd720c0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">kkooff144`blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Chrome插件编写--Rap跨域插件
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-12-07T00:45:06+08:00" content="2016-12-07">
+              2016-12-07
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Chrome插件/" itemprop="url" rel="index">
+                    <span itemprop="name">Chrome插件</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/12/07/网页前端/2016-12-07- Chrome插件编写--Rap跨域插件/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/12/07/网页前端/2016-12-07- Chrome插件编写--Rap跨域插件/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>##项目结构<br><img src="../../images/14812139532644.jpg" alt=""></p>
+<p>主要分为三个重要的文件 </p>
+<ul>
+<li><code>manifest.json</code> 配置各种信息, 相当于项目主入口</li>
+<li><code>background.js</code> 项目后台跑的脚本,项目的主程序</li>
+<li><code>content_script.js</code> 项目与前台dom网页交互的网页, </li>
+</ul>
+<p><code>background.js</code> 和 <code>content_script.js</code> 是运行在俩个独立的环境里,通信需要使用<code>message</code></p>
+<h2 id="manifest-json"><a href="#manifest-json" class="headerlink" title="manifest.json"></a>manifest.json</h2><p>####配置<code>background.js</code> 和 <code>content_script.js</code> 相关文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&quot;background&quot;: &#123;</div><div class="line">    &quot;scripts&quot;: [&quot;jquery-2.0.0.min.js&quot;, &quot;background.js&quot;]  // 注册事件页面</div><div class="line">  &#125;,</div><div class="line">&quot;content_scripts&quot;:[&#123;</div><div class="line">    &quot;matches&quot;:[&quot;http://*/*&quot;],</div><div class="line">    &quot;css&quot;:[&quot;jsonFormater.css&quot;],</div><div class="line">    &quot;js&quot;:[&quot;jquery-2.0.0.min.js&quot;, &quot;content_script.js&quot;, &quot;jsonFormater.js&quot;]</div><div class="line"></div><div class="line">  &#125;]</div></pre></td></tr></table></figure>
+<p>####设置能够跨域访问的url</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&quot;permissions&quot;: [</div><div class="line">    &quot;tabs&quot;,&quot;*://htcjy.com/*&quot;,</div><div class="line">    &quot;*://*/*&quot;,</div><div class="line">    &quot;https://api.github.com/*&quot;,</div><div class="line">    &quot;webRequest&quot;,</div><div class="line">    &quot;webRequestBlocking&quot;</div><div class="line">  ]</div></pre></td></tr></table></figure>
+<p>如果设置了<code>&quot;*://*/*&quot;</code>, 即为任何url都可以访问.</p>
+<h2 id="background-js"><a href="#background-js" class="headerlink" title="background.js"></a>background.js</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line">//监听所有请求</div><div class="line">chrome.webRequest.onBeforeRequest.addListener(</div><div class="line">    function (details) &#123;</div><div class="line"></div><div class="line">        console.log(&quot;details url -&gt; &quot; + JSON.stringify(details));</div><div class="line"></div><div class="line">        chrome.tabs.query(&#123;active: true&#125;, function (tab) &#123;</div><div class="line"></div><div class="line">            var url = details.url;  // 原请求url</div><div class="line">            var method = details.method;    // 原请求方法类型</div><div class="line"></div><div class="line">            var actualUrl = decodeURIComponent(url.split(&quot;\.do\?url=&quot;)[1]);</div><div class="line">            if (actualUrl.indexOf(&quot;https&quot;) != -1) &#123;</div><div class="line">                actualUrl = actualUrl.substring(7, actualUrl.length - 1);</div><div class="line">            &#125;</div><div class="line">            console.log(&quot;actualUrl: &quot; + actualUrl);</div><div class="line"></div><div class="line">            sendCrossOrigin(actualUrl, method, function (responseText) &#123;</div><div class="line">                console.log(responseText);</div><div class="line">                chrome.tabs.query(&#123;active: true, currentWindow: true&#125;, function (tabs) &#123;</div><div class="line">                    console.log(JSON.stringify(tabs));</div><div class="line">                    chrome.tabs.sendMessage(tabs[0].id, responseText, function (response) &#123;</div><div class="line">                    &#125;);</div><div class="line">                &#125;);</div><div class="line"></div><div class="line">            &#125;)</div><div class="line">        &#125;);</div><div class="line"></div><div class="line">    &#125;,</div><div class="line">    //  http://10.208.39.59:8111/mock/requestOnServer.do?  只拦截test请求的url</div><div class="line">    &#123;urls: [&quot;*://*/mock/requestOnServer.do?*&quot;]&#125;,  //监听页面请求,你也可以通过*来匹配。  允许通过不同的方式限制为哪些请求产生事件</div><div class="line">    [&quot;blocking&quot;]</div><div class="line">);</div><div class="line"></div><div class="line"></div><div class="line">// 发送跨域请求</div><div class="line">function sendCrossOrigin(url, type, success) &#123;</div><div class="line">    var xhr = new XMLHttpRequest();</div><div class="line">    xhr.open(type, url, true);</div><div class="line">    xhr.onreadystatechange = function () &#123;</div><div class="line">        if (xhr.readyState == 4) &#123;</div><div class="line"></div><div class="line">            success(xhr.responseText);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    xhr.send();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ol>
+<li><code>chrome.webRequest.onBeforeRequest.addListener</code> 是拦截所有的请求,</li>
+<li>接着获取实际请求的url, 并调用<code>sendCrossOrigin()</code>方法发送ajax请求, 这里的<code>sendCrossOrigin</code>可以换成<code>jQuery</code>里面的ajax请求.</li>
+<li>在url请求成功后调用 <code>chrome.tabs.sendMessage</code> 发送message到<code>content_script.js</code>页面, 通知其更新网页.</li>
+</ol>
+<h2 id="content-script-js"><a href="#content-script-js" class="headerlink" title="content_script.js"></a>content_script.js</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">// 设置监听</div><div class="line">chrome.extension.onMessage.addListener(function(msg, sender, sendResponse) &#123;</div><div class="line"></div><div class="line">    console.log(msg);</div><div class="line"></div><div class="line">    $(&quot;#divResBoardJson&quot;).html(msg);</div><div class="line"></div><div class="line">    var options = &#123;</div><div class="line">        dom : &apos;#divResBoardJson&apos; //对应容器的css选择器</div><div class="line">    &#125;;</div><div class="line">    var jf = new JsonFormater(options); //创建对象</div><div class="line">    jf.doFormat(msg); //格式化json</div><div class="line"></div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>注册一个监听器, 如果进来一个json, 就填入网页里面的<code>divResBoardJson</code> 这个<code>div</code>中. 并通过<code>jsonFormat</code>这个插件进行美化.</p>
+<p>##添加json高亮库</p>
+<p>在添加资源图片的时候一个错误</p>
+<blockquote>
+<p>Resources must be listed in the web_accessible_resources manifest key in order to be loaded by pages outside the extension</p>
+</blockquote>
+<p>解决:<br>在manifest.js里面添加</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&quot;web_accessible_resources&quot;: [</div><div class="line">    &quot;images/Collapsed.gif&quot;,</div><div class="line">    &quot;images/Expanded.gif&quot;</div><div class="line">  ],</div></pre></td></tr></table></figure>
+<p>##完整代码<br><em>manifest.json</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  &quot;name&quot;: &quot;RAP&quot;,</div><div class="line">  &quot;version&quot;: &quot;0.1&quot;,</div><div class="line">  &quot;manifest_version&quot;: 2,  // 一定要这么写2</div><div class="line">  &quot;description&quot;: &quot;RAP Chrome Plugin for Cross-domain&quot;,</div><div class="line">  &quot;browser_action&quot;: &#123;</div><div class="line">    &quot;default_icon&quot;: &quot;icon.png&quot;,</div><div class="line">    &quot;default_title&quot;: &quot;RAP&quot;,</div><div class="line">    &quot;default_popup&quot;: &quot;popup.html&quot;</div><div class="line">  &#125;,</div><div class="line">  &quot;web_accessible_resources&quot;: [</div><div class="line">    &quot;images/Collapsed.gif&quot;,</div><div class="line">    &quot;images/Expanded.gif&quot;</div><div class="line">  ],</div><div class="line">  &quot;permissions&quot;: [</div><div class="line">    &quot;tabs&quot;,&quot;*://htcjy.com/*&quot;,</div><div class="line">    &quot;*://*/*&quot;,</div><div class="line">    &quot;https://api.github.com/*&quot;,</div><div class="line">    &quot;webRequest&quot;,</div><div class="line">    &quot;webRequestBlocking&quot;</div><div class="line">  ],</div><div class="line">  &quot;background&quot;: &#123;</div><div class="line">    &quot;scripts&quot;: [&quot;jquery-2.0.0.min.js&quot;, &quot;background.js&quot;]  // 注册事件页面</div><div class="line">  &#125;,</div><div class="line">  &quot;content_scripts&quot;:[&#123;</div><div class="line">    &quot;matches&quot;:[&quot;http://*/*&quot;],</div><div class="line">    &quot;css&quot;:[&quot;jsonFormater.css&quot;],</div><div class="line">    &quot;js&quot;:[&quot;jquery-2.0.0.min.js&quot;, &quot;content_script.js&quot;, &quot;jsonFormater.js&quot;]</div><div class="line"></div><div class="line">  &#125;]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><em>background.js</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line">//监听所有请求</div><div class="line">chrome.webRequest.onBeforeRequest.addListener(</div><div class="line">    function (details) &#123;</div><div class="line"></div><div class="line">        console.log(&quot;details url -&gt; &quot; + JSON.stringify(details));</div><div class="line"></div><div class="line">        chrome.tabs.query(&#123;active: true&#125;, function (tab) &#123;</div><div class="line"></div><div class="line">            var url = details.url;  // 原请求url</div><div class="line">            var method = details.method;    // 原请求方法类型</div><div class="line"></div><div class="line">            var actualUrl = decodeURIComponent(url.split(&quot;\.do\?url=&quot;)[1]);</div><div class="line">            if (actualUrl.indexOf(&quot;https&quot;) != -1) &#123;</div><div class="line">                actualUrl = actualUrl.substring(7, actualUrl.length - 1);</div><div class="line">            &#125;</div><div class="line">            console.log(&quot;actualUrl: &quot; + actualUrl);</div><div class="line"></div><div class="line">            sendCrossOrigin(actualUrl, method, function (responseText) &#123;</div><div class="line">                console.log(responseText);</div><div class="line">                chrome.tabs.query(&#123;active: true, currentWindow: true&#125;, function (tabs) &#123;</div><div class="line">                    console.log(JSON.stringify(tabs));</div><div class="line">                    chrome.tabs.sendMessage(tabs[0].id, responseText, function (response) &#123;</div><div class="line">                    &#125;);</div><div class="line">                &#125;);</div><div class="line"></div><div class="line">            &#125;)</div><div class="line">        &#125;);</div><div class="line"></div><div class="line">    &#125;,</div><div class="line"></div><div class="line">    //  http://10.208.39.59:8111/mock/requestOnServer.do?  只拦截test请求的url</div><div class="line">    &#123;urls: [&quot;*://*/mock/requestOnServer.do?*&quot;]&#125;,  //监听页面请求,你也可以通过*来匹配。  允许通过不同的方式限制为哪些请求产生事件</div><div class="line">    [&quot;blocking&quot;]</div><div class="line">);</div><div class="line"></div><div class="line"></div><div class="line">// 发送跨域请求</div><div class="line">function sendCrossOrigin(url, type, success) &#123;</div><div class="line">    var xhr = new XMLHttpRequest();</div><div class="line">    xhr.open(type, url, true);</div><div class="line">    xhr.onreadystatechange = function () &#123;</div><div class="line">        if (xhr.readyState == 4) &#123;</div><div class="line"></div><div class="line">            success(xhr.responseText);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    xhr.send();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><em>content_script.js</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">// 设置监听</div><div class="line">chrome.extension.onMessage.addListener(function(msg, sender, sendResponse) &#123;</div><div class="line"></div><div class="line">    console.log(msg);</div><div class="line"></div><div class="line">    $(&quot;#divResBoardJson&quot;).html(msg);</div><div class="line"></div><div class="line">    var options = &#123;</div><div class="line">        dom : &apos;#divResBoardJson&apos; //对应容器的css选择器</div><div class="line">    &#125;;</div><div class="line">    var jf = new JsonFormater(options); //创建对象</div><div class="line">    jf.doFormat(msg); //格式化json</div><div class="line"></div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>##参考<br><a href="https://crxdoc-zh.appspot.com/extensions/webRequest" target="_blank" rel="external">chrome.webRequest</a><br><a href="https://crxdoc-zh.appspot.com/extensions/xhr" target="_blank" rel="external">跨站 XMLHttpRequest</a><br><a href="http://stackoverflow.com/questions/14245334/chrome-extension-sendmessage-from-background-to-content-script-doesnt-work" target="_blank" rel="external">Chrome extension: sendMessage from background to content script doesn’t work</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Chrome插件-Rap/" rel="tag">#Chrome插件, Rap</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/12/06/Android/2016-12-06-RxJava 2.x新特性/" rel="next" title="RxJava 2.x新特性">
+                <i class="fa fa-chevron-left"></i> RxJava 2.x新特性
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/12/07/网页前端/2016-12-07- Chrome插件编写--Rap跨域插件/"
+           data-title="Chrome插件编写--Rap跨域插件" data-url="http://blog.loujiwei.cn/2016/12/07/网页前端/2016-12-07- Chrome插件编写--Rap跨域插件/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Lou Jiwei" />
+          <p class="site-author-name" itemprop="name">Lou Jiwei</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">60</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">38</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/kkooff114" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/2028380403" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.zhihu.com/people/lou-jerry" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#manifest-json"><span class="nav-number">1.</span> <span class="nav-text">manifest.json</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#background-js"><span class="nav-number">2.</span> <span class="nav-text">background.js</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#content-script-js"><span class="nav-number">3.</span> <span class="nav-text">content_script.js</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lou Jiwei</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.2"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"kkooff114"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>

@@ -272,6 +272,710 @@
             
               
                 
+                <a class="post-title-link" href="/2016/12/07/网页前端/2016-12-07- Chrome插件编写--Rap跨域插件/" itemprop="url">
+                  Chrome插件编写--Rap跨域插件
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-12-07T00:45:06+08:00" content="2016-12-07">
+              2016-12-07
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Chrome插件/" itemprop="url" rel="index">
+                    <span itemprop="name">Chrome插件</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/12/07/网页前端/2016-12-07- Chrome插件编写--Rap跨域插件/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/12/07/网页前端/2016-12-07- Chrome插件编写--Rap跨域插件/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>##项目结构<br><img src="../../images/14812139532644.jpg" alt=""></p>
+<p>主要分为三个重要的文件 </p>
+<ul>
+<li><code>manifest.json</code> 配置各种信息, 相当于项目主入口</li>
+<li><code>background.js</code> 项目后台跑的脚本,项目的主程序</li>
+<li><code>content_script.js</code> 项目与前台dom网页交互的网页, </li>
+</ul>
+<p><code>background.js</code> 和 <code>content_script.js</code> 是运行在俩个独立的环境里,通信需要使用<code>message</code></p>
+<h2 id="manifest-json"><a href="#manifest-json" class="headerlink" title="manifest.json"></a>manifest.json</h2><p>####配置<code>background.js</code> 和 <code>content_script.js</code> 相关文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&quot;background&quot;: &#123;</div><div class="line">    &quot;scripts&quot;: [&quot;jquery-2.0.0.min.js&quot;, &quot;background.js&quot;]  // 注册事件页面</div><div class="line">  &#125;,</div><div class="line">&quot;content_scripts&quot;:[&#123;</div><div class="line">    &quot;matches&quot;:[&quot;http://*/*&quot;],</div><div class="line">    &quot;css&quot;:[&quot;jsonFormater.css&quot;],</div><div class="line">    &quot;js&quot;:[&quot;jquery-2.0.0.min.js&quot;, &quot;content_script.js&quot;, &quot;jsonFormater.js&quot;]</div><div class="line"></div><div class="line">  &#125;]</div></pre></td></tr></table></figure>
+<p>####设置能够跨域访问的url</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&quot;permissions&quot;: [</div><div class="line">    &quot;tabs&quot;,&quot;*://htcjy.com/*&quot;,</div><div class="line">    &quot;*://*/*&quot;,</div><div class="line">    &quot;https://api.github.com/*&quot;,</div><div class="line">    &quot;webRequest&quot;,</div><div class="line">    &quot;webRequestBlocking&quot;</div><div class="line">  ]</div></pre></td></tr></table></figure>
+<p>如果设置了<code>&quot;*://*/*&quot;</code>, 即为任何url都可以访问.</p>
+<h2 id="background-js"><a href="#background-js" class="headerlink" title="background.js"></a>background.js</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line">//监听所有请求</div><div class="line">chrome.webRequest.onBeforeRequest.addListener(</div><div class="line">    function (details) &#123;</div><div class="line"></div><div class="line">        console.log(&quot;details url -&gt; &quot; + JSON.stringify(details));</div><div class="line"></div><div class="line">        chrome.tabs.query(&#123;active: true&#125;, function (tab) &#123;</div><div class="line"></div><div class="line">            var url = details.url;  // 原请求url</div><div class="line">            var method = details.method;    // 原请求方法类型</div><div class="line"></div><div class="line">            var actualUrl = decodeURIComponent(url.split(&quot;\.do\?url=&quot;)[1]);</div><div class="line">            if (actualUrl.indexOf(&quot;https&quot;) != -1) &#123;</div><div class="line">                actualUrl = actualUrl.substring(7, actualUrl.length - 1);</div><div class="line">            &#125;</div><div class="line">            console.log(&quot;actualUrl: &quot; + actualUrl);</div><div class="line"></div><div class="line">            sendCrossOrigin(actualUrl, method, function (responseText) &#123;</div><div class="line">                console.log(responseText);</div><div class="line">                chrome.tabs.query(&#123;active: true, currentWindow: true&#125;, function (tabs) &#123;</div><div class="line">                    console.log(JSON.stringify(tabs));</div><div class="line">                    chrome.tabs.sendMessage(tabs[0].id, responseText, function (response) &#123;</div><div class="line">                    &#125;);</div><div class="line">                &#125;);</div><div class="line"></div><div class="line">            &#125;)</div><div class="line">        &#125;);</div><div class="line"></div><div class="line">    &#125;,</div><div class="line">    //  http://10.208.39.59:8111/mock/requestOnServer.do?  只拦截test请求的url</div><div class="line">    &#123;urls: [&quot;*://*/mock/requestOnServer.do?*&quot;]&#125;,  //监听页面请求,你也可以通过*来匹配。  允许通过不同的方式限制为哪些请求产生事件</div><div class="line">    [&quot;blocking&quot;]</div><div class="line">);</div><div class="line"></div><div class="line"></div><div class="line">// 发送跨域请求</div><div class="line">function sendCrossOrigin(url, type, success) &#123;</div><div class="line">    var xhr = new XMLHttpRequest();</div><div class="line">    xhr.open(type, url, true);</div><div class="line">    xhr.onreadystatechange = function () &#123;</div><div class="line">        if (xhr.readyState == 4) &#123;</div><div class="line"></div><div class="line">            success(xhr.responseText);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    xhr.send();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ol>
+<li><code>chrome.webRequest.onBeforeRequest.addListener</code> 是拦截所有的请求,</li>
+<li>接着获取实际请求的url, 并调用<code>sendCrossOrigin()</code>方法发送ajax请求, 这里的<code>sendCrossOrigin</code>可以换成<code>jQuery</code>里面的ajax请求.</li>
+<li>在url请求成功后调用 <code>chrome.tabs.sendMessage</code> 发送message到<code>content_script.js</code>页面, 通知其更新网页.</li>
+</ol>
+<h2 id="content-script-js"><a href="#content-script-js" class="headerlink" title="content_script.js"></a>content_script.js</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">// 设置监听</div><div class="line">chrome.extension.onMessage.addListener(function(msg, sender, sendResponse) &#123;</div><div class="line"></div><div class="line">    console.log(msg);</div><div class="line"></div><div class="line">    $(&quot;#divResBoardJson&quot;).html(msg);</div><div class="line"></div><div class="line">    var options = &#123;</div><div class="line">        dom : &apos;#divResBoardJson&apos; //对应容器的css选择器</div><div class="line">    &#125;;</div><div class="line">    var jf = new JsonFormater(options); //创建对象</div><div class="line">    jf.doFormat(msg); //格式化json</div><div class="line"></div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>注册一个监听器, 如果进来一个json, 就填入网页里面的<code>divResBoardJson</code> 这个<code>div</code>中. 并通过<code>jsonFormat</code>这个插件进行美化.</p>
+<p>##添加json高亮库</p>
+<p>在添加资源图片的时候一个错误</p>
+<blockquote>
+<p>Resources must be listed in the web_accessible_resources manifest key in order to be loaded by pages outside the extension</p>
+</blockquote>
+<p>解决:<br>在manifest.js里面添加</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&quot;web_accessible_resources&quot;: [</div><div class="line">    &quot;images/Collapsed.gif&quot;,</div><div class="line">    &quot;images/Expanded.gif&quot;</div><div class="line">  ],</div></pre></td></tr></table></figure>
+<p>##完整代码<br><em>manifest.json</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  &quot;name&quot;: &quot;RAP&quot;,</div><div class="line">  &quot;version&quot;: &quot;0.1&quot;,</div><div class="line">  &quot;manifest_version&quot;: 2,  // 一定要这么写2</div><div class="line">  &quot;description&quot;: &quot;RAP Chrome Plugin for Cross-domain&quot;,</div><div class="line">  &quot;browser_action&quot;: &#123;</div><div class="line">    &quot;default_icon&quot;: &quot;icon.png&quot;,</div><div class="line">    &quot;default_title&quot;: &quot;RAP&quot;,</div><div class="line">    &quot;default_popup&quot;: &quot;popup.html&quot;</div><div class="line">  &#125;,</div><div class="line">  &quot;web_accessible_resources&quot;: [</div><div class="line">    &quot;images/Collapsed.gif&quot;,</div><div class="line">    &quot;images/Expanded.gif&quot;</div><div class="line">  ],</div><div class="line">  &quot;permissions&quot;: [</div><div class="line">    &quot;tabs&quot;,&quot;*://htcjy.com/*&quot;,</div><div class="line">    &quot;*://*/*&quot;,</div><div class="line">    &quot;https://api.github.com/*&quot;,</div><div class="line">    &quot;webRequest&quot;,</div><div class="line">    &quot;webRequestBlocking&quot;</div><div class="line">  ],</div><div class="line">  &quot;background&quot;: &#123;</div><div class="line">    &quot;scripts&quot;: [&quot;jquery-2.0.0.min.js&quot;, &quot;background.js&quot;]  // 注册事件页面</div><div class="line">  &#125;,</div><div class="line">  &quot;content_scripts&quot;:[&#123;</div><div class="line">    &quot;matches&quot;:[&quot;http://*/*&quot;],</div><div class="line">    &quot;css&quot;:[&quot;jsonFormater.css&quot;],</div><div class="line">    &quot;js&quot;:[&quot;jquery-2.0.0.min.js&quot;, &quot;content_script.js&quot;, &quot;jsonFormater.js&quot;]</div><div class="line"></div><div class="line">  &#125;]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><em>background.js</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line">//监听所有请求</div><div class="line">chrome.webRequest.onBeforeRequest.addListener(</div><div class="line">    function (details) &#123;</div><div class="line"></div><div class="line">        console.log(&quot;details url -&gt; &quot; + JSON.stringify(details));</div><div class="line"></div><div class="line">        chrome.tabs.query(&#123;active: true&#125;, function (tab) &#123;</div><div class="line"></div><div class="line">            var url = details.url;  // 原请求url</div><div class="line">            var method = details.method;    // 原请求方法类型</div><div class="line"></div><div class="line">            var actualUrl = decodeURIComponent(url.split(&quot;\.do\?url=&quot;)[1]);</div><div class="line">            if (actualUrl.indexOf(&quot;https&quot;) != -1) &#123;</div><div class="line">                actualUrl = actualUrl.substring(7, actualUrl.length - 1);</div><div class="line">            &#125;</div><div class="line">            console.log(&quot;actualUrl: &quot; + actualUrl);</div><div class="line"></div><div class="line">            sendCrossOrigin(actualUrl, method, function (responseText) &#123;</div><div class="line">                console.log(responseText);</div><div class="line">                chrome.tabs.query(&#123;active: true, currentWindow: true&#125;, function (tabs) &#123;</div><div class="line">                    console.log(JSON.stringify(tabs));</div><div class="line">                    chrome.tabs.sendMessage(tabs[0].id, responseText, function (response) &#123;</div><div class="line">                    &#125;);</div><div class="line">                &#125;);</div><div class="line"></div><div class="line">            &#125;)</div><div class="line">        &#125;);</div><div class="line"></div><div class="line">    &#125;,</div><div class="line"></div><div class="line">    //  http://10.208.39.59:8111/mock/requestOnServer.do?  只拦截test请求的url</div><div class="line">    &#123;urls: [&quot;*://*/mock/requestOnServer.do?*&quot;]&#125;,  //监听页面请求,你也可以通过*来匹配。  允许通过不同的方式限制为哪些请求产生事件</div><div class="line">    [&quot;blocking&quot;]</div><div class="line">);</div><div class="line"></div><div class="line"></div><div class="line">// 发送跨域请求</div><div class="line">function sendCrossOrigin(url, type, success) &#123;</div><div class="line">    var xhr = new XMLHttpRequest();</div><div class="line">    xhr.open(type, url, true);</div><div class="line">    xhr.onreadystatechange = function () &#123;</div><div class="line">        if (xhr.readyState == 4) &#123;</div><div class="line"></div><div class="line">            success(xhr.responseText);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    xhr.send();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><em>content_script.js</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">// 设置监听</div><div class="line">chrome.extension.onMessage.addListener(function(msg, sender, sendResponse) &#123;</div><div class="line"></div><div class="line">    console.log(msg);</div><div class="line"></div><div class="line">    $(&quot;#divResBoardJson&quot;).html(msg);</div><div class="line"></div><div class="line">    var options = &#123;</div><div class="line">        dom : &apos;#divResBoardJson&apos; //对应容器的css选择器</div><div class="line">    &#125;;</div><div class="line">    var jf = new JsonFormater(options); //创建对象</div><div class="line">    jf.doFormat(msg); //格式化json</div><div class="line"></div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>##参考<br><a href="https://crxdoc-zh.appspot.com/extensions/webRequest" target="_blank" rel="external">chrome.webRequest</a><br><a href="https://crxdoc-zh.appspot.com/extensions/xhr" target="_blank" rel="external">跨站 XMLHttpRequest</a><br><a href="http://stackoverflow.com/questions/14245334/chrome-extension-sendmessage-from-background-to-content-script-doesnt-work" target="_blank" rel="external">Chrome extension: sendMessage from background to content script doesn’t work</a></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/12/06/Android/2016-12-06-RxJava 2.x新特性/" itemprop="url">
+                  RxJava 2.x新特性
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-12-06T10:25:09+08:00" content="2016-12-06">
+              2016-12-06
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/RxJava/" itemprop="url" rel="index">
+                    <span itemprop="name">RxJava</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/12/06/Android/2016-12-06-RxJava 2.x新特性/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/12/06/Android/2016-12-06-RxJava 2.x新特性/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>##背压的分离<br><img src="../../images/14809911824786.png" alt=""></p>
+<p>###Flowable/Subscriber</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">Flowable.range(<span class="number">0</span>,<span class="number">10</span>)</div><div class="line">.subscribe(<span class="keyword">new</span> Subscriber&lt;Integer&gt;() &#123;</div><div class="line">    Subscription sub;</div><div class="line">    <span class="comment">//当订阅后，会首先调用这个方法，其实就相当于onStart()，</span></div><div class="line">    <span class="comment">//传入的Subscription s参数可以用于请求数据或者取消订阅</span></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onSubscribe</span><span class="params">(Subscription s)</span> </span>&#123;</div><div class="line">        Log.w(<span class="string">"TAG"</span>,<span class="string">"onsubscribe start"</span>);</div><div class="line">        sub=s;</div><div class="line">        sub.request(<span class="number">1</span>);</div><div class="line">        Log.w(<span class="string">"TAG"</span>,<span class="string">"onsubscribe end"</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onNext</span><span class="params">(Integer o)</span> </span>&#123;</div><div class="line">        Log.w(<span class="string">"TAG"</span>,<span class="string">"onNext---&gt;"</span>+o);</div><div class="line">        sub.request(<span class="number">1</span>);</div><div class="line">    &#125;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onError</span><span class="params">(Throwable t)</span> </span>&#123;</div><div class="line">        t.printStackTrace();</div><div class="line">    &#125;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onComplete</span><span class="params">()</span> </span>&#123;</div><div class="line">        Log.w(<span class="string">"TAG"</span>,<span class="string">"onComplete"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>输出:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">onsubscribe start</div><div class="line">onNext---&gt;<span class="number">0</span></div><div class="line">onNext---&gt;<span class="number">1</span></div><div class="line">onNext---&gt;<span class="number">2</span></div><div class="line">...</div><div class="line">onNext---&gt;<span class="number">10</span></div><div class="line">onComplete</div><div class="line">onsubscribe end</div></pre></td></tr></table></figure>
+<blockquote>
+<p>根据上面的代码的结果输出中可以看到，当我们调用subscription.request(n)方法的时候，不等onSubscribe()中后面的代码执行，就会立刻执行到onNext方法，因此，如果你在onNext方法中使用到需要初始化的类时，应当尽量在subscription.request(n)这个方法调用之前做好初始化的工作;</p>
+</blockquote>
+<p>另外一种创建方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">Flowable.create(<span class="keyword">new</span> FlowableOnSubscribe&lt;Integer&gt;() &#123;</div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">subscribe</span><span class="params">(FlowableEmitter&lt;Integer&gt; e)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">                e.onNext(<span class="number">1</span>);</div><div class="line">                e.onNext(<span class="number">2</span>);</div><div class="line">                e.onNext(<span class="number">3</span>);</div><div class="line">                e.onNext(<span class="number">4</span>);</div><div class="line">                e.onComplete();</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">//需要指定背压策略</span></div><div class="line">        , BackpressureStrategy.BUFFER);</div></pre></td></tr></table></figure>
+<p>##其他观察者模式</p>
+<ul>
+<li>Single/SingleObserver</li>
+<li>Completable/CompletableObserver</li>
+<li>Maybe/MaybeObserver</li>
+</ul>
+<p>以上三种类似, 比较适合发送单个数据, 并不适合发送大量数据.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//判断是否登陆</span></div><div class="line">Maybe.just(isLogin())</div><div class="line">    <span class="comment">//可能涉及到IO操作，放在子线程</span></div><div class="line">    .subscribeOn(Schedulers.newThread())</div><div class="line">    <span class="comment">//取回结果传到主线程</span></div><div class="line">    .observeOn(AndroidSchedulers.mainThread())</div><div class="line">    .subscribe(<span class="keyword">new</span> MaybeObserver&lt;Boolean&gt;() &#123;</div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onSubscribe</span><span class="params">(Disposable d)</span> </span>&#123;</div><div class="line"></div><div class="line">            &#125;</div><div class="line"></div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onSuccess</span><span class="params">(Boolean value)</span> </span>&#123;</div><div class="line">                <span class="keyword">if</span>(value)&#123;</div><div class="line">                    ...</div><div class="line">                &#125;<span class="keyword">else</span>&#123;</div><div class="line">                    ...</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onError</span><span class="params">(Throwable e)</span> </span>&#123;</div><div class="line"></div><div class="line">            &#125;</div><div class="line"></div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onComplete</span><span class="params">()</span> </span>&#123;</div><div class="line"></div><div class="line">            &#125;</div><div class="line">        &#125;);</div></pre></td></tr></table></figure>
+<blockquote>
+<p>实际上，这种观察者模式并不用于发送大量数据，而是发送单个数据，也就是说，当你只想要某个事件的结果（true or false)的时候，你可以用这种观察者模式</p>
+</blockquote>
+<p>##Action<br>Rx1.0———–Rx2.0</p>
+<p>Action1——–Action<br>Action1——–Consumer<br>Action2——–BiConsumer<br>后面的Action都去掉了，只保留了ActionN</p>
+<p>##参考<br><a href="https://gold.xitu.io/post/582b2c818ac24700618ff8f5" target="_blank" rel="external">2.x</a></p>
+<p><img src="../../images/14809920736706.jpg" alt=""><br><img src="../../images/14809920799065.jpg" alt=""><br><img src="../../images/14809920850565.jpg" alt=""><br><img src="../../images/14809920917273.jpg" alt=""><br><img src="../../images/14809920976579.jpg" alt=""><br><img src="../../images/14809921067279.jpg" alt=""><br><img src="../../images/14809921107635.jpg" alt=""><br><img src="../../images/14809921149439.jpg" alt=""></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/12/01/工具软件/2016-12-01-Karabiner使用说明/" itemprop="url">
+                  Karabiner使用说明
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-12-01T00:04:42+08:00" content="2016-12-01">
+              2016-12-01
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/mac/" itemprop="url" rel="index">
+                    <span itemprop="name">mac</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/12/01/工具软件/2016-12-01-Karabiner使用说明/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/12/01/工具软件/2016-12-01-Karabiner使用说明/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>#语法说明</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;item&gt;</div><div class="line">`&lt;name&gt; 设置名称 &lt;/name&gt;`</div><div class="line">&lt;appendix&gt;副标题（非必要的）&lt;/appendix&gt;</div><div class="line">&lt;identifier&gt;本设置的标签，通常要加一个private.的前缀 &lt;/identifier&gt;</div><div class="line">&lt;autogen&gt;按键定义&lt;/autogen&gt;</div><div class="line">&lt;autogen&gt;按键定义&lt;/autogen&gt;</div><div class="line">&lt;/item&gt;</div><div class="line"> 关键字说明</div></pre></td></tr></table></figure>
+<blockquote>
+<p><code>&lt;autogen&gt;</code></p>
+<ul>
+<li>你要更改哪个键: <code>__KeyToKey__ KeyCode::</code></li>
+<li>你要改成的功能:<code>ConsumerKeyCode::</code></li>
+<li>你要改成 —— 组合键中后按的键: <code>KeyCCode::</code></li>
+<li>你要改成 —— 组合键中先按的键: <code>ModifierFlag::</code></li>
+</ul>
+</blockquote>
+<p>比如需要将<code>shift</code>修改成切换输入法<code>command +  space</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;autogen&gt;</div><div class="line">	        __KeyToKey__</div><div class="line">	        KeyCode::SHIFT_L,</div><div class="line">	        KeyCode::SPACE,ModifierFlag::COMMAND_L</div><div class="line">&lt;/autogen&gt;</div></pre></td></tr></table></figure>
+<p>例子:<br>按shift 150毫秒内为切换输入法, 超过150毫秒为shift长按</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">&lt;item&gt; </div><div class="line">&lt;name&gt;Switch_Chinese_English&lt;/name&gt; </div><div class="line">&lt;appendix&gt;Switch_Chinese_English&lt;/appendix&gt; </div><div class="line">&lt;identifier&gt;private.switch&lt;/identifier&gt; </div><div class="line">&lt;autogen&gt;__HoldingKeyToKey__ </div><div class="line">KeyCode::SHIFT_R, </div><div class="line">@begin </div><div class="line">KeyCode::SPACE, ModifierFlag::COMMAND_L, ModifierFlag::OPTION_L, </div><div class="line">@end </div><div class="line">@begin </div><div class="line">KeyCode::VK_NONE, KeyCode::SHIFT_R, </div><div class="line">@end </div><div class="line">ThresholdMillisecond::RawValue::150, </div><div class="line">&lt;/autogen&gt; </div><div class="line">&lt;autogen&gt;__HoldingKeyToKey__ </div><div class="line">KeyCode::SHIFT_L, </div><div class="line">KeyCode::SPACE, ModifierFlag::COMMAND_L, ModifierFlag::OPTION_L, </div><div class="line">KeyCode::VK_NONE, KeyCode::SHIFT_L, </div><div class="line">ThresholdMillisecond::RawValue::150, </div><div class="line">&lt;/autogen&gt; </div><div class="line">&lt;/item&gt;</div></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/11/24/Android/2016-11-24-使用jenkins持续集成android/" itemprop="url">
+                  使用Jenkins持续集成android项目
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-11-24T11:50:28+08:00" content="2016-11-24">
+              2016-11-24
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/11/24/Android/2016-11-24-使用jenkins持续集成android/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/24/Android/2016-11-24-使用jenkins持续集成android/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>#Jenkins安装<br>安装官网说明即可</p>
+<p>#new item</p>
+<p>##触发器<br>每俩个小时检查一次<br><img src="../../images/14802317923780.jpg" alt=""></p>
+<ul>
+<li>Build after other projects are built：在其他项目构建完成后再进行构建。</li>
+</ul>
+<blockquote>
+<p>Trigger only if build is stable：其他项目构建成功<br>Trigger even if the build is unstable：其他项目不稳定<br>Trigger even if the build fails：其他项目构建失败</p>
+</blockquote>
+<ul>
+<li>Build periodically：周期进行构建</li>
+</ul>
+<blockquote>
+<p>例如：0 4 <em> </em> *  （每天凌晨4点必须构建一次源码</p>
+</blockquote>
+<ul>
+<li>Poll SCM：根据SCM软件的版本号，定时检查源码变更。如果有更新，则checkout最新code，然后执行构建动作</li>
+</ul>
+<blockquote>
+<p>例如：H/10 <em> </em> <em> </em>  （每10分钟检查一次源码变化，如果有更新才build）<br>H H/2 <em> </em> *(每2个小时检查一次源码变化)<br>第1列分钟1～59<br>第2列小时0～23<br>第3列日1～31<br>第4列月1～12<br>第5列星期0～7(0和7表示星期日)</p>
+</blockquote>
+<p>#问题</p>
+<ul>
+<li><img src="../../images/14802329744607.jpg" alt=""><br>权限不够, 需要给Jenkins用户提升权限</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo chown -R Jenkins /Users/Shared/Jenkins/</div></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/11/20/服务器/2016-11-20-tomcat启动错误/" itemprop="url">
+                  tomcat启动错误
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-11-20T10:00:48+08:00" content="2016-11-20">
+              2016-11-20
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/服务器/" itemprop="url" rel="index">
+                    <span itemprop="name">服务器</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/11/20/服务器/2016-11-20-tomcat启动错误/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/20/服务器/2016-11-20-tomcat启动错误/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>####错误1<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">java.net.UnknownHostException: bogon: bogon: nodename nor servname provided, or not known</div></pre></td></tr></table></figure></p>
+<p>#####解决<br>方法一:</p>
+<p>这个<code>bogon</code>怎么都没找到我的程序里哪里有这个东西.网上查了一下,好像和路由映射有关系.最后查一篇文章,说这个问题只有mac会遇到.处理方法就是对<code>bogon</code>做个DNS解析指向<code>127.0.0.1</code>.</p>
+<p>修改文件<code>/etc/hosts</code>,在里面增加对<code>127.0.0.1</code>的解析.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">127.0.0.1    bogon    localhost</div></pre></td></tr></table></figure>
+<p>保存生效后,再启动tomcat就没这个问题了.</p>
+<p>方法二:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">重启路由</div></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/11/17/Android/2016-11-17-4.2 用户业务数据采集(补录数据)/" itemprop="url">
                   4.2 用户业务数据采集(补录数据)
                 </a>
@@ -478,115 +1182,6 @@
             
               
                 
-                <a class="post-title-link" href="/2016/11/06/hello-world/" itemprop="url">
-                  Hello World
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-11-06T23:53:11+08:00" content="2016-11-06">
-              2016-11-06
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/11/06/hello-world/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/06/hello-world/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
                 <a class="post-title-link" href="/2016/11/06/Android/2016-11-06-Android与Java的一些方法的不同/" itemprop="url">
                   计划技术点规划
                 </a>
@@ -606,6 +1201,25 @@
             </time>
           </span>
 
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
           
 
           
@@ -637,12 +1251,30 @@
 
       
         
-          计划技术点规划
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/11/06/Android/2016-11-06-Android与Java的一些方法的不同/">
-              阅读全文 &raquo;
-            </a>
-          </div>
+          
+            <h2 id="Base64"><a href="#Base64" class="headerlink" title="Base64"></a>Base64</h2><p>Android自身带有Base64加密与解密的包，可以方便地加密密码方便传输。要注意decode的时候第二个参数<code>flag</code>的选值, 当使用<code>NO_WRAP</code>的时候, 是与apache的base64效果一致.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">String base64Token = Base64.encodeToString(token.trim().getBytes(), Base64.NO_WRAP);</div><div class="line"><span class="keyword">byte</span>[] mmmm = Base64.decode(base64Token,Base64.DEFAULT);</div></pre></td></tr></table></figure>
+<pre><code>1.  CRLF 这个参数看起来比较眼熟，它就是Win风格的换行符，意思就是使用CR LF这一对作为一行的结尾而不是Unix风格的LF 
+
+
+2.  DEFAULT 这个参数是默认，使用默认的方法来加密 
+
+
+3.  NO_PADDING 这个参数是略去加密字符串最后的”=” 
+
+
+4.  NO_WRAP 这个参数意思是略去所有的换行符（设置后CRLF就没用了） 
+
+
+5.  URL_SAFE 这个参数意思是加密时不使用对URL和文件名有特殊意义的字符来作为加密字符，具体就是以-和_取代+和/ 
+</code></pre><h2 id="RSA加解密"><a href="#RSA加解密" class="headerlink" title="RSA加解密"></a>RSA加解密</h2><p>Android使用私钥加密后, Java服务器解密报错, 因为Android与Java使用了不同的RSA标准, 修改Android加密的代码如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line">    * 用私钥解密</div><div class="line">    *</div><div class="line">    * <span class="doctag">@param</span> encryptedData 经过encryptedData()加密返回的byte数据</div><div class="line">    * <span class="doctag">@param</span> privateKey    私钥</div><div class="line">    * <span class="doctag">@return</span></div><div class="line">    */</div><div class="line">   <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">byte</span>[] encryptData(<span class="keyword">byte</span>[] encryptedData, String privateKey) &#123;</div><div class="line">       <span class="keyword">try</span> &#123;</div><div class="line">           <span class="keyword">byte</span>[] keyBytes = Base64Utils.decode(privateKey);</div><div class="line">           PKCS8EncodedKeySpec pkcs8KeySpec = <span class="keyword">new</span> PKCS8EncodedKeySpec(keyBytes);</div><div class="line">           KeyFactory keyFactory = KeyFactory.getInstance(KEY_ALGORITHM);</div><div class="line">           PrivateKey privateK = keyFactory.generatePrivate(pkcs8KeySpec);</div><div class="line"></div><div class="line">           Cipher cipher = Cipher.getInstance(<span class="string">"RSA/ECB/PKCS1Padding"</span>);</div><div class="line">           cipher.init(Cipher.ENCRYPT_MODE, privateK);</div><div class="line">           <span class="keyword">return</span> cipher.doFinal(encryptedData);</div><div class="line">       &#125; <span class="keyword">catch</span> (Exception e) &#123;</div><div class="line">           <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">       &#125;</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<p>java:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Cipher cipher = Cipher.getInstance(<span class="string">"RSA/ECB/PKCS1Padding"</span>);</div></pre></td></tr></table></figure>
+<p>android :</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Cipher cipher = Cipher.getInstance(&quot;RSA/ECB/NoPadding&quot;);</div></pre></td></tr></table></figure>
+
+          
         
       
     </div>
@@ -746,147 +1378,6 @@
               阅读全文 &raquo;
             </a>
           </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/10/13/杂记/2016-10-13-简历/" itemprop="url">
-                  简历
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-10-13T22:58:39+08:00" content="2016-10-13">
-              2016-10-13
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/10/13/杂记/2016-10-13-简历/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/13/杂记/2016-10-13-简历/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="联系方式"><a href="#联系方式" class="headerlink" title="联系方式"></a>联系方式</h1><ul>
-<li>手机：18516101245</li>
-<li>Email：kkooff114@gmail.com</li>
-<li>QQ/微信号：529535062 / loujiwei</li>
-</ul>
-<hr>
-<h1 id="个人信息"><a href="#个人信息" class="headerlink" title="个人信息"></a>个人信息</h1><ul>
-<li>娄继伟 / 男 / 1989 </li>
-<li>本科 / 齐齐哈尔大学 / 软件工程 </li>
-<li>工作年限：4年</li>
-<li>技术博客：<a href="http://blog.loujiwei.cn">http://blog.loujiwei.cn</a></li>
-<li>GitHub：<a href="http://github.com/kkooff114" target="_blank" rel="external">http://github.com/kkooff114</a></li>
-<li>期望职位：Android高级程序员，应用架构师</li>
-<li>期望薪资：税前月薪20k~25k，特别喜欢的公司可例外</li>
-<li>期望城市：上海, 苏州</li>
-</ul>
-<hr>
-<h1 id="工作经历"><a href="#工作经历" class="headerlink" title="工作经历"></a>工作经历</h1><h2 id="凯捷咨询-中国-有限公司-（-2013年7月-至今-）"><a href="#凯捷咨询-中国-有限公司-（-2013年7月-至今-）" class="headerlink" title="凯捷咨询(中国)有限公司 （ 2013年7月 ~ 至今 ）"></a>凯捷咨询(中国)有限公司 （ 2013年7月 ~ 至今 ）</h2><h3 id="客户-华润怡宝食品饮料有限公司"><a href="#客户-华润怡宝食品饮料有限公司" class="headerlink" title="客户: 华润怡宝食品饮料有限公司"></a>客户: 华润怡宝食品饮料有限公司</h3><h4 id="项目-怡宝CRM主数据一期-二期-三期-四期-2013年11月-至今"><a href="#项目-怡宝CRM主数据一期-二期-三期-四期-2013年11月-至今" class="headerlink" title="项目: 怡宝CRM主数据一期/二期/三期/四期 (2013年11月 ~ 至今)"></a>项目: 怡宝CRM主数据一期/二期/三期/四期 (2013年11月 ~ 至今)</h4><p>我在此项目负责移动端(Android,iOS)设计,开发与运维, 移动中间件的搭建, 移动与后台服务交互接口设计等工作. 目前我们每天业代使用人数有5000多人, 每天提交订单数二十多万张, 提交照片数二十多万张. 移动端方面我们建立了完善的用户行为反馈与行为分析系统, 能够及时发现移动端使用问题. 怡宝在项目实施后市场占有率变成全国第一, 成为消费者触及数增长最快品牌. 本项目也被华润评为最具价值项目.</p>
-<h3 id="客户-深圳芯海科技"><a href="#客户-深圳芯海科技" class="headerlink" title="客户: 深圳芯海科技"></a>客户: 深圳芯海科技</h3><h4 id="项目-网上订餐及设备管理-2014年1月-2014年6月"><a href="#项目-网上订餐及设备管理-2014年1月-2014年6月" class="headerlink" title="项目: 网上订餐及设备管理 (2014年1月 ~ 2014年6月)"></a>项目: 网上订餐及设备管理 (2014年1月 ~ 2014年6月)</h4><p>我在此项目负责移动前端网页及微信公众号的设计与开发. 用户通过网页或微信公众号可以点餐, 并到附近自动取餐机上取餐, 公司业务覆盖深圳蛇口各大商场. 项目覆盖了支付宝, 微信支付,卡券管理, 门店管理等主流的功能. 用户反馈良好.</p>
-<h3 id="客户-深圳能源集团"><a href="#客户-深圳能源集团" class="headerlink" title="客户: 深圳能源集团"></a>客户: 深圳能源集团</h3><h4 id="项目-MicroStrategy定制开发-2013年10月-2013年11月"><a href="#项目-MicroStrategy定制开发-2013年10月-2013年11月" class="headerlink" title="项目: MicroStrategy定制开发 (2013年10月 ~ 2013年11月)"></a>项目: MicroStrategy定制开发 (2013年10月 ~ 2013年11月)</h4><p>我在此项目负责Android端MicroStrategy定制开发(MicroStrategy是全球最大的BI公司产品, 主要用于企业业务数据在移动端的展示). 参与定制集团移动登陆安全方案, 深度定制MicroStrategy产品, 在源码的基础上集成自定义登陆安全方案. 由于当时MicroStrategy的Android SDK较iOS端比还不完善, 还多API都还用不了, 所以通过一些hack的方式去实现, 达到了理想的预期效果.</p>
-<h3 id="客户-深圳华润万家"><a href="#客户-深圳华润万家" class="headerlink" title="客户: 深圳华润万家"></a>客户: 深圳华润万家</h3><h4 id="项目-EPMS-2013年7月-2013年10月"><a href="#项目-EPMS-2013年7月-2013年10月" class="headerlink" title="项目: EPMS (2013年7月 ~ 2013年10月)"></a>项目: EPMS (2013年7月 ~ 2013年10月)</h4><p>我在此项目负责Android端的设计与开发, EPMS是华润万家工程项目管理的平台, 平台维护这上百家万家新开门店的工程管理, 万家员工每天通过移动终端共享工程信息, 沟通问题, 通过照片视频留言等方式提交工程反馈进度. 项目使用SAP的移动中间平台SUP/SMP将Oracle表中的数据抽取转换成对手机展示友好的数据对象, 并在其中集成了增量更新数据, 缓存同步数据等功能.</p>
-<h3 id="客户-凯捷咨询"><a href="#客户-凯捷咨询" class="headerlink" title="客户: 凯捷咨询"></a>客户: 凯捷咨询</h3><h4 id="项目-企业通讯录-2013年5月-2013年6月"><a href="#项目-企业通讯录-2013年5月-2013年6月" class="headerlink" title="项目: 企业通讯录 (2013年5月 ~ 2013年6月)"></a>项目: 企业通讯录 (2013年5月 ~ 2013年6月)</h4><p>我在此项目负责iOS, Android, winphone8端的设计与开发, 凯捷内部员工通讯录, 主要实现内部员工部门, 详情展示, 可发邮件, 拨打电话, 传输数据通过DES加密, 主要困难点就是每个平台不同手机的适配工作.</p>
-<h3 id="客户-凯捷咨询-1"><a href="#客户-凯捷咨询-1" class="headerlink" title="客户: 凯捷咨询"></a>客户: 凯捷咨询</h3><h4 id="项目-会议室管理系统-2013年3月-2013年4月"><a href="#项目-会议室管理系统-2013年3月-2013年4月" class="headerlink" title="项目: 会议室管理系统 (2013年3月 ~ 2013年4月)"></a>项目: 会议室管理系统 (2013年3月 ~ 2013年4月)</h4><p>我在此项目负责Android端的设计与实现, 移动API的设计, PC端网页的设计与实现. 定制开发了前端日历开源项目(fullcalendar), 数据图表框架(plot).</p>
-<h3 id="客户-凯捷咨询-2"><a href="#客户-凯捷咨询-2" class="headerlink" title="客户: 凯捷咨询"></a>客户: 凯捷咨询</h3><h4 id="项目-会议室管理系统-2013年3月-2013年4月-1"><a href="#项目-会议室管理系统-2013年3月-2013年4月-1" class="headerlink" title="项目: 会议室管理系统 (2013年3月 ~ 2013年4月)"></a>项目: 会议室管理系统 (2013年3月 ~ 2013年4月)</h4><p>我在此项目负责Android端的设计与实现, 移动API的设计, PC端网页的设计与实现. 定制开发了前端日历开源项目(fullcalendar), 数据图表框架(plot).</p>
-<h2 id="飞利浦照明全球研发中心-（-2012年7月-2012年8月-）"><a href="#飞利浦照明全球研发中心-（-2012年7月-2012年8月-）" class="headerlink" title="飞利浦照明全球研发中心 （ 2012年7月 ~ 2012年8月 ）"></a>飞利浦照明全球研发中心 （ 2012年7月 ~ 2012年8月 ）</h2><h3 id="Actilume-Gen2-System-项目"><a href="#Actilume-Gen2-System-项目" class="headerlink" title="Actilume Gen2 System 项目"></a>Actilume Gen2 System 项目</h3><p>在Actilume Gen2 System项目中担任后期系统测试，完成了项目后期所有的use case的测试工作。ActiLume是一个即插即用控制灯组光源解决方案，通过日光采集和自动切换可实现节能。</p>
-<hr>
-<h1 id="开源项目和作品"><a href="#开源项目和作品" class="headerlink" title="开源项目和作品"></a>开源项目和作品</h1><h2 id="开源项目"><a href="#开源项目" class="headerlink" title="开源项目"></a>开源项目</h2><ul>
-<li><a href="https://github.com/kkooff114/CBLogger2" target="_blank" rel="external">CBLogger2</a>：可自定义记录用户日常操作的行为日志, 及崩溃日志, 可自定义记录格式样式, 可提交后台,配合后台进行用户行为分析与日常操作跟踪</li>
-</ul>
-<h1 id="技能清单"><a href="#技能清单" class="headerlink" title="技能清单"></a>技能清单</h1><p>以下均为我熟练使用的技能:</p>
-<ul>
-<li>移动开发: Android/iOS/Java/Objective-C/Swift/React-Native</li>
-<li>服务器: J2EE/NodeJs/Spring/Hibernate/Struts</li>
-<li>前端框架: React/Bootstrap/Jquery/HTML5</li>
-<li>前端工具: Bower/Gulp/webpack/SaSS/LeSS</li>
-<li>数据库相关: MySQL/SQLite/Realm/Oracle</li>
-<li>版本管理: Svn/Git</li>
-<li>单元测试: JUnit/Espresso/Robolectric</li>
-<li>云和开放平台：SAE/AWS/微博开放平台/微信应用开发/QQ开放平台</li>
-</ul>
-<h1 id="致谢"><a href="#致谢" class="headerlink" title="致谢"></a>致谢</h1><p>感谢您花时间阅读我的简历，期待能有机会和您共事。</p>
-
-          
         
       
     </div>
@@ -1161,315 +1652,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/11/服务器/2016-07-11-WRK好用的网络压测工具/" itemprop="url">
-                  WRK好用的网络压测工具
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-11T09:45:49+08:00" content="2016-07-11">
-              2016-07-11
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/07/11/服务器/2016-07-11-WRK好用的网络压测工具/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/11/服务器/2016-07-11-WRK好用的网络压测工具/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          wrk小巧轻盈的 http 性能测试工具
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/07/11/服务器/2016-07-11-WRK好用的网络压测工具/">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/06/21/服务器/2016-06-21-linux抓包工具tcpdump使用/" itemprop="url">
-                  linux抓包工具tcpdump使用
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-06-21T17:42:51+08:00" content="2016-06-21">
-              2016-06-21
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/06/21/服务器/2016-06-21-linux抓包工具tcpdump使用/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/21/服务器/2016-06-21-linux抓包工具tcpdump使用/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          linux抓包工具tcpdump使用
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/06/21/服务器/2016-06-21-linux抓包工具tcpdump使用/">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/05/16/iOS/2016-05-16-IBAction inside UITableViewCell not called in iOS 9/" itemprop="url">
-                  IBAction inside UITableViewCell not called in iOS 9
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-05-16T09:50:00+08:00" content="2016-05-16">
-              2016-05-16
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/05/16/iOS/2016-05-16-IBAction inside UITableViewCell not called in iOS 9/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/16/iOS/2016-05-16-IBAction inside UITableViewCell not called in iOS 9/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          在UITableViewCell中通过IBAction添加UIButton的点击事件的时候, 无效.
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/05/16/iOS/2016-05-16-IBAction inside UITableViewCell not called in iOS 9/">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1515,17 +1697,24 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">56</span>
+              <span class="site-state-item-count">60</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
 
           
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
 
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-count">38</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
