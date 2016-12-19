@@ -96,7 +96,7 @@
 <meta property="og:url" content="http://blog.loujiwei.cn/2015/12/10/Android/2015-12-10-RxJava中的小知识点(1)/index.html">
 <meta property="og:site_name" content="kkooff144`blog">
 <meta property="og:description" content="记录学习RxJava中的小知识点">
-<meta property="og:updated_time" content="2016-02-26T14:29:50.000Z">
+<meta property="og:updated_time" content="2016-12-19T02:33:42.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="RxJava中的小知识点(1)">
 <meta name="twitter:description" content="记录学习RxJava中的小知识点">
@@ -321,20 +321,18 @@
 
       
         <p>[TOC]</p>
-<p>#Schedulers<br><code>Schedulers.immediate()</code> : 默认的, 在当前线程下立即执行.</p>
+<h1 id="Schedulers"><a href="#Schedulers" class="headerlink" title="Schedulers"></a>Schedulers</h1><p><code>Schedulers.immediate()</code> : 默认的, 在当前线程下立即执行.</p>
 <p><code>Schedulers.trampoline()</code>: 将被观察者所生产出来的数据丢到一个队列中, 队列会依次执行其中的任务,能够有效避免StackOverflowError，所以非常适合函数的递归调用.</p>
 <p><code>Schedulers.newThread()</code>: 每次产生的数据, 每次都是在一个新线程中去执行</p>
 <p><code>Schedulers.computation()</code>:  用于CPU密集型任务来使用的,比如计算, 应该是在线程池中选择一个线程.</p>
 <p><code>Schedulers.io()</code>: 用于IO密集型任务, 从线程池中选择一个线程, 这个线程池中的线程回收周期是60s, 有利于处理IO相关的任务.</p>
 <p><code>AndroidSchedulers.mainThread()</code>: 在主线程中运行处理任务.</p>
-<p>#Subscriber<br>在 RxJava 的 subscribe 过程中，Observer 也总是会先被转换成一个 Subscriber 再使用。所以如果你只想使用基本功能，选择 Observer 和 Subscriber 是完全一样的。它们的区别对于使用者来说主要有两点：</p>
+<h1 id="Subscriber"><a href="#Subscriber" class="headerlink" title="Subscriber"></a>Subscriber</h1><p>在 RxJava 的 subscribe 过程中，Observer 也总是会先被转换成一个 Subscriber 再使用。所以如果你只想使用基本功能，选择 Observer 和 Subscriber 是完全一样的。它们的区别对于使用者来说主要有两点：</p>
 <ol>
 <li><code>onStart()</code>: 在事件还未发送前调用, 所发生的线程在Subscriber所在的线程, 如果要在指定的线程来做准备工作,可以使用<code>doOnSubscribe()</code>方法.</li>
 <li><code>unsubscribe()</code>: 用于取消订阅, 一般在这个方法调用前，可以使用 <code>isUnsubscribed()</code> 先判断一下状态。 <code>unsubscribe()</code> 这个方法很重要，因为在 <code>subscribe()</code> 之后， Observable 会持有 Subscriber 的引用，这个引用如果不能及时被释放，将有内存泄露的风险。所以最好保持一个原则：要在不再使用的时候尽快在合适的地方（例如 <code>onPause()</code> <code>onStop()</code> 等方法中）调用 <code>unsubscribe()</code> 来解除引用关系，<strong><em>以避免内存泄露的发生</em></strong>。</li>
 </ol>
-<p>#配合retrofit的问题</p>
-<p>##问题一</p>
-<blockquote>
+<h1 id="配合retrofit的问题"><a href="#配合retrofit的问题" class="headerlink" title="配合retrofit的问题"></a>配合retrofit的问题</h1><h2 id="问题一"><a href="#问题一" class="headerlink" title="问题一"></a>问题一</h2><blockquote>
 <p>java.lang.IllegalArgumentException: Unable to create call adapter for rx.Observable<string>  </string></p>
 </blockquote>
 <p>依赖包添加:</p>
@@ -529,7 +527,7 @@
               
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Schedulers"><span class="nav-number">1.</span> <span class="nav-text">Schedulers</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Subscriber"><span class="nav-number">2.</span> <span class="nav-text">Subscriber</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#配合retrofit的问题"><span class="nav-number">3.</span> <span class="nav-text">配合retrofit的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#问题一"><span class="nav-number">3.1.</span> <span class="nav-text">问题一</span></a></li></ol></li></ol></div>
             
           </div>
         </section>

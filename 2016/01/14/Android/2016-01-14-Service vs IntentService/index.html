@@ -96,7 +96,7 @@
 <meta property="og:url" content="http://blog.loujiwei.cn/2016/01/14/Android/2016-01-14-Service vs IntentService/index.html">
 <meta property="og:site_name" content="kkooff144`blog">
 <meta property="og:description" content="Service vs IntentService">
-<meta property="og:updated_time" content="2016-01-13T16:11:19.000Z">
+<meta property="og:updated_time" content="2016-12-19T02:31:56.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Service vs IntentService">
 <meta name="twitter:description" content="Service vs IntentService">
@@ -321,38 +321,33 @@
 
       
         <p>Tejas Lagvankar wrote a nice <a href="http://techtej.blogspot.com.es/2011/03/android-thread-constructspart-4.html" target="_blank" rel="external">post</a> about this subject. Below are some key differences between Service and IntentService.</p>
-<p>#When to use?</p>
-<ul>
+<h1 id="When-to-use"><a href="#When-to-use" class="headerlink" title="When to use?"></a>When to use?</h1><ul>
 <li><p>The Service can be used in tasks with no UI, but shouldn’t be too long. If you need to perform long tasks, you must use threads within Service.</p>
 </li>
 <li><p>The IntentService can be used in long tasks usually with no communication to Main Thread. If communication is required, can use Main Thread handler or broadcast intents. Another case of use is when callbacks are needed (Intent triggered tasks).</p>
 </li>
 </ul>
-<p>#How to trigger?</p>
-<ul>
+<h1 id="How-to-trigger"><a href="#How-to-trigger" class="headerlink" title="How to trigger?"></a>How to trigger?</h1><ul>
 <li><p>The Service is triggered by calling method startService().</p>
 </li>
 <li><p>The IntentService is triggered using an Intent, it spawns a new worker thread and the method onHandleIntent() is called on this thread.</p>
 </li>
 </ul>
-<p>#Triggered From</p>
-<ul>
-<li><p>The Service and IntentService may be triggered from any thread, activity or other application component.<br>#Runs On</p>
-</li>
+<h1 id="Triggered-From"><a href="#Triggered-From" class="headerlink" title="Triggered From"></a>Triggered From</h1><ul>
+<li><p>The Service and IntentService may be triggered from any thread, activity or other application component.</p>
+<h1 id="Runs-On"><a href="#Runs-On" class="headerlink" title="Runs On"></a>Runs On</h1></li>
 <li><p>The Service runs in background but it runs on the Main Thread of the application.</p>
 </li>
 <li><p>The IntentService runs on a separate worker thread.</p>
 </li>
 </ul>
-<p>#Limitations / Drawbacks</p>
-<ul>
+<h1 id="Limitations-Drawbacks"><a href="#Limitations-Drawbacks" class="headerlink" title="Limitations / Drawbacks"></a>Limitations / Drawbacks</h1><ul>
 <li><p>The Service may block the Main Thread of the application.</p>
 </li>
 <li><p>The IntentService cannot run tasks in parallel. Hence all the consecutive intents will go into the message queue for the worker thread and will execute sequentially.</p>
 </li>
 </ul>
-<p>#When to stop?</p>
-<ul>
+<h1 id="When-to-stop"><a href="#When-to-stop" class="headerlink" title="When to stop?"></a>When to stop?</h1><ul>
 <li><p>If you implement a Service, it is your responsibility to stop the service when its work is done, by calling stopSelf() or stopService(). (If you only want to provide binding, you don’t need to implement this method).</p>
 </li>
 <li><p>The IntentService stops the service after all start requests have been handled, so you never have to call stopSelf().</p>
@@ -546,7 +541,7 @@
               
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#When-to-use"><span class="nav-number">1.</span> <span class="nav-text">When to use?</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#How-to-trigger"><span class="nav-number">2.</span> <span class="nav-text">How to trigger?</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Triggered-From"><span class="nav-number">3.</span> <span class="nav-text">Triggered From</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Runs-On"><span class="nav-number">4.</span> <span class="nav-text">Runs On</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Limitations-Drawbacks"><span class="nav-number">5.</span> <span class="nav-text">Limitations / Drawbacks</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#When-to-stop"><span class="nav-number">6.</span> <span class="nav-text">When to stop?</span></a></li></ol></div>
             
           </div>
         </section>

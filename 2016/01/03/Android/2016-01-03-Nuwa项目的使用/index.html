@@ -98,7 +98,7 @@
 <meta property="og:description" content="Nuwa项目是热部署方案的一个实现, 本文记录尝试使用Nuwa构建热补丁项目">
 <meta property="og:image" content="http://blog.loujiwei.cn/media/14518197949458.jpg">
 <meta property="og:image" content="http://blog.loujiwei.cn/media/14518200581827.jpg">
-<meta property="og:updated_time" content="2016-01-04T15:33:38.000Z">
+<meta property="og:updated_time" content="2016-12-19T02:32:30.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Nuwa项目的使用">
 <meta name="twitter:description" content="Nuwa项目是热部署方案的一个实现, 本文记录尝试使用Nuwa构建热补丁项目">
@@ -324,9 +324,7 @@
 
       
         <p>[TOC]</p>
-<p>#Usage</p>
-<p>##导入</p>
-<ol>
+<h1 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h1><h2 id="导入"><a href="#导入" class="headerlink" title="导入"></a>导入</h2><ol>
 <li>在项目根build.gradle中添加:</li>
 </ol>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">buildscript &#123;</div><div class="line">    repositories &#123;</div><div class="line">        jcenter()</div><div class="line">    &#125;</div><div class="line">    dependencies &#123;</div><div class="line">        classpath &apos;com.android.tools.build:gradle:1.2.3&apos;</div><div class="line">        classpath &apos;cn.jiajixin.nuwa:gradle:1.2.2&apos;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
@@ -337,8 +335,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">apply plugin: &quot;cn.jiajixin.nuwa&quot;</div></pre></td></tr></table></figure>
 <p>然后再添加依赖</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">dependencies &#123;</div><div class="line">    compile fileTree(dir: &apos;libs&apos;, include: [&apos;*.jar&apos;])</div><div class="line">    testCompile &apos;junit:junit:4.12&apos;</div><div class="line">    compile &apos;com.android.support:appcompat-v7:23.0.1&apos;</div><div class="line">    compile &apos;com.android.support:design:23.0.1&apos;</div><div class="line">    compile &apos;cn.jiajixin.nuwa:nuwa:1.0.0&apos;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>##使用</p>
-<ol>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><ol>
 <li>自定义Application类,并在<code>attachBaseContext()</code>中添加</li>
 </ol>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BaseApplication</span> <span class="keyword">extends</span> <span class="title">Application</span> </span>&#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">attachBaseContext</span><span class="params">(Context base)</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>.attachBaseContext(base);</div><div class="line">        Nuwa.init(<span class="keyword">this</span>);</div><div class="line">        Nuwa.loadPatch(<span class="keyword">this</span>, <span class="string">"/sdcard/patch.jar"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
@@ -358,9 +355,9 @@
 </ol>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">adb push app/build/outputs/nuwa/debug/patch.jar /sdcard/</div></pre></td></tr></table></figure>
 <p>这个时候重启app, 就会显示修复完成的样子</p>
-<p>#代码混淆<br>在proguard-rules.pro中添加：</p>
+<h1 id="代码混淆"><a href="#代码混淆" class="headerlink" title="代码混淆"></a>代码混淆</h1><p>在proguard-rules.pro中添加：</p>
 <p>-keep class cn.jiajixin.nuwa.* { ; }</p>
-<p>#参考<br><a href="https://github.com/jasonross/Nuwa" target="_blank" rel="external">Nuwa github地址</a><br><a href="https://github.com/jasonross/NuwaGradle" target="_blank" rel="external">Nuwa gradle github地址</a><br><a href="http://www.jianshu.com/p/72c17fb76f21" target="_blank" rel="external">基于Nuwa实现Android自动化HotFix</a></p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="https://github.com/jasonross/Nuwa" target="_blank" rel="external">Nuwa github地址</a><br><a href="https://github.com/jasonross/NuwaGradle" target="_blank" rel="external">Nuwa gradle github地址</a><br><a href="http://www.jianshu.com/p/72c17fb76f21" target="_blank" rel="external">基于Nuwa实现Android自动化HotFix</a></p>
 
       
     </div>
@@ -549,7 +546,7 @@
               
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Usage"><span class="nav-number">1.</span> <span class="nav-text">Usage</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#导入"><span class="nav-number">1.1.</span> <span class="nav-text">导入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用"><span class="nav-number">1.2.</span> <span class="nav-text">使用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#代码混淆"><span class="nav-number">2.</span> <span class="nav-text">代码混淆</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">3.</span> <span class="nav-text">参考</span></a></li></ol></div>
             
           </div>
         </section>

@@ -96,7 +96,7 @@
 <meta property="og:url" content="http://blog.loujiwei.cn/2016/11/17/Android/2016-11-17-4.2 用户业务数据采集(补录数据)/index.html">
 <meta property="og:site_name" content="kkooff144`blog">
 <meta property="og:description" content="计划技术点规划">
-<meta property="og:updated_time" content="2016-11-17T05:08:02.000Z">
+<meta property="og:updated_time" content="2016-12-19T02:28:39.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="4.2 用户业务数据采集(补录数据)">
 <meta name="twitter:description" content="计划技术点规划">
@@ -320,18 +320,14 @@
       
 
       
-        <p>#4.2 用户业务数据采集(补录数据)</p>
-<p>##业务价值:<br>帮助运维人员更好更快的分析业代每天使用手机所出现的问题, 碰到无法提交的死数据, 可以实现数据的补录.</p>
-<p>##概要设计</p>
-<ul>
+        <h1 id="4-2-用户业务数据采集-补录数据"><a href="#4-2-用户业务数据采集-补录数据" class="headerlink" title="4.2 用户业务数据采集(补录数据)"></a>4.2 用户业务数据采集(补录数据)</h1><h2 id="业务价值"><a href="#业务价值" class="headerlink" title="业务价值:"></a>业务价值:</h2><p>帮助运维人员更好更快的分析业代每天使用手机所出现的问题, 碰到无法提交的死数据, 可以实现数据的补录.</p>
+<h2 id="概要设计"><a href="#概要设计" class="headerlink" title="概要设计"></a>概要设计</h2><ul>
 <li>从服务器读取具体某一个业代的日志文件(输入业代编号和日期)</li>
 <li>罗列出某一天的所有提交日志(目前暂时只提取提交信息),<br>  <code>&gt;&gt;&gt;</code>开头的即为提交信息, <code>&lt;&lt;&lt;</code>开头的即为服务器返回信息, 将这俩信息以成对的形式展现, 重复的提交数据请<code>去重</code></li>
 <li>单独提取出报文中的<code>客户id</code>和<code>报文类别</code>, 并在标题处显示, 用来区分不同客户, 不同报文的显示, 同一类报文显示在一起.</li>
 <li>提供日志源文件的下载</li>
 </ul>
-<p>##详细设计</p>
-<p>###显示字段对应</p>
-<ul>
+<h2 id="详细设计"><a href="#详细设计" class="headerlink" title="详细设计"></a>详细设计</h2><h3 id="显示字段对应"><a href="#显示字段对应" class="headerlink" title="显示字段对应"></a>显示字段对应</h3><ul>
 <li>创建订单  ZifSupOrderMain</li>
 </ul>
 <table>
@@ -723,7 +719,7 @@
               
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#4-2-用户业务数据采集-补录数据"><span class="nav-number">1.</span> <span class="nav-text">4.2 用户业务数据采集(补录数据)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#业务价值"><span class="nav-number">1.1.</span> <span class="nav-text">业务价值:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#概要设计"><span class="nav-number">1.2.</span> <span class="nav-text">概要设计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#详细设计"><span class="nav-number">1.3.</span> <span class="nav-text">详细设计</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#显示字段对应"><span class="nav-number">1.3.1.</span> <span class="nav-text">显示字段对应</span></a></li></ol></li></ol></li></ol></div>
             
           </div>
         </section>

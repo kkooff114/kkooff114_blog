@@ -96,7 +96,7 @@
 <meta property="og:url" content="http://blog.loujiwei.cn/2016/01/27/Android/2016-01-27-Realm使用大坑小记/index.html">
 <meta property="og:site_name" content="kkooff144`blog">
 <meta property="og:description" content="由于Realm数据库还没有到1.0,处于高速迭代更新的阶段, 使用过程中碰到各种问题, 便记下">
-<meta property="og:updated_time" content="2016-03-13T14:52:24.000Z">
+<meta property="og:updated_time" content="2016-12-19T02:31:36.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Realm使用大坑小记">
 <meta name="twitter:description" content="由于Realm数据库还没有到1.0,处于高速迭代更新的阶段, 使用过程中碰到各种问题, 便记下">
@@ -321,10 +321,10 @@
 
       
         <p>[TOC]</p>
-<p>#Realm.refresh();<br>在一个线程中保存数据, <code>紧接着</code>在另一个线程中查询他,<br>此时在查询的时候需要调用<code>realm.refresh();</code>来刷新数据<br>我的理解是一个线程中保存数据的时候数据库中存在缓存, realm感觉是以线程为单位做事的, 所以这个时候在另一个线程中查询的时候就会查不到数据</p>
+<h1 id="Realm-refresh"><a href="#Realm-refresh" class="headerlink" title="Realm.refresh();"></a>Realm.refresh();</h1><p>在一个线程中保存数据, <code>紧接着</code>在另一个线程中查询他,<br>此时在查询的时候需要调用<code>realm.refresh();</code>来刷新数据<br>我的理解是一个线程中保存数据的时候数据库中存在缓存, realm感觉是以线程为单位做事的, 所以这个时候在另一个线程中查询的时候就会查不到数据</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">public static RealmResults&lt;CrmReportZGSum&gt; findAll()&#123;</div><div class="line">        Realm realm = Realm.getDefaultInstance();</div><div class="line">        realm.refresh(); // &lt;&lt;===添加了才能查到</div><div class="line">        RealmResults&lt;CrmReportZGSum&gt; zgSums = null;</div><div class="line">        try &#123;</div><div class="line">            zgSums = realm.where(CrmReportZGSum.class).findAll();</div><div class="line">        &#125; catch (Exception e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125; finally &#123;</div><div class="line">//            realm.close();</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        return zgSums;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
-<p>#Realm.close();<br>像上面的代码, 如果在finally中将realm Close掉, 返回的<code>RealmResults</code>对象将不可用, 会报数据库已经被关闭的错误.<br>情景2. findAllAsync调用后close掉, 还能查到数据,代码参考业绩面板业代列表</p>
-<p>#Mult-Dex为true带来的java.lang.ClassNotFoundException<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">Caused by: java.lang.ClassNotFoundException: </div><div class="line"></div><div class="line">io.realm.DefaultRealmModuleMediator                                                                                        </div><div class="line"></div><div class="line">at java.lang.Class.classForName(Native Method)                                                        </div><div class="line"></div><div class="line">at java.lang.Class.forName(Class.java:204)                                             </div><div class="line"></div><div class="line">at java.lang.Class.forName(Class.java:169)</div></pre></td></tr></table></figure></p>
+<h1 id="Realm-close"><a href="#Realm-close" class="headerlink" title="Realm.close();"></a>Realm.close();</h1><p>像上面的代码, 如果在finally中将realm Close掉, 返回的<code>RealmResults</code>对象将不可用, 会报数据库已经被关闭的错误.<br>情景2. findAllAsync调用后close掉, 还能查到数据,代码参考业绩面板业代列表</p>
+<h1 id="Mult-Dex为true带来的java-lang-ClassNotFoundException"><a href="#Mult-Dex为true带来的java-lang-ClassNotFoundException" class="headerlink" title="Mult-Dex为true带来的java.lang.ClassNotFoundException"></a>Mult-Dex为true带来的java.lang.ClassNotFoundException</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">Caused by: java.lang.ClassNotFoundException: </div><div class="line"></div><div class="line">io.realm.DefaultRealmModuleMediator                                                                                        </div><div class="line"></div><div class="line">at java.lang.Class.classForName(Native Method)                                                        </div><div class="line"></div><div class="line">at java.lang.Class.forName(Class.java:204)                                             </div><div class="line"></div><div class="line">at java.lang.Class.forName(Class.java:169)</div></pre></td></tr></table></figure>
 <p>原因:<br>当设置<code>multiDexEnabled true</code>的时候, android打包的时候有可能会将realm的数据库对象放到第二个dex中, 从而导致程序在加载的时候找不到相关Class</p>
 <p><del>解决方案:</del><br>在Application中对所有的Realm进行引用</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">System.out.println(OrderSkuItemUploader.class);</div></pre></td></tr></table></figure>
@@ -524,7 +524,7 @@
               
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Realm-refresh"><span class="nav-number">1.</span> <span class="nav-text">Realm.refresh();</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Realm-close"><span class="nav-number">2.</span> <span class="nav-text">Realm.close();</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Mult-Dex为true带来的java-lang-ClassNotFoundException"><span class="nav-number">3.</span> <span class="nav-text">Mult-Dex为true带来的java.lang.ClassNotFoundException</span></a></li></ol></div>
             
           </div>
         </section>

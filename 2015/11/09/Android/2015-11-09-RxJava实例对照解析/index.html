@@ -96,7 +96,7 @@
 <meta property="og:url" content="http://blog.loujiwei.cn/2015/11/09/Android/2015-11-09-RxJava实例对照解析/index.html">
 <meta property="og:site_name" content="kkooff144`blog">
 <meta property="og:description" content="RxJava如何应用于生产环境的常用代码">
-<meta property="og:updated_time" content="2016-12-06T02:21:42.000Z">
+<meta property="og:updated_time" content="2016-12-19T02:34:13.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="RxJava实例对照解析">
 <meta name="twitter:description" content="RxJava如何应用于生产环境的常用代码">
@@ -353,13 +353,12 @@
 <blockquote>
 <p><strong><em>注解:</em></strong><br><code>onNext</code>: 提前用<code>PublicshSubject</code>定义一个Observable, 并且将整个转换链路定义好, 调用<code>onNext</code>的时候相当于广播者发了一条广播</p>
 </blockquote>
-<p>##sample<br>场景:<br>如果被观察者发出的事件的频率过快, 可以使用该操作符过滤掉一些事件</p>
+<h2 id="sample"><a href="#sample" class="headerlink" title="sample"></a>sample</h2><p>场景:<br>如果被观察者发出的事件的频率过快, 可以使用该操作符过滤掉一些事件</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">Observable.interval(<span class="number">1</span>, TimeUnit.MILLISECONDS)</div><div class="line"></div><div class="line">                .observeOn(Schedulers.newThread())</div><div class="line">                <span class="comment">//这个操作符简单理解就是每隔200ms发送里时间点最近那个事件，</span></div><div class="line">                <span class="comment">//其他的事件浪费掉</span></div><div class="line">                  .sample(<span class="number">200</span>,TimeUnit.MILLISECONDS)</div><div class="line">                  .subscribe(<span class="keyword">new</span> Action1() &#123;</div><div class="line">                      <span class="meta">@Override</span></div><div class="line">                      <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">call</span><span class="params">(Long aLong)</span> </span>&#123;</div><div class="line">                          <span class="keyword">try</span> &#123;</div><div class="line">                              Thread.sleep(<span class="number">200</span>);</div><div class="line">                          &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</div><div class="line">                              e.printStackTrace();</div><div class="line">                          &#125;</div><div class="line">                          Log.w(<span class="string">"TAG"</span>,<span class="string">"----&gt;"</span>+aLong);</div><div class="line">                      &#125;</div><div class="line">                  &#125;);</div></pre></td></tr></table></figure>
 <blockquote>
 <p><strong><em>注解</em></strong><br>因为抛弃了绝大部分的事件，而在我们使用RxJava 时候，我们自己定义的Observable产生的事件可能都是我们需要的，一般来说不会抛弃，所以这种方案有它的缺陷。</p>
 </blockquote>
-<p>#onBackpressurebuffer，onBackpressureDrop</p>
-<ul>
+<h1 id="onBackpressurebuffer，onBackpressureDrop"><a href="#onBackpressurebuffer，onBackpressureDrop" class="headerlink" title="onBackpressurebuffer，onBackpressureDrop"></a>onBackpressurebuffer，onBackpressureDrop</h1><ul>
 <li><code>onBackpressurebuffer</code>：把observable发送出来的事件做缓存，当request方法被调用的时候，给下层流发送一个item(如果给这个缓存区设置了大小，那么超过了这个大小就会抛出异常)。</li>
 <li><code>onBackpressureDrop</code>：将observable发送的事件抛弃掉，直到subscriber再次调用request（n）方法的时候，就发送给它这之后的n个事件。</li>
 </ul>
@@ -553,7 +552,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#RxJava实例对照解析"><span class="nav-number">1.</span> <span class="nav-text">RxJava实例对照解析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本"><span class="nav-number">1.1.</span> <span class="nav-text">基本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#buffer"><span class="nav-number">1.2.</span> <span class="nav-text">buffer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#debounce"><span class="nav-number">1.3.</span> <span class="nav-text">debounce</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#doNext"><span class="nav-number">1.4.</span> <span class="nav-text">doNext</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#RxJava实例对照解析"><span class="nav-number">1.</span> <span class="nav-text">RxJava实例对照解析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本"><span class="nav-number">1.1.</span> <span class="nav-text">基本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#buffer"><span class="nav-number">1.2.</span> <span class="nav-text">buffer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#debounce"><span class="nav-number">1.3.</span> <span class="nav-text">debounce</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#doNext"><span class="nav-number">1.4.</span> <span class="nav-text">doNext</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sample"><span class="nav-number">1.5.</span> <span class="nav-text">sample</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#onBackpressurebuffer，onBackpressureDrop"><span class="nav-number">2.</span> <span class="nav-text">onBackpressurebuffer，onBackpressureDrop</span></a></li></ol></div>
             
           </div>
         </section>

@@ -96,7 +96,7 @@
 <meta property="og:url" content="http://blog.loujiwei.cn/2015/12/19/Android/2015-12-19-Android热部署方案/index.html">
 <meta property="og:site_name" content="kkooff144`blog">
 <meta property="og:description" content="Android热部署方案">
-<meta property="og:updated_time" content="2016-01-08T03:27:43.000Z">
+<meta property="og:updated_time" content="2016-12-19T02:32:52.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android热部署方案">
 <meta name="twitter:description" content="Android热部署方案">
@@ -320,20 +320,16 @@
       
 
       
-        <p>#原理<br>参考下面两篇文章可以总结:</p>
+        <h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><p>参考下面两篇文章可以总结:</p>
 <ol>
 <li>动态改变BaseDexClassLoader对象间接引用的dexElements；</li>
 <li>在app打包的时候，阻止相关类去打上CLASS_ISPREVERIFIED标志。</li>
 </ol>
-<p>#实现</p>
-<p>##防止CLASS_ISPREVERIFIED打上true</p>
-<p>###ASM</p>
-<p>###Javassist</p>
-<blockquote>
+<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><h2 id="防止CLASS-ISPREVERIFIED打上true"><a href="#防止CLASS-ISPREVERIFIED打上true" class="headerlink" title="防止CLASS_ISPREVERIFIED打上true"></a>防止CLASS_ISPREVERIFIED打上true</h2><h3 id="ASM"><a href="#ASM" class="headerlink" title="ASM"></a>ASM</h3><h3 id="Javassist"><a href="#Javassist" class="headerlink" title="Javassist"></a>Javassist</h3><blockquote>
 <p>Javassist 使您可以检查、编辑以及创建 Java 二进制类。检查方面基本上与通过 Reflection API 直接在 Java 中进行的一样，但是当想要修改类而不只是执行它们时，则另一种访问这些信息的方法就很有用了。这是因为 JVM 设计上并没有提供在类装载到 JVM 中后访问原始类数据的任何方法，这项工作需要在 JVM 之外完成。<br><a href="http://www.ibm.com/developerworks/cn/java/j-dyn0916/" target="_blank" rel="external">Java 编程的动态性</a></p>
 </blockquote>
 <p>阻止类打上<code>CLASS_ISPREVERIFIED</code>标志就需要使用Javassist</p>
-<p>#参考<br><a href="http://my.oschina.net/853294317/blog/308583" target="_blank" rel="external">Android dex分包方案</a></p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="http://my.oschina.net/853294317/blog/308583" target="_blank" rel="external">Android dex分包方案</a></p>
 <p><a href="https://mp.weixin.qq.com/s?__biz=MzI1MTA1MzM2Nw==&amp;mid=400118620&amp;idx=1&amp;sn=b4fdd5055731290eef12ad0d17f39d4a&amp;scene=1&amp;srcid=1106Imu9ZgwybID13e7y2nEi#wechat_redirect" target="_blank" rel="external">安卓App热补丁动态修复技术介绍</a></p>
 <p><a href="http://blog.csdn.net/lmj623565791/article/details/49883661" target="_blank" rel="external"> Android 热补丁动态修复框架小结</a></p>
 
@@ -524,7 +520,7 @@
               
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#原理"><span class="nav-number">1.</span> <span class="nav-text">原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实现"><span class="nav-number">2.</span> <span class="nav-text">实现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#防止CLASS-ISPREVERIFIED打上true"><span class="nav-number">2.1.</span> <span class="nav-text">防止CLASS_ISPREVERIFIED打上true</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ASM"><span class="nav-number">2.1.1.</span> <span class="nav-text">ASM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Javassist"><span class="nav-number">2.1.2.</span> <span class="nav-text">Javassist</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">3.</span> <span class="nav-text">参考</span></a></li></ol></div>
             
           </div>
         </section>

@@ -96,7 +96,7 @@
 <meta property="og:url" content="http://blog.loujiwei.cn/2016/05/16/Android/2016-05-16/index.html">
 <meta property="og:site_name" content="kkooff144`blog">
 <meta property="og:description" content="编写用户行为日志记录库">
-<meta property="og:updated_time" content="2016-07-18T08:03:50.000Z">
+<meta property="og:updated_time" content="2016-12-19T02:29:25.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android 用户行为日志记录">
 <meta name="twitter:description" content="编写用户行为日志记录库">
@@ -321,10 +321,9 @@
 
       
         <p>[TOC]</p>
-<p>##背景<br>记录应用中用户的一些操作信息log, 可以像<code>Log.d()</code>, <code>Log.i()</code>这样记录log, 然后将这些记录保存到sd卡中, 供开发查看</p>
-<p>##初步设计<br>所有输出的log都先放到临时内存中, 当该内存达到一定的阀值比如<code>10k</code>之后, 再将其持久化到sd卡</p>
-<p>##问题分析</p>
-<ol>
+<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>记录应用中用户的一些操作信息log, 可以像<code>Log.d()</code>, <code>Log.i()</code>这样记录log, 然后将这些记录保存到sd卡中, 供开发查看</p>
+<h2 id="初步设计"><a href="#初步设计" class="headerlink" title="初步设计"></a>初步设计</h2><p>所有输出的log都先放到临时内存中, 当该内存达到一定的阀值比如<code>10k</code>之后, 再将其持久化到sd卡</p>
+<h2 id="问题分析"><a href="#问题分析" class="headerlink" title="问题分析"></a>问题分析</h2><ol>
 <li>多个线程同时写入内存时, 如何保证不会错乱</li>
 <li>保证写入线程不会被block</li>
 <li>当达到阀值后, 需要取内存数据持久化, 此时如果又有新log, 如何协调存取</li>
@@ -518,7 +517,7 @@
               
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#初步设计"><span class="nav-number">2.</span> <span class="nav-text">初步设计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题分析"><span class="nav-number">3.</span> <span class="nav-text">问题分析</span></a></li></ol></div>
             
           </div>
         </section>

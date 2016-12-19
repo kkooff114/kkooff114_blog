@@ -96,7 +96,7 @@
 <meta property="og:url" content="http://blog.loujiwei.cn/2015/11/30/网页前端/2015-11-30-React使用小记/index.html">
 <meta property="og:site_name" content="kkooff144`blog">
 <meta property="og:description" content="React使用小记, 记录React第一次使用过程中碰到的问题与解决方案;以及一些功能笔记">
-<meta property="og:updated_time" content="2016-02-19T08:14:37.000Z">
+<meta property="og:updated_time" content="2016-12-19T02:30:58.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="React使用小记">
 <meta name="twitter:description" content="React使用小记, 记录React第一次使用过程中碰到的问题与解决方案;以及一些功能笔记">
@@ -321,7 +321,7 @@
 
       
         <p>[TOC]</p>
-<p>##点击事件与传参<br>先定义一个<code>handleClick</code>的点击事件函数; 再通过<code>onClick</code>来调用这个事件函数</p>
+<h2 id="点击事件与传参"><a href="#点击事件与传参" class="headerlink" title="点击事件与传参"></a>点击事件与传参</h2><p>先定义一个<code>handleClick</code>的点击事件函数; 再通过<code>onClick</code>来调用这个事件函数</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> Menu = React.createClass(&#123;</div><div class="line"></div><div class="line">    <span class="attr">handleClick</span>: <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</div><div class="line">        alert(<span class="string">"点击"</span>);</div><div class="line">    &#125;,</div><div class="line"></div><div class="line">    render() &#123;</div><div class="line">        <span class="keyword">return</span> (</div><div class="line">                <span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">onClick</span>=<span class="string">&#123;this.handleClick&#125;</span>&gt;</span>点击<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></div><div class="line">        );</div><div class="line">    &#125;,</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
 <p>传参:</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> Menu = React.createClass(&#123;</div><div class="line"></div><div class="line">    <span class="attr">handleClick</span>: <span class="function"><span class="keyword">function</span>(<span class="params">parms</span>) </span>&#123;</div><div class="line">        alert(<span class="string">"点击"</span> + parms);</div><div class="line">    &#125;,</div><div class="line"></div><div class="line">    render() &#123;</div><div class="line">        <span class="keyword">return</span> (</div><div class="line">                <span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">onClick</span>=<span class="string">&#123;this.handleClick.bind(this,</span> '我是参数')&#125;&gt;</span>点击<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></div><div class="line">        );</div><div class="line">    &#125;,</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
@@ -339,9 +339,9 @@
 </ul>
 <p>实际使用:</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">item.hasChildren ? ($.map(item.children, <span class="function"><span class="keyword">function</span>(<span class="params">item, index</span>)</span>&#123;</div><div class="line">	<span class="keyword">return</span>(</div><div class="line">			<span class="xml"><span class="tag">&lt;<span class="name">Col</span> <span class="attr">className</span>=<span class="string">"classify-menu-level3-col"</span>&gt;</span></span></div><div class="line">				<span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">"classify-menu-level3-col-wrap"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">			<span class="tag">&lt;/<span class="name">Col</span>&gt;</span></div><div class="line">		);</div><div class="line">	&#125;)): <span class="string">''</span></div></pre></td></tr></table></figure>
-<p>##JSX中输出html代码<br>直接return() 变量的方式, 会直接在界面输出html的字符串形式<br>通过jquery的html来往<code>&lt;div&gt;</code>标签中填充html的源码:</p>
+<h2 id="JSX中输出html代码"><a href="#JSX中输出html代码" class="headerlink" title="JSX中输出html代码"></a>JSX中输出html代码</h2><p>直接return() 变量的方式, 会直接在界面输出html的字符串形式<br>通过jquery的html来往<code>&lt;div&gt;</code>标签中填充html的源码:</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">componentDidUpdate()&#123;</div><div class="line"></div><div class="line">    $(<span class="string">".goods-detail"</span>).html(<span class="keyword">this</span>.props.intro);</div><div class="line">&#125;,</div></pre></td></tr></table></figure>
-<p>##this.props传递变量<br>如果this.props中从前一个组件中传入的是变量, 则该变量不会立即生效取到,<br>只有到<code>render()</code> 中才能拿到从前面组件中传入的变量.</p>
+<h2 id="this-props传递变量"><a href="#this-props传递变量" class="headerlink" title="this.props传递变量"></a>this.props传递变量</h2><p>如果this.props中从前一个组件中传入的是变量, 则该变量不会立即生效取到,<br>只有到<code>render()</code> 中才能拿到从前面组件中传入的变量.</p>
 
       
     </div>
@@ -530,7 +530,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#AJAX的集成使用"><span class="nav-number">1.</span> <span class="nav-text">AJAX的集成使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#state相关"><span class="nav-number">2.</span> <span class="nav-text">state相关</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JSX中if-else-的使用"><span class="nav-number">3.</span> <span class="nav-text">JSX中if-else 的使用</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#点击事件与传参"><span class="nav-number">1.</span> <span class="nav-text">点击事件与传参</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AJAX的集成使用"><span class="nav-number">2.</span> <span class="nav-text">AJAX的集成使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#state相关"><span class="nav-number">3.</span> <span class="nav-text">state相关</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JSX中if-else-的使用"><span class="nav-number">4.</span> <span class="nav-text">JSX中if-else 的使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JSX中输出html代码"><span class="nav-number">5.</span> <span class="nav-text">JSX中输出html代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#this-props传递变量"><span class="nav-number">6.</span> <span class="nav-text">this.props传递变量</span></a></li></ol></div>
             
           </div>
         </section>

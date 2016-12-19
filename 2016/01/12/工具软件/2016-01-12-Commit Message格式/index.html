@@ -92,26 +92,23 @@
 
 <meta name="description" content="layout:         posttitle:          Commit Message格式description:    git commit -m 的书写格式, 当然也适用于svntags:           gitkeywords:       git
 noToc:               true[TOC]
-#概要
-
-每次提交，Commit message 都包括三个部">
+概要
+每次提交，Commit message 都包括三个部分：">
 <meta property="og:type" content="article">
 <meta property="og:title" content="kkooff144`blog">
 <meta property="og:url" content="http://blog.loujiwei.cn/2016/01/12/工具软件/2016-01-12-Commit Message格式/index.html">
 <meta property="og:site_name" content="kkooff144`blog">
 <meta property="og:description" content="layout:         posttitle:          Commit Message格式description:    git commit -m 的书写格式, 当然也适用于svntags:           gitkeywords:       git
 noToc:               true[TOC]
-#概要
-
-每次提交，Commit message 都包括三个部">
-<meta property="og:updated_time" content="2016-01-12T14:21:45.000Z">
+概要
+每次提交，Commit message 都包括三个部分：">
+<meta property="og:updated_time" content="2016-12-19T02:29:49.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="kkooff144`blog">
 <meta name="twitter:description" content="layout:         posttitle:          Commit Message格式description:    git commit -m 的书写格式, 当然也适用于svntags:           gitkeywords:       git
 noToc:               true[TOC]
-#概要
-
-每次提交，Commit message 都包括三个部">
+概要
+每次提交，Commit message 都包括三个部分：">
 
 
 
@@ -335,17 +332,14 @@ noToc:               true[TOC]
         <hr>
 <p>layout:         post<br>title:          Commit Message格式<br>description:    git commit -m 的书写格式, 当然也适用于svn<br>tags:           git<br>keywords:       git</p>
 <h2 id="noToc-true"><a href="#noToc-true" class="headerlink" title="noToc:               true"></a>noToc:               true</h2><p>[TOC]</p>
-<p>#概要</p>
-<blockquote>
+<h1 id="概要"><a href="#概要" class="headerlink" title="概要"></a>概要</h1><blockquote>
 <p>每次提交，Commit message 都包括三个部分：<code>Header</code>，<code>Body</code> 和 <code>Footer</code>。</p>
 </blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;type&gt;(&lt;scope&gt;): &lt;subject&gt;// 空一行&lt;body&gt;// 空一行&lt;footer&gt;</div></pre></td></tr></table></figure>
 <p>其中，<strong>Header 是必需的</strong>，Body 和 Footer 可以省略。</p>
 <p>不管是哪一个部分，任何一行都不得超过72个字符（或100个字符）。这是为了避免自动换行影响美观。</p>
-<p>#Header</p>
-<p>Header部分只有一行，包括三个字段：<code>type</code>（必需）、<code>scope</code>（可选）和<code>subject</code>（必需）。</p>
-<p>##type</p>
-<p><code>type</code>用于说明 commit 的类别，只允许使用下面7个标识。</p>
+<h1 id="Header"><a href="#Header" class="headerlink" title="Header"></a>Header</h1><p>Header部分只有一行，包括三个字段：<code>type</code>（必需）、<code>scope</code>（可选）和<code>subject</code>（必需）。</p>
+<h2 id="type"><a href="#type" class="headerlink" title="type"></a>type</h2><p><code>type</code>用于说明 commit 的类别，只允许使用下面7个标识。</p>
 <ul>
 <li>feat：新功能（feature）</li>
 <li>fix：修补bug</li>
@@ -355,17 +349,14 @@ noToc:               true[TOC]
 <li>test：增加测试</li>
 <li>chore：构建过程或辅助工具的变动<br>如果type为feat和fix，则该 commit 将肯定出现在 Change log 之中。其他情况（docs、chore、style、refactor、test）由你决定，要不要放入 Change log，建议是不要。</li>
 </ul>
-<p>##scope</p>
-<p><code>scope</code>用于说明 commit 影响的范围，比如数据层、控制层、视图层等等，视项目不同而不同。</p>
-<p>##subject</p>
-<p><code>subject</code>是 commit 目的的简短描述，不超过50个字符。</p>
+<h2 id="scope"><a href="#scope" class="headerlink" title="scope"></a>scope</h2><p><code>scope</code>用于说明 commit 影响的范围，比如数据层、控制层、视图层等等，视项目不同而不同。</p>
+<h2 id="subject"><a href="#subject" class="headerlink" title="subject"></a>subject</h2><p><code>subject</code>是 commit 目的的简短描述，不超过50个字符。</p>
 <ul>
 <li>以动词开头，使用第一人称现在时，比如change，而不是changed或changes</li>
 <li>第一个字母小写</li>
 <li>结尾不加句号（.）</li>
 </ul>
-<p>#Body</p>
-<p><code>Body</code> 部分是对本次 commit 的详细描述，可以分成多行。下面是一个范例。</p>
+<h1 id="Body"><a href="#Body" class="headerlink" title="Body"></a>Body</h1><p><code>Body</code> 部分是对本次 commit 的详细描述，可以分成多行。下面是一个范例。</p>
 <blockquote>
 <p>More detailed explanatory text, if necessary.  Wrap it to<br>about 72 characters or so. Further paragraphs come after blank lines.- Bullet points are okay, too- Use a hanging indent<br>有两个注意点。</p>
 </blockquote>
@@ -375,8 +366,7 @@ noToc:               true[TOC]
 <li><p>应该说明代码变动的动机，以及与以前行为的对比。</p>
 </li>
 </ol>
-<p>#Footer</p>
-<p><code>Footer</code> 部分只用于两种情况。</p>
+<h1 id="Footer"><a href="#Footer" class="headerlink" title="Footer"></a>Footer</h1><p><code>Footer</code> 部分只用于两种情况。</p>
 <ol>
 <li>不兼容变动</li>
 </ol>
@@ -389,13 +379,12 @@ noToc:               true[TOC]
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Closes #234</div></pre></td></tr></table></figure>
 <p>也可以一次关闭多个 issue 。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Closes #123, #245, #992</div></pre></td></tr></table></figure>
-<p>#Revert</p>
-<p>还有一种特殊情况，如果当前 commit 用于撤销以前的 commit，则必须以<code>revert:</code>开头，后面跟着被撤销 Commit 的 Header。</p>
+<h1 id="Revert"><a href="#Revert" class="headerlink" title="Revert"></a>Revert</h1><p>还有一种特殊情况，如果当前 commit 用于撤销以前的 commit，则必须以<code>revert:</code>开头，后面跟着被撤销 Commit 的 Header。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">revert: feat(pencil): add &apos;graphiteWidth&apos; option</div></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">This reverts commit 667ecc1654a317a13331b17617d973392f415f02.</div></pre></td></tr></table></figure>
 <p>Body部分的格式是固定的，必须写成This reverts commit &lt;hash&gt;.，其中的hash是被撤销 commit 的 SHA 标识符。</p>
 <p>如果当前 commit 与被撤销的 commit，在同一个发布（release）里面，那么它们都不会出现在 Change log 里面。如果两者在不同的发布，那么当前 commit，会出现在 Change log 的Reverts小标题下面。</p>
-<p>#参考:<br><a href="http://www.oschina.net/news/69705/git-commit-message-and-changelog-guide?from=20160110" target="_blank" rel="external">Git 提交的正确姿势：Commit message 编写指南</a></p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考:"></a>参考:</h1><p><a href="http://www.oschina.net/news/69705/git-commit-message-and-changelog-guide?from=20160110" target="_blank" rel="external">Git 提交的正确姿势：Commit message 编写指南</a></p>
 
       
     </div>
@@ -578,7 +567,7 @@ noToc:               true[TOC]
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#noToc-true"><span class="nav-number">1.</span> <span class="nav-text">noToc:               true</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#noToc-true"><span class="nav-number">1.</span> <span class="nav-text">noToc:               true</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#概要"><span class="nav-number"></span> <span class="nav-text">概要</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Header"><span class="nav-number"></span> <span class="nav-text">Header</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#type"><span class="nav-number">1.</span> <span class="nav-text">type</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#scope"><span class="nav-number">2.</span> <span class="nav-text">scope</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#subject"><span class="nav-number">3.</span> <span class="nav-text">subject</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Body"><span class="nav-number"></span> <span class="nav-text">Body</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Footer"><span class="nav-number"></span> <span class="nav-text">Footer</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Revert"><span class="nav-number"></span> <span class="nav-text">Revert</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number"></span> <span class="nav-text">参考:</span></a></div>
             
           </div>
         </section>
