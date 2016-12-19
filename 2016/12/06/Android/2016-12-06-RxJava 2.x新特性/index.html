@@ -91,15 +91,17 @@
 
 
 <meta name="description" content="##背压的分离
+
 ###Flowable/Subscriber
-123456789101112131415161718192021222324252627Flowable.range(0,10).subscribe(new Subscriber&amp;lt;Integer&amp;gt;() &amp;#123;    Subscription sub;    //当订阅后，会首先调用这个方法，其实就相当于onStart">
+123456789101112131415161718192021222324252627Flowable.range(0,10).subscribe(new Subscriber&amp;lt;Integer&amp;gt;() &amp;#123;    Subscription sub;    //当订阅后，会首先调用这个方法，其实就相当于onStar">
 <meta property="og:type" content="article">
 <meta property="og:title" content="RxJava 2.x新特性">
 <meta property="og:url" content="http://blog.loujiwei.cn/2016/12/06/Android/2016-12-06-RxJava 2.x新特性/index.html">
 <meta property="og:site_name" content="kkooff144`blog">
 <meta property="og:description" content="##背压的分离
+
 ###Flowable/Subscriber
-123456789101112131415161718192021222324252627Flowable.range(0,10).subscribe(new Subscriber&amp;lt;Integer&amp;gt;() &amp;#123;    Subscription sub;    //当订阅后，会首先调用这个方法，其实就相当于onStart">
+123456789101112131415161718192021222324252627Flowable.range(0,10).subscribe(new Subscriber&amp;lt;Integer&amp;gt;() &amp;#123;    Subscription sub;    //当订阅后，会首先调用这个方法，其实就相当于onStar">
 <meta property="og:image" content="http://blog.loujiwei.cn/../../images/14809911824786.png">
 <meta property="og:image" content="http://blog.loujiwei.cn/../../images/14809920736706.jpg">
 <meta property="og:image" content="http://blog.loujiwei.cn/../../images/14809920799065.jpg">
@@ -109,12 +111,13 @@
 <meta property="og:image" content="http://blog.loujiwei.cn/../../images/14809921067279.jpg">
 <meta property="og:image" content="http://blog.loujiwei.cn/../../images/14809921107635.jpg">
 <meta property="og:image" content="http://blog.loujiwei.cn/../../images/14809921149439.jpg">
-<meta property="og:updated_time" content="2016-12-06T02:42:04.000Z">
+<meta property="og:updated_time" content="2016-12-19T02:15:25.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="RxJava 2.x新特性">
 <meta name="twitter:description" content="##背压的分离
+
 ###Flowable/Subscriber
-123456789101112131415161718192021222324252627Flowable.range(0,10).subscribe(new Subscriber&amp;lt;Integer&amp;gt;() &amp;#123;    Subscription sub;    //当订阅后，会首先调用这个方法，其实就相当于onStart">
+123456789101112131415161718192021222324252627Flowable.range(0,10).subscribe(new Subscriber&amp;lt;Integer&amp;gt;() &amp;#123;    Subscription sub;    //当订阅后，会首先调用这个方法，其实就相当于onStar">
 <meta name="twitter:image" content="http://blog.loujiwei.cn/../../images/14809911824786.png">
 
 
@@ -355,7 +358,8 @@
       
 
       
-        <p>##背压的分离<br><img src="../../images/14809911824786.png" alt=""></p>
+        <p>##背压的分离</p>
+<p><img src="../../images/14809911824786.png" alt=""></p>
 <p>###Flowable/Subscriber</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">Flowable.range(<span class="number">0</span>,<span class="number">10</span>)</div><div class="line">.subscribe(<span class="keyword">new</span> Subscriber&lt;Integer&gt;() &#123;</div><div class="line">    Subscription sub;</div><div class="line">    <span class="comment">//当订阅后，会首先调用这个方法，其实就相当于onStart()，</span></div><div class="line">    <span class="comment">//传入的Subscription s参数可以用于请求数据或者取消订阅</span></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onSubscribe</span><span class="params">(Subscription s)</span> </span>&#123;</div><div class="line">        Log.w(<span class="string">"TAG"</span>,<span class="string">"onsubscribe start"</span>);</div><div class="line">        sub=s;</div><div class="line">        sub.request(<span class="number">1</span>);</div><div class="line">        Log.w(<span class="string">"TAG"</span>,<span class="string">"onsubscribe end"</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onNext</span><span class="params">(Integer o)</span> </span>&#123;</div><div class="line">        Log.w(<span class="string">"TAG"</span>,<span class="string">"onNext---&gt;"</span>+o);</div><div class="line">        sub.request(<span class="number">1</span>);</div><div class="line">    &#125;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onError</span><span class="params">(Throwable t)</span> </span>&#123;</div><div class="line">        t.printStackTrace();</div><div class="line">    &#125;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onComplete</span><span class="params">()</span> </span>&#123;</div><div class="line">        Log.w(<span class="string">"TAG"</span>,<span class="string">"onComplete"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
 <p>输出:</p>
@@ -376,9 +380,11 @@
 <blockquote>
 <p>实际上，这种观察者模式并不用于发送大量数据，而是发送单个数据，也就是说，当你只想要某个事件的结果（true or false)的时候，你可以用这种观察者模式</p>
 </blockquote>
-<p>##Action<br>Rx1.0———–Rx2.0</p>
+<p>##Action</p>
+<p>Rx1.0———–Rx2.0</p>
 <p>Action1——–Action<br>Action1——–Consumer<br>Action2——–BiConsumer<br>后面的Action都去掉了，只保留了ActionN</p>
-<p>##参考<br><a href="https://gold.xitu.io/post/582b2c818ac24700618ff8f5" target="_blank" rel="external">2.x</a></p>
+<p>##参考</p>
+<p><a href="https://gold.xitu.io/post/582b2c818ac24700618ff8f5" target="_blank" rel="external">2.x</a></p>
 <p><img src="../../images/14809920736706.jpg" alt=""><br><img src="../../images/14809920799065.jpg" alt=""><br><img src="../../images/14809920850565.jpg" alt=""><br><img src="../../images/14809920917273.jpg" alt=""><br><img src="../../images/14809920976579.jpg" alt=""><br><img src="../../images/14809921067279.jpg" alt=""><br><img src="../../images/14809921107635.jpg" alt=""><br><img src="../../images/14809921149439.jpg" alt=""></p>
 
       
