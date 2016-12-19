@@ -342,12 +342,16 @@
       
         
           
-            <p>##问题</p>
-<p>swarm创建token的时候报错:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[ljw@localhost ~]$ sudo docker run swarm create</div><div class="line">WARNING: IPv4 forwarding is disabled. Networking will not work.</div><div class="line">2016/12/18 05:02:09 Post https://discovery.hub.docker.com/v1/clusters: dial tcp: lookup discovery.hub.docker.com on 10.211.55.1:53: read udp 172.17.0.2:47693-&gt;10.211.55.1:53: i/o timeout</div></pre></td></tr></table></figure>
-<p>解决:</p>
+          ##问题
+swarm创建token的时候报错:
+123[ljw@localhost ~]$ sudo docker run swarm createWARNING: IPv4 forwarding is disabled. Networking will not work.2016/12/18 05
+          ...
 
-          
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/12/16/服务器/2016-12-16-Docker创建Tomcat集群/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -465,41 +469,18 @@
       
         
           
-            <p>#容器</p>
-<h2 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ sudo docker run -t -i ubuntu:14.04 /bin/bash</div><div class="line">root@af8bae53bdd3:/#</div></pre></td></tr></table></figure>
-<p><code>-t</code>: 选项让Docker分配一个伪终端（pseudo-tty）并绑定到容器的标准输入上<br><code>-i</code>: 则让容器的标准输入保持打开</p>
-<p>直接在后台运行:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ sudo docker run -d ubuntu:14.04 /bin/sh -c &quot;while true; do echo hello world; sleep 1; done&quot;</div><div class="line">77b2dc01fe0f3f1265df143181e7b9af5e05279a884f4776ee75350ea9d8017a</div></pre></td></tr></table></figure>
-<p><code>-d</code> Docker在后台运行而不是直接把执行命令的结果输出在当前宿主机下</p>
-<p>可通过 <code>docker ps</code> 来查看如期信息:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ sudo docker ps</div><div class="line">CONTAINER ID  IMAGE         COMMAND               CREATED        STATUS       PORTS NAMES</div><div class="line">77b2dc01fe0f  ubuntu:14.04  /bin/sh -c &apos;while tr  2 minutes ago  Up 1 minute        agitated_wright</div></pre></td></tr></table></figure>
-<p><code>docker logs</code> 获取容器输出:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ sudo docker logs [container ID or NAMES]</div><div class="line">hello world</div><div class="line">hello world</div><div class="line">hello world</div><div class="line">. . .</div></pre></td></tr></table></figure>
-<h2 id="终止容器"><a href="#终止容器" class="headerlink" title="终止容器"></a>终止容器</h2><p><code>docker stop</code>: 终止一个容器</p>
-<p>可以通过<code>docker ps -a</code>查看终止状态:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">sudo docker ps -a</div><div class="line">CONTAINER ID        IMAGE                    COMMAND                CREATED             STATUS                          PORTS               NAMES</div><div class="line">ba267838cc1b        ubuntu:14.04             &quot;/bin/bash&quot;            30 minutes ago      Exited (0) About a minute ago                       trusting_newton</div><div class="line">98e5efa7d997        training/webapp:latest   &quot;python app.py&quot;        About an hour ago   Exited (0) 34 minutes ago                           backstabbing_pike</div></pre></td></tr></table></figure>
-<h2 id="重启"><a href="#重启" class="headerlink" title="重启"></a>重启</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo systemctl retart docker</div></pre></td></tr></table></figure>
-<p>或者</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo service docker restart</div></pre></td></tr></table></figure>
-<p>##进入容器<br> <code>docker attach</code> 用了参数<code>-d</code>启动的容器,可以使用这个进入容器.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$ sudo docker run -idt ubuntu</div><div class="line">243c32535da7d142fb0e6df616a3c3ada0b8ab417937c853a9e1c251f499f550</div><div class="line">$ sudo docker ps</div><div class="line">CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS                  PORTS               NAMES</div><div class="line">243c32535da7        ubuntu:latest       &quot;/bin/bash&quot;         18 seconds ago      Up 17 seconds                           nostalgic_hypatia</div><div class="line">$sudo docker attach nostalgic_hypatia</div><div class="line">root@243c32535da7:/#</div></pre></td></tr></table></figure>
-<p>##创建一个数据卷</p>
-<p>创建一个名为 web 的容器，并加载一个数据卷到容器的 /webapp 目录</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo docker run -d -P --name web -v /webapp training/webapp python app.py</div></pre></td></tr></table></figure>
-<p>使用 <code>-v</code> 标记也可以指定挂载一个本地主机的目录到容器中去。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo docker run -d -P --name web -v /src/webapp:/opt/webapp training/webapp python app.py</div></pre></td></tr></table></figure>
-<p>上面的命令加载主机的<code>/src/webapp</code>目录到容器的<code>/opt/webapp</code> 目录。</p>
-<p>##容器互联</p>
-<p>使用 <code>--link</code>参数可以让容器之间安全的进行交互。<br>下面先创建一个新的数据库容器。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo docker run -d --name db training/postgres</div></pre></td></tr></table></figure>
-<p>删除之前创建的 web 容器</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ docker rm -f web</div></pre></td></tr></table></figure>
-<p>然后创建一个新的 web 容器，并将它连接到 db 容器</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo docker run -d -P --name web --link db:db training/webapp python app.py</div></pre></td></tr></table></figure>
-<p>此时，db 容器和 web 容器建立互联关系</p>
-<p><code>--link</code> 参数的格式为 <code>--link name:alias</code>，其中 <code>name</code> 是要链接的容器的名称，<code>alias</code>是这个连接的别名。</p>
+          #容器
+启动12$ sudo docker run -t -i ubuntu:14.04 /bin/bashroot@af8bae53bdd3:/#
+-t: 选项让Docker分配一个伪终端（pseudo-tty）并绑定到容器的标准输入上-i: 则让容器的标准输入保持打开
+直接在后台运行:
+12$ 
+          ...
 
-          
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/12/15/服务器/2016-12-15-Docker常用命令参数/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -617,43 +598,21 @@
       
         
           
-            <p>##项目结构<br><img src="../../images/14812139532644.jpg" alt=""></p>
-<p>主要分为三个重要的文件 </p>
-<ul>
-<li><code>manifest.json</code> 配置各种信息, 相当于项目主入口</li>
-<li><code>background.js</code> 项目后台跑的脚本,项目的主程序</li>
-<li><code>content_script.js</code> 项目与前台dom网页交互的网页, </li>
-</ul>
-<p><code>background.js</code> 和 <code>content_script.js</code> 是运行在俩个独立的环境里,通信需要使用<code>message</code></p>
-<h2 id="manifest-json"><a href="#manifest-json" class="headerlink" title="manifest.json"></a>manifest.json</h2><p>####配置<code>background.js</code> 和 <code>content_script.js</code> 相关文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&quot;background&quot;: &#123;</div><div class="line">    &quot;scripts&quot;: [&quot;jquery-2.0.0.min.js&quot;, &quot;background.js&quot;]  // 注册事件页面</div><div class="line">  &#125;,</div><div class="line">&quot;content_scripts&quot;:[&#123;</div><div class="line">    &quot;matches&quot;:[&quot;http://*/*&quot;],</div><div class="line">    &quot;css&quot;:[&quot;jsonFormater.css&quot;],</div><div class="line">    &quot;js&quot;:[&quot;jquery-2.0.0.min.js&quot;, &quot;content_script.js&quot;, &quot;jsonFormater.js&quot;]</div><div class="line"></div><div class="line">  &#125;]</div></pre></td></tr></table></figure>
-<p>####设置能够跨域访问的url</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&quot;permissions&quot;: [</div><div class="line">    &quot;tabs&quot;,&quot;*://htcjy.com/*&quot;,</div><div class="line">    &quot;*://*/*&quot;,</div><div class="line">    &quot;https://api.github.com/*&quot;,</div><div class="line">    &quot;webRequest&quot;,</div><div class="line">    &quot;webRequestBlocking&quot;</div><div class="line">  ]</div></pre></td></tr></table></figure>
-<p>如果设置了<code>&quot;*://*/*&quot;</code>, 即为任何url都可以访问.</p>
-<h2 id="background-js"><a href="#background-js" class="headerlink" title="background.js"></a>background.js</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line">//监听所有请求</div><div class="line">chrome.webRequest.onBeforeRequest.addListener(</div><div class="line">    function (details) &#123;</div><div class="line"></div><div class="line">        console.log(&quot;details url -&gt; &quot; + JSON.stringify(details));</div><div class="line"></div><div class="line">        chrome.tabs.query(&#123;active: true&#125;, function (tab) &#123;</div><div class="line"></div><div class="line">            var url = details.url;  // 原请求url</div><div class="line">            var method = details.method;    // 原请求方法类型</div><div class="line"></div><div class="line">            var actualUrl = decodeURIComponent(url.split(&quot;\.do\?url=&quot;)[1]);</div><div class="line">            if (actualUrl.indexOf(&quot;https&quot;) != -1) &#123;</div><div class="line">                actualUrl = actualUrl.substring(7, actualUrl.length - 1);</div><div class="line">            &#125;</div><div class="line">            console.log(&quot;actualUrl: &quot; + actualUrl);</div><div class="line"></div><div class="line">            sendCrossOrigin(actualUrl, method, function (responseText) &#123;</div><div class="line">                console.log(responseText);</div><div class="line">                chrome.tabs.query(&#123;active: true, currentWindow: true&#125;, function (tabs) &#123;</div><div class="line">                    console.log(JSON.stringify(tabs));</div><div class="line">                    chrome.tabs.sendMessage(tabs[0].id, responseText, function (response) &#123;</div><div class="line">                    &#125;);</div><div class="line">                &#125;);</div><div class="line"></div><div class="line">            &#125;)</div><div class="line">        &#125;);</div><div class="line"></div><div class="line">    &#125;,</div><div class="line">    //  http://10.208.39.59:8111/mock/requestOnServer.do?  只拦截test请求的url</div><div class="line">    &#123;urls: [&quot;*://*/mock/requestOnServer.do?*&quot;]&#125;,  //监听页面请求,你也可以通过*来匹配。  允许通过不同的方式限制为哪些请求产生事件</div><div class="line">    [&quot;blocking&quot;]</div><div class="line">);</div><div class="line"></div><div class="line"></div><div class="line">// 发送跨域请求</div><div class="line">function sendCrossOrigin(url, type, success) &#123;</div><div class="line">    var xhr = new XMLHttpRequest();</div><div class="line">    xhr.open(type, url, true);</div><div class="line">    xhr.onreadystatechange = function () &#123;</div><div class="line">        if (xhr.readyState == 4) &#123;</div><div class="line"></div><div class="line">            success(xhr.responseText);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    xhr.send();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ol>
-<li><code>chrome.webRequest.onBeforeRequest.addListener</code> 是拦截所有的请求,</li>
-<li>接着获取实际请求的url, 并调用<code>sendCrossOrigin()</code>方法发送ajax请求, 这里的<code>sendCrossOrigin</code>可以换成<code>jQuery</code>里面的ajax请求.</li>
-<li>在url请求成功后调用 <code>chrome.tabs.sendMessage</code> 发送message到<code>content_script.js</code>页面, 通知其更新网页.</li>
-</ol>
-<h2 id="content-script-js"><a href="#content-script-js" class="headerlink" title="content_script.js"></a>content_script.js</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">// 设置监听</div><div class="line">chrome.extension.onMessage.addListener(function(msg, sender, sendResponse) &#123;</div><div class="line"></div><div class="line">    console.log(msg);</div><div class="line"></div><div class="line">    $(&quot;#divResBoardJson&quot;).html(msg);</div><div class="line"></div><div class="line">    var options = &#123;</div><div class="line">        dom : &apos;#divResBoardJson&apos; //对应容器的css选择器</div><div class="line">    &#125;;</div><div class="line">    var jf = new JsonFormater(options); //创建对象</div><div class="line">    jf.doFormat(msg); //格式化json</div><div class="line"></div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-<p>注册一个监听器, 如果进来一个json, 就填入网页里面的<code>divResBoardJson</code> 这个<code>div</code>中. 并通过<code>jsonFormat</code>这个插件进行美化.</p>
-<p>##添加json高亮库</p>
-<p>在添加资源图片的时候一个错误</p>
-<blockquote>
-<p>Resources must be listed in the web_accessible_resources manifest key in order to be loaded by pages outside the extension</p>
-</blockquote>
-<p>解决:<br>在manifest.js里面添加</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&quot;web_accessible_resources&quot;: [</div><div class="line">    &quot;images/Collapsed.gif&quot;,</div><div class="line">    &quot;images/Expanded.gif&quot;</div><div class="line">  ],</div></pre></td></tr></table></figure>
-<p>##完整代码<br><em>manifest.json</em></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  &quot;name&quot;: &quot;RAP&quot;,</div><div class="line">  &quot;version&quot;: &quot;0.1&quot;,</div><div class="line">  &quot;manifest_version&quot;: 2,  // 一定要这么写2</div><div class="line">  &quot;description&quot;: &quot;RAP Chrome Plugin for Cross-domain&quot;,</div><div class="line">  &quot;browser_action&quot;: &#123;</div><div class="line">    &quot;default_icon&quot;: &quot;icon.png&quot;,</div><div class="line">    &quot;default_title&quot;: &quot;RAP&quot;,</div><div class="line">    &quot;default_popup&quot;: &quot;popup.html&quot;</div><div class="line">  &#125;,</div><div class="line">  &quot;web_accessible_resources&quot;: [</div><div class="line">    &quot;images/Collapsed.gif&quot;,</div><div class="line">    &quot;images/Expanded.gif&quot;</div><div class="line">  ],</div><div class="line">  &quot;permissions&quot;: [</div><div class="line">    &quot;tabs&quot;,&quot;*://htcjy.com/*&quot;,</div><div class="line">    &quot;*://*/*&quot;,</div><div class="line">    &quot;https://api.github.com/*&quot;,</div><div class="line">    &quot;webRequest&quot;,</div><div class="line">    &quot;webRequestBlocking&quot;</div><div class="line">  ],</div><div class="line">  &quot;background&quot;: &#123;</div><div class="line">    &quot;scripts&quot;: [&quot;jquery-2.0.0.min.js&quot;, &quot;background.js&quot;]  // 注册事件页面</div><div class="line">  &#125;,</div><div class="line">  &quot;content_scripts&quot;:[&#123;</div><div class="line">    &quot;matches&quot;:[&quot;http://*/*&quot;],</div><div class="line">    &quot;css&quot;:[&quot;jsonFormater.css&quot;],</div><div class="line">    &quot;js&quot;:[&quot;jquery-2.0.0.min.js&quot;, &quot;content_script.js&quot;, &quot;jsonFormater.js&quot;]</div><div class="line"></div><div class="line">  &#125;]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><em>background.js</em></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line">//监听所有请求</div><div class="line">chrome.webRequest.onBeforeRequest.addListener(</div><div class="line">    function (details) &#123;</div><div class="line"></div><div class="line">        console.log(&quot;details url -&gt; &quot; + JSON.stringify(details));</div><div class="line"></div><div class="line">        chrome.tabs.query(&#123;active: true&#125;, function (tab) &#123;</div><div class="line"></div><div class="line">            var url = details.url;  // 原请求url</div><div class="line">            var method = details.method;    // 原请求方法类型</div><div class="line"></div><div class="line">            var actualUrl = decodeURIComponent(url.split(&quot;\.do\?url=&quot;)[1]);</div><div class="line">            if (actualUrl.indexOf(&quot;https&quot;) != -1) &#123;</div><div class="line">                actualUrl = actualUrl.substring(7, actualUrl.length - 1);</div><div class="line">            &#125;</div><div class="line">            console.log(&quot;actualUrl: &quot; + actualUrl);</div><div class="line"></div><div class="line">            sendCrossOrigin(actualUrl, method, function (responseText) &#123;</div><div class="line">                console.log(responseText);</div><div class="line">                chrome.tabs.query(&#123;active: true, currentWindow: true&#125;, function (tabs) &#123;</div><div class="line">                    console.log(JSON.stringify(tabs));</div><div class="line">                    chrome.tabs.sendMessage(tabs[0].id, responseText, function (response) &#123;</div><div class="line">                    &#125;);</div><div class="line">                &#125;);</div><div class="line"></div><div class="line">            &#125;)</div><div class="line">        &#125;);</div><div class="line"></div><div class="line">    &#125;,</div><div class="line"></div><div class="line">    //  http://10.208.39.59:8111/mock/requestOnServer.do?  只拦截test请求的url</div><div class="line">    &#123;urls: [&quot;*://*/mock/requestOnServer.do?*&quot;]&#125;,  //监听页面请求,你也可以通过*来匹配。  允许通过不同的方式限制为哪些请求产生事件</div><div class="line">    [&quot;blocking&quot;]</div><div class="line">);</div><div class="line"></div><div class="line"></div><div class="line">// 发送跨域请求</div><div class="line">function sendCrossOrigin(url, type, success) &#123;</div><div class="line">    var xhr = new XMLHttpRequest();</div><div class="line">    xhr.open(type, url, true);</div><div class="line">    xhr.onreadystatechange = function () &#123;</div><div class="line">        if (xhr.readyState == 4) &#123;</div><div class="line"></div><div class="line">            success(xhr.responseText);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    xhr.send();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><em>content_script.js</em></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">// 设置监听</div><div class="line">chrome.extension.onMessage.addListener(function(msg, sender, sendResponse) &#123;</div><div class="line"></div><div class="line">    console.log(msg);</div><div class="line"></div><div class="line">    $(&quot;#divResBoardJson&quot;).html(msg);</div><div class="line"></div><div class="line">    var options = &#123;</div><div class="line">        dom : &apos;#divResBoardJson&apos; //对应容器的css选择器</div><div class="line">    &#125;;</div><div class="line">    var jf = new JsonFormater(options); //创建对象</div><div class="line">    jf.doFormat(msg); //格式化json</div><div class="line"></div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-<p>##参考<br><a href="https://crxdoc-zh.appspot.com/extensions/webRequest" target="_blank" rel="external">chrome.webRequest</a><br><a href="https://crxdoc-zh.appspot.com/extensions/xhr" target="_blank" rel="external">跨站 XMLHttpRequest</a><br><a href="http://stackoverflow.com/questions/14245334/chrome-extension-sendmessage-from-background-to-content-script-doesnt-work" target="_blank" rel="external">Chrome extension: sendMessage from background to content script doesn’t work</a></p>
+          ##项目结构
+主要分为三个重要的文件 
 
-          
+manifest.json 配置各种信息, 相当于项目主入口
+background.js 项目后台跑的脚本,项目的主程序
+content_script.js 项目与前台dom网页交互的网页, 
+
+background.js 和 content_script.
+          ...
+
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/12/07/网页前端/2016-12-07- Chrome插件编写--Rap跨域插件/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -771,33 +730,16 @@
       
         
           
-            <p>##背压的分离<br><img src="../../images/14809911824786.png" alt=""></p>
-<p>###Flowable/Subscriber</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">Flowable.range(<span class="number">0</span>,<span class="number">10</span>)</div><div class="line">.subscribe(<span class="keyword">new</span> Subscriber&lt;Integer&gt;() &#123;</div><div class="line">    Subscription sub;</div><div class="line">    <span class="comment">//当订阅后，会首先调用这个方法，其实就相当于onStart()，</span></div><div class="line">    <span class="comment">//传入的Subscription s参数可以用于请求数据或者取消订阅</span></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onSubscribe</span><span class="params">(Subscription s)</span> </span>&#123;</div><div class="line">        Log.w(<span class="string">"TAG"</span>,<span class="string">"onsubscribe start"</span>);</div><div class="line">        sub=s;</div><div class="line">        sub.request(<span class="number">1</span>);</div><div class="line">        Log.w(<span class="string">"TAG"</span>,<span class="string">"onsubscribe end"</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onNext</span><span class="params">(Integer o)</span> </span>&#123;</div><div class="line">        Log.w(<span class="string">"TAG"</span>,<span class="string">"onNext---&gt;"</span>+o);</div><div class="line">        sub.request(<span class="number">1</span>);</div><div class="line">    &#125;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onError</span><span class="params">(Throwable t)</span> </span>&#123;</div><div class="line">        t.printStackTrace();</div><div class="line">    &#125;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onComplete</span><span class="params">()</span> </span>&#123;</div><div class="line">        Log.w(<span class="string">"TAG"</span>,<span class="string">"onComplete"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-<p>输出:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">onsubscribe start</div><div class="line">onNext---&gt;<span class="number">0</span></div><div class="line">onNext---&gt;<span class="number">1</span></div><div class="line">onNext---&gt;<span class="number">2</span></div><div class="line">...</div><div class="line">onNext---&gt;<span class="number">10</span></div><div class="line">onComplete</div><div class="line">onsubscribe end</div></pre></td></tr></table></figure>
-<blockquote>
-<p>根据上面的代码的结果输出中可以看到，当我们调用subscription.request(n)方法的时候，不等onSubscribe()中后面的代码执行，就会立刻执行到onNext方法，因此，如果你在onNext方法中使用到需要初始化的类时，应当尽量在subscription.request(n)这个方法调用之前做好初始化的工作;</p>
-</blockquote>
-<p>另外一种创建方法</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">Flowable.create(<span class="keyword">new</span> FlowableOnSubscribe&lt;Integer&gt;() &#123;</div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">subscribe</span><span class="params">(FlowableEmitter&lt;Integer&gt; e)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">                e.onNext(<span class="number">1</span>);</div><div class="line">                e.onNext(<span class="number">2</span>);</div><div class="line">                e.onNext(<span class="number">3</span>);</div><div class="line">                e.onNext(<span class="number">4</span>);</div><div class="line">                e.onComplete();</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">//需要指定背压策略</span></div><div class="line">        , BackpressureStrategy.BUFFER);</div></pre></td></tr></table></figure>
-<p>##其他观察者模式</p>
-<ul>
-<li>Single/SingleObserver</li>
-<li>Completable/CompletableObserver</li>
-<li>Maybe/MaybeObserver</li>
-</ul>
-<p>以上三种类似, 比较适合发送单个数据, 并不适合发送大量数据.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//判断是否登陆</span></div><div class="line">Maybe.just(isLogin())</div><div class="line">    <span class="comment">//可能涉及到IO操作，放在子线程</span></div><div class="line">    .subscribeOn(Schedulers.newThread())</div><div class="line">    <span class="comment">//取回结果传到主线程</span></div><div class="line">    .observeOn(AndroidSchedulers.mainThread())</div><div class="line">    .subscribe(<span class="keyword">new</span> MaybeObserver&lt;Boolean&gt;() &#123;</div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onSubscribe</span><span class="params">(Disposable d)</span> </span>&#123;</div><div class="line"></div><div class="line">            &#125;</div><div class="line"></div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onSuccess</span><span class="params">(Boolean value)</span> </span>&#123;</div><div class="line">                <span class="keyword">if</span>(value)&#123;</div><div class="line">                    ...</div><div class="line">                &#125;<span class="keyword">else</span>&#123;</div><div class="line">                    ...</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onError</span><span class="params">(Throwable e)</span> </span>&#123;</div><div class="line"></div><div class="line">            &#125;</div><div class="line"></div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onComplete</span><span class="params">()</span> </span>&#123;</div><div class="line"></div><div class="line">            &#125;</div><div class="line">        &#125;);</div></pre></td></tr></table></figure>
-<blockquote>
-<p>实际上，这种观察者模式并不用于发送大量数据，而是发送单个数据，也就是说，当你只想要某个事件的结果（true or false)的时候，你可以用这种观察者模式</p>
-</blockquote>
-<p>##Action<br>Rx1.0———–Rx2.0</p>
-<p>Action1——–Action<br>Action1——–Consumer<br>Action2——–BiConsumer<br>后面的Action都去掉了，只保留了ActionN</p>
-<p>##参考<br><a href="https://gold.xitu.io/post/582b2c818ac24700618ff8f5" target="_blank" rel="external">2.x</a></p>
-<p><img src="../../images/14809920736706.jpg" alt=""><br><img src="../../images/14809920799065.jpg" alt=""><br><img src="../../images/14809920850565.jpg" alt=""><br><img src="../../images/14809920917273.jpg" alt=""><br><img src="../../images/14809920976579.jpg" alt=""><br><img src="../../images/14809921067279.jpg" alt=""><br><img src="../../images/14809921107635.jpg" alt=""><br><img src="../../images/14809921149439.jpg" alt=""></p>
+          ##背压的分离
+###Flowable/Subscriber
+123456789101112131415161718192021222324252627Flowable.range(0,10).subscribe(new Subscriber&lt;Integer&gt;() &#123;    S
+          ...
 
-          
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/12/06/Android/2016-12-06-RxJava 2.x新特性/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -915,21 +857,15 @@
       
         
           
-            <p>#语法说明</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">item</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span> 设置名称 <span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">appendix</span>&gt;</span>副标题（非必要的）<span class="tag">&lt;/<span class="name">appendix</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">identifier</span>&gt;</span>本设置的标签，通常要加一个private.的前缀 <span class="tag">&lt;/<span class="name">identifier</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">autogen</span>&gt;</span>按键定义<span class="tag">&lt;/<span class="name">autogen</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">autogen</span>&gt;</span>按键定义<span class="tag">&lt;/<span class="name">autogen</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">item</span>&gt;</span></div><div class="line"> 关键字说明</div></pre></td></tr></table></figure>
-<ul>
-<li><code>&lt;autogen&gt;</code></li>
-<li>你要更改哪个键: <code>__KeyToKey__ KeyCode::</code></li>
-<li>你要改成的功能:<code>ConsumerKeyCode::</code></li>
-<li>你要改成 —— 组合键中后按的键: <code>KeyCCode::</code></li>
-<li>你要改成 —— 组合键中先按的键: <code>ModifierFlag::</code></li>
-</ul>
-<p>比如需要将<code>shift</code>修改成切换输入法<code>command +  space</code></p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">autogen</span>&gt;</span></div><div class="line">	        __KeyToKey__</div><div class="line">	        KeyCode::SHIFT_L,</div><div class="line">	        KeyCode::SPACE,ModifierFlag::COMMAND_L</div><div class="line"><span class="tag">&lt;/<span class="name">autogen</span>&gt;</span></div></pre></td></tr></table></figure>
-<p>例子:<br>按shift 150毫秒内为切换输入法, 超过150毫秒为shift长按</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">item</span>&gt;</span> </div><div class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>Switch_Chinese_English<span class="tag">&lt;/<span class="name">name</span>&gt;</span> </div><div class="line">    <span class="tag">&lt;<span class="name">appendix</span>&gt;</span>Switch_Chinese_English<span class="tag">&lt;/<span class="name">appendix</span>&gt;</span> </div><div class="line">    <span class="tag">&lt;<span class="name">identifier</span>&gt;</span>private.switch<span class="tag">&lt;/<span class="name">identifier</span>&gt;</span> </div><div class="line">    <span class="tag">&lt;<span class="name">autogen</span>&gt;</span>__HoldingKeyToKey__ </div><div class="line">        KeyCode::SHIFT_R, </div><div class="line">        @begin </div><div class="line">        KeyCode::SPACE, ModifierFlag::COMMAND_L, ModifierFlag::OPTION_L, </div><div class="line">        @end </div><div class="line">        @begin </div><div class="line">        KeyCode::VK_NONE, KeyCode::SHIFT_R, </div><div class="line">        @end </div><div class="line">        ThresholdMillisecond::RawValue::150, </div><div class="line">    <span class="tag">&lt;/<span class="name">autogen</span>&gt;</span> </div><div class="line">    <span class="tag">&lt;<span class="name">autogen</span>&gt;</span>__HoldingKeyToKey__ </div><div class="line">        KeyCode::SHIFT_L, </div><div class="line">        KeyCode::SPACE, ModifierFlag::COMMAND_L, ModifierFlag::OPTION_L, </div><div class="line">        KeyCode::VK_NONE, KeyCode::SHIFT_L, </div><div class="line">        ThresholdMillisecond::RawValue::150, </div><div class="line">    <span class="tag">&lt;/<span class="name">autogen</span>&gt;</span> </div><div class="line"><span class="tag">&lt;/<span class="name">item</span>&gt;</span></div></pre></td></tr></table></figure>
+          #语法说明
+12345678&lt;item&gt;    &lt;name&gt; 设置名称 &lt;/name&gt;    &lt;appendix&gt;副标题（非必要的）&lt;/appendix&gt;    &lt;identifier&gt;本设置的标签，通常要加一个private.
+          ...
 
-          
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/12/01/工具软件/2016-12-01-Karabiner使用说明/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -1047,60 +983,21 @@
       
         
           
-            <p>#Jenkins安装<br>安装官网说明即可</p>
-<p>#new item</p>
-<p>##触发器<br>每俩个小时检查一次<br><img src="../../images/14802317923780.jpg" alt=""></p>
-<ul>
-<li>Build after other projects are built：在其他项目构建完成后再进行构建。</li>
-</ul>
-<blockquote>
-<p>Trigger only if build is stable：其他项目构建成功<br>Trigger even if the build is unstable：其他项目不稳定<br>Trigger even if the build fails：其他项目构建失败</p>
-</blockquote>
-<ul>
-<li>Build periodically：周期进行构建</li>
-</ul>
-<blockquote>
-<p>例如：0 4 <em> </em> *  （每天凌晨4点必须构建一次源码</p>
-</blockquote>
-<ul>
-<li>Poll SCM：根据SCM软件的版本号，定时检查源码变更。如果有更新，则checkout最新code，然后执行构建动作</li>
-</ul>
-<blockquote>
-<p>例如：H/10 <em> </em> <em> </em>  （每10分钟检查一次源码变化，如果有更新才build）<br>H H/2 <em> </em> *(每2个小时检查一次源码变化)<br>第1列分钟1～59<br>第2列小时0～23<br>第3列日1～31<br>第4列月1～12<br>第5列星期0～7(0和7表示星期日)</p>
-</blockquote>
-<p>#问题</p>
-<ul>
-<li>问题1</li>
-</ul>
-<p><img src="../../images/14802329744607.jpg" alt=""><br>权限不够, 需要给Jenkins用户提升权限</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo chown -R Jenkins /Users/Shared/Jenkins/</div></pre></td></tr></table></figure>
-<p>之后还是不行, 后来发现是要在服务器上安装<code>gradle</code>….<br>安装<code>gradle</code>之后, 重启Jenkins就可以了, 注意要用启动Jenkins的用户去安装gradle</p>
-<ul>
-<li>问题2</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[Cestbon-ManageHelper] $ gradle clean build</div><div class="line">Parallel execution is an incubating feature.</div><div class="line">Failed to notify ProjectEvaluationListener.afterEvaluate(), but primary configuration failure takes precedence.</div><div class="line">java.lang.RuntimeException: SDK location not found. Define location with sdk.dir in the local.properties file or with an ANDROID_HOME environment variable.</div></pre></td></tr></table></figure>
-<p>这是因为没有配置<code>ANDROID_HOME</code>, 上传android sdk到服务器某个路径, 然后在Jenkins -&gt; Manage Jenkins -&gt; Configure System -&gt;<br><img src="../../images/14813555031545.jpg" alt=""></p>
-<ul>
-<li>问题3</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">:cestboncommon:mergeReleaseResources</div><div class="line">AAPT err(Facade for 1315897387): /opt/tools/android/sdk/build-tools/23.0.0/aapt: /opt/tools/android/sdk/build-tools/23.0.0/aapt: cannot execute binary file</div><div class="line">AAPT err(Facade for 991986970): /opt/tools/android/sdk/build-tools/23.0.0/aapt: /opt/tools/android/sdk/build-tools/23.0.0/aapt: cannot execute binary file</div><div class="line">AAPT err(Facade for 1415592400): /opt/tools/android/sdk/build-tools/23.0.0/aapt: /opt/tools/android/sdk/build-tools/23.0.0/aapt: cannot execute binary file</div><div class="line">AAPT err(Facade for 87162211): /opt/tools/android/sdk/build-tools/23.0.0/aapt: /opt/tools/android/sdk/build-tools/23.0.0/aapt: cannot execute binary file</div><div class="line">AAPT err(Facade for 862248369): /opt/tools/android/sdk/build-tools/23.0.0/aapt: /opt/tools/android/sdk/build-tools/23.0.0/aapt: cannot execute binary file</div><div class="line">AAPT err(Facade for 905875278): /opt/tools/android/sdk/build-tools/23.0.0/aapt: /opt/tools/android/sdk/build-tools/23.0.0/aapt: cannot execute binary file</div><div class="line">AAPT err(Facade for 754727152): /opt/tools/android/sdk/build-tools/23.0.0/aapt: /opt/tools/android/sdk/build-tools/23.0.0/aapt: cannot execute binary file</div><div class="line">AAPT err(Facade for 1407308526): /opt/tools/android/sdk/build-tools/23.0.0/aapt: /opt/tools/android/sdk/build-tools/23.0.0/aapt: cannot execute binary file</div><div class="line">AAPT err(Facade for 1789828857): /opt/tools/android/sdk/build-tools/23.0.0/aapt: /opt/tools/android/sdk/build-tools/23.0.0/aapt: cannot execute binary file</div><div class="line">AAPT err(Facade for 1694557922): /opt/tools/android/sdk/build-tools/23.0.0/aapt: /opt/tools/android/sdk/build-tools/23.0.0/aapt: cannot execute binary file</div><div class="line">AAPT err(Facade for 1863205552): /opt/tools/android/sdk/build-tools/23.0.0/aapt: /opt/tools/android/sdk/build-tools/23.0.0/aapt: cannot execute binary file</div><div class="line">AAPT err(Facade for 520177477): /opt/tools/android/sdk/build-tools/23.0.0/aapt: /opt/tools/android/sdk/build-tools/23.0.0/aapt: cannot execute binary file</div><div class="line">AAPT err(Facade for 2136808895): /opt/tools/android/sdk/build-tools/23.0.0/aapt: /opt/tools/android/sdk/build-tools/23.0.0/aapt: cannot execute binary file</div><div class="line">AAPT err(Facade for 1187580997): /opt/tools/android/sdk/build-tools/23.0.0/aapt: /opt/tools/android/sdk/build-tools/23.0.0/aapt: cannot execute binary file</div><div class="line">AAPT err(Facade for 874166748): /opt/tools/android/sdk/build-tools/23.0.0/aapt: /opt/tools/android/sdk/build-tools/23.0.0/aapt: cannot execute binary file</div><div class="line">AAPT err(Facade for 973038570): /opt/tools/android/sdk/build-tools/23.0.0/aapt: /opt/tools/android/sdk/build-tools/23.0.0/aapt: cannot execute binary file</div><div class="line">AAPT err(Facade for 1122485489): /opt/tools/android/sdk/build-tools/23.0.0/aapt: /opt/tools/android/sdk/build-tools/23.0.0/aapt: cannot execute binary file</div><div class="line">AAPT err(Facade for 1942773400): /opt/tools/android/sdk/build-tools/23.0.0/aapt: /opt/tools/android/sdk/build-tools/23.0.0/aapt: cannot execute binary file</div><div class="line">AAPT err(Facade for 1456361903): /opt/tools/android/sdk/build-tools/23.0.0/aapt: /opt/tools/android/sdk/build-tools/23.0.0/aapt: cannot execute binary file</div><div class="line">AAPT err(Facade for 1057678311): /opt/tools/android/sdk/build-tools/23.0.0/aapt: /opt/tools/android/sdk/build-tools/23.0.0/aapt: cannot execute binary file</div><div class="line">Exception in thread &quot;png-cruncher_8&quot; java.lang.RuntimeException: Timed out while waiting for slave aapt process, make sure the aapt execute at /opt/tools/android/sdk/build-tools/23.0.0/aapt can run successfully (some anti-virus may block it) or try setting environment variable SLAVE_AAPT_TIMEOUT to a value bigger than 5 seconds</div><div class="line">        at com.android.builder.png.AaptProcess.waitForReady(AaptProcess.java:108)</div><div class="line">        at com.android.builder.png.QueuedCruncher$1.creation(QueuedCruncher.java:110)</div><div class="line">        at com.android.builder.tasks.WorkQueue.run(WorkQueue.java:203)</div><div class="line">        at java.lang.Thread.run(Thread.java:745)</div><div class="line">Exception in thread &quot;png-cruncher_7&quot; java.lang.RuntimeException: Timed out while waiting for slave aapt process, make sure the aapt execute at /opt/tools/android/sdk/build-tools/23.0.0/aapt can run successfully (some anti-virus may block it) or try setting environment variable SLAVE_AAPT_TIMEOUT to a value bigger than 5 seconds</div></pre></td></tr></table></figure>
-<p>几个原因</p>
-<ul>
-<li>没有aapt的执行权限</li>
-<li><p>linux是32位的, 而执行的aapt是64位的, </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">yum -y install zlib.i686</div><div class="line">yum -y install libstdc++</div><div class="line">yum -y install libstdc++.i686</div><div class="line">yum -y install glibc.i686</div></pre></td></tr></table></figure>
-</li>
-<li><p>而我则是…使用了mac的<code>build tools</code>, 重新下载linux版的build tools解决</p>
-</li>
-</ul>
-<ul>
-<li>问题4</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">FAILURE: Build failed with an exception.</div><div class="line"></div><div class="line">* What went wrong:</div><div class="line">Execution failed for task &apos;:app:lint&apos;.</div><div class="line">&gt; Lint found errors in the project; aborting build.</div><div class="line">  </div><div class="line">  Fix the issues identified by lint, or add the following to your build script to proceed with errors:</div><div class="line">  ...</div><div class="line">  android &#123;</div><div class="line">      lintOptions &#123;</div><div class="line">          abortOnError false</div><div class="line">      &#125;</div><div class="line">  &#125;</div><div class="line">  ...</div></pre></td></tr></table></figure>
-<p>Jenkins默认开启Lint检查<br>所以需要在build.gradle添加如下(每一个module都需要添加)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">android &#123;</div><div class="line">      lintOptions &#123;</div><div class="line">          abortOnError false</div><div class="line">      &#125;</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+          #Jenkins安装安装官网说明即可
+#new item
+##触发器每俩个小时检查一次
 
-          
+Build after other projects are built：在其他项目构建完成后再进行构建。
+
+
+Trigger only if build is stable：其他项目构建成功Trigger e
+          ...
+
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/11/24/Android/2016-11-24-使用jenkins持续集成android/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -1218,16 +1115,16 @@
       
         
           
-            <p>####错误1<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">java.net.UnknownHostException: bogon: bogon: nodename nor servname provided, or not known</div></pre></td></tr></table></figure></p>
-<p>#####解决<br>方法一:</p>
-<p>这个<code>bogon</code>怎么都没找到我的程序里哪里有这个东西.网上查了一下,好像和路由映射有关系.最后查一篇文章,说这个问题只有mac会遇到.处理方法就是对<code>bogon</code>做个DNS解析指向<code>127.0.0.1</code>.</p>
-<p>修改文件<code>/etc/hosts</code>,在里面增加对<code>127.0.0.1</code>的解析.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">127.0.0.1    bogon    localhost</div></pre></td></tr></table></figure>
-<p>保存生效后,再启动tomcat就没这个问题了.</p>
-<p>方法二:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">重启路由</div></pre></td></tr></table></figure>
+          ####错误11java.net.UnknownHostException: bogon: bogon: nodename nor servname provided, or not known
+#####解决方法一:
+这个bogon怎么都没找到我的程序里哪里有这个东西.网上查了一下,好像和路由映射
+          ...
 
-          
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/11/20/服务器/2016-11-20-tomcat启动错误/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -1551,29 +1448,15 @@
       
         
           
-            <h2 id="Base64"><a href="#Base64" class="headerlink" title="Base64"></a>Base64</h2><p>Android自身带有Base64加密与解密的包，可以方便地加密密码方便传输。要注意decode的时候第二个参数<code>flag</code>的选值, 当使用<code>NO_WRAP</code>的时候, 是与apache的base64效果一致.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">String base64Token = Base64.encodeToString(token.trim().getBytes(), Base64.NO_WRAP);</div><div class="line"><span class="keyword">byte</span>[] mmmm = Base64.decode(base64Token,Base64.DEFAULT);</div></pre></td></tr></table></figure>
-<pre><code>1.  CRLF 这个参数看起来比较眼熟，它就是Win风格的换行符，意思就是使用CR LF这一对作为一行的结尾而不是Unix风格的LF 
+          Base64Android自身带有Base64加密与解密的包，可以方便地加密密码方便传输。要注意decode的时候第二个参数flag的选值, 当使用NO_WRAP的时候, 是与apache的base64效果一致.
+12String base64Token = Base64.encodeToStrin
+          ...
 
-
-2.  DEFAULT 这个参数是默认，使用默认的方法来加密 
-
-
-3.  NO_PADDING 这个参数是略去加密字符串最后的”=” 
-
-
-4.  NO_WRAP 这个参数意思是略去所有的换行符（设置后CRLF就没用了） 
-
-
-5.  URL_SAFE 这个参数意思是加密时不使用对URL和文件名有特殊意义的字符来作为加密字符，具体就是以-和_取代+和/ 
-</code></pre><h2 id="RSA加解密"><a href="#RSA加解密" class="headerlink" title="RSA加解密"></a>RSA加解密</h2><p>Android使用私钥加密后, Java服务器解密报错, 因为Android与Java使用了不同的RSA标准, 修改Android加密的代码如下:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line">    * 用私钥解密</div><div class="line">    *</div><div class="line">    * <span class="doctag">@param</span> encryptedData 经过encryptedData()加密返回的byte数据</div><div class="line">    * <span class="doctag">@param</span> privateKey    私钥</div><div class="line">    * <span class="doctag">@return</span></div><div class="line">    */</div><div class="line">   <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">byte</span>[] encryptData(<span class="keyword">byte</span>[] encryptedData, String privateKey) &#123;</div><div class="line">       <span class="keyword">try</span> &#123;</div><div class="line">           <span class="keyword">byte</span>[] keyBytes = Base64Utils.decode(privateKey);</div><div class="line">           PKCS8EncodedKeySpec pkcs8KeySpec = <span class="keyword">new</span> PKCS8EncodedKeySpec(keyBytes);</div><div class="line">           KeyFactory keyFactory = KeyFactory.getInstance(KEY_ALGORITHM);</div><div class="line">           PrivateKey privateK = keyFactory.generatePrivate(pkcs8KeySpec);</div><div class="line"></div><div class="line">           Cipher cipher = Cipher.getInstance(<span class="string">"RSA/ECB/PKCS1Padding"</span>);</div><div class="line">           cipher.init(Cipher.ENCRYPT_MODE, privateK);</div><div class="line">           <span class="keyword">return</span> cipher.doFinal(encryptedData);</div><div class="line">       &#125; <span class="keyword">catch</span> (Exception e) &#123;</div><div class="line">           <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">       &#125;</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
-<p>java:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Cipher cipher = Cipher.getInstance(<span class="string">"RSA/ECB/PKCS1Padding"</span>);</div></pre></td></tr></table></figure>
-<p>android :</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Cipher cipher = Cipher.getInstance(&quot;RSA/ECB/NoPadding&quot;);</div></pre></td></tr></table></figure>
-
-          
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/11/06/Android/2016-11-06-Android与Java的一些方法的不同/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
