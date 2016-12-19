@@ -272,6 +272,281 @@
             
               
                 
+                <a class="post-title-link" href="/2016/12/16/服务器/2016-12-16-Docker创建Tomcat集群/" itemprop="url">
+                  Docker创建集群
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-12-16T09:15:39+08:00" content="2016-12-16">
+              2016-12-16
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Docker/" itemprop="url" rel="index">
+                    <span itemprop="name">Docker</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/12/16/服务器/2016-12-16-Docker创建Tomcat集群/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/12/16/服务器/2016-12-16-Docker创建Tomcat集群/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>##问题</p>
+<p>swarm创建token的时候报错:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[ljw@localhost ~]$ sudo docker run swarm create</div><div class="line">WARNING: IPv4 forwarding is disabled. Networking will not work.</div><div class="line">2016/12/18 05:02:09 Post https://discovery.hub.docker.com/v1/clusters: dial tcp: lookup discovery.hub.docker.com on 10.211.55.1:53: read udp 172.17.0.2:47693-&gt;10.211.55.1:53: i/o timeout</div></pre></td></tr></table></figure>
+<p>解决:</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/12/15/服务器/2016-12-15-Docker常用命令参数/" itemprop="url">
+                  Docker常用命令参数
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-12-15T01:00:53+08:00" content="2016-12-15">
+              2016-12-15
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Docker/" itemprop="url" rel="index">
+                    <span itemprop="name">Docker</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/12/15/服务器/2016-12-15-Docker常用命令参数/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/12/15/服务器/2016-12-15-Docker常用命令参数/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>#容器</p>
+<h2 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ sudo docker run -t -i ubuntu:14.04 /bin/bash</div><div class="line">root@af8bae53bdd3:/#</div></pre></td></tr></table></figure>
+<p><code>-t</code>: 选项让Docker分配一个伪终端（pseudo-tty）并绑定到容器的标准输入上<br><code>-i</code>: 则让容器的标准输入保持打开</p>
+<p>直接在后台运行:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ sudo docker run -d ubuntu:14.04 /bin/sh -c &quot;while true; do echo hello world; sleep 1; done&quot;</div><div class="line">77b2dc01fe0f3f1265df143181e7b9af5e05279a884f4776ee75350ea9d8017a</div></pre></td></tr></table></figure>
+<p><code>-d</code> Docker在后台运行而不是直接把执行命令的结果输出在当前宿主机下</p>
+<p>可通过 <code>docker ps</code> 来查看如期信息:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ sudo docker ps</div><div class="line">CONTAINER ID  IMAGE         COMMAND               CREATED        STATUS       PORTS NAMES</div><div class="line">77b2dc01fe0f  ubuntu:14.04  /bin/sh -c &apos;while tr  2 minutes ago  Up 1 minute        agitated_wright</div></pre></td></tr></table></figure>
+<p><code>docker logs</code> 获取容器输出:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ sudo docker logs [container ID or NAMES]</div><div class="line">hello world</div><div class="line">hello world</div><div class="line">hello world</div><div class="line">. . .</div></pre></td></tr></table></figure>
+<h2 id="终止容器"><a href="#终止容器" class="headerlink" title="终止容器"></a>终止容器</h2><p><code>docker stop</code>: 终止一个容器</p>
+<p>可以通过<code>docker ps -a</code>查看终止状态:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">sudo docker ps -a</div><div class="line">CONTAINER ID        IMAGE                    COMMAND                CREATED             STATUS                          PORTS               NAMES</div><div class="line">ba267838cc1b        ubuntu:14.04             &quot;/bin/bash&quot;            30 minutes ago      Exited (0) About a minute ago                       trusting_newton</div><div class="line">98e5efa7d997        training/webapp:latest   &quot;python app.py&quot;        About an hour ago   Exited (0) 34 minutes ago                           backstabbing_pike</div></pre></td></tr></table></figure>
+<h2 id="重启"><a href="#重启" class="headerlink" title="重启"></a>重启</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo systemctl retart docker</div></pre></td></tr></table></figure>
+<p>或者</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo service docker restart</div></pre></td></tr></table></figure>
+<p>##进入容器<br> <code>docker attach</code> 用了参数<code>-d</code>启动的容器,可以使用这个进入容器.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$ sudo docker run -idt ubuntu</div><div class="line">243c32535da7d142fb0e6df616a3c3ada0b8ab417937c853a9e1c251f499f550</div><div class="line">$ sudo docker ps</div><div class="line">CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS                  PORTS               NAMES</div><div class="line">243c32535da7        ubuntu:latest       &quot;/bin/bash&quot;         18 seconds ago      Up 17 seconds                           nostalgic_hypatia</div><div class="line">$sudo docker attach nostalgic_hypatia</div><div class="line">root@243c32535da7:/#</div></pre></td></tr></table></figure>
+<p>##创建一个数据卷</p>
+<p>创建一个名为 web 的容器，并加载一个数据卷到容器的 /webapp 目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo docker run -d -P --name web -v /webapp training/webapp python app.py</div></pre></td></tr></table></figure>
+<p>使用 <code>-v</code> 标记也可以指定挂载一个本地主机的目录到容器中去。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo docker run -d -P --name web -v /src/webapp:/opt/webapp training/webapp python app.py</div></pre></td></tr></table></figure>
+<p>上面的命令加载主机的<code>/src/webapp</code>目录到容器的<code>/opt/webapp</code> 目录。</p>
+<p>##容器互联</p>
+<p>使用 <code>--link</code>参数可以让容器之间安全的进行交互。<br>下面先创建一个新的数据库容器。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo docker run -d --name db training/postgres</div></pre></td></tr></table></figure>
+<p>删除之前创建的 web 容器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ docker rm -f web</div></pre></td></tr></table></figure>
+<p>然后创建一个新的 web 容器，并将它连接到 db 容器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo docker run -d -P --name web --link db:db training/webapp python app.py</div></pre></td></tr></table></figure>
+<p>此时，db 容器和 web 容器建立互联关系</p>
+<p><code>--link</code> 参数的格式为 <code>--link name:alias</code>，其中 <code>name</code> 是要链接的容器的名称，<code>alias</code>是这个连接的别名。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/12/07/网页前端/2016-12-07- Chrome插件编写--Rap跨域插件/" itemprop="url">
                   Chrome插件编写--Rap跨域插件
                 </a>
@@ -641,20 +916,18 @@
         
           
             <p>#语法说明</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;item&gt;</div><div class="line">`&lt;name&gt; 设置名称 &lt;/name&gt;`</div><div class="line">&lt;appendix&gt;副标题（非必要的）&lt;/appendix&gt;</div><div class="line">&lt;identifier&gt;本设置的标签，通常要加一个private.的前缀 &lt;/identifier&gt;</div><div class="line">&lt;autogen&gt;按键定义&lt;/autogen&gt;</div><div class="line">&lt;autogen&gt;按键定义&lt;/autogen&gt;</div><div class="line">&lt;/item&gt;</div><div class="line"> 关键字说明</div></pre></td></tr></table></figure>
-<blockquote>
-<p><code>&lt;autogen&gt;</code></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">item</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span> 设置名称 <span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">appendix</span>&gt;</span>副标题（非必要的）<span class="tag">&lt;/<span class="name">appendix</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">identifier</span>&gt;</span>本设置的标签，通常要加一个private.的前缀 <span class="tag">&lt;/<span class="name">identifier</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">autogen</span>&gt;</span>按键定义<span class="tag">&lt;/<span class="name">autogen</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">autogen</span>&gt;</span>按键定义<span class="tag">&lt;/<span class="name">autogen</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">item</span>&gt;</span></div><div class="line"> 关键字说明</div></pre></td></tr></table></figure>
 <ul>
+<li><code>&lt;autogen&gt;</code></li>
 <li>你要更改哪个键: <code>__KeyToKey__ KeyCode::</code></li>
 <li>你要改成的功能:<code>ConsumerKeyCode::</code></li>
 <li>你要改成 —— 组合键中后按的键: <code>KeyCCode::</code></li>
 <li>你要改成 —— 组合键中先按的键: <code>ModifierFlag::</code></li>
 </ul>
-</blockquote>
 <p>比如需要将<code>shift</code>修改成切换输入法<code>command +  space</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;autogen&gt;</div><div class="line">	        __KeyToKey__</div><div class="line">	        KeyCode::SHIFT_L,</div><div class="line">	        KeyCode::SPACE,ModifierFlag::COMMAND_L</div><div class="line">&lt;/autogen&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">autogen</span>&gt;</span></div><div class="line">	        __KeyToKey__</div><div class="line">	        KeyCode::SHIFT_L,</div><div class="line">	        KeyCode::SPACE,ModifierFlag::COMMAND_L</div><div class="line"><span class="tag">&lt;/<span class="name">autogen</span>&gt;</span></div></pre></td></tr></table></figure>
 <p>例子:<br>按shift 150毫秒内为切换输入法, 超过150毫秒为shift长按</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">&lt;item&gt; </div><div class="line">&lt;name&gt;Switch_Chinese_English&lt;/name&gt; </div><div class="line">&lt;appendix&gt;Switch_Chinese_English&lt;/appendix&gt; </div><div class="line">&lt;identifier&gt;private.switch&lt;/identifier&gt; </div><div class="line">&lt;autogen&gt;__HoldingKeyToKey__ </div><div class="line">KeyCode::SHIFT_R, </div><div class="line">@begin </div><div class="line">KeyCode::SPACE, ModifierFlag::COMMAND_L, ModifierFlag::OPTION_L, </div><div class="line">@end </div><div class="line">@begin </div><div class="line">KeyCode::VK_NONE, KeyCode::SHIFT_R, </div><div class="line">@end </div><div class="line">ThresholdMillisecond::RawValue::150, </div><div class="line">&lt;/autogen&gt; </div><div class="line">&lt;autogen&gt;__HoldingKeyToKey__ </div><div class="line">KeyCode::SHIFT_L, </div><div class="line">KeyCode::SPACE, ModifierFlag::COMMAND_L, ModifierFlag::OPTION_L, </div><div class="line">KeyCode::VK_NONE, KeyCode::SHIFT_L, </div><div class="line">ThresholdMillisecond::RawValue::150, </div><div class="line">&lt;/autogen&gt; </div><div class="line">&lt;/item&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">item</span>&gt;</span> </div><div class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>Switch_Chinese_English<span class="tag">&lt;/<span class="name">name</span>&gt;</span> </div><div class="line">    <span class="tag">&lt;<span class="name">appendix</span>&gt;</span>Switch_Chinese_English<span class="tag">&lt;/<span class="name">appendix</span>&gt;</span> </div><div class="line">    <span class="tag">&lt;<span class="name">identifier</span>&gt;</span>private.switch<span class="tag">&lt;/<span class="name">identifier</span>&gt;</span> </div><div class="line">    <span class="tag">&lt;<span class="name">autogen</span>&gt;</span>__HoldingKeyToKey__ </div><div class="line">        KeyCode::SHIFT_R, </div><div class="line">        @begin </div><div class="line">        KeyCode::SPACE, ModifierFlag::COMMAND_L, ModifierFlag::OPTION_L, </div><div class="line">        @end </div><div class="line">        @begin </div><div class="line">        KeyCode::VK_NONE, KeyCode::SHIFT_R, </div><div class="line">        @end </div><div class="line">        ThresholdMillisecond::RawValue::150, </div><div class="line">    <span class="tag">&lt;/<span class="name">autogen</span>&gt;</span> </div><div class="line">    <span class="tag">&lt;<span class="name">autogen</span>&gt;</span>__HoldingKeyToKey__ </div><div class="line">        KeyCode::SHIFT_L, </div><div class="line">        KeyCode::SPACE, ModifierFlag::COMMAND_L, ModifierFlag::OPTION_L, </div><div class="line">        KeyCode::VK_NONE, KeyCode::SHIFT_L, </div><div class="line">        ThresholdMillisecond::RawValue::150, </div><div class="line">    <span class="tag">&lt;/<span class="name">autogen</span>&gt;</span> </div><div class="line"><span class="tag">&lt;/<span class="name">item</span>&gt;</span></div></pre></td></tr></table></figure>
 
           
         
@@ -797,9 +1070,35 @@
 </blockquote>
 <p>#问题</p>
 <ul>
-<li><img src="../../images/14802329744607.jpg" alt=""><br>权限不够, 需要给Jenkins用户提升权限</li>
+<li>问题1</li>
 </ul>
+<p><img src="../../images/14802329744607.jpg" alt=""><br>权限不够, 需要给Jenkins用户提升权限</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo chown -R Jenkins /Users/Shared/Jenkins/</div></pre></td></tr></table></figure>
+<p>之后还是不行, 后来发现是要在服务器上安装<code>gradle</code>….<br>安装<code>gradle</code>之后, 重启Jenkins就可以了, 注意要用启动Jenkins的用户去安装gradle</p>
+<ul>
+<li>问题2</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[Cestbon-ManageHelper] $ gradle clean build</div><div class="line">Parallel execution is an incubating feature.</div><div class="line">Failed to notify ProjectEvaluationListener.afterEvaluate(), but primary configuration failure takes precedence.</div><div class="line">java.lang.RuntimeException: SDK location not found. Define location with sdk.dir in the local.properties file or with an ANDROID_HOME environment variable.</div></pre></td></tr></table></figure>
+<p>这是因为没有配置<code>ANDROID_HOME</code>, 上传android sdk到服务器某个路径, 然后在Jenkins -&gt; Manage Jenkins -&gt; Configure System -&gt;<br><img src="../../images/14813555031545.jpg" alt=""></p>
+<ul>
+<li>问题3</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">:cestboncommon:mergeReleaseResources</div><div class="line">AAPT err(Facade for 1315897387): /opt/tools/android/sdk/build-tools/23.0.0/aapt: /opt/tools/android/sdk/build-tools/23.0.0/aapt: cannot execute binary file</div><div class="line">AAPT err(Facade for 991986970): /opt/tools/android/sdk/build-tools/23.0.0/aapt: /opt/tools/android/sdk/build-tools/23.0.0/aapt: cannot execute binary file</div><div class="line">AAPT err(Facade for 1415592400): /opt/tools/android/sdk/build-tools/23.0.0/aapt: /opt/tools/android/sdk/build-tools/23.0.0/aapt: cannot execute binary file</div><div class="line">AAPT err(Facade for 87162211): /opt/tools/android/sdk/build-tools/23.0.0/aapt: /opt/tools/android/sdk/build-tools/23.0.0/aapt: cannot execute binary file</div><div class="line">AAPT err(Facade for 862248369): /opt/tools/android/sdk/build-tools/23.0.0/aapt: /opt/tools/android/sdk/build-tools/23.0.0/aapt: cannot execute binary file</div><div class="line">AAPT err(Facade for 905875278): /opt/tools/android/sdk/build-tools/23.0.0/aapt: /opt/tools/android/sdk/build-tools/23.0.0/aapt: cannot execute binary file</div><div class="line">AAPT err(Facade for 754727152): /opt/tools/android/sdk/build-tools/23.0.0/aapt: /opt/tools/android/sdk/build-tools/23.0.0/aapt: cannot execute binary file</div><div class="line">AAPT err(Facade for 1407308526): /opt/tools/android/sdk/build-tools/23.0.0/aapt: /opt/tools/android/sdk/build-tools/23.0.0/aapt: cannot execute binary file</div><div class="line">AAPT err(Facade for 1789828857): /opt/tools/android/sdk/build-tools/23.0.0/aapt: /opt/tools/android/sdk/build-tools/23.0.0/aapt: cannot execute binary file</div><div class="line">AAPT err(Facade for 1694557922): /opt/tools/android/sdk/build-tools/23.0.0/aapt: /opt/tools/android/sdk/build-tools/23.0.0/aapt: cannot execute binary file</div><div class="line">AAPT err(Facade for 1863205552): /opt/tools/android/sdk/build-tools/23.0.0/aapt: /opt/tools/android/sdk/build-tools/23.0.0/aapt: cannot execute binary file</div><div class="line">AAPT err(Facade for 520177477): /opt/tools/android/sdk/build-tools/23.0.0/aapt: /opt/tools/android/sdk/build-tools/23.0.0/aapt: cannot execute binary file</div><div class="line">AAPT err(Facade for 2136808895): /opt/tools/android/sdk/build-tools/23.0.0/aapt: /opt/tools/android/sdk/build-tools/23.0.0/aapt: cannot execute binary file</div><div class="line">AAPT err(Facade for 1187580997): /opt/tools/android/sdk/build-tools/23.0.0/aapt: /opt/tools/android/sdk/build-tools/23.0.0/aapt: cannot execute binary file</div><div class="line">AAPT err(Facade for 874166748): /opt/tools/android/sdk/build-tools/23.0.0/aapt: /opt/tools/android/sdk/build-tools/23.0.0/aapt: cannot execute binary file</div><div class="line">AAPT err(Facade for 973038570): /opt/tools/android/sdk/build-tools/23.0.0/aapt: /opt/tools/android/sdk/build-tools/23.0.0/aapt: cannot execute binary file</div><div class="line">AAPT err(Facade for 1122485489): /opt/tools/android/sdk/build-tools/23.0.0/aapt: /opt/tools/android/sdk/build-tools/23.0.0/aapt: cannot execute binary file</div><div class="line">AAPT err(Facade for 1942773400): /opt/tools/android/sdk/build-tools/23.0.0/aapt: /opt/tools/android/sdk/build-tools/23.0.0/aapt: cannot execute binary file</div><div class="line">AAPT err(Facade for 1456361903): /opt/tools/android/sdk/build-tools/23.0.0/aapt: /opt/tools/android/sdk/build-tools/23.0.0/aapt: cannot execute binary file</div><div class="line">AAPT err(Facade for 1057678311): /opt/tools/android/sdk/build-tools/23.0.0/aapt: /opt/tools/android/sdk/build-tools/23.0.0/aapt: cannot execute binary file</div><div class="line">Exception in thread &quot;png-cruncher_8&quot; java.lang.RuntimeException: Timed out while waiting for slave aapt process, make sure the aapt execute at /opt/tools/android/sdk/build-tools/23.0.0/aapt can run successfully (some anti-virus may block it) or try setting environment variable SLAVE_AAPT_TIMEOUT to a value bigger than 5 seconds</div><div class="line">        at com.android.builder.png.AaptProcess.waitForReady(AaptProcess.java:108)</div><div class="line">        at com.android.builder.png.QueuedCruncher$1.creation(QueuedCruncher.java:110)</div><div class="line">        at com.android.builder.tasks.WorkQueue.run(WorkQueue.java:203)</div><div class="line">        at java.lang.Thread.run(Thread.java:745)</div><div class="line">Exception in thread &quot;png-cruncher_7&quot; java.lang.RuntimeException: Timed out while waiting for slave aapt process, make sure the aapt execute at /opt/tools/android/sdk/build-tools/23.0.0/aapt can run successfully (some anti-virus may block it) or try setting environment variable SLAVE_AAPT_TIMEOUT to a value bigger than 5 seconds</div></pre></td></tr></table></figure>
+<p>几个原因</p>
+<ul>
+<li>没有aapt的执行权限</li>
+<li><p>linux是32位的, 而执行的aapt是64位的, </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">yum -y install zlib.i686</div><div class="line">yum -y install libstdc++</div><div class="line">yum -y install libstdc++.i686</div><div class="line">yum -y install glibc.i686</div></pre></td></tr></table></figure>
+</li>
+<li><p>而我则是…使用了mac的<code>build tools</code>, 重新下载linux版的build tools解决</p>
+</li>
+</ul>
+<ul>
+<li>问题4</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">FAILURE: Build failed with an exception.</div><div class="line"></div><div class="line">* What went wrong:</div><div class="line">Execution failed for task &apos;:app:lint&apos;.</div><div class="line">&gt; Lint found errors in the project; aborting build.</div><div class="line">  </div><div class="line">  Fix the issues identified by lint, or add the following to your build script to proceed with errors:</div><div class="line">  ...</div><div class="line">  android &#123;</div><div class="line">      lintOptions &#123;</div><div class="line">          abortOnError false</div><div class="line">      &#125;</div><div class="line">  &#125;</div><div class="line">  ...</div></pre></td></tr></table></figure>
+<p>Jenkins默认开启Lint检查<br>所以需要在build.gradle添加如下(每一个module都需要添加)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">android &#123;</div><div class="line">      lintOptions &#123;</div><div class="line">          abortOnError false</div><div class="line">      &#125;</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
 
           
         
@@ -1301,362 +1600,11 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/11/02/Android/2016-11-02-2017计划实现的技术点/" itemprop="url">
-                  计划技术点规划
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-11-02T02:14:15+08:00" content="2016-11-02">
-              2016-11-02
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/11/02/Android/2016-11-02-2017计划实现的技术点/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/02/Android/2016-11-02-2017计划实现的技术点/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          计划技术点规划
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/11/02/Android/2016-11-02-2017计划实现的技术点/">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/10/13/杂记/2016-10-13-简历(Android模板)/" itemprop="url">
-                  Android程序员简历模板
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-10-13T22:58:39+08:00" content="2016-10-13">
-              2016-10-13
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/10/13/杂记/2016-10-13-简历(Android模板)/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/13/杂记/2016-10-13-简历(Android模板)/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Android程序员简历模板"><a href="#Android程序员简历模板" class="headerlink" title="Android程序员简历模板"></a>Android程序员简历模板</h1><p>本简历模板由国内首家互联网人才拍卖网站「 <a href="http://www.jobdeer.com" target="_blank" rel="external">JobDeer.com</a> 」提供。</p>
-<p>（括号里的是我们的顾问编写的说明，建议在简历书写完成后统一删除）</p>
-<h2 id="先讲讲怎样才是一份好的技术简历"><a href="#先讲讲怎样才是一份好的技术简历" class="headerlink" title="先讲讲怎样才是一份好的技术简历"></a>先讲讲怎样才是一份好的技术简历</h2><p>首先，一份好的简历不光说明事实，更通过FAB模式来增强其说服力。</p>
-<ul>
-<li>Feature：是什么</li>
-<li>Advantage：比别人好在哪些地方</li>
-<li>Benefit：如果雇佣你，招聘方会得到什么好处 </li>
-</ul>
-<p>其次，写简历和写议论文不同，过分的论证会显得自夸，反而容易引起反感，所以要点到为止。这里的技巧是，提供论据，把论点留给阅读简历的人自己去得出。放论据要具体，最基本的是要数字化，好的论据要让人印象深刻。</p>
-<p>举个例子，下边内容是虚构的：</p>
-<p>2006年，我参与了手机XX网发布系统WAPCMS的开发（<code>这部分是大家都会写的</code>）。作为核心程序员，我不但完成了网站界面、调度队列的开发工作，更提出了高效的组件级缓存系统，通过碎片化缓冲有效的提升了系统的渲染效率。（<code>这部分是很多同学忘掉的，要写出你在这个项目中具体负责的部分，以及你贡献出来的价值。</code>）在该系统上线后，Web前端性能从10QPS提升到200QPS，服务器由10台减少到3台（<code>通过量化的数字来增强可信度</code>）。2008年我升任WAPCMS项目负责人，带领一个3人小组支持着每天超过2亿的PV（<code>这就是Benefit。你能带给前雇主的价值，也就是你能带给新雇主的价值。</code>）。</p>
-<p>有同学问，如果我在项目里边没有那么显赫的成绩可以说怎么办？讲不出成绩时，就讲你的成长。因为学习能力也是每家公司都看中的东西。你可以写你在这个项目里边遇到了一个什么样的问题，别人怎么解决的，你怎么解决的，你的方案好在什么地方，最终这个方案的效果如何。</p>
-<p>具体、量化、有说服力，是技术简历特别需要注重的地方。</p>
-<p>（以上内容在写完简历后，对每一段进行评估，完成后再删除）</p>
-<hr>
-<h1 id="联系方式"><a href="#联系方式" class="headerlink" title="联系方式"></a>联系方式</h1><p>（HR会打印你的简历，用于在面试的时候联系，所以联系方式放到最上边会比较方便）</p>
-<ul>
-<li>手机：135<strong><em>**</em></strong> （<code>如果是外地手机，可注明。如经常关机，要写上最优联系时间</code>）</li>
-<li>Email：goodman@gmail.com （<code>虽然我觉得QQ邮箱无所谓，不过有些技术人员比较反感，建议用G</code>）</li>
-<li>QQ/微信号：6<strong><em>*</em></strong>（<code>提供一个通过网络可以联系到你的方式</code>）</li>
-</ul>
-<hr>
-<h1 id="个人信息"><a href="#个人信息" class="headerlink" title="个人信息"></a>个人信息</h1><ul>
-<li>胶布帝/男/1990 </li>
-<li>本科/萌鹿大学计算机系 </li>
-<li>工作年限：3年</li>
-<li>微博：<a href="http://weibo.com/jobdeer" target="_blank" rel="external">@JobDeer</a> （<code>如果没有技术相关内容，也可以不放</code>）</li>
-<li>技术博客：<a href="http://blog.github.io" target="_blank" rel="external">http://blog.github.io</a> ( <code>使用GitHub Host的Big较高</code>  )</li>
-<li><p>GitHub：<a href="http://github.com/geekcompany" target="_blank" rel="external">http://github.com/geekcompany</a> ( <code>有原创repo的GitHub帐号会极大的提升你的个人品牌</code>  )</p>
-</li>
-<li><p>期望职位：Android高级程序员，应用架构师</p>
-</li>
-<li>期望薪资：税前月薪15k~20k，特别喜欢的公司可例外</li>
-<li>期望城市：北京</li>
-</ul>
-<hr>
-<h1 id="工作经历"><a href="#工作经历" class="headerlink" title="工作经历"></a>工作经历</h1><p>（工作经历按逆序排列，最新的在最前边，按公司做一级分组，公司内按二级分组）</p>
-<h2 id="ABC公司-（-2012年9月-2014年9月-）"><a href="#ABC公司-（-2012年9月-2014年9月-）" class="headerlink" title="ABC公司 （ 2012年9月 ~ 2014年9月 ）"></a>ABC公司 （ 2012年9月 ~ 2014年9月 ）</h2><h3 id="DEF项目"><a href="#DEF项目" class="headerlink" title="DEF项目"></a>DEF项目</h3><p>我在此项目负责了哪些工作，分别在哪些地方做得出色/和别人不一样/成长快，这个项目中，我最困难的问题是什么，我采取了什么措施，最后结果如何。这个项目中，我最自豪的技术细节是什么，为什么，实施前和实施后的数据对比如何，同事和领导对此的反应如何。</p>
-<h3 id="GHI项目"><a href="#GHI项目" class="headerlink" title="GHI项目"></a>GHI项目</h3><p>我在此项目负责了哪些工作，分别在哪些地方做得出色/和别人不一样/成长快，这个项目中，我最困难的问题是什么，我采取了什么措施，最后结果如何。这个项目中，我最自豪的技术细节是什么，为什么，实施前和实施后的数据对比如何，同事和领导对此的反应如何。</p>
-<h3 id="其他项目"><a href="#其他项目" class="headerlink" title="其他项目"></a>其他项目</h3><p>（每个公司写2~3个核心项目就好了，如果你有非常大量的项目，那么按分类进行合并，每一类选一个典型写出来。其他的一笔带过即可。）</p>
-<h2 id="JKL公司-（-2010年3月-2012年8月-）"><a href="#JKL公司-（-2010年3月-2012年8月-）" class="headerlink" title="JKL公司 （ 2010年3月 ~ 2012年8月 ）"></a>JKL公司 （ 2010年3月 ~ 2012年8月 ）</h2><h3 id="MNO项目"><a href="#MNO项目" class="headerlink" title="MNO项目"></a>MNO项目</h3><p>我在此项目负责了哪些工作，分别在哪些地方做得出色/和别人不一样/成长快，这个项目中，我最困难的问题是什么，我采取了什么措施，最后结果如何。这个项目中，我最自豪的技术细节是什么，为什么，实施前和实施后的数据对比如何，同事和领导对此的反应如何。</p>
-<h3 id="PQR项目"><a href="#PQR项目" class="headerlink" title="PQR项目"></a>PQR项目</h3><p>我在此项目负责了哪些工作，分别在哪些地方做得出色/和别人不一样/成长快，这个项目中，我最困难的问题是什么，我采取了什么措施，最后结果如何。这个项目中，我最自豪的技术细节是什么，为什么，实施前和实施后的数据对比如何，同事和领导对此的反应如何。</p>
-<h3 id="其他项目-1"><a href="#其他项目-1" class="headerlink" title="其他项目"></a>其他项目</h3><p>（每个公司写2~3个核心项目就好了，如果你有非常大量的项目，那么按分类进行合并，每一类选一个典型写出来。其他的一笔带过即可。）</p>
-<hr>
-<h1 id="开源项目和作品"><a href="#开源项目和作品" class="headerlink" title="开源项目和作品"></a>开源项目和作品</h1><p>（这一段用于放置工作以外的、可证明你的能力的材料）</p>
-<h2 id="开源项目"><a href="#开源项目" class="headerlink" title="开源项目"></a>开源项目</h2><p>（对于程序员来讲，没有什么比Show me the code能有说服力了）</p>
-<ul>
-<li><a href="http://github.com/yourname/projectname" target="_blank" rel="external">STU</a>：项目的简要说明，Star和Fork数多的可以注明</li>
-<li><a href="http://github.com/yourname/projectname" target="_blank" rel="external">WXYZ</a>：项目的简要说明，Star和Fork数多的可以注明</li>
-</ul>
-<h2 id="技术文章"><a href="#技术文章" class="headerlink" title="技术文章"></a>技术文章</h2><p>（挑选你写作或翻译的技术文章，好的文章可以从侧面证实你的表达和沟通能力，也帮助招聘方更了解你）</p>
-<ul>
-<li><a href="http://get.jobdeer.com/706.get" target="_blank" rel="external">一个产品经理眼中的云计算：前生今世和未来</a></li>
-<li><a href="http://get.jobdeer.com/343.get" target="_blank" rel="external">来自HeroKu的HTTP API 设计指南(翻译文章)</a> （ <code>好的翻译文章可以侧证你对英文技术文档的阅读能力</code>）</li>
-</ul>
-<h2 id="演讲和讲义"><a href="#演讲和讲义" class="headerlink" title="演讲和讲义"></a>演讲和讲义</h2><p>（放置你代表公司在一些技术会议上做过的演讲，以及你在公司分享时制作的讲义）</p>
-<ul>
-<li>2014架构师大会演讲：<a href="http://jobdeer.com" target="_blank" rel="external">如何通过Docker优化内部开发</a><ul>
-<li>9月公司内部分享：<a href="http://jobdeer.com" target="_blank" rel="external">云计算的前生今世</a></li>
-</ul>
-</li>
-</ul>
-<h1 id="技能清单"><a href="#技能清单" class="headerlink" title="技能清单"></a>技能清单</h1><p>（我一般主张将技能清单写入到工作经历里边去。不过很难完整，所以有这么一段也不错）</p>
-<p>以下均为我熟练使用的技能</p>
-<ul>
-<li>Web开发：PHP/Hack/Node</li>
-<li>Web框架：ThinkPHP/Yaf/Yii/Lavaral/LazyPHP</li>
-<li>前端框架：Bootstrap/AngularJS/EmberJS/HTML5/Cocos2dJS/ionic</li>
-<li>前端工具：Bower/Gulp/SaSS/LeSS/PhoneGap</li>
-<li>数据库相关：MySQL/PgSQL/PDO/SQLite</li>
-<li>版本管理、文档和自动化部署工具：Svn/Git/PHPDoc/Phing/Composer</li>
-<li>单元测试：PHPUnit/SimpleTest/Qunit</li>
-<li>云和开放平台：SAE/BAE/AWS/微博开放平台/微信应用开发</li>
-</ul>
-<h2 id="参考技能关键字"><a href="#参考技能关键字" class="headerlink" title="参考技能关键字"></a>参考技能关键字</h2><p>本技能关键字列表是从最近招聘Android的数百份JD中统计出来的，括号中是出现的词频。如果你的简历要投递给有机器（简历分选系统）和不如机器（不懂技术的HR）筛选简历环节的地方，请一定从下边高频关键词中选择5～10个适合你自己的。</p>
-<ul>
-<li>android(1830)</li>
-<li>java(386)</li>
-<li>ui(180)</li>
-<li>app(178)</li>
-<li>http(149)</li>
-<li>sdk(135)</li>
-<li>tcp(95)</li>
-<li>socket(93)</li>
-<li>api(60)</li>
-<li>xml(48)</li>
-<li>framework(48)</li>
-<li>eclipse(41)</li>
-<li>linux(38)</li>
-<li>json(28)</li>
-<li>ndk(27)</li>
-<li>ios(27)</li>
-<li>sqlite(26)</li>
-<li>andriod(25) 2%的HR把android给写错了 T_T</li>
-<li>html5(25)</li>
-<li>web(23)</li>
-<li>github(21)</li>
-<li>jni(20)</li>
-<li>svn(15)</li>
-<li>gui(14)</li>
-<li>git(13)</li>
-<li>wifi(10)</li>
-<li>3g(10)</li>
-<li>j2me(10)</li>
-<li>mysql(10)</li>
-<li>oracle(9)</li>
-<li>html(9)</li>
-<li>sql(8)</li>
-<li>tv(8)</li>
-<li>mvc(8)</li>
-<li>lbs(8)</li>
-<li>code review(7)</li>
-<li>im(7)</li>
-<li>mobile(6)</li>
-<li>view(6)</li>
-<li>stackoverflow(6)</li>
-<li>xmpp(6)</li>
-<li>o2o(5)</li>
-<li>ue(5)</li>
-<li>objective(5)</li>
-<li>js(5)</li>
-<li>blog(5)</li>
-<li>andorid(5)</li>
-<li>rom(5)</li>
-<li>launcher(5)</li>
-<li>restful(5)</li>
-<li>webservice(4)</li>
-<li>apk(4)</li>
-<li>androidsdk(4)</li>
-<li>oo(4)</li>
-<li>javascript(4)</li>
-<li>j2ee(4)</li>
-<li>opengl(4)</li>
-<li>uml(4)</li>
-<li>sms(3)</li>
-<li>windows(3)</li>
-<li>market(3)</li>
-<li>audio(3)</li>
-<li>httptps(3)</li>
-<li>udp(3)</li>
-<li>store(3)</li>
-<li>php(3)</li>
-<li>unity3d(3)</li>
-<li>native(3)</li>
-<li>webview(3)</li>
-</ul>
-<hr>
-<h1 id="致谢"><a href="#致谢" class="headerlink" title="致谢"></a>致谢</h1><p>感谢您花时间阅读我的简历，期待能有机会和您共事。</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1697,7 +1645,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">60</span>
+              <span class="site-state-item-count">62</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1705,7 +1653,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">6</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -1714,7 +1662,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">38</span>
+                <span class="site-state-item-count">39</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
