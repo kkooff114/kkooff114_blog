@@ -103,7 +103,7 @@
 123mov eax, dword ptr [ebp-8] …把数值从内存复制到eaxadd eax, dword ptr [ebp-0Ch] …exa的数值和内存的数值相加mov dword ptr [ebp-4], eax …把exa的数值（上一步的相加结果）存储在内存中
 其中eax 和 eb">
 <meta property="og:image" content="http://blog.loujiwei.cn/images/14822404161718.jpg">
-<meta property="og:updated_time" content="2016-12-20T13:27:00.000Z">
+<meta property="og:updated_time" content="2016-12-20T13:35:05.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CPU如何运行一段程序">
 <meta name="twitter:description" content="基本汇编器将汇报转成机器语言机器语言就是CPU可以直接解释和执行的语言
@@ -355,8 +355,8 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">mov eax, dword ptr [ebp-8] …把数值从内存复制到eax</div><div class="line">add eax, dword ptr [ebp-0Ch] …exa的数值和内存的数值相加</div><div class="line">mov dword ptr [ebp-4], eax …把exa的数值（上一步的相加结果）存储在内存中</div></pre></td></tr></table></figure>
 <p>其中<code>eax</code> 和 <code>ebp</code>就是寄存器<br>CPU是寄存器的<strong>集合体</strong>, 其他还有<strong>控制器</strong>, <strong>运算器</strong> , <strong>时钟</strong> 等…</p>
 <p>每个CPU中, 程序计数器, 累加寄存器, 标志寄存器, 指令寄存器 和栈寄存器都只有一个, 其他寄存器一般可以有多个</p>
-<p><img src="/images/14822404161718.jpg" alt=""></p>
-<h3 id="程序寄存器"><a href="#程序寄存器" class="headerlink" title="程序寄存器"></a>程序寄存器</h3>
+<p><img src="images/14822404161718.jpg" alt=""></p>
+<h3 id="决定程序流程的程序寄存器"><a href="#决定程序流程的程序寄存器" class="headerlink" title="决定程序流程的程序寄存器"></a>决定程序流程的程序寄存器</h3>
       
     </div>
 
@@ -542,7 +542,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本"><span class="nav-number">1.</span> <span class="nav-text">基本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#寄存器"><span class="nav-number">2.</span> <span class="nav-text">寄存器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#程序寄存器"><span class="nav-number">2.1.</span> <span class="nav-text">程序寄存器</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本"><span class="nav-number">1.</span> <span class="nav-text">基本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#寄存器"><span class="nav-number">2.</span> <span class="nav-text">寄存器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#决定程序流程的程序寄存器"><span class="nav-number">2.1.</span> <span class="nav-text">决定程序流程的程序寄存器</span></a></li></ol></li></ol></div>
             
           </div>
         </section>
