@@ -103,7 +103,11 @@
 123mov eax, dword ptr [ebp-8] …把数值从内存复制到eaxadd eax, dword ptr [ebp-0Ch] …exa的数值和内存的数值相加mov dword ptr [ebp-4], eax …把exa的数值（上一步的相加结果）存储在内存中
 其中eax 和 eb">
 <meta property="og:image" content="http://blog.loujiwei.cn/images/14822528560730.jpg">
-<meta property="og:updated_time" content="2016-12-20T16:54:19.000Z">
+<meta property="og:image" content="http://blog.loujiwei.cn/images/14822536864505.jpg">
+<meta property="og:image" content="http://blog.loujiwei.cn/images/14822546369928.jpg">
+<meta property="og:image" content="http://blog.loujiwei.cn/images/14822551679368.jpg">
+<meta property="og:image" content="http://blog.loujiwei.cn/images/14822903970759.jpg">
+<meta property="og:updated_time" content="2016-12-21T03:20:06.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CPU如何运行一段程序">
 <meta name="twitter:description" content="基本汇编器将汇报转成机器语言机器语言就是CPU可以直接解释和执行的语言
@@ -350,13 +354,33 @@
       
 
       
-        <h2 id="基本"><a href="#基本" class="headerlink" title="基本"></a>基本</h2><p>汇编器将汇报转成机器语言<br>机器语言就是CPU可以直接解释和执行的语言</p>
-<h2 id="寄存器"><a href="#寄存器" class="headerlink" title="寄存器"></a>寄存器</h2><p>用于存储数据的基本单元</p>
+        <h1 id="基本"><a href="#基本" class="headerlink" title="基本"></a>基本</h1><p>汇编器将汇报转成机器语言<br>机器语言就是CPU可以直接解释和执行的语言</p>
+<h1 id="寄存器"><a href="#寄存器" class="headerlink" title="寄存器"></a>寄存器</h1><p>用于存储数据的基本单元</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">mov eax, dword ptr [ebp-8] …把数值从内存复制到eax</div><div class="line">add eax, dword ptr [ebp-0Ch] …exa的数值和内存的数值相加</div><div class="line">mov dword ptr [ebp-4], eax …把exa的数值（上一步的相加结果）存储在内存中</div></pre></td></tr></table></figure>
 <p>其中<code>eax</code> 和 <code>ebp</code>就是寄存器<br>CPU是寄存器的<strong>集合体</strong>, 其他还有<strong>控制器</strong>, <strong>运算器</strong> , <strong>时钟</strong> 等…</p>
 <p>每个CPU中, 程序计数器, 累加寄存器, 标志寄存器, 指令寄存器 和栈寄存器都只有一个, 其他寄存器一般可以有多个</p>
 <p><img src="/images/14822528560730.jpg" alt=""></p>
-<h3 id="决定程序流程程序寄存器"><a href="#决定程序流程程序寄存器" class="headerlink" title="决定程序流程程序寄存器"></a>决定程序流程程序寄存器</h3>
+<h2 id="决定程序流程程序寄存器"><a href="#决定程序流程程序寄存器" class="headerlink" title="决定程序流程程序寄存器"></a>决定程序流程程序寄存器</h2><p><img src="/images/14822536864505.jpg" alt=""></p>
+<ol>
+<li>当程序开始执行的时候, 系统将硬盘中的程序读取放到内存中.(程序内容执行123 + 456, 并将结果输出到显示器上)</li>
+<li>存储<strong>命令</strong>和<strong>内容</strong>的内存是通过地址来划分的, 并且一个<strong>命令</strong>和<strong>数据</strong>通常被存储在多个地址上, 上图为了更好的表达, 放到了一个地址中.</li>
+<li>开始执行时, 系统将<strong>程序计数器</strong>设置成<code>0100</code> , <code>0100</code> 就是程序的开始位置. 然后程序就开始运行, CPU每执行一个指令, <strong>程序计数器</strong>就会<code>+1</code>, 然后CPU就参照<strong>程序计数器</strong>的数值从相应的内存中读取指令并执行.</li>
+<li>也就是说, 程序计数器决定着程序的流程.</li>
+</ol>
+<h2 id="条件分支与循环机制"><a href="#条件分支与循环机制" class="headerlink" title="条件分支与循环机制"></a>条件分支与循环机制</h2><p>程序的流程分为:</p>
+<ul>
+<li>顺序执行(上面的例子就是)</li>
+<li>条件分支</li>
+<li>循环</li>
+</ul>
+<p>条件分支:</p>
+<p><img src="/images/14822546369928.jpg" alt=""></p>
+<p>条件分支和循环中使用<strong>跳转指令</strong>, 会参照当前运算的指令结果来判断是否跳转. </p>
+<p>具体其实是使用了<strong>标志寄存器</strong>, 在CPU运算判断条件的时候, <strong>标志寄存器</strong>会被自动设值, 值分为<code>正</code>, <code>负</code>, <code>零</code>,  存储在   <strong>标志寄存器的后三位</strong><br><img src="/images/14822551679368.jpg" alt=""></p>
+<p>CPU的执行机制:<br>假设比较累加寄存器中存储的<code>XXX</code> 和通用寄存器中存储的 <code>YYY</code>, 执行比较指令后, CPU的运算装置就会在内部(暗中)进行 <code>XXX-YYY</code>的减法运算, 无论结果是正数, 负数 或者 零, 都会存储在<strong>标志寄存器</strong>中.</p>
+<h2 id="函数的调用机制"><a href="#函数的调用机制" class="headerlink" title="函数的调用机制"></a>函数的调用机制</h2><p><img src="/images/14822903970759.jpg" alt=""></p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>&lt;&lt;程序是怎样跑起来的&gt;&gt; </p>
+
       
     </div>
 
@@ -542,7 +566,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本"><span class="nav-number">1.</span> <span class="nav-text">基本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#寄存器"><span class="nav-number">2.</span> <span class="nav-text">寄存器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#决定程序流程程序寄存器"><span class="nav-number">2.1.</span> <span class="nav-text">决定程序流程程序寄存器</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基本"><span class="nav-number">1.</span> <span class="nav-text">基本</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#寄存器"><span class="nav-number">2.</span> <span class="nav-text">寄存器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#决定程序流程程序寄存器"><span class="nav-number">2.1.</span> <span class="nav-text">决定程序流程程序寄存器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#条件分支与循环机制"><span class="nav-number">2.2.</span> <span class="nav-text">条件分支与循环机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数的调用机制"><span class="nav-number">2.3.</span> <span class="nav-text">函数的调用机制</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">3.</span> <span class="nav-text">参考</span></a></li></ol></div>
             
           </div>
         </section>

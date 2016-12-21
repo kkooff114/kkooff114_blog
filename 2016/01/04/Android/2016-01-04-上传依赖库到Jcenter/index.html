@@ -96,14 +96,16 @@
 <meta property="og:url" content="http://blog.loujiwei.cn/2016/01/04/Android/2016-01-04-上传依赖库到Jcenter/index.html">
 <meta property="og:site_name" content="kkooff144`blog">
 <meta property="og:description" content="如何上传Android依赖库到Jcenter中">
-<meta property="og:image" content="http://blog.loujiwei.cn/media/14519204995360.jpg">
+<meta property="og:image" content="http://blog.loujiwei.cn/images/14519204995360.jpg">
 <meta property="og:image" content="http://blog.loujiwei.cn/media/14519221074529.jpg">
+<meta property="og:image" content="http://blog.loujiwei.cn/images/14519221074529.jpg">
 <meta property="og:image" content="http://blog.loujiwei.cn/media/14689242075547.jpg">
-<meta property="og:updated_time" content="2016-12-19T02:32:18.000Z">
+<meta property="og:image" content="http://blog.loujiwei.cn/images/14689242075547.jpg">
+<meta property="og:updated_time" content="2016-12-20T17:01:01.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="上传依赖库到Jcenter">
 <meta name="twitter:description" content="如何上传Android依赖库到Jcenter中">
-<meta name="twitter:image" content="http://blog.loujiwei.cn/media/14519204995360.jpg">
+<meta name="twitter:image" content="http://blog.loujiwei.cn/images/14519204995360.jpg">
 
 
 
@@ -331,12 +333,12 @@
 <p><code>Gradle &lt; 2.1</code></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">buildscript &#123;</div><div class="line">    repositories &#123;</div><div class="line">        jcenter()</div><div class="line">    &#125;</div><div class="line">    dependencies &#123;</div><div class="line">        classpath &apos;com.jfrog.bintray.gradle:gradle-bintray-plugin:1.4&apos;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">apply plugin: &apos;com.jfrog.bintray&apos;</div></pre></td></tr></table></figure>
 <p>我gradle的版本是<code>1.5.0</code>, 所以我添加完大概长这个样子:</p>
-<p><img src="/media/14519204995360.jpg" alt=""></p>
+<p><img src="/images/14519204995360.jpg" alt="14519204995360"></p>
 <p>同步Sync, 成功!</p>
-<h2 id="Step2-配置user-key"><a href="#Step2-配置user-key" class="headerlink" title="Step2: 配置user, key"></a>Step2: 配置user, key</h2><h3 id="方式一-gradle-properties-好像不行-回头有时间研究下"><a href="#方式一-gradle-properties-好像不行-回头有时间研究下" class="headerlink" title="方式一:gradle.properties(好像不行, 回头有时间研究下!)"></a>方式一:gradle.properties(好像不行, 回头有时间研究下!)</h3><p><img src="/media/14519221074529.jpg" alt=""></p>
+<h2 id="Step2-配置user-key"><a href="#Step2-配置user-key" class="headerlink" title="Step2: 配置user, key"></a>Step2: 配置user, key</h2><h3 id="方式一-gradle-properties-好像不行-回头有时间研究下"><a href="#方式一-gradle-properties-好像不行-回头有时间研究下" class="headerlink" title="方式一:gradle.properties(好像不行, 回头有时间研究下!)"></a>方式一:gradle.properties(好像不行, 回头有时间研究下!)</h3><p><img src="/media/14519221074529.jpg" alt=""><br><img src="/images/14519221074529.jpg" alt="14519221074529"></p>
 <p>在module的build.gradle中就可以通过<code>project.property(&#39;bintrayUser&#39;)</code>这种方式来访问</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">bintray &#123;</div><div class="line">    user = project.property(&apos;bintrayUser&apos;)</div><div class="line">    key = project.property(&apos;bintrayKey&apos;)</div><div class="line">    ...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="方式二-local-properties"><a href="#方式二-local-properties" class="headerlink" title="方式二:local.properties"></a>方式二:local.properties</h3><p><img src="/media/14689242075547.jpg" alt=""></p>
+<h3 id="方式二-local-properties"><a href="#方式二-local-properties" class="headerlink" title="方式二:local.properties"></a>方式二:local.properties</h3><p><img src="/media/14689242075547.jpg" alt=""><br><img src="/images/14689242075547.jpg" alt="14689242075547"></p>
 <p>在module的build.gradle中就可以通过<code>System.getenv(&#39;BINTRAY_USER&#39;)</code>这种方式来访问</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">bintray &#123;</div><div class="line">    user = System.getenv(&apos;BINTRAY_USER&apos;)</div><div class="line">    key = System.getenv(&apos;BINTRAY_KEY&apos;)</div><div class="line">    ...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h2 id="Step3-增加package的一些信息到bintray闭包中"><a href="#Step3-增加package的一些信息到bintray闭包中" class="headerlink" title="Step3: 增加package的一些信息到bintray闭包中"></a>Step3: 增加package的一些信息到<code>bintray</code>闭包中</h2><p><strong>必填:</strong></p>

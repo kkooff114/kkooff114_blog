@@ -96,12 +96,12 @@
 <meta property="og:url" content="http://blog.loujiwei.cn/2015/12/22/网页前端/2015-12-22-React组件间通信-EventBus的使用/index.html">
 <meta property="og:site_name" content="kkooff144`blog">
 <meta property="og:description" content="React组件间通信, EventBus在React中的使用">
-<meta property="og:image" content="http://blog.loujiwei.cn/media/14517926018451.jpg">
-<meta property="og:updated_time" content="2016-12-19T02:30:41.000Z">
+<meta property="og:image" content="http://blog.loujiwei.cn/images/14517926018451.jpg">
+<meta property="og:updated_time" content="2016-12-20T17:04:12.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="React组件间通信-EventBus的使用">
 <meta name="twitter:description" content="React组件间通信, EventBus在React中的使用">
-<meta name="twitter:image" content="http://blog.loujiwei.cn/media/14517926018451.jpg">
+<meta name="twitter:image" content="http://blog.loujiwei.cn/images/14517926018451.jpg">
 
 
 
@@ -326,7 +326,8 @@
 <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在React由于数据的单项流动性, 组件间通信不能很好的被支持, 通信共分为<code>父子</code>, <code>子父</code>, <code>组件间</code></p>
 <h1 id="父子"><a href="#父子" class="headerlink" title="父子"></a>父子</h1><p>此方式直接通过props的方式来传递信息</p>
 <h1 id="子父"><a href="#子父" class="headerlink" title="子父"></a>子父</h1><p>还是通过props,将父的函数传给子, 在此函数中, 实现修改父的参数, 这样在子调用函数的时候, 即子向父通信.</p>
-<h1 id="组件间"><a href="#组件间" class="headerlink" title="组件间"></a>组件间</h1><p>这是本文的重点, 综合起来,使用EventBus的思想是最简单的<br>案例:<br><img src="/media/14517926018451.jpg" alt=""><br>在GoodsName中选择商品的数量, 在GoodsToolBar中点击添加购物车按钮的时候, 需获取到GoodsName中商品的数量</p>
+<h1 id="组件间"><a href="#组件间" class="headerlink" title="组件间"></a>组件间</h1><p>这是本文的重点, 综合起来,使用EventBus的思想是最简单的<br>案例:<br><img src="/images/14517926018451.jpg" alt="14517926018451"></p>
+<p>在GoodsName中选择商品的数量, 在GoodsToolBar中点击添加购物车按钮的时候, 需获取到GoodsName中商品的数量</p>
 <p>GoodsToolBar.js:</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> goodsNum = &#123;<span class="string">"type"</span>:<span class="string">"goodsSelectedNum"</span>,<span class="string">"target"</span>:<span class="number">0</span>&#125;;<span class="comment">//EventBus传过来的对象, 有type,target,可能还有args这几个字段</span></div><div class="line"></div><div class="line"><span class="comment">// 回调触发的函数, 接受GoodsName传过来得参数</span></div><div class="line"><span class="keyword">var</span> goodsSelectedNum= <span class="function"><span class="keyword">function</span> (<span class="params">nums</span>)</span>&#123;</div><div class="line">    goodsNum = nums;</div><div class="line"> &#125;</div><div class="line"></div><div class="line"><span class="keyword">const</span> GoodsToolBar = React.createClass(&#123;</div><div class="line"></div><div class="line">    <span class="attr">getInitialState</span>: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="keyword">return</span> &#123;</div><div class="line">            <span class="attr">num</span>: <span class="number">0</span></div><div class="line">        &#125;;</div><div class="line">    &#125;,</div><div class="line"></div><div class="line">    <span class="attr">componentDidMount</span>: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    		<span class="comment">//注册监听, 第一个参数是key值,第二个参数是回调函数</span></div><div class="line">        EventBus.addEventListener(<span class="string">"goodsSelectedNum"</span>, goodsSelectedNum)</div><div class="line">    &#125;,</div><div class="line">    </div><div class="line">    <span class="keyword">return</span>(</div><div class="line">    	...</div><div class="line">    )</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
 <p>GoodsName.js:</p>

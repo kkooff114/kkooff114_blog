@@ -96,12 +96,12 @@
 <meta property="og:url" content="http://blog.loujiwei.cn/2016/02/19/Android/2016-02-19-AndroidStudio编译报错:AAPT: libpng error: Not a PNG file/index.html">
 <meta property="og:site_name" content="kkooff144`blog">
 <meta property="og:description" content="项目从Eclipse迁移到AS后, 编译报错, 图片报错">
-<meta property="og:image" content="http://blog.loujiwei.cn/media/H$R3%7DP8@3XD8F0T8LM%7BVN@6.jpg">
-<meta property="og:updated_time" content="2016-12-19T02:31:25.000Z">
+<meta property="og:image" content="http://blog.loujiwei.cn/images/H$R3%7DP8@3XD8F0T8LM%7BVN@6.jpg">
+<meta property="og:updated_time" content="2016-12-20T16:59:57.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="AS编译报错 AAPT-libpng error Not a PNG file">
 <meta name="twitter:description" content="项目从Eclipse迁移到AS后, 编译报错, 图片报错">
-<meta name="twitter:image" content="http://blog.loujiwei.cn/media/H$R3%7DP8@3XD8F0T8LM%7BVN@6.jpg">
+<meta name="twitter:image" content="http://blog.loujiwei.cn/images/H$R3%7DP8@3XD8F0T8LM%7BVN@6.jpg">
 
 
 
@@ -329,7 +329,7 @@
 <p>解决方法:<br>删除png图片内嵌的iCCP profile sRGB<br>GIMP使用举例：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">删除内嵌profile, 可先进入Image &gt; Mode &gt; Assign Color Profile并设置为RGB workspace(sRGB built-in), 然后File &gt; Overwrite add_green.png覆盖原来的png文件。</div><div class="line"></div><div class="line">修改内嵌profile, 可进入Image &gt; Mode &gt; Convert to Color Profile, 可选择一种profile。</div></pre></td></tr></table></figure>
 <h3 id="接着报错"><a href="#接着报错" class="headerlink" title="接着报错"></a>接着报错</h3><blockquote>
-<p>AAPT err(Facade for 2100261316) : No Delegate set : lost message:libpng error: Not a PNG file<br><img src="/media/H$R3%7DP8@3XD8F0T8LM%7BVN@6.jpg" alt="H$R3}P8@3XD8F0T8LM{VN@6"></p>
+<p>AAPT err(Facade for 2100261316) : No Delegate set : lost message:libpng error: Not a PNG file<br><img src="/images/H$R3%7DP8@3XD8F0T8LM%7BVN@6.jpg" alt="H$R3}P8@3XD8F0T8LM{VN@6"></p>
 </blockquote>
 <p>解决方法:<br>在build.gradle中添加<br>    aaptOptions.cruncherEnabled = false<br>    aaptOptions.useNewCruncher = false<br>即可.</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">android &#123;</div><div class="line">	compileSdkVersion 22</div><div class="line">	buildToolsVersion &quot;23.0.1&quot;</div><div class="line"></div><div class="line">	aaptOptions.cruncherEnabled = false</div><div class="line">	aaptOptions.useNewCruncher = false</div><div class="line"></div><div class="line">	defaultConfig &#123;</div><div class="line">		minSdkVersion 5</div><div class="line">		targetSdkVersion 17</div><div class="line">&#125;</div></pre></td></tr></table></figure>
