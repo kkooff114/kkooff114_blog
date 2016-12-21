@@ -107,7 +107,7 @@
 <meta property="og:image" content="http://blog.loujiwei.cn/images/14822546369928.jpg">
 <meta property="og:image" content="http://blog.loujiwei.cn/images/14822551679368.jpg">
 <meta property="og:image" content="http://blog.loujiwei.cn/images/14822903970759.jpg">
-<meta property="og:updated_time" content="2016-12-21T03:20:06.000Z">
+<meta property="og:updated_time" content="2016-12-21T07:39:03.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CPU如何运行一段程序">
 <meta name="twitter:description" content="基本汇编器将汇报转成机器语言机器语言就是CPU可以直接解释和执行的语言
@@ -379,6 +379,9 @@
 <p>具体其实是使用了<strong>标志寄存器</strong>, 在CPU运算判断条件的时候, <strong>标志寄存器</strong>会被自动设值, 值分为<code>正</code>, <code>负</code>, <code>零</code>,  存储在   <strong>标志寄存器的后三位</strong><br><img src="/images/14822551679368.jpg" alt=""></p>
 <p>CPU的执行机制:<br>假设比较累加寄存器中存储的<code>XXX</code> 和通用寄存器中存储的 <code>YYY</code>, 执行比较指令后, CPU的运算装置就会在内部(暗中)进行 <code>XXX-YYY</code>的减法运算, 无论结果是正数, 负数 或者 零, 都会存储在<strong>标志寄存器</strong>中.</p>
 <h2 id="函数的调用机制"><a href="#函数的调用机制" class="headerlink" title="函数的调用机制"></a>函数的调用机制</h2><p><img src="/images/14822903970759.jpg" alt=""></p>
+<p>上图展示了a, b 分别带入 123和456 之后 使用函数<code>MyFunc</code> 进行运算.</p>
+<p>函数调用使用的是<code>call指令</code>, 而不是跳转指令.<br>在将函数的入口地址设置到<strong>程序计数器</strong>之前, <code>call指令</code> 会把<strong>调用函数后</strong>要执行的指令地址存储在<strong>栈</strong>的主内存中. 函数执行完后, 再通过<code>return命令</code>把保存在<strong>栈</strong>中的地址设定到<strong>程序计数器</strong>中. </p>
+<p>上图就是把地址<code>0154</code>存储在<strong>栈</strong>中, 函数执行完成后, 再从<strong>栈</strong>中取出<code>0154</code>设定到<strong>程序计数器</strong>中.</p>
 <h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>&lt;&lt;程序是怎样跑起来的&gt;&gt; </p>
 
       
