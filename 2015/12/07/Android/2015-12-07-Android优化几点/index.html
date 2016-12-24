@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Android, 优化" />
+  <meta name="keywords" content="Android,优化," />
 
 
 
@@ -90,16 +90,40 @@
 
 
 
-<meta name="description" content="Android性能优化几点小结">
+<meta name="description" content="[TOC]
+如何避免 Activity 泄漏?
+移除掉所有的静态引用。
+考虑用 EventBus 来解耦 Listener。
+记着在不需要的时候，解除 Listener 的绑定。
+尽量用静态内部类。
+做 Code Review。个人经验：Code Review 能很早的发现内存泄漏。
+了解你程序的结构。
+用类似 MAT，Eclipse Analyzer，LeakCanary 这样的工具分析内存。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Android优化几点">
+<meta property="og:title" content="Android性能优化几点小结">
 <meta property="og:url" content="http://blog.loujiwei.cn/2015/12/07/Android/2015-12-07-Android优化几点/index.html">
 <meta property="og:site_name" content="kkooff144`blog">
-<meta property="og:description" content="Android性能优化几点小结">
-<meta property="og:updated_time" content="2015-12-13T14:33:36.000Z">
+<meta property="og:description" content="[TOC]
+如何避免 Activity 泄漏?
+移除掉所有的静态引用。
+考虑用 EventBus 来解耦 Listener。
+记着在不需要的时候，解除 Listener 的绑定。
+尽量用静态内部类。
+做 Code Review。个人经验：Code Review 能很早的发现内存泄漏。
+了解你程序的结构。
+用类似 MAT，Eclipse Analyzer，LeakCanary 这样的工具分析内存。">
+<meta property="og:updated_time" content="2016-12-24T14:37:43.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Android优化几点">
-<meta name="twitter:description" content="Android性能优化几点小结">
+<meta name="twitter:title" content="Android性能优化几点小结">
+<meta name="twitter:description" content="[TOC]
+如何避免 Activity 泄漏?
+移除掉所有的静态引用。
+考虑用 EventBus 来解耦 Listener。
+记着在不需要的时候，解除 Listener 的绑定。
+尽量用静态内部类。
+做 Code Review。个人经验：Code Review 能很早的发现内存泄漏。
+了解你程序的结构。
+用类似 MAT，Eclipse Analyzer，LeakCanary 这样的工具分析内存。">
 
 
 
@@ -123,7 +147,7 @@
   <link rel="canonical" href="http://blog.loujiwei.cn/2015/12/07/Android/2015-12-07-Android优化几点/"/>
 
 
-  <title> Android优化几点 | kkooff144`blog </title>
+  <title> Android性能优化几点小结 | kkooff144`blog </title>
 </head>
 
 <body itemscope itemtype="//schema.org/WebPage" lang="zh-Hans">
@@ -273,7 +297,7 @@
             
             
               
-                Android优化几点
+                Android性能优化几点小结
               
             
           </h1>
@@ -290,6 +314,25 @@
             </time>
           </span>
 
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
           
 
           
@@ -362,7 +405,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Android-优化/" rel="tag">#Android, 优化</a>
+            <a href="/tags/Android/" rel="tag">#Android</a>
+          
+            <a href="/tags/优化/" rel="tag">#优化</a>
           
         </div>
       
@@ -371,8 +416,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/11/30/网页前端/2015-11-30-React动态改变CSS/" rel="next" title="React动态改变CSS">
-                <i class="fa fa-chevron-left"></i> React动态改变CSS
+              <a href="/2015/11/30/网页前端/2015-11-30-React动态改变CSS/" rel="next" title="React动态改变CSS, 使用React实现二级菜单">
+                <i class="fa fa-chevron-left"></i> React动态改变CSS, 使用React实现二级菜单
               </a>
             
           </div>
@@ -408,7 +453,7 @@
   <div class="comments" id="comments">
     
       <div class="ds-thread" data-thread-key="2015/12/07/Android/2015-12-07-Android优化几点/"
-           data-title="Android优化几点" data-url="http://blog.loujiwei.cn/2015/12/07/Android/2015-12-07-Android优化几点/">
+           data-title="Android性能优化几点小结" data-url="http://blog.loujiwei.cn/2015/12/07/Android/2015-12-07-Android优化几点/">
       </div>
     
   </div>
@@ -461,7 +506,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -470,7 +515,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">47</span>
+                <span class="site-state-item-count">63</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

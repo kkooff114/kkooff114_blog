@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="RxJava" />
+  <meta name="keywords" content="RxJava,Android," />
 
 
 
@@ -90,16 +90,34 @@
 
 
 
-<meta name="description" content="记录学习RxJava中的小知识点">
+<meta name="description" content="[TOC]
+
+记录学习RxJava中的小知识点
+
+SchedulersSchedulers.immediate() : 默认的, 在当前线程下立即执行.
+Schedulers.trampoline(): 将被观察者所生产出来的数据丢到一个队列中, 队列会依次执行其中的任务,能够有效避免StackOverflowError，所以非常适合函数的递归调用.
+Schedulers.newThread():">
 <meta property="og:type" content="article">
 <meta property="og:title" content="RxJava中的小知识点(1)">
 <meta property="og:url" content="http://blog.loujiwei.cn/2015/12/10/Android/2015-12-10-RxJava中的小知识点(1)/index.html">
 <meta property="og:site_name" content="kkooff144`blog">
-<meta property="og:description" content="记录学习RxJava中的小知识点">
-<meta property="og:updated_time" content="2016-12-19T02:33:42.000Z">
+<meta property="og:description" content="[TOC]
+
+记录学习RxJava中的小知识点
+
+SchedulersSchedulers.immediate() : 默认的, 在当前线程下立即执行.
+Schedulers.trampoline(): 将被观察者所生产出来的数据丢到一个队列中, 队列会依次执行其中的任务,能够有效避免StackOverflowError，所以非常适合函数的递归调用.
+Schedulers.newThread():">
+<meta property="og:updated_time" content="2016-12-24T14:37:40.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="RxJava中的小知识点(1)">
-<meta name="twitter:description" content="记录学习RxJava中的小知识点">
+<meta name="twitter:description" content="[TOC]
+
+记录学习RxJava中的小知识点
+
+SchedulersSchedulers.immediate() : 默认的, 在当前线程下立即执行.
+Schedulers.trampoline(): 将被观察者所生产出来的数据丢到一个队列中, 队列会依次执行其中的任务,能够有效避免StackOverflowError，所以非常适合函数的递归调用.
+Schedulers.newThread():">
 
 
 
@@ -291,6 +309,25 @@
           </span>
 
           
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
 
           
             
@@ -321,6 +358,9 @@
 
       
         <p>[TOC]</p>
+<blockquote>
+<p>记录学习RxJava中的小知识点</p>
+</blockquote>
 <h1 id="Schedulers"><a href="#Schedulers" class="headerlink" title="Schedulers"></a>Schedulers</h1><p><code>Schedulers.immediate()</code> : 默认的, 在当前线程下立即执行.</p>
 <p><code>Schedulers.trampoline()</code>: 将被观察者所生产出来的数据丢到一个队列中, 队列会依次执行其中的任务,能够有效避免StackOverflowError，所以非常适合函数的递归调用.</p>
 <p><code>Schedulers.newThread()</code>: 每次产生的数据, 每次都是在一个新线程中去执行</p>
@@ -363,6 +403,8 @@
           
             <a href="/tags/RxJava/" rel="tag">#RxJava</a>
           
+            <a href="/tags/Android/" rel="tag">#Android</a>
+          
         </div>
       
 
@@ -370,8 +412,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/12/07/Android/2015-12-07-Android优化几点/" rel="next" title="Android优化几点">
-                <i class="fa fa-chevron-left"></i> Android优化几点
+              <a href="/2015/12/07/Android/2015-12-07-Android优化几点/" rel="next" title="Android性能优化几点小结">
+                <i class="fa fa-chevron-left"></i> Android性能优化几点小结
               </a>
             
           </div>
@@ -460,7 +502,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -469,7 +511,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">47</span>
+                <span class="site-state-item-count">63</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

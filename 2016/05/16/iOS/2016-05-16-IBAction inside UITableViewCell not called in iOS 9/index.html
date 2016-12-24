@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="iOS" />
+  <meta name="keywords" content="iOS," />
 
 
 
@@ -90,16 +90,31 @@
 
 
 
-<meta name="description" content="在UITableViewCell中通过IBAction添加UIButton的点击事件的时候, 无效.">
+<meta name="description" content="在UITableViewCell中通过IBAction添加UIButton的点击事件的时候, 无效. 
+
+#在UITableViewCell中通过IBAction添加UIButton的点击事件的时候, 无效.
+
+I figured out the solution, hopefully this answer will save someone else the time.
+I inherite">
 <meta property="og:type" content="article">
 <meta property="og:title" content="IBAction inside UITableViewCell not called in iOS 9">
 <meta property="og:url" content="http://blog.loujiwei.cn/2016/05/16/iOS/2016-05-16-IBAction inside UITableViewCell not called in iOS 9/index.html">
 <meta property="og:site_name" content="kkooff144`blog">
-<meta property="og:description" content="在UITableViewCell中通过IBAction添加UIButton的点击事件的时候, 无效.">
-<meta property="og:updated_time" content="2016-05-16T02:21:28.000Z">
+<meta property="og:description" content="在UITableViewCell中通过IBAction添加UIButton的点击事件的时候, 无效. 
+
+#在UITableViewCell中通过IBAction添加UIButton的点击事件的时候, 无效.
+
+I figured out the solution, hopefully this answer will save someone else the time.
+I inherite">
+<meta property="og:updated_time" content="2016-12-24T14:39:13.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="IBAction inside UITableViewCell not called in iOS 9">
-<meta name="twitter:description" content="在UITableViewCell中通过IBAction添加UIButton的点击事件的时候, 无效.">
+<meta name="twitter:description" content="在UITableViewCell中通过IBAction添加UIButton的点击事件的时候, 无效. 
+
+#在UITableViewCell中通过IBAction添加UIButton的点击事件的时候, 无效.
+
+I figured out the solution, hopefully this answer will save someone else the time.
+I inherite">
 
 
 
@@ -291,6 +306,25 @@
           </span>
 
           
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
 
           
             
@@ -320,7 +354,10 @@
       
 
       
-        <p>#<br>在UITableViewCell中通过IBAction添加UIButton的点击事件的时候, 无效.</p>
+        <blockquote>
+<p>在UITableViewCell中通过IBAction添加UIButton的点击事件的时候, 无效. </p>
+</blockquote>
+<p>#<br>在UITableViewCell中通过IBAction添加UIButton的点击事件的时候, 无效.</p>
 <blockquote>
 <p>I figured out the solution, hopefully this answer will save someone else the time.</p>
 <p>I inherited this code base and it had some issues. The UITableViewCell’s that were not working under iOS 9 were not using UITableViewCell nibs w/ a ContentView. Instead, someone had created a UIView nib and then pointed it to a custom UITableViewCell subclass. The nibs did not have a ContentView and apparently iOS 9 is a little more picky about that. This implementation worked fine under iOS 8 and there were no compiler or runtime errors or warnings.</p>
@@ -449,7 +486,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -458,7 +495,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">47</span>
+                <span class="site-state-item-count">63</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

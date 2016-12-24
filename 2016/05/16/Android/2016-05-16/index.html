@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Android" />
+  <meta name="keywords" content="Android," />
 
 
 
@@ -90,16 +90,34 @@
 
 
 
-<meta name="description" content="编写用户行为日志记录库">
+<meta name="description" content="[TOC]
+背景记录应用中用户的一些操作信息log, 可以像Log.d(), Log.i()这样记录log, 然后将这些记录保存到sd卡中, 供开发查看
+初步设计所有输出的log都先放到临时内存中, 当该内存达到一定的阀值比如10k之后, 再将其持久化到sd卡
+问题分析
+多个线程同时写入内存时, 如何保证不会错乱
+保证写入线程不会被block
+当达到阀值后, 需要取内存数据持久化, 此时如果又有新">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android 用户行为日志记录">
 <meta property="og:url" content="http://blog.loujiwei.cn/2016/05/16/Android/2016-05-16/index.html">
 <meta property="og:site_name" content="kkooff144`blog">
-<meta property="og:description" content="编写用户行为日志记录库">
-<meta property="og:updated_time" content="2016-12-19T02:29:25.000Z">
+<meta property="og:description" content="[TOC]
+背景记录应用中用户的一些操作信息log, 可以像Log.d(), Log.i()这样记录log, 然后将这些记录保存到sd卡中, 供开发查看
+初步设计所有输出的log都先放到临时内存中, 当该内存达到一定的阀值比如10k之后, 再将其持久化到sd卡
+问题分析
+多个线程同时写入内存时, 如何保证不会错乱
+保证写入线程不会被block
+当达到阀值后, 需要取内存数据持久化, 此时如果又有新">
+<meta property="og:updated_time" content="2016-12-24T14:36:40.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android 用户行为日志记录">
-<meta name="twitter:description" content="编写用户行为日志记录库">
+<meta name="twitter:description" content="[TOC]
+背景记录应用中用户的一些操作信息log, 可以像Log.d(), Log.i()这样记录log, 然后将这些记录保存到sd卡中, 供开发查看
+初步设计所有输出的log都先放到临时内存中, 当该内存达到一定的阀值比如10k之后, 再将其持久化到sd卡
+问题分析
+多个线程同时写入内存时, 如何保证不会错乱
+保证写入线程不会被block
+当达到阀值后, 需要取内存数据持久化, 此时如果又有新">
 
 
 
@@ -291,6 +309,25 @@
           </span>
 
           
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
 
           
             
@@ -450,7 +487,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -459,7 +496,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">47</span>
+                <span class="site-state-item-count">63</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

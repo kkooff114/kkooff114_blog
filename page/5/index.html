@@ -273,7 +273,7 @@
               
                 
                 <a class="post-title-link" href="/2015/12/07/Android/2015-12-07-Android优化几点/" itemprop="url">
-                  Android优化几点
+                  Android性能优化几点小结
                 </a>
               
             
@@ -291,6 +291,25 @@
             </time>
           </span>
 
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
           
 
           
@@ -322,9 +341,19 @@
 
       
         
-          Android性能优化几点小结
+          
+          [TOC]
+如何避免 Activity 泄漏?
+移除掉所有的静态引用。
+考虑用 EventBus 来解耦 Listener。
+记着在不需要的时候，解除 Listener 的绑定。
+尽量用静态内部类。
+做 Code Review。个人经验：Code Review 能很早的发现内存泄漏。
+了解你程序的结
+          ...
+
           <div class="post-more-link text-center">
-            <a class="btn" href="/2015/12/07/Android/2015-12-07-Android优化几点/">
+            <a class="btn" href="/2015/12/07/Android/2015-12-07-Android优化几点/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -376,7 +405,7 @@
               
                 
                 <a class="post-title-link" href="/2015/11/30/网页前端/2015-11-30-React动态改变CSS/" itemprop="url">
-                  React动态改变CSS
+                  React动态改变CSS, 使用React实现二级菜单
                 </a>
               
             
@@ -394,6 +423,25 @@
             </time>
           </span>
 
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/网页前端/" itemprop="url" rel="index">
+                    <span itemprop="name">网页前端</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
           
 
           
@@ -425,9 +473,13 @@
 
       
         
-          React动态改变CSS, 使用React实现二级菜单
+          
+          [TOC]
+先上完整代码:12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849// 两种样式,用来点击的时候切换const selected = [    'classify
+          ...
+
           <div class="post-more-link text-center">
-            <a class="btn" href="/2015/11/30/网页前端/2015-11-30-React动态改变CSS/">
+            <a class="btn" href="/2015/11/30/网页前端/2015-11-30-React动态改变CSS/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -498,6 +550,25 @@
           </span>
 
           
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/网页前端/" itemprop="url" rel="index">
+                    <span itemprop="name">网页前端</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
 
           
             
@@ -528,9 +599,17 @@
 
       
         
-          React使用小记, 记录React第一次使用过程中碰到的问题与解决方案;以及一些功能笔记
+          
+          [TOC]
+
+React使用小记, 记录React第一次使用过程中碰到的问题与解决方案;以及一些功能笔记
+
+点击事件与传参先定义一个handleClick的点击事件函数; 再通过onClick来调用这个事件函数
+123456789101112const Menu = React.createClas
+          ...
+
           <div class="post-more-link text-center">
-            <a class="btn" href="/2015/11/30/网页前端/2015-11-30-React使用小记/">
+            <a class="btn" href="/2015/11/30/网页前端/2015-11-30-React使用小记/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -601,6 +680,25 @@
           </span>
 
           
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/网页前端/" itemprop="url" rel="index">
+                    <span itemprop="name">网页前端</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
 
           
             
@@ -631,9 +729,28 @@
 
       
         
-          自创建React,gulp项目
+          
+          全局环境安装
+安装node
+
+安装node-gyp
+
+
+1$ sudo npm install -g node-gyp
+
+全局安装gulp
+
+1$ sudo npm install gulp -g
+
+
+安装react-router
+
+如果执行gulp的时候报错
+1npm WARN EPEERINVA
+          ...
+
           <div class="post-more-link text-center">
-            <a class="btn" href="/2015/11/28/网页前端/2015-11-28-自创建React,gulp项目/">
+            <a class="btn" href="/2015/11/28/网页前端/2015-11-28-自创建React,gulp项目/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -807,6 +924,25 @@
           </span>
 
           
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/网页前端/" itemprop="url" rel="index">
+                    <span itemprop="name">网页前端</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
 
           
             
@@ -837,9 +973,15 @@
 
       
         
-          JavaScript模块化CommonJS和AMD
+          
+          [TOC]
+模块化概念NodeJS的诞生, js可以应用于服务器的开发, 之前js只运行在浏览器, 所以复杂度有限, 但是在服务器端, 由于复杂度的提升, 必须采取模块化的开发
+什么是模块化?像下面这样调用即是模块化
+123var math = require('math');math.add(2,
+          ...
+
           <div class="post-more-link text-center">
-            <a class="btn" href="/2015/11/26/网页前端/2015-11-26-Javascript模块化CommonJS和AMD/">
+            <a class="btn" href="/2015/11/26/网页前端/2015-11-26-Javascript模块化CommonJS和AMD/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -910,6 +1052,25 @@
           </span>
 
           
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
 
           
             
@@ -940,9 +1101,14 @@
 
       
         
-          Spinner与ListView
+          
+          几个比较有用的方法ListView.getFirstVisiblePosition()返回值是当前可以看到的第一个item，在所有item中（包括看不到的）的位置。
+ListView.getChildAt(int position)    
+getChildAt（int position)返回的it
+          ...
+
           <div class="post-more-link text-center">
-            <a class="btn" href="/2015/11/22/Android/2015-11-22-Spinner与ListView/">
+            <a class="btn" href="/2015/11/22/Android/2015-11-22-Spinner与ListView/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1013,6 +1179,25 @@
           </span>
 
           
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Android企业项目命名规范/" itemprop="url" rel="index">
+                    <span itemprop="name">Android企业项目命名规范</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
 
           
             
@@ -1043,9 +1228,16 @@
 
       
         
+          
           Android企业项目命名规范
+企业级的Android项目一般时间都会比较赶,开发人流动率比较大, 每个人都有自己的一套命名理念, 长此以往, 运维的代价会很大
+
+[TOC]
+Java变量变量基本按照Java基本的命名规范, 采用驼峰式: waterAdapter, paiMianShuAdapte
+          ...
+
           <div class="post-more-link text-center">
-            <a class="btn" href="/2015/11/17/Android/2015-11-17-Android企业项目命名规范/">
+            <a class="btn" href="/2015/11/17/Android/2015-11-17-Android企业项目命名规范/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1146,9 +1338,16 @@
 
       
         
-          RxJava如何应用于生产环境的常用代码
+          
+          RxJava实例对照解析
+RxJava如何引用于生产环境的常用代码解析
+
+TOC
+基本123456789101112131415161718192021222324252627282930313233343536373839404142434445_subscription = _getObserv
+          ...
+
           <div class="post-more-link text-center">
-            <a class="btn" href="/2015/11/09/Android/2015-11-09-RxJava实例对照解析/">
+            <a class="btn" href="/2015/11/09/Android/2015-11-09-RxJava实例对照解析/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1219,6 +1418,25 @@
           </span>
 
           
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/杂记/" itemprop="url" rel="index">
+                    <span itemprop="name">杂记</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
 
           
             
@@ -1249,9 +1467,15 @@
 
       
         
-          使用软件MWeb Lite编写, 这是在mac中不错的markdown编写编写管理软件, `快捷键`使用很方便
+          
+          
+使用软件MWeb Lite编写, 这是在mac中不错的markdown编写编写管理软件, 快捷键使用很
+
+重新开始使用blog.loujiwei.cn记录笔记===================    使用软件MWeb Lite编写, 这是在mac中不错的markdown编写编写管理软件, 快捷
+          ...
+
           <div class="post-more-link text-center">
-            <a class="btn" href="/2015/11/09/杂记/2015-11-09-重新开始/">
+            <a class="btn" href="/2015/11/09/杂记/2015-11-09-重新开始/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1334,7 +1558,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -1343,7 +1567,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">47</span>
+                <span class="site-state-item-count">63</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

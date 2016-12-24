@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Android, gradle" />
+  <meta name="keywords" content="Android,gradle," />
 
 
 
@@ -90,20 +90,26 @@
 
 
 
-<meta name="description" content="在实践Android热部署解决方案的时候需要用的gradle来动态修改class中的方法,以及在编译的时候比较两个版本之前修改的class">
+<meta name="description" content="在实践Android热部署解决方案的时候需要用的gradle来动态修改class中的方法,以及在编译的时候比较两个版本之前修改的class
+
+创建task基础123456789task hello &amp;lt;&amp;lt; &amp;#123;    println &apos;Hello world!&apos;&amp;#125;hello.doFirst &amp;#123;    println &apos;Hello Venus&apos;&amp;#125;h">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Gradle学习">
 <meta property="og:url" content="http://blog.loujiwei.cn/2015/12/25/Android/2015-12-25-gradle学习/index.html">
 <meta property="og:site_name" content="kkooff144`blog">
-<meta property="og:description" content="在实践Android热部署解决方案的时候需要用的gradle来动态修改class中的方法,以及在编译的时候比较两个版本之前修改的class">
+<meta property="og:description" content="在实践Android热部署解决方案的时候需要用的gradle来动态修改class中的方法,以及在编译的时候比较两个版本之前修改的class
+
+创建task基础123456789task hello &amp;lt;&amp;lt; &amp;#123;    println &apos;Hello world!&apos;&amp;#125;hello.doFirst &amp;#123;    println &apos;Hello Venus&apos;&amp;#125;h">
 <meta property="og:image" content="http://blog.loujiwei.cn/images/14522425746549.jpg">
 <meta property="og:image" content="http://blog.loujiwei.cn/images/14522425883559.jpg">
 <meta property="og:image" content="http://blog.loujiwei.cn/images/14522426056403.jpg">
 <meta property="og:image" content="http://blog.loujiwei.cn/images/14522426176157.jpg">
-<meta property="og:updated_time" content="2016-12-20T17:02:30.000Z">
+<meta property="og:updated_time" content="2016-12-24T14:37:22.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Gradle学习">
-<meta name="twitter:description" content="在实践Android热部署解决方案的时候需要用的gradle来动态修改class中的方法,以及在编译的时候比较两个版本之前修改的class">
+<meta name="twitter:description" content="在实践Android热部署解决方案的时候需要用的gradle来动态修改class中的方法,以及在编译的时候比较两个版本之前修改的class
+
+创建task基础123456789task hello &amp;lt;&amp;lt; &amp;#123;    println &apos;Hello world!&apos;&amp;#125;hello.doFirst &amp;#123;    println &apos;Hello Venus&apos;&amp;#125;h">
 <meta name="twitter:image" content="http://blog.loujiwei.cn/images/14522425746549.jpg">
 
 
@@ -296,6 +302,25 @@
           </span>
 
           
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
 
           
             
@@ -325,7 +350,10 @@
       
 
       
-        <h1 id="创建task"><a href="#创建task" class="headerlink" title="创建task"></a>创建task</h1><h2 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">task hello &lt;&lt; &#123;</div><div class="line">    println <span class="string">'Hello world!'</span></div><div class="line">&#125;</div><div class="line">hello.doFirst &#123;</div><div class="line">    println <span class="string">'Hello Venus'</span></div><div class="line">&#125;</div><div class="line">hello.doLast &#123;</div><div class="line">    println <span class="string">'Hello Mars'</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+        <blockquote>
+<p> 在实践Android热部署解决方案的时候需要用的gradle来动态修改class中的方法,以及在编译的时候比较两个版本之前修改的class</p>
+</blockquote>
+<h1 id="创建task"><a href="#创建task" class="headerlink" title="创建task"></a>创建task</h1><h2 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">task hello &lt;&lt; &#123;</div><div class="line">    println <span class="string">'Hello world!'</span></div><div class="line">&#125;</div><div class="line">hello.doFirst &#123;</div><div class="line">    println <span class="string">'Hello Venus'</span></div><div class="line">&#125;</div><div class="line">hello.doLast &#123;</div><div class="line">    println <span class="string">'Hello Mars'</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>以上定义了一个叫做hello的任务, 任务是一个可执行的<code>闭包</code><br>其中<code>&lt;&lt;</code>可以替换成<code>doLast</code></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">task hello &#123;</div><div class="line">    doLast &#123;</div><div class="line">        println <span class="string">'Hello world!'</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>最终输出</p>
@@ -378,7 +406,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Android-gradle/" rel="tag">#Android, gradle</a>
+            <a href="/tags/Android/" rel="tag">#Android</a>
+          
+            <a href="/tags/gradle/" rel="tag">#gradle</a>
           
         </div>
       
@@ -477,7 +507,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -486,7 +516,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">47</span>
+                <span class="site-state-item-count">63</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

@@ -324,8 +324,16 @@
         
           
           
-layout:         posttitle:          Commit Message格式description:    git commit -m 的书写格式, 当然也适用于svntags:           gitkeywords:       git
-noToc:      
+title:          Commit Message格式categories:    工具软件tags:
+- git
+- svn
+
+[TOC]
+
+git commit -m 的书写格式, 当然也适用于svn
+
+概要
+每次提交，Commit message 都包括三个部分：Header，Bo
           ...
 
           <div class="post-more-link text-center">
@@ -400,6 +408,25 @@ noToc:
           </span>
 
           
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
 
           
             
@@ -430,9 +457,18 @@ noToc:
 
       
         
-          如何上传Android依赖库到Jcenter中
+          
+          [TOC]
+
+如何上传Android依赖库到Jcenter中
+注册Jcenter账号官网地址: https://bintray.com/自行注册
+
+项目配置Step1: 项目根build.gradle在项目根build.gradle中添加Gradle &gt;= 2.1
+123plugins &#1
+          ...
+
           <div class="post-more-link text-center">
-            <a class="btn" href="/2016/01/04/Android/2016-01-04-上传依赖库到Jcenter/">
+            <a class="btn" href="/2016/01/04/Android/2016-01-04-上传依赖库到Jcenter/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -503,6 +539,25 @@ noToc:
           </span>
 
           
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
 
           
             
@@ -533,9 +588,19 @@ noToc:
 
       
         
-          Nuwa项目是热部署方案的一个实现, 本文记录尝试使用Nuwa构建热补丁项目
+          
+          [TOC]
+
+Nuwa项目是热部署方案的一个实现, 本文记录尝试使用Nuwa构建热补丁项目
+
+Usage导入
+在项目根build.gradle中添加:
+
+123456789buildscript &#123;    repositories &#123;        jcenter()    &#
+          ...
+
           <div class="post-more-link text-center">
-            <a class="btn" href="/2016/01/03/Android/2016-01-03-Nuwa项目的使用/">
+            <a class="btn" href="/2016/01/03/Android/2016-01-03-Nuwa项目的使用/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -606,6 +671,25 @@ noToc:
           </span>
 
           
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
 
           
             
@@ -636,9 +720,15 @@ noToc:
 
       
         
-          在实践Android热部署解决方案的时候需要用的gradle来动态修改class中的方法,以及在编译的时候比较两个版本之前修改的class
+          
+          
+ 在实践Android热部署解决方案的时候需要用的gradle来动态修改class中的方法,以及在编译的时候比较两个版本之前修改的class
+
+创建task基础123456789task hello &lt;&lt; &#123;    println 'Hello world!'&#125;he
+          ...
+
           <div class="post-more-link text-center">
-            <a class="btn" href="/2015/12/25/Android/2015-12-25-gradle学习/">
+            <a class="btn" href="/2015/12/25/Android/2015-12-25-gradle学习/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -739,9 +829,16 @@ noToc:
 
       
         
-          React组件间通信, EventBus在React中的使用
+          
+          [TOC]
+前言在React由于数据的单项流动性, 组件间通信不能很好的被支持, 通信共分为父子, 子父, 组件间
+父子此方式直接通过props的方式来传递信息
+子父还是通过props,将父的函数传给子, 在此函数中, 实现修改父的参数, 这样在子调用函数的时候, 即子向父通信.
+组件间这是本文的重
+          ...
+
           <div class="post-more-link text-center">
-            <a class="btn" href="/2015/12/22/网页前端/2015-12-22-React组件间通信-EventBus的使用/">
+            <a class="btn" href="/2015/12/22/网页前端/2015-12-22-React组件间通信-EventBus的使用/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -812,6 +909,25 @@ noToc:
           </span>
 
           
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
 
           
             
@@ -842,9 +958,18 @@ noToc:
 
       
         
-          Android热部署方案
+          
+          原理参考下面两篇文章可以总结:
+
+动态改变BaseDexClassLoader对象间接引用的dexElements；
+在app打包的时候，阻止相关类去打上CLASS_ISPREVERIFIED标志。
+
+实现防止CLASS_ISPREVERIFIED打上trueASMJavassist
+Javassi
+          ...
+
           <div class="post-more-link text-center">
-            <a class="btn" href="/2015/12/19/Android/2015-12-19-Android热部署方案/">
+            <a class="btn" href="/2015/12/19/Android/2015-12-19-Android热部署方案/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -915,6 +1040,25 @@ noToc:
           </span>
 
           
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
 
           
             
@@ -945,9 +1089,22 @@ noToc:
 
       
         
-          之前配置NDK环境的时候后悔没有记录下来, 这次刚好赶上了, 记下来, 免得到时候再百度
+          
+          
+之前配置NDK环境的时候后悔没有记录下来, 这次刚好赶上了, 记下来, 免得到时候再百度
+
+下载NDK首先到Google官网下载: NDK选择: Mac OS X 64-bit版本
+下载完成后:
+
+用terminal cd到刚刚下载的文件路径下
+执行chmod a+x命令
+开始解压
+
+完整命令如下
+          ...
+
           <div class="post-more-link text-center">
-            <a class="btn" href="/2015/12/19/Android/2015-12-19-Mac下Android NDK开发环境安装与配置/">
+            <a class="btn" href="/2015/12/19/Android/2015-12-19-Mac下Android NDK开发环境安装与配置/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1018,6 +1175,25 @@ noToc:
           </span>
 
           
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/杂记/" itemprop="url" rel="index">
+                    <span itemprop="name">杂记</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
 
           
             
@@ -1048,9 +1224,16 @@ noToc:
 
       
         
-          Realm终于官方支持RxJava
+          
+          真是感动天, 感动地, 前一秒还在苦思Realm如何更好的支持RxJava, 不一会儿大神竟然官方支持了! 爽!
+##赶紧试用体验!
+
+
+
+          
+
           <div class="post-more-link text-center">
-            <a class="btn" href="/2015/12/18/杂记/2015-12-18-Realm终于支持RxJava了!!/">
+            <a class="btn" href="/2015/12/18/杂记/2015-12-18-Realm终于支持RxJava了!!/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1121,6 +1304,25 @@ noToc:
           </span>
 
           
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/工具软件/" itemprop="url" rel="index">
+                    <span itemprop="name">工具软件</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
 
           
             
@@ -1151,9 +1353,14 @@ noToc:
 
       
         
-          VIM快捷键
+          
+          插入基础i: 在光标之前插入a: 在光标之后追加
+进阶行位置插入A: 在一行的结尾处追加I: 在一行的开头处插入o: 在光标所在位置的下一行打开新行插入O: 在光标所在位置的上一行打开新行插入
+
+          
+
           <div class="post-more-link text-center">
-            <a class="btn" href="/2015/12/11/工具软件/2015-12-11-VIM快捷键/">
+            <a class="btn" href="/2015/12/11/工具软件/2015-12-11-VIM快捷键/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1224,6 +1431,25 @@ noToc:
           </span>
 
           
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
 
           
             
@@ -1254,9 +1480,17 @@ noToc:
 
       
         
-          记录学习RxJava中的小知识点
+          
+          [TOC]
+
+记录学习RxJava中的小知识点
+
+SchedulersSchedulers.immediate() : 默认的, 在当前线程下立即执行.
+Schedulers.trampoline(): 将被观察者所生产出来的数据丢到一个队列中, 队列会依次执行其中的任务,能够有效避免StackOv
+          ...
+
           <div class="post-more-link text-center">
-            <a class="btn" href="/2015/12/10/Android/2015-12-10-RxJava中的小知识点(1)/">
+            <a class="btn" href="/2015/12/10/Android/2015-12-10-RxJava中的小知识点(1)/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1339,7 +1573,7 @@ noToc:
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -1348,7 +1582,7 @@ noToc:
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">47</span>
+                <span class="site-state-item-count">63</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

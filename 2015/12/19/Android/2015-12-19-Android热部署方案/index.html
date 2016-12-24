@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Android, 热部署" />
+  <meta name="keywords" content="Android,热部署," />
 
 
 
@@ -90,16 +90,34 @@
 
 
 
-<meta name="description" content="Android热部署方案">
+<meta name="description" content="原理参考下面两篇文章可以总结:
+
+动态改变BaseDexClassLoader对象间接引用的dexElements；
+在app打包的时候，阻止相关类去打上CLASS_ISPREVERIFIED标志。
+
+实现防止CLASS_ISPREVERIFIED打上trueASMJavassist
+Javassist 使您可以检查、编辑以及创建 Java 二进制类。检查方面基本上与通过 Reflection A">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android热部署方案">
 <meta property="og:url" content="http://blog.loujiwei.cn/2015/12/19/Android/2015-12-19-Android热部署方案/index.html">
 <meta property="og:site_name" content="kkooff144`blog">
-<meta property="og:description" content="Android热部署方案">
-<meta property="og:updated_time" content="2016-12-19T02:32:52.000Z">
+<meta property="og:description" content="原理参考下面两篇文章可以总结:
+
+动态改变BaseDexClassLoader对象间接引用的dexElements；
+在app打包的时候，阻止相关类去打上CLASS_ISPREVERIFIED标志。
+
+实现防止CLASS_ISPREVERIFIED打上trueASMJavassist
+Javassist 使您可以检查、编辑以及创建 Java 二进制类。检查方面基本上与通过 Reflection A">
+<meta property="og:updated_time" content="2016-12-24T14:37:25.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android热部署方案">
-<meta name="twitter:description" content="Android热部署方案">
+<meta name="twitter:description" content="原理参考下面两篇文章可以总结:
+
+动态改变BaseDexClassLoader对象间接引用的dexElements；
+在app打包的时候，阻止相关类去打上CLASS_ISPREVERIFIED标志。
+
+实现防止CLASS_ISPREVERIFIED打上trueASMJavassist
+Javassist 使您可以检查、编辑以及创建 Java 二进制类。检查方面基本上与通过 Reflection A">
 
 
 
@@ -291,6 +309,25 @@
           </span>
 
           
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
 
           
             
@@ -354,7 +391,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Android-热部署/" rel="tag">#Android, 热部署</a>
+            <a href="/tags/Android/" rel="tag">#Android</a>
+          
+            <a href="/tags/热部署/" rel="tag">#热部署</a>
           
         </div>
       
@@ -453,7 +492,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -462,7 +501,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">47</span>
+                <span class="site-state-item-count">63</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

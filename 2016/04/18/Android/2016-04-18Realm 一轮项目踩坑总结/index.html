@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Android" />
+  <meta name="keywords" content="Android,Realm," />
 
 
 
@@ -90,16 +90,19 @@
 
 
 
-<meta name="description" content="使用Realm做了一个项目之后的踩坑总结">
+<meta name="description" content="大坑1: realm实例通过realm = Realm.getDefaultInstance();就能创建一个当前线程的实例,记住: 一定要realm.close(), 不然会包: 
+12io.realm.exceptions.RealmErrorUnrecoverable error. mmap() failed: Out of memory size: 201326592 offset: 0">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Realm 一轮项目踩坑总结">
 <meta property="og:url" content="http://blog.loujiwei.cn/2016/04/18/Android/2016-04-18Realm 一轮项目踩坑总结/index.html">
 <meta property="og:site_name" content="kkooff144`blog">
-<meta property="og:description" content="使用Realm做了一个项目之后的踩坑总结">
-<meta property="og:updated_time" content="2016-12-19T02:31:19.000Z">
+<meta property="og:description" content="大坑1: realm实例通过realm = Realm.getDefaultInstance();就能创建一个当前线程的实例,记住: 一定要realm.close(), 不然会包: 
+12io.realm.exceptions.RealmErrorUnrecoverable error. mmap() failed: Out of memory size: 201326592 offset: 0">
+<meta property="og:updated_time" content="2016-12-24T14:36:52.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Realm 一轮项目踩坑总结">
-<meta name="twitter:description" content="使用Realm做了一个项目之后的踩坑总结">
+<meta name="twitter:description" content="大坑1: realm实例通过realm = Realm.getDefaultInstance();就能创建一个当前线程的实例,记住: 一定要realm.close(), 不然会包: 
+12io.realm.exceptions.RealmErrorUnrecoverable error. mmap() failed: Out of memory size: 201326592 offset: 0">
 
 
 
@@ -291,6 +294,25 @@
           </span>
 
           
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
 
           
             
@@ -358,6 +380,8 @@
         <div class="post-tags">
           
             <a href="/tags/Android/" rel="tag">#Android</a>
+          
+            <a href="/tags/Realm/" rel="tag">#Realm</a>
           
         </div>
       
@@ -456,7 +480,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -465,7 +489,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">47</span>
+                <span class="site-state-item-count">63</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

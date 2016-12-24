@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="React, EventBus, 通信" />
+  <meta name="keywords" content="React,EventBus,通信," />
 
 
 
@@ -90,17 +90,32 @@
 
 
 
-<meta name="description" content="React组件间通信, EventBus在React中的使用">
+<meta name="description" content="[TOC]
+前言在React由于数据的单项流动性, 组件间通信不能很好的被支持, 通信共分为父子, 子父, 组件间
+父子此方式直接通过props的方式来传递信息
+子父还是通过props,将父的函数传给子, 在此函数中, 实现修改父的参数, 这样在子调用函数的时候, 即子向父通信.
+组件间这是本文的重点, 综合起来,使用EventBus的思想是最简单的案例:
+在GoodsName中选择商品的数量,">
 <meta property="og:type" content="article">
 <meta property="og:title" content="React组件间通信-EventBus的使用">
 <meta property="og:url" content="http://blog.loujiwei.cn/2015/12/22/网页前端/2015-12-22-React组件间通信-EventBus的使用/index.html">
 <meta property="og:site_name" content="kkooff144`blog">
-<meta property="og:description" content="React组件间通信, EventBus在React中的使用">
+<meta property="og:description" content="[TOC]
+前言在React由于数据的单项流动性, 组件间通信不能很好的被支持, 通信共分为父子, 子父, 组件间
+父子此方式直接通过props的方式来传递信息
+子父还是通过props,将父的函数传给子, 在此函数中, 实现修改父的参数, 这样在子调用函数的时候, 即子向父通信.
+组件间这是本文的重点, 综合起来,使用EventBus的思想是最简单的案例:
+在GoodsName中选择商品的数量,">
 <meta property="og:image" content="http://blog.loujiwei.cn/images/14517926018451.jpg">
-<meta property="og:updated_time" content="2016-12-20T17:04:12.000Z">
+<meta property="og:updated_time" content="2016-12-24T14:51:52.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="React组件间通信-EventBus的使用">
-<meta name="twitter:description" content="React组件间通信, EventBus在React中的使用">
+<meta name="twitter:description" content="[TOC]
+前言在React由于数据的单项流动性, 组件间通信不能很好的被支持, 通信共分为父子, 子父, 组件间
+父子此方式直接通过props的方式来传递信息
+子父还是通过props,将父的函数传给子, 在此函数中, 实现修改父的参数, 这样在子调用函数的时候, 即子向父通信.
+组件间这是本文的重点, 综合起来,使用EventBus的思想是最简单的案例:
+在GoodsName中选择商品的数量,">
 <meta name="twitter:image" content="http://blog.loujiwei.cn/images/14517926018451.jpg">
 
 
@@ -360,7 +375,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/React-EventBus-通信/" rel="tag">#React, EventBus, 通信</a>
+            <a href="/tags/React/" rel="tag">#React</a>
+          
+            <a href="/tags/EventBus/" rel="tag">#EventBus</a>
+          
+            <a href="/tags/通信/" rel="tag">#通信</a>
           
         </div>
       
@@ -459,7 +478,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -468,7 +487,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">47</span>
+                <span class="site-state-item-count">63</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

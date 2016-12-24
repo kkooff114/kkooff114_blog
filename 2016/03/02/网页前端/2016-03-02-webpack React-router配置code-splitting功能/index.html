@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="React" />
+  <meta name="keywords" content="React,Webpack," />
 
 
 
@@ -90,17 +90,23 @@
 
 
 
-<meta name="description" content="使用react-router开启webpack的code-splitting功能">
+<meta name="description" content="[TOC]
+什么是code-splitting?   使用react开发, 编译后会默认生成一个app.js, 如果项目很大的情况下, app.js的size就会随之变得很大, 问题是, app.js在index初次加载的时候就会被加载, 这样用户在第一次登陆网站的时候就会加载很大size的js包, 体验会下降;
+   因为app.js包含了项目中所有的组件的编译内容, 所以显而易见的解决方案就是">
 <meta property="og:type" content="article">
 <meta property="og:title" content="webpack React-router配置code-splitting功能">
 <meta property="og:url" content="http://blog.loujiwei.cn/2016/03/02/网页前端/2016-03-02-webpack React-router配置code-splitting功能/index.html">
 <meta property="og:site_name" content="kkooff144`blog">
-<meta property="og:description" content="使用react-router开启webpack的code-splitting功能">
+<meta property="og:description" content="[TOC]
+什么是code-splitting?   使用react开发, 编译后会默认生成一个app.js, 如果项目很大的情况下, app.js的size就会随之变得很大, 问题是, app.js在index初次加载的时候就会被加载, 这样用户在第一次登陆网站的时候就会加载很大size的js包, 体验会下降;
+   因为app.js包含了项目中所有的组件的编译内容, 所以显而易见的解决方案就是">
 <meta property="og:image" content="http://blog.loujiwei.cn/images/14569067406586.jpg">
-<meta property="og:updated_time" content="2016-12-20T17:03:51.000Z">
+<meta property="og:updated_time" content="2016-12-24T14:51:07.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="webpack React-router配置code-splitting功能">
-<meta name="twitter:description" content="使用react-router开启webpack的code-splitting功能">
+<meta name="twitter:description" content="[TOC]
+什么是code-splitting?   使用react开发, 编译后会默认生成一个app.js, 如果项目很大的情况下, app.js的size就会随之变得很大, 问题是, app.js在index初次加载的时候就会被加载, 这样用户在第一次登陆网站的时候就会加载很大size的js包, 体验会下降;
+   因为app.js包含了项目中所有的组件的编译内容, 所以显而易见的解决方案就是">
 <meta name="twitter:image" content="http://blog.loujiwei.cn/images/14569067406586.jpg">
 
 
@@ -293,6 +299,25 @@
           </span>
 
           
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/网页前端/" itemprop="url" rel="index">
+                    <span itemprop="name">网页前端</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
 
           
             
@@ -365,6 +390,8 @@
         <div class="post-tags">
           
             <a href="/tags/React/" rel="tag">#React</a>
+          
+            <a href="/tags/Webpack/" rel="tag">#Webpack</a>
           
         </div>
       
@@ -463,7 +490,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -472,7 +499,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">47</span>
+                <span class="site-state-item-count">63</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

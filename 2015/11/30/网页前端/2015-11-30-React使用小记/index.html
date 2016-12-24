@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="js, React" />
+  <meta name="keywords" content="javascript,React," />
 
 
 
@@ -90,16 +90,31 @@
 
 
 
-<meta name="description" content="React使用小记, 记录React第一次使用过程中碰到的问题与解决方案;以及一些功能笔记">
+<meta name="description" content="[TOC]
+
+React使用小记, 记录React第一次使用过程中碰到的问题与解决方案;以及一些功能笔记
+
+点击事件与传参先定义一个handleClick的点击事件函数; 再通过onClick来调用这个事件函数
+123456789101112const Menu = React.createClass(&amp;#123;    handleClick: function(event) &amp;#123;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="React使用小记">
 <meta property="og:url" content="http://blog.loujiwei.cn/2015/11/30/网页前端/2015-11-30-React使用小记/index.html">
 <meta property="og:site_name" content="kkooff144`blog">
-<meta property="og:description" content="React使用小记, 记录React第一次使用过程中碰到的问题与解决方案;以及一些功能笔记">
-<meta property="og:updated_time" content="2016-12-19T02:30:58.000Z">
+<meta property="og:description" content="[TOC]
+
+React使用小记, 记录React第一次使用过程中碰到的问题与解决方案;以及一些功能笔记
+
+点击事件与传参先定义一个handleClick的点击事件函数; 再通过onClick来调用这个事件函数
+123456789101112const Menu = React.createClass(&amp;#123;    handleClick: function(event) &amp;#123;">
+<meta property="og:updated_time" content="2016-12-24T14:53:03.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="React使用小记">
-<meta name="twitter:description" content="React使用小记, 记录React第一次使用过程中碰到的问题与解决方案;以及一些功能笔记">
+<meta name="twitter:description" content="[TOC]
+
+React使用小记, 记录React第一次使用过程中碰到的问题与解决方案;以及一些功能笔记
+
+点击事件与传参先定义一个handleClick的点击事件函数; 再通过onClick来调用这个事件函数
+123456789101112const Menu = React.createClass(&amp;#123;    handleClick: function(event) &amp;#123;">
 
 
 
@@ -291,6 +306,25 @@
           </span>
 
           
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/网页前端/" itemprop="url" rel="index">
+                    <span itemprop="name">网页前端</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
 
           
             
@@ -321,6 +355,9 @@
 
       
         <p>[TOC]</p>
+<blockquote>
+<p>React使用小记, 记录React第一次使用过程中碰到的问题与解决方案;以及一些功能笔记</p>
+</blockquote>
 <h2 id="点击事件与传参"><a href="#点击事件与传参" class="headerlink" title="点击事件与传参"></a>点击事件与传参</h2><p>先定义一个<code>handleClick</code>的点击事件函数; 再通过<code>onClick</code>来调用这个事件函数</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> Menu = React.createClass(&#123;</div><div class="line"></div><div class="line">    <span class="attr">handleClick</span>: <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</div><div class="line">        alert(<span class="string">"点击"</span>);</div><div class="line">    &#125;,</div><div class="line"></div><div class="line">    render() &#123;</div><div class="line">        <span class="keyword">return</span> (</div><div class="line">                <span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">onClick</span>=<span class="string">&#123;this.handleClick&#125;</span>&gt;</span>点击<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></div><div class="line">        );</div><div class="line">    &#125;,</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
 <p>传参:</p>
@@ -364,7 +401,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/javascript-React/" rel="tag">#javascript, React</a>
+            <a href="/tags/javascript/" rel="tag">#javascript</a>
+          
+            <a href="/tags/React/" rel="tag">#React</a>
           
         </div>
       
@@ -381,8 +420,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/11/30/网页前端/2015-11-30-React动态改变CSS/" rel="prev" title="React动态改变CSS">
-                React动态改变CSS <i class="fa fa-chevron-right"></i>
+              <a href="/2015/11/30/网页前端/2015-11-30-React动态改变CSS/" rel="prev" title="React动态改变CSS, 使用React实现二级菜单">
+                React动态改变CSS, 使用React实现二级菜单 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -463,7 +502,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -472,7 +511,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">47</span>
+                <span class="site-state-item-count">63</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
