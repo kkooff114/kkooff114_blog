@@ -90,22 +90,25 @@
 
 
 
-<meta name="description" content="##基本概念
-Lexer (词法分析器): source -&amp;gt; tokensParser tokens -&amp;gt; ASTGenerator AST -&amp;gt; Target Code">
+<meta name="description" content="基本概念Lexer (词法分析器): source -&amp;gt; tokens(语元)Parser(语法解析器) tokens -&amp;gt; AST(抽象语法树)Generator AST -&amp;gt; Target Code
+
+Lexer (词法分析器)要实现一门语言，第一要务就是要能够处理文本文件，搞明白其中究竟写了些什么。传统上，我们会先利用“词法分析器”（也称为“扫描器”）将输入切成“语元（to">
 <meta property="og:type" content="article">
 <meta property="og:title" content="编译器如何工作">
 <meta property="og:url" content="http://blog.loujiwei.cn/2016/12/22/Google-Interview/必备知识/2016-12-22-编译器如何工作/index.html">
 <meta property="og:site_name" content="kkooff144`blog">
-<meta property="og:description" content="##基本概念
-Lexer (词法分析器): source -&amp;gt; tokensParser tokens -&amp;gt; ASTGenerator AST -&amp;gt; Target Code">
+<meta property="og:description" content="基本概念Lexer (词法分析器): source -&amp;gt; tokens(语元)Parser(语法解析器) tokens -&amp;gt; AST(抽象语法树)Generator AST -&amp;gt; Target Code
+
+Lexer (词法分析器)要实现一门语言，第一要务就是要能够处理文本文件，搞明白其中究竟写了些什么。传统上，我们会先利用“词法分析器”（也称为“扫描器”）将输入切成“语元（to">
 <meta property="og:image" content="http://blog.loujiwei.cn/images/14823703868841.jpg">
 <meta property="og:image" content="http://blog.loujiwei.cn/images/14823704139094.jpg">
 <meta property="og:image" content="http://blog.loujiwei.cn/images/14823705406058.jpg">
-<meta property="og:updated_time" content="2016-12-22T09:09:01.000Z">
+<meta property="og:updated_time" content="2016-12-25T16:02:50.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="编译器如何工作">
-<meta name="twitter:description" content="##基本概念
-Lexer (词法分析器): source -&amp;gt; tokensParser tokens -&amp;gt; ASTGenerator AST -&amp;gt; Target Code">
+<meta name="twitter:description" content="基本概念Lexer (词法分析器): source -&amp;gt; tokens(语元)Parser(语法解析器) tokens -&amp;gt; AST(抽象语法树)Generator AST -&amp;gt; Target Code
+
+Lexer (词法分析器)要实现一门语言，第一要务就是要能够处理文本文件，搞明白其中究竟写了些什么。传统上，我们会先利用“词法分析器”（也称为“扫描器”）将输入切成“语元（to">
 <meta name="twitter:image" content="http://blog.loujiwei.cn/images/14823703868841.jpg">
 
 
@@ -346,9 +349,14 @@ Lexer (词法分析器): source -&amp;gt; tokensParser tokens -&amp;gt; ASTGener
       
 
       
-        <p>##基本概念</p>
-<p><code>Lexer (词法分析器)</code>: source -&gt; tokens<br><code>Parser</code> tokens -&gt; AST<br><code>Generator</code> AST -&gt; Target Code</p>
+        <h1 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h1><p><code>Lexer (词法分析器)</code>: source -&gt; tokens(语元)<br><code>Parser(语法解析器)</code> tokens -&gt; AST(抽象语法树)<br><code>Generator</code> AST -&gt; Target Code</p>
 <p><img src="/images/14823703868841.jpg" alt=""><br><img src="/images/14823704139094.jpg" alt=""><br><img src="/images/14823705406058.jpg" alt=""></p>
+<h1 id="Lexer-词法分析器"><a href="#Lexer-词法分析器" class="headerlink" title="Lexer (词法分析器)"></a>Lexer (词法分析器)</h1><p>要实现一门语言，第一要务就是要能够处理文本文件，搞明白其中究竟写了些什么。传统上，我们会先利用“词法分析器”（也称为“扫描器”）将输入切成“语元（token）”，然后再做处理。词法分析器返回的每个语元都带有一个语元编号，此外可能还会附带一些元数据（比如某个数值）。</p>
+<p>每个语言都有自己的词法分析器的实现.</p>
+<h1 id="Parser-语法解析器"><a href="#Parser-语法解析器" class="headerlink" title="Parser(语法解析器)"></a>Parser(语法解析器)</h1><p>抽象语法树(AST)作用在于牢牢抓住程序的脉络，从而方便编译过程的后续环节（如代码生成）对程序进行解读。AST就是开发者为语言量身定制的一套模型，基本上语言中的每种结构都与一种AST对象相对应。</p>
+<p>开始构造AST之前，先要准备好用于构造AST的语法解析器。说白了，就是要利用语法解析器把“x+y”这样的输入（由词法分析器返回的三个语元）分解成由代码生成的AST.</p>
+<h1 id="LLVM-IR代码生成"><a href="#LLVM-IR代码生成" class="headerlink" title="LLVM IR代码生成"></a>LLVM IR代码生成</h1><p>将<code>抽象语法树</code>转换成LLVM IR</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="http://llvm-tutorial-cn.readthedocs.io/en/latest/chapter-1.html" target="_blank" rel="external">LLVM教程</a></p>
 
       
     </div>
@@ -541,7 +549,7 @@ Lexer (词法分析器): source -&amp;gt; tokensParser tokens -&amp;gt; ASTGener
               
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基本概念"><span class="nav-number">1.</span> <span class="nav-text">基本概念</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Lexer-词法分析器"><span class="nav-number">2.</span> <span class="nav-text">Lexer (词法分析器)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Parser-语法解析器"><span class="nav-number">3.</span> <span class="nav-text">Parser(语法解析器)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#LLVM-IR代码生成"><span class="nav-number">4.</span> <span class="nav-text">LLVM IR代码生成</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">5.</span> <span class="nav-text">参考</span></a></li></ol></div>
             
           </div>
         </section>
