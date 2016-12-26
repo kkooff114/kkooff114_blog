@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="服务器,HTTPS,SSL,TLS," />
+  <meta name="keywords" content="google-interview,必备知识," />
 
 
 
@@ -90,34 +90,37 @@
 
 
 
-<meta name="description" content="简介HTTPS，也称作HTTP over TLS。TLS的前身是SSL，TLS 1.0通常被标示为SSL 3.1，TLS 1.1为SSL 3.2，TLS 1.2为SSL 3.3。本文着重描述TLS协议的1.2版本
-总览
+<meta name="description" content="基本对于整数而言可以方便的转换到二进制,而对于浮点数, 由于有小数点的存在(位置不固定), 可以使用科学计数法3.12*10^5来表示浮点数，这样的好处是：小数点的位置固定下来了。因为计算机只能用01表示，所以我们用2来表示上面提到的那个10.
+公式如下:$$  X = a  *  2^e  $$
 
-[明文] 客户端发送随机数client_random(第一个随机数)和支持的加密方式列表
-[明文] 服务器返回随机数server_random(第二个随机数) ，选择的加密方式和">
+a为浮点数的二进制表示，范围为[1,2) ;
+e为小数点移动的位数;
+
+
+如:27.0表示成二进制">
 <meta property="og:type" content="article">
-<meta property="og:title" content="HTTPS原理">
-<meta property="og:url" content="http://blog.loujiwei.cn/2016/12/24/服务器/2016-12-24-HTTPS原理/index.html">
+<meta property="og:title" content="浮点数是如何存储的">
+<meta property="og:url" content="http://blog.loujiwei.cn/2016/12/26/Google-Interview/必备知识/2016-12-26/index.html">
 <meta property="og:site_name" content="kkooff144`blog">
-<meta property="og:description" content="简介HTTPS，也称作HTTP over TLS。TLS的前身是SSL，TLS 1.0通常被标示为SSL 3.1，TLS 1.1为SSL 3.2，TLS 1.2为SSL 3.3。本文着重描述TLS协议的1.2版本
-总览
+<meta property="og:description" content="基本对于整数而言可以方便的转换到二进制,而对于浮点数, 由于有小数点的存在(位置不固定), 可以使用科学计数法3.12*10^5来表示浮点数，这样的好处是：小数点的位置固定下来了。因为计算机只能用01表示，所以我们用2来表示上面提到的那个10.
+公式如下:$$  X = a  *  2^e  $$
 
-[明文] 客户端发送随机数client_random(第一个随机数)和支持的加密方式列表
-[明文] 服务器返回随机数server_random(第二个随机数) ，选择的加密方式和">
-<meta property="og:image" content="http://blog.loujiwei.cn/images/14825636524226.jpg">
-<meta property="og:image" content="http://blog.loujiwei.cn/images/14825639725693.jpg">
-<meta property="og:image" content="http://blog.loujiwei.cn/images/14825670516849.jpg">
-<meta property="og:image" content="http://blog.loujiwei.cn/images/14825672551498.jpg">
-<meta property="og:image" content="http://blog.loujiwei.cn/images/14825775540260.jpg">
-<meta property="og:updated_time" content="2016-12-24T11:14:14.000Z">
+a为浮点数的二进制表示，范围为[1,2) ;
+e为小数点移动的位数;
+
+
+如:27.0表示成二进制">
+<meta property="og:updated_time" content="2016-12-26T05:09:38.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="HTTPS原理">
-<meta name="twitter:description" content="简介HTTPS，也称作HTTP over TLS。TLS的前身是SSL，TLS 1.0通常被标示为SSL 3.1，TLS 1.1为SSL 3.2，TLS 1.2为SSL 3.3。本文着重描述TLS协议的1.2版本
-总览
+<meta name="twitter:title" content="浮点数是如何存储的">
+<meta name="twitter:description" content="基本对于整数而言可以方便的转换到二进制,而对于浮点数, 由于有小数点的存在(位置不固定), 可以使用科学计数法3.12*10^5来表示浮点数，这样的好处是：小数点的位置固定下来了。因为计算机只能用01表示，所以我们用2来表示上面提到的那个10.
+公式如下:$$  X = a  *  2^e  $$
 
-[明文] 客户端发送随机数client_random(第一个随机数)和支持的加密方式列表
-[明文] 服务器返回随机数server_random(第二个随机数) ，选择的加密方式和">
-<meta name="twitter:image" content="http://blog.loujiwei.cn/images/14825636524226.jpg">
+a为浮点数的二进制表示，范围为[1,2) ;
+e为小数点移动的位数;
+
+
+如:27.0表示成二进制">
 
 
 
@@ -138,10 +141,10 @@
 
 
 
-  <link rel="canonical" href="http://blog.loujiwei.cn/2016/12/24/服务器/2016-12-24-HTTPS原理/"/>
+  <link rel="canonical" href="http://blog.loujiwei.cn/2016/12/26/Google-Interview/必备知识/2016-12-26/"/>
 
 
-  <title> HTTPS原理 | kkooff144`blog </title>
+  <title> 浮点数是如何存储的 | kkooff144`blog </title>
 </head>
 
 <body itemscope itemtype="//schema.org/WebPage" lang="zh-Hans">
@@ -291,7 +294,7 @@
             
             
               
-                HTTPS原理
+                浮点数是如何存储的
               
             
           </h1>
@@ -303,8 +306,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-12-24T15:11:18+08:00" content="2016-12-24">
-              2016-12-24
+            <time itemprop="dateCreated" datetime="2016-12-26T00:09:50+08:00" content="2016-12-26">
+              2016-12-26
             </time>
           </span>
 
@@ -317,8 +320,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/服务器/" itemprop="url" rel="index">
-                    <span itemprop="name">服务器</span>
+                  <a href="/categories/google-interview/" itemprop="url" rel="index">
+                    <span itemprop="name">google-interview</span>
                   </a>
                 </span>
 
@@ -333,8 +336,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/12/24/服务器/2016-12-24-HTTPS原理/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/12/24/服务器/2016-12-24-HTTPS原理/" itemprop="commentsCount"></span>
+                <a href="/2016/12/26/Google-Interview/必备知识/2016-12-26/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/12/26/Google-Interview/必备知识/2016-12-26/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -357,58 +360,79 @@
       
 
       
-        <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>HTTPS，也称作HTTP over TLS。TLS的前身是SSL，<br>TLS 1.0通常被标示为SSL 3.1，<br>TLS 1.1为SSL 3.2，<br>TLS 1.2为SSL 3.3。<br>本文着重描述TLS协议的1.2版本<br><img src="/images/14825636524226.jpg" alt=""></p>
-<h1 id="总览"><a href="#总览" class="headerlink" title="总览"></a>总览</h1><p><img src="/images/14825639725693.jpg" alt=""></p>
-<ol>
-<li>[明文] 客户端发送随机数<code>client_random</code>(第一个随机数)和支持的加密方式列表</li>
-<li>[明文] 服务器返回随机数<code>server_random</code>(第二个随机数) ，选择的加密方式和服务器证书链</li>
-<li>[RSA] 客户端验证服务器证书，使用服务器证书中的公钥加密<code>premaster secret</code>(第三个随机数) 发送给服务端.  [以及放一个ChangeCipherSpec消息即编码改变的消息，还有整个前面所有消息的hash值，进行服务器验证] </li>
-<li>服务端使用私钥解密<code>premaster secret</code>, [并发送一个ChangeCipherSpec,告知客户端已经切换到协商过的加密套件状态]</li>
-<li>两端分别通过<code>client_random</code>，<code>server_random</code> 和<code>premaster secret</code> 生成<code>master secret</code>，用于对称加密后续通信内容</li>
-</ol>
+        <h1 id="基本"><a href="#基本" class="headerlink" title="基本"></a>基本</h1><p>对于整数而言可以方便的转换到二进制,<br>而对于浮点数, 由于有小数点的存在(位置不固定), 可以使用科学计数法<code>3.12*10^5</code>来表示浮点数，这样的好处是：小数点的位置固定下来了。因为计算机只能用01表示，所以我们用2来表示上面提到的那个10.</p>
+<p>公式如下:<br>$$  X = a  *  2^e  $$</p>
+<ul>
+<li>a为浮点数的二进制表示，范围为[1,2) ;</li>
+<li>e为小数点移动的位数;</li>
+</ul>
 <blockquote>
-<p>ChangeCipherSpec<br>ChangeCipherSpec是一个独立的协议，体现在数据包中就是一个字节的数据，用于告知服务端，客户端已经切换到之前协商好的加密套件（Cipher Suite）的状态，准备使用之前协商好的加密套件加密数据并传输了。</p>
+<p>如:27.0表示成二进制为：11011.0,用科学计数法表示为1.10110*2^4.</p>
 </blockquote>
-<h1 id="证书"><a href="#证书" class="headerlink" title="证书"></a>证书</h1><p>证书中包含什么信息</p>
-<ul>
-<li>证书信息：过期时间和序列号</li>
-<li>所有者信息：姓名等</li>
-<li>所有者公钥</li>
-</ul>
-<p>客户端使用数字签名验证从服务器端接受到的数字证书<br><img src="/images/14825670516849.jpg" alt=""><br>将一段文本通过哈希（hash）和私钥加密处理后生成数字签名.</p>
-<p>服务器与客户端传递信息的时候, 会将消息和数字签名一起发送, 一方收到消息后会比对接受到的数字签名与之前证书里面的数字签名:<br><img src="/images/14825672551498.jpg" alt=""></p>
-<p>从而保证的消息是从对方发出的.</p>
-<h1 id="TLS协议"><a href="#TLS协议" class="headerlink" title="TLS协议"></a>TLS协议</h1><p>TLS协议包括 <code>TLS Record Protocol</code> 和 <code>TLS Handshake Protocol</code></p>
-<ul>
-<li><p><code>SSL握手协议（SSL Handshake Protocol）</code>：它建立在SSL记录协议之上，用于在实际的数据传输开始前，通讯双方进行身份认证、协商加密算法、交换加密密钥等。</p>
-</li>
-<li><p><code>SSL记录协议（SSL Record Protocol）</code>：它建立在可靠的传输协议（如TCP）之上，为高层协议提供数据封装、压缩、加密等基本功能的支持</p>
-</li>
-</ul>
-<h2 id="SSL-Record-Protocol"><a href="#SSL-Record-Protocol" class="headerlink" title="SSL Record Protocol"></a>SSL Record Protocol</h2><p>作用:</p>
-<ul>
-<li>将应用层的数据分解成固定长度的数据包</li>
-<li>压缩数据</li>
-<li>添加<code>Message Authentication Code</code> (保证所传数据的一致性, 不被篡改)</li>
-<li>将分解好的固定长度的数据包数据包加密</li>
-<li><p>在数据包中增加固定长度(5byte)的SSL Header: (1 Byte Protocol Definition , 2 Byte Protocol version, 2 Byte Length).</p>
-<blockquote>
-<p>值得一提的是，Record protocol提供了数据完整性和隐私性保证，但Record类型（type）和长度（length）是公开传输的</p>
+<h1 id="如何存储"><a href="#如何存储" class="headerlink" title="如何存储"></a>如何存储</h1><p>对于float(32bit, 4byte)型数据，其长度是4个字节，右边23位用来表示小数点后面的数字，中间8位用来表示e，左边一位用来表示正负。</p>
+<p>对于double(64bit, 8byte)型数据，其长度是8个字节，右边52位用来表示小数点后面的数字.中间11位表示e，左边一位用来表示正负</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th style="text-align:center">符号位</th>
+<th style="text-align:center">指数位</th>
+<th style="text-align:center">小数部分</th>
+<th style="text-align:center">指数偏移量</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>单精度float</td>
+<td style="text-align:center">1位[31]</td>
+<td style="text-align:center">8位[30-23]</td>
+<td style="text-align:center">23位[22-00]</td>
+<td style="text-align:center">127</td>
+</tr>
+<tr>
+<td>双精度double</td>
+<td style="text-align:center">1位[63]</td>
+<td style="text-align:center">11位[62-52]</td>
+<td style="text-align:center">52位[51-00]</td>
+<td style="text-align:center">1023</td>
+</tr>
+</tbody>
+</table>
+<p>指数偏移量=2^(k-1) -1  , k为指数位个数。(IEEE规定)</p>
+<p>因为e可以为正，可以为负数。比如<code>1.10110*2^4</code> 这个e为正数，如果是0.101那么用指数表示就是<code>1.01*2^-1</code>，那么e为-1。同时要求先把e+指数偏移量，得到的结果再化成二进制，就是我们的指数位。</p>
+<p>小数部分：把小数点后面的数字。如上面的10110，位数不够就补零。</p>
+<p>符号位：1表示负数，0表示正数</p>
+<p><strong>举例子：</strong></p>
+<p>27.5的二进制为11011.1</p>
+<p>1.10111*2^4</p>
+<p>尾数（小数点后的数）10111，补够23位 1011 1000 0000 0000 0000 000</p>
+<p>指数：4，加上127，就是131，二进制1000 0011</p>
+<p>用二进制表示就是 (符号数位1位)0 （指数位8位）1000 0011 （尾数位23位）1011 1000 0000 0000 0000 000</p>
+<p>写成二进制标准形式：0100 0001 1101 1100 0000 0000 0000 0000</p>
+<p>写成16进制就是41 DC 00 00</p>
+<h1 id="为什么要加指数偏移量"><a href="#为什么要加指数偏移量" class="headerlink" title="为什么要加指数偏移量"></a>为什么要加指数偏移量</h1><blockquote>
+<p>采用指数的实际值加上固定的偏移值的办法表示浮点数的指数，好处是可以用长度为e个比特的无符号整数来表示所有的指数取值，这使得两个浮点数的指数大小的比较更为容易。</p>
 </blockquote>
-</li>
-</ul>
-<h2 id="Message-Authentication-Code"><a href="#Message-Authentication-Code" class="headerlink" title="Message Authentication Code"></a>Message Authentication Code</h2><p><img src="/images/14825775540260.jpg" alt=""></p>
-<ol>
-<li>客户的用<code>Key</code>将即将被发送的消息按一定规则进行编码, 得到<code>MAC</code></li>
-<li>将所得的<code>MAC</code>与消息一起发出</li>
-<li>服务器使用与客户端相同的<code>Key</code>和规则对收到的消息进行编码, 将得到的<code>MAC</code>与收到的<code>MAC</code>进行对比</li>
-<li>如果一直, 则表示所得消息没有被篡改</li>
+<p>转回十进制的时候需要再减去指数偏移量</p>
+<h1 id="如何从二进制形式求出相应的十进制数呢？"><a href="#如何从二进制形式求出相应的十进制数呢？" class="headerlink" title="如何从二进制形式求出相应的十进制数呢？"></a>如何从二进制形式求出相应的十进制数呢？</h1><ol>
+<li>通过符号位判断正负</li>
+<li>算出指数位代表的十进制，把这个十进制<strong>减去指数偏移量</strong>2^(k-1)，结果为正表明小数点往右边便宜e位，负则左边。</li>
+<li>小数部分有1，因为都有，可以不需要在计算机中存储，在这要表示出来结果是1.小数部分，如果e为正数，则把小数点往右边移动e位，负则是左边</li>
 </ol>
-<h1 id="为什么需要在应用层加密"><a href="#为什么需要在应用层加密" class="headerlink" title="为什么需要在应用层加密"></a>为什么需要在应用层加密</h1><p>SSL/TLS是传输层的加密, 可以保证client到服务器的数据安全即:<br>Client – HTTPS – HTTP Server + SSL</p>
-<p>但是大部分系统的架构中是会存在中间服务器的, 比如负载均衡(Load Balance). 如果采用明文传输, 那么在负载均衡到服务器之前的传输就会存在隐患.<br>Client – HTTPS – Load Balance – HTTP Server + SSL</p>
-<p>所以需要在应用层进行加密即 HMAC(Keyed Hash Message Authentication Code).</p>
-<p>一句话总结: HMAC是应用层采用的手段保证数据安全, SSL/TLS是传输层保证数据的安全想.</p>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="https://cattail.me/tech/2015/11/30/how-https-works.html" target="_blank" rel="external">HTTPS工作原理</a><br><a href="http://www.techug.com/https-ssl-tls" target="_blank" rel="external">聊聊HTTPS和SSL/TLS协议</a><br><a href="https://www.zhihu.com/question/52392988/answer/135060120" target="_blank" rel="external">使用了https后，还有必要对数据进行签名来确保数据没有被篡改吗？</a><br><a href="https://en.wikipedia.org/wiki/Message_authentication_code" target="_blank" rel="external">Wiki: Message authentication code</a></p>
+<p><strong>举个例子:</strong></p>
+<p>0x3fc00000<br>符号位：0  //说明是正数。<br>指数位：011 1111 1   //偏移0<br>小数位：100 0000 0000 0000 0000 0000，–&gt;1.10000000000000000000000为1.5<br>而按照规定，小数点前还隐含包括1，而这个1是不储存的，所以小数位实际是1.5，当偏移大于0时，小数点向右偏移相应的值，反之向左偏移相应的值。<br>0x40c00000<br>符号位：0    //说明是正数。<br>指数位：100 0000 1  //偏移2</p>
+<p>小数位：100 0000 0000 0000 0000 0000，<br>由于偏移为2，1.100 0000 0000 0000 0000 0000变成了110.0 0000 0000 0000 0000 0000 所以0x40c00000值为6</p>
+<p>我们可以明白double变量的内存布局了。由于小数位的计算方式比如11.11111…在计算时为 <code>1*2^1+1*2^0+1*2^(-1)+1*2^(-2)</code>….可以看出在表示小数时，flaot的值不是连续的，事实上浮点数，以IEEE标准所能精确表示的仅仅是其中的一部分。</p>
+<p><strong>普通 二进制 -&gt; 十进制</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">要从右到左用二进制的每个数去乘以2的相应次方</div><div class="line">例如：二进制数1101.01转化成十进制</div><div class="line">1101.01（2）=1*20+0*21+1*22+1*23 +0*2-1+1*2-2=1+0+4+8+0+0.25=13.25</div></pre></td></tr></table></figure>
+<p><strong>整数部分(小数点之前) 十进制 -&gt; 二进制</strong></p>
+<p>采用”除2取余，逆序排列”法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">789=1100010101(B)</div><div class="line"></div><div class="line">789/2=394 余1 第10位</div><div class="line">394/2=197 余0 第9位</div><div class="line">197/2=98  余1 第8位</div><div class="line">98/2=49   余0 第7位</div><div class="line">49/2=24   余1 第6位</div><div class="line">24/2=12   余0 第5位              ↑</div><div class="line">12/2=6    余0 第4位              ↑</div><div class="line">6/2=3     余0 第3位              ↑</div><div class="line">3/2=1     余1 第2位              ↑</div><div class="line">1/2=0     余1 第1位              ↑</div></pre></td></tr></table></figure>
+<p><strong>小数部分(小数点之后) 十进制 -&gt; 二进制</strong></p>
+<p>采用”乘2取整，顺序排列”法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">如：0.7=（0.1 0110 0110...）B</div><div class="line"></div><div class="line">0.7*2=1.4========取出整数部分1    ↓</div><div class="line">0.4*2=0.8========取出整数部分0    ↓</div><div class="line">0.8*2=1.6========取出整数部分1    ↓</div><div class="line">0.6*2=1.2========取出整数部分1    ↓</div><div class="line">0.2*2=0.4========取出整数部分0</div><div class="line">0.4*2=0.8========取出整数部分0</div><div class="line">0.8*2=1.6========取出整数部分1</div><div class="line">0.6*2=1.2========取出整数部分1</div><div class="line">0.2*2=0.4========取出整数部分0</div></pre></td></tr></table></figure>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="http://blog.csdn.net/boatalways/article/details/17121205" target="_blank" rel="external"> 浮点数在计算机内存中是如何存储的？</a></p>
+<p><a href="https://zh.wikipedia.org/zh-cn/IEEE_754" target="_blank" rel="external">Wiki: IEEE 754</a></p>
 
       
     </div>
@@ -431,13 +455,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/服务器/" rel="tag">#服务器</a>
+            <a href="/tags/google-interview/" rel="tag">#google-interview</a>
           
-            <a href="/tags/HTTPS/" rel="tag">#HTTPS</a>
-          
-            <a href="/tags/SSL/" rel="tag">#SSL</a>
-          
-            <a href="/tags/TLS/" rel="tag">#TLS</a>
+            <a href="/tags/必备知识/" rel="tag">#必备知识</a>
           
         </div>
       
@@ -446,17 +466,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/12/22/Google-Interview/必备知识/2016-12-22-编译器如何工作/" rel="next" title="编译器如何工作">
-                <i class="fa fa-chevron-left"></i> 编译器如何工作
+              <a href="/2016/12/24/服务器/2016-12-24-HTTPS原理/" rel="next" title="HTTPS原理">
+                <i class="fa fa-chevron-left"></i> HTTPS原理
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/12/26/Google-Interview/必备知识/2016-12-26/" rel="prev" title="浮点数是如何存储的">
-                浮点数是如何存储的 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -482,8 +498,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/12/24/服务器/2016-12-24-HTTPS原理/"
-           data-title="HTTPS原理" data-url="http://blog.loujiwei.cn/2016/12/24/服务器/2016-12-24-HTTPS原理/">
+      <div class="ds-thread" data-thread-key="2016/12/26/Google-Interview/必备知识/2016-12-26/"
+           data-title="浮点数是如何存储的" data-url="http://blog.loujiwei.cn/2016/12/26/Google-Interview/必备知识/2016-12-26/">
       </div>
     
   </div>
@@ -603,7 +619,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总览"><span class="nav-number">2.</span> <span class="nav-text">总览</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#证书"><span class="nav-number">3.</span> <span class="nav-text">证书</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TLS协议"><span class="nav-number">4.</span> <span class="nav-text">TLS协议</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#SSL-Record-Protocol"><span class="nav-number">4.1.</span> <span class="nav-text">SSL Record Protocol</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Message-Authentication-Code"><span class="nav-number">4.2.</span> <span class="nav-text">Message Authentication Code</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#为什么需要在应用层加密"><span class="nav-number">5.</span> <span class="nav-text">为什么需要在应用层加密</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">6.</span> <span class="nav-text">参考</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基本"><span class="nav-number">1.</span> <span class="nav-text">基本</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#如何存储"><span class="nav-number">2.</span> <span class="nav-text">如何存储</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#为什么要加指数偏移量"><span class="nav-number">3.</span> <span class="nav-text">为什么要加指数偏移量</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#如何从二进制形式求出相应的十进制数呢？"><span class="nav-number">4.</span> <span class="nav-text">如何从二进制形式求出相应的十进制数呢？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">5.</span> <span class="nav-text">参考</span></a></li></ol></div>
             
           </div>
         </section>
