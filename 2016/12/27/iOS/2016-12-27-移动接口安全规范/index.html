@@ -1,0 +1,915 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|18:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Android,项目,规范,iOS," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.2" />
+
+
+
+
+
+
+<meta name="description" content="接口结构接口一律采用https , 如: 
+1https://api.xxx.cn/version/controller/action
+请求参数
+
+
+
+字段名
+变量名
+类型
+描述
+
+
+
+
+业务动作
+action
+String(32)
+操作, 如: add
+
+
+业务内容
+content
+String(32)
+业务数据, json对象
+
+
+控制模块
+controller
+String(32)
+业务模块">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2016-12-27-移动接口安全规范">
+<meta property="og:url" content="http://blog.loujiwei.cn/2016/12/27/iOS/2016-12-27-移动接口安全规范/index.html">
+<meta property="og:site_name" content="kkooff144`blog">
+<meta property="og:description" content="接口结构接口一律采用https , 如: 
+1https://api.xxx.cn/version/controller/action
+请求参数
+
+
+
+字段名
+变量名
+类型
+描述
+
+
+
+
+业务动作
+action
+String(32)
+操作, 如: add
+
+
+业务内容
+content
+String(32)
+业务数据, json对象
+
+
+控制模块
+controller
+String(32)
+业务模块">
+<meta property="og:updated_time" content="2016-12-27T14:20:06.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="2016-12-27-移动接口安全规范">
+<meta name="twitter:description" content="接口结构接口一律采用https , 如: 
+1https://api.xxx.cn/version/controller/action
+请求参数
+
+
+
+字段名
+变量名
+类型
+描述
+
+
+
+
+业务动作
+action
+String(32)
+操作, 如: add
+
+
+业务内容
+content
+String(32)
+业务数据, json对象
+
+
+控制模块
+controller
+String(32)
+业务模块">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","iXiaoZhi":"http://ixiaozhi.com/"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://blog.loujiwei.cn/2016/12/27/iOS/2016-12-27-移动接口安全规范/"/>
+
+
+  <title> 2016-12-27-移动接口安全规范 | kkooff144`blog </title>
+</head>
+
+<body itemscope itemtype="//schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?7d5d2bb40c2c103a074272772bd720c0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">kkooff144`blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                2016-12-27-移动接口安全规范
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-12-27T11:35:53+08:00" content="2016-12-27">
+              2016-12-27
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/规范/" itemprop="url" rel="index">
+                    <span itemprop="name">规范</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/12/27/iOS/2016-12-27-移动接口安全规范/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/12/27/iOS/2016-12-27-移动接口安全规范/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="接口结构"><a href="#接口结构" class="headerlink" title="接口结构"></a>接口结构</h1><p>接口一律采用https , 如: </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">https://api.xxx.cn/version/controller/action</div></pre></td></tr></table></figure>
+<p><strong>请求参数</strong></p>
+<table>
+<thead>
+<tr>
+<th>字段名</th>
+<th>变量名</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>业务动作</td>
+<td>action</td>
+<td>String(32)</td>
+<td>操作, 如: add</td>
+</tr>
+<tr>
+<td>业务内容</td>
+<td>content</td>
+<td>String(32)</td>
+<td>业务数据, json对象</td>
+</tr>
+<tr>
+<td>控制模块</td>
+<td>controller</td>
+<td>String(32)</td>
+<td>业务模块, 如: user</td>
+</tr>
+<tr>
+<td>随机字符串</td>
+<td>nonceStr</td>
+<td>String(32)</td>
+<td>随机字符串, 不长于32位。推荐随机数生成算法</td>
+</tr>
+<tr>
+<td>签名</td>
+<td>sign</td>
+<td>String(32)</td>
+<td>签名，详见签名生成算法</td>
+</tr>
+<tr>
+<td>签名类型</td>
+<td>sign_type</td>
+<td>String(32)</td>
+<td>签名类型,  如HMAC-SHA256或MD5, 默认为MD5</td>
+</tr>
+<tr>
+<td>服务Id</td>
+<td>serviceId</td>
+<td>String(32)</td>
+<td>用于服务器快速定位用户的临时数据, 在app第一次注册的时候获取</td>
+</tr>
+</tbody>
+</table>
+<p><strong>返回结果</strong></p>
+<table>
+<thead>
+<tr>
+<th>字段名</th>
+<th>变量名</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>业务动作</td>
+<td>action</td>
+<td>String(32)</td>
+<td>操作, 如: add</td>
+</tr>
+<tr>
+<td>业务内容</td>
+<td>content</td>
+<td>String(32)</td>
+<td>业务数据, json对象</td>
+</tr>
+<tr>
+<td>控制模块</td>
+<td>controller</td>
+<td>String(32)</td>
+<td>业务模块, 如: user</td>
+</tr>
+<tr>
+<td>返回状态码</td>
+<td>returnCode</td>
+<td>String(16)</td>
+<td>SUCCESS/FAIL 此字段是通信标识，非交易标识，交易是否成功需要查看result_code来判断</td>
+</tr>
+<tr>
+<td>返回信息</td>
+<td>returnMsg</td>
+<td>String(128)</td>
+<td>返回信息，如非空，为错误原因签名失败参数格式校验错误</td>
+</tr>
+</tbody>
+</table>
+<h1 id="签名算法"><a href="#签名算法" class="headerlink" title="签名算法"></a>签名算法</h1><p><strong>第一步</strong><br>将所有的数据(剔除签名字段), 按照key值的ASCII码从小到大排序, 直接输出成json字符串stringA.</p>
+<ul>
+<li>参数名ASCII码从小到大排序（字典序）；</li>
+<li>参数名区分大小写；</li>
+</ul>
+<p><strong>第二步</strong><br>在stringA的后面拼接和服务器约定的密钥, 使用密码. 得到stringATemp, 再对stringATemp进行MD5运算, 将得到的字符串全部转换成大写, 得到sign的值</p>
+<p>假设待提交的数据:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    &quot;action&quot;: &quot;add&quot;,</div><div class="line">    &quot;nonceStr&quot;: &quot;ibuaiVcKdpRxkhJA&quot;,</div><div class="line">    &quot;content&quot;: &#123;</div><div class="line">        &quot;userName&quot;: &quot;111&quot;,</div><div class="line">        &quot;passWord&quot;:&quot;123&quot; </div><div class="line">    &#125;,</div><div class="line">    &quot;controller&quot;: &quot;user&quot;,</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>第一步之后得到字符串</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">stringA = &#123;&quot;action&quot;: &quot;add&quot;,&quot;content&quot;: &#123;&quot;userName&quot;: &quot;111&quot;,&quot;passWord&quot;:&quot;123&quot; &#125;,&quot;controller&quot;: &quot;user&quot;,&quot;nonceStr&quot;:&quot;ibuaiVcKdpRxkhJA&quot;&#125;</div></pre></td></tr></table></figure>
+<p>第二步拼接key</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">stringATemp = stringA + password</div><div class="line">sign=MD5(stringSignTemp).toUpperCase()=&quot;9A0A8659F005D6984697E2CA0A9CF3B7&quot;</div></pre></td></tr></table></figure>
+<p>最终得到的发出去的数据为:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    &quot;action&quot;: &quot;add&quot;,</div><div class="line">    &quot;nonceStr&quot;: &quot;ibuaiVcKdpRxkhJA&quot;,</div><div class="line">    &quot;content&quot;: &#123;</div><div class="line">        &quot;userName&quot;: &quot;111&quot;,</div><div class="line">        &quot;passWord&quot;:&quot;123&quot; </div><div class="line">    &#125;,</div><div class="line">    &quot;controller&quot;: &quot;user&quot;,</div><div class="line">    &quot;sign&quot;: &quot;9A0A8659F005D6984697E2CA0A9CF3B7&quot;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="随机数"><a href="#随机数" class="headerlink" title="随机数"></a>随机数</h1><p>主要保证签名不可预测</p>
+<p><strong>java</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">public static String random() &#123;</div><div class="line">        return UUID.randomUUID().toString().replace(&quot;-&quot;, &quot;&quot;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>oc</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">+ (NSString *)random &#123;</div><div class="line">    return [[[NSUUID UUID] UUIDString] stringByReplacingOccurrencesOfString:@&quot;-&quot; withString:@&quot;&quot;];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><h2 id="Android"><a href="#Android" class="headerlink" title="Android"></a>Android</h2><p>实现算法的第一步和第二步 (使用<code>fastjson</code>, 可自动实现key值排序)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * 计算jsonObject的json值, 并添加key</div><div class="line"> *</div><div class="line"> * <span class="doctag">@param</span> jsonObject</div><div class="line"> * <span class="doctag">@param</span> uuid, 和服务器约定的密钥, 可用password代替</div><div class="line"> * <span class="doctag">@return</span></div><div class="line"> */</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">encode</span><span class="params">(JSONObject jsonObject, String uuid)</span> </span>&#123;</div><div class="line">    StringBuilder sb = <span class="keyword">new</span> StringBuilder();</div><div class="line">    sb.append(jsonObject.toJSONString());</div><div class="line">    sb.append(uuid);</div><div class="line">    String md5 = MD5.stringMD5(sb.toString());</div><div class="line">    <span class="keyword">return</span> md5;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>调用</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line">    * 对发送的json加密</div><div class="line">    *</div><div class="line">    * <span class="doctag">@param</span> jsonObject</div><div class="line">    * <span class="doctag">@param</span> uuid</div><div class="line">    * <span class="doctag">@param</span> serviceId</div><div class="line">    * <span class="doctag">@return</span></div><div class="line">    */</div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> JSONObject <span class="title">encryptJSON</span><span class="params">(JSONObject jsonObject, String uuid, String serviceId)</span> </span>&#123;</div><div class="line"></div><div class="line">       jsonObject.put(<span class="string">"sign"</span>, encode(jsonObject, uuid));</div><div class="line">       jsonObject.put(<span class="string">"serviceId"</span>, serviceId);</div><div class="line"></div><div class="line">       <span class="keyword">return</span> jsonObject;</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<p>校验服务器返回数据</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line">     * 检查服务器返回json是否正确</div><div class="line">     *</div><div class="line">     * <span class="doctag">@param</span> jsonObject</div><div class="line">     * <span class="doctag">@param</span> uuid, 和服务器约定的密钥, 一般可用用户密码</div><div class="line">     * <span class="doctag">@return</span></div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">checkEncrypt</span><span class="params">(JSONObject jsonObject, String uuid)</span> </span>&#123;</div><div class="line"></div><div class="line">        String checkNumService = jsonObject.getString(<span class="string">"sign"</span>);</div><div class="line">        jsonObject.remove(<span class="string">"sign"</span>);</div><div class="line"></div><div class="line">        <span class="keyword">return</span> checkNumService != <span class="keyword">null</span> &amp;&amp; checkNumService.equals(encode(jsonObject, uuid));</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<h2 id="iOS"><a href="#iOS" class="headerlink" title="iOS"></a>iOS</h2><p>工具方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line">// 获取随机数</div><div class="line">+ (NSString *)random &#123;</div><div class="line">    return [[[NSUUID UUID] UUIDString] stringByReplacingOccurrencesOfString:@&quot;-&quot; withString:@&quot;&quot;];</div><div class="line">&#125;</div><div class="line"></div><div class="line">// MD5计算</div><div class="line">+ (NSString *)md5:(NSString *)str &#123;</div><div class="line">    const char *cStr = [str UTF8String];//转换成utf-8</div><div class="line">    unsigned char result[16];//开辟一个16字节（128位：md5加密出来就是128位/bit）的空间（一个字节=8字位=8个二进制数）</div><div class="line">    CC_MD5(cStr, strlen(cStr), result);</div><div class="line">    /*</div><div class="line">        extern unsigned char *CC_MD5(const void *data, CC_LONG len, unsigned char *md)官方封装好的加密方法</div><div class="line">        把cStr字符串转换成了32位的16进制数列（这个过程不可逆转） 存储到了result这个空间中</div><div class="line">     */</div><div class="line">    return [NSString stringWithFormat:@&quot;%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X&quot;,</div><div class="line">                                      result[0], result[1], result[2], result[3],</div><div class="line">                                      result[4], result[5], result[6], result[7],</div><div class="line">                                      result[8], result[9], result[10], result[11],</div><div class="line">                                      result[12], result[13], result[14], result[15]</div><div class="line">    ];</div><div class="line">    /*</div><div class="line">        x表示十六进制，%02X  意思是不足两位将用0补齐，如果多余两位则不影响</div><div class="line">        NSLog(&quot;%02X&quot;, 0x888);  //888</div><div class="line">        NSLog(&quot;%02X&quot;, 0x4); //04</div><div class="line">     */</div><div class="line">&#125;</div><div class="line"></div><div class="line">//字典转json格式字符串：</div><div class="line">+ (NSString *)dictionaryToJson:(NSDictionary *)dic &#123;</div><div class="line">    NSError *parseError = nil;</div><div class="line">    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dic options:NSJSONWritingPrettyPrinted error:&amp;parseError];</div><div class="line"></div><div class="line">    return [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>实现算法第一步和第二步 (没有实现按key排序)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">// 加密</div><div class="line">+ (NSString *)encode:(NSMutableDictionary *)jsonObject uuid:(NSString *)uuid &#123;</div><div class="line"></div><div class="line">    [jsonObject setObject:[self random] forKey:NONCE_STR];    //在原来的json里面添加随机字符串</div><div class="line"></div><div class="line">    NSString *jsonString = [[self dictionaryToJson:jsonObject] stringByAppendingString:uuid];  // 将json -&gt; string</div><div class="line"></div><div class="line">    return [[self md5:jsonString] uppercaseString];   // -&gt; md5 -&gt; upper case</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>调用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">// 对发送数据加密</div><div class="line">+ (NSMutableDictionary *)encryptJSON:(NSMutableDictionary *)jsonObject uuid:(NSString *)uuid serviceId:(NSString *)serviceId &#123;</div><div class="line"></div><div class="line">    [jsonObject setObject:[self encode:jsonObject uuid:uuid] forKey:SIGN];</div><div class="line">    [jsonObject setObject:serviceId forKey:SERVICE_ID];</div><div class="line"></div><div class="line">    return jsonObject;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>校验</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">//校验收到的数据是否被篡改</div><div class="line">+ (BOOL)checkEncrypt:(NSMutableDictionary *)jsonObject uuid:(NSString *)uuid &#123;</div><div class="line"></div><div class="line">    NSString *sign = [jsonObject objectForKey:SIGN];</div><div class="line"></div><div class="line">    [jsonObject removeObjectForKey:SIGN];</div><div class="line"></div><div class="line">    return sign != nil &amp;&amp; [sign isEqualToString:[self encode:jsonObject uuid:uuid]];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="服务器"><a href="#服务器" class="headerlink" title="服务器"></a>服务器</h2><p>java 和Android一致, 只是不需要传serviceId</p>
+<p>实现算法的第一步和第二步 (使用<code>fastjson</code>, 可自动实现key值排序)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * 计算jsonObject的json值, 并添加key</div><div class="line"> *</div><div class="line"> * <span class="doctag">@param</span> jsonObject</div><div class="line"> * <span class="doctag">@param</span> uuid, 和服务器约定的密钥, 可用password代替</div><div class="line"> * <span class="doctag">@return</span></div><div class="line"> */</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">encode</span><span class="params">(JSONObject jsonObject, String uuid)</span> </span>&#123;</div><div class="line">    StringBuilder sb = <span class="keyword">new</span> StringBuilder();</div><div class="line">    sb.append(jsonObject.toJSONString());</div><div class="line">    sb.append(uuid);</div><div class="line">    String md5 = MD5.stringMD5(sb.toString());</div><div class="line">    <span class="keyword">return</span> md5;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>调用</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line">    * 对发送的json加密</div><div class="line">    *</div><div class="line">    * <span class="doctag">@param</span> jsonObject</div><div class="line">    * <span class="doctag">@param</span> uuid</div><div class="line">    * <span class="doctag">@param</span> serviceId</div><div class="line">    * <span class="doctag">@return</span></div><div class="line">    */</div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> JSONObject <span class="title">encryptJSON</span><span class="params">(JSONObject jsonObject, String uuid)</span> </span>&#123;</div><div class="line"></div><div class="line">       jsonObject.put(<span class="string">"sign"</span>, encode(jsonObject, uuid));</div><div class="line"></div><div class="line">       <span class="keyword">return</span> jsonObject;</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<p>校验服务器返回数据</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line">     * 检查客户的提交json是否正确</div><div class="line">     *</div><div class="line">     * <span class="doctag">@param</span> jsonObject</div><div class="line">     * <span class="doctag">@param</span> uuid, 和客户端约定的密钥, 一般可用用户密码</div><div class="line">     * <span class="doctag">@return</span></div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">checkEncrypt</span><span class="params">(JSONObject jsonObject, String uuid)</span> </span>&#123;</div><div class="line"></div><div class="line">        String checkNumService = jsonObject.getString(<span class="string">"sign"</span>);</div><div class="line">        jsonObject.remove(<span class="string">"sign"</span>);</div><div class="line"></div><div class="line">        <span class="keyword">return</span> checkNumService != <span class="keyword">null</span> &amp;&amp; checkNumService.equals(encode(jsonObject, uuid));</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><p>由于iOS的<code>Dictionary</code>的无序性, 所以iOS暂时还没有实现按key排序, 单只要保证sign的元数据的key顺序 和 提交的数据的key的顺序一致就可以</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Android/" rel="tag">#Android</a>
+          
+            <a href="/tags/项目/" rel="tag">#项目</a>
+          
+            <a href="/tags/规范/" rel="tag">#规范</a>
+          
+            <a href="/tags/iOS/" rel="tag">#iOS</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/12/26/Google-Interview/必备知识/2016-12-26-浮点数是如何存储的/" rel="next" title="浮点数是如何存储的">
+                <i class="fa fa-chevron-left"></i> 浮点数是如何存储的
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/12/27/iOS/2016-12-27-移动接口安全规范/"
+           data-title="2016-12-27-移动接口安全规范" data-url="http://blog.loujiwei.cn/2016/12/27/iOS/2016-12-27-移动接口安全规范/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Lou Jiwei" />
+          <p class="site-author-name" itemprop="name">Lou Jiwei</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">67</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">64</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/kkooff114" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/2028380403" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.zhihu.com/people/lou-jerry" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#接口结构"><span class="nav-number">1.</span> <span class="nav-text">接口结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#签名算法"><span class="nav-number">2.</span> <span class="nav-text">签名算法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#随机数"><span class="nav-number">3.</span> <span class="nav-text">随机数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实现"><span class="nav-number">4.</span> <span class="nav-text">实现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Android"><span class="nav-number">4.1.</span> <span class="nav-text">Android</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#iOS"><span class="nav-number">4.2.</span> <span class="nav-text">iOS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#服务器"><span class="nav-number">4.3.</span> <span class="nav-text">服务器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#说明"><span class="nav-number">4.4.</span> <span class="nav-text">说明</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lou Jiwei</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.2"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"kkooff114"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
