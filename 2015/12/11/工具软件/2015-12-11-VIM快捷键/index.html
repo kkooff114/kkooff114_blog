@@ -90,19 +90,28 @@
 
 
 
-<meta name="description" content="插入基础i: 在光标之前插入a: 在光标之后追加
-进阶行位置插入A: 在一行的结尾处追加I: 在一行的开头处插入o: 在光标所在位置的下一行打开新行插入O: 在光标所在位置的上一行打开新行插入">
+<meta name="description" content="常用命令移动命令^ E 向下滚动窗口一行^ Y 向上滚动窗口一行
+^ F 向上滚动窗口一页^ B 向上滚动窗口一页
+H 移动到当前窗口的第一行M 移动到当前窗口的中间L 移动到当前窗口的底部
+text objectw 单词(word)  , 下一个单词的开头e end, 单词的最后s 句子(sentences)p 段落paragrapht 标签(tags)
+motionsa 所有(all)i in">
 <meta property="og:type" content="article">
 <meta property="og:title" content="VIM快捷键">
 <meta property="og:url" content="http://blog.loujiwei.cn/2015/12/11/工具软件/2015-12-11-VIM快捷键/index.html">
 <meta property="og:site_name" content="kkooff144`blog">
-<meta property="og:description" content="插入基础i: 在光标之前插入a: 在光标之后追加
-进阶行位置插入A: 在一行的结尾处追加I: 在一行的开头处插入o: 在光标所在位置的下一行打开新行插入O: 在光标所在位置的上一行打开新行插入">
-<meta property="og:updated_time" content="2016-12-24T14:40:35.000Z">
+<meta property="og:description" content="常用命令移动命令^ E 向下滚动窗口一行^ Y 向上滚动窗口一行
+^ F 向上滚动窗口一页^ B 向上滚动窗口一页
+H 移动到当前窗口的第一行M 移动到当前窗口的中间L 移动到当前窗口的底部
+text objectw 单词(word)  , 下一个单词的开头e end, 单词的最后s 句子(sentences)p 段落paragrapht 标签(tags)
+motionsa 所有(all)i in">
+<meta property="og:updated_time" content="2016-12-31T03:09:54.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="VIM快捷键">
-<meta name="twitter:description" content="插入基础i: 在光标之前插入a: 在光标之后追加
-进阶行位置插入A: 在一行的结尾处追加I: 在一行的开头处插入o: 在光标所在位置的下一行打开新行插入O: 在光标所在位置的上一行打开新行插入">
+<meta name="twitter:description" content="常用命令移动命令^ E 向下滚动窗口一行^ Y 向上滚动窗口一行
+^ F 向上滚动窗口一页^ B 向上滚动窗口一页
+H 移动到当前窗口的第一行M 移动到当前窗口的中间L 移动到当前窗口的底部
+text objectw 单词(word)  , 下一个单词的开头e end, 单词的最后s 句子(sentences)p 段落paragrapht 标签(tags)
+motionsa 所有(all)i in">
 
 
 
@@ -342,8 +351,71 @@
       
 
       
-        <h1 id="插入"><a href="#插入" class="headerlink" title="插入"></a>插入</h1><h3 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h3><p><code>i</code>: 在光标之前插入<br><code>a</code>: 在光标之后追加</p>
-<h3 id="进阶"><a href="#进阶" class="headerlink" title="进阶"></a>进阶</h3><p>行位置插入<br><code>A</code>: 在一行的结尾处追加<br><code>I</code>: 在一行的开头处插入<br><code>o</code>: 在光标所在位置的下一行打开新行插入<br><code>O</code>: 在光标所在位置的上一行打开新行插入</p>
+        <h1 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h1><h2 id="移动命令"><a href="#移动命令" class="headerlink" title="移动命令"></a>移动命令</h2><p><code>^ E</code> 向下滚动窗口一行<br><code>^ Y</code> 向上滚动窗口一行</p>
+<p><code>^ F</code> 向上滚动窗口一页<br><code>^ B</code> 向上滚动窗口一页</p>
+<p><code>H</code> 移动到当前窗口的第一行<br><code>M</code> 移动到当前窗口的中间<br><code>L</code> 移动到当前窗口的底部</p>
+<h2 id="text-object"><a href="#text-object" class="headerlink" title="text object"></a>text object</h2><p><code>w</code> 单词(word)  , 下一个单词的开头<br><code>e</code> end, 单词的最后<br><code>s</code> 句子(sentences)<br><code>p</code> 段落paragraph<br><code>t</code> 标签(tags)</p>
+<h2 id="motions"><a href="#motions" class="headerlink" title="motions"></a>motions</h2><p><code>a</code> 所有(all)<br><code>i</code> in 在…里面<br><code>t</code> til<br><code>f</code> 向后find<br><code>F</code> 向前find</p>
+<h2 id="commands"><a href="#commands" class="headerlink" title="commands"></a>commands</h2><p><code>d</code> delete( also cut)<br><code>c</code> change(delete and insert mode)<br><code>y</code> 复制yank(copy)<br><code>v</code> 选择</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123;commands&#125;&#123;text object or motions&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li><code>diw</code> delete in word 删除光标所在单词(命令后还处于命令模式)</li>
+<li><p><code>caw</code> change all word 删除光标所在单词(命令后处于insert模式)</p>
+</li>
+<li><p><code>yi)</code> yank all text inside parentheses 复制括号<code>里面</code>所有的文本; 类似<code>di(</code></p>
+</li>
+<li><p><code>ya)</code> 复制括号<code>包括括号</code>里面所有的文本; 类似<code>da(</code></p>
+</li>
+<li><p><code>dt空格</code> 删除到下一个空格, 保留下一个空格</p>
+</li>
+<li><code>df空格</code> 删除到下一个空格, 下一个空格也删除</li>
+</ul>
+<h2 id=""><a href="#" class="headerlink" title="."></a>.</h2><p>重复上一次命令!</p>
+<h2 id="additional-commands"><a href="#additional-commands" class="headerlink" title="additional commands"></a>additional commands</h2><p><code>dd / yy</code> 删除/复制当前行<br><code>D / C</code> 删除/change 到行尾<br><code>^ / $</code> 移动到行头/尾<br><code>I / A</code> 移动到行头/尾, 并进入编辑模式<br><code>o / O</code> 在本行下/上面添加一行, 并进入编辑模式</p>
+<ul>
+<li><code>ysiw&#39;</code>  在光标所在单词俩边加上’, 需要插件的支持</li>
+</ul>
+<h2 id="macro-宏指令"><a href="#macro-宏指令" class="headerlink" title="macro 宏指令"></a>macro 宏指令</h2><p><strong>record a macro</strong></p>
+<ol>
+<li>q{register}</li>
+<li>(do something)</li>
+<li>q</li>
+</ol>
+<p><strong>play macro</strong></p>
+<ol>
+<li>@{register}</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">`mk`  mark  k  记录光标所在位置为k</div><div class="line">`k      返回记录k所在的位置</div></pre></td></tr></table></figure>
+<h2 id="plugins"><a href="#plugins" class="headerlink" title="plugins"></a>plugins</h2><ul>
+<li><code>vundle</code> 插件管理器</li>
+<li><code>nerdtree</code> 侧边文件导航</li>
+<li><code>ctrlp</code> 文件资源管理搜索</li>
+<li><code>fugitive</code> git gool</li>
+<li><ul>
+<li><code>syntastic</code> syntax checker / linter</li>
+</ul>
+</li>
+</ul>
+<h2 id="ideaVim"><a href="#ideaVim" class="headerlink" title="ideaVim"></a>ideaVim</h2><p>idea的vim插件配置<br>在~/.ideavimrc 文件中添加:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"># 显示相对行号</div><div class="line">set relativenumber</div><div class="line"># 显示行号</div><div class="line">set number</div><div class="line"># 加载surround插件</div><div class="line">set surround</div></pre></td></tr></table></figure>
+<p><strong>surround插件</strong></p>
+<p><code>cs&quot;&#39;</code> 改变外围包裹的<code>&quot;</code> 为 <code>&#39;</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&quot;Hello world!&quot;</div></pre></td></tr></table></figure>
+<p>↓↓↓↓↓↓</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&apos;Hello world!&apos;</div></pre></td></tr></table></figure>
+<hr>
+<p><code>ds&quot;</code> 删除外围的<code>&quot;</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&quot;Hello world!&quot;</div></pre></td></tr></table></figure>
+<p>↓↓↓↓↓↓</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Hello world!</div></pre></td></tr></table></figure>
+<hr>
+<p><code>ysiw]</code> (<code>iw</code>是一个text object)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Hello world!</div></pre></td></tr></table></figure>
+<p>↓↓↓↓↓↓</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[Hello] world!</div></pre></td></tr></table></figure>
+<hr>
+<p><code>ysiw&lt;em&gt;</code> 在外面包裹<code>&lt;em&gt;</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;em&gt;Hello&lt;/em&gt; world!</div></pre></td></tr></table></figure>
 
       
     </div>
@@ -532,7 +604,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#插入"><span class="nav-number">1.</span> <span class="nav-text">插入</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基础"><span class="nav-number">1.0.1.</span> <span class="nav-text">基础</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进阶"><span class="nav-number">1.0.2.</span> <span class="nav-text">进阶</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#常用命令"><span class="nav-number">1.</span> <span class="nav-text">常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#移动命令"><span class="nav-number">1.1.</span> <span class="nav-text">移动命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#text-object"><span class="nav-number">1.2.</span> <span class="nav-text">text object</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#motions"><span class="nav-number">1.3.</span> <span class="nav-text">motions</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#commands"><span class="nav-number">1.4.</span> <span class="nav-text">commands</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#"><span class="nav-number">1.5.</span> <span class="nav-text">.</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#additional-commands"><span class="nav-number">1.6.</span> <span class="nav-text">additional commands</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#macro-宏指令"><span class="nav-number">1.7.</span> <span class="nav-text">macro 宏指令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#plugins"><span class="nav-number">1.8.</span> <span class="nav-text">plugins</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ideaVim"><span class="nav-number">1.9.</span> <span class="nav-text">ideaVim</span></a></li></ol></li></ol></div>
             
           </div>
         </section>
@@ -551,7 +623,7 @@
         <div class="copyright" >
   
   &copy;  2013 - 
-  <span itemprop="copyrightYear">2016</span>
+  <span itemprop="copyrightYear">2017</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
