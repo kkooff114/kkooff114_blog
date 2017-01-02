@@ -104,7 +104,7 @@ motionsa 所有(all)i in">
 H 移动到当前窗口的第一行M 移动到当前窗口的中间L 移动到当前窗口的底部
 text objectw 单词(word)  , 下一个单词的开头e end, 单词的最后s 句子(sentences)p 段落paragrapht 标签(tags)
 motionsa 所有(all)i in">
-<meta property="og:updated_time" content="2016-12-31T03:09:54.000Z">
+<meta property="og:updated_time" content="2017-01-02T02:36:40.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="VIM快捷键">
 <meta name="twitter:description" content="常用命令移动命令^ E 向下滚动窗口一行^ Y 向上滚动窗口一行
@@ -370,7 +370,14 @@ motionsa 所有(all)i in">
 </li>
 <li><code>df空格</code> 删除到下一个空格, 下一个空格也删除</li>
 </ul>
-<h2 id=""><a href="#" class="headerlink" title="."></a>.</h2><p>重复上一次命令!</p>
+<h2 id="重复操作"><a href="#重复操作" class="headerlink" title=". 重复操作"></a>. 重复操作</h2><p>重复上一次操作!</p>
+<p>可以重复的:</p>
+<ul>
+<li><code>i</code>系列, 比如按<code>i</code>进入编辑模式后, 按退格删除了3个文字, 再输入2个, 再到其他地方按<code>.</code>  就会重复删除3个文字, 输入刚刚俩个</li>
+<li><code>c</code>系列, 比如<code>ciw</code>或<code>ct_</code>, 再输入相应的文字; 然后按<code>.</code>后可以重复</li>
+<li><code>d</code>系列, 比如<code>diw</code>或<code>dt_</code>; 然后按<code>.</code>后可以重复</li>
+<li><code>dd</code>, 按一次<code>dd</code>后, 再 <code>2j</code>, 可以继续删除下面俩行</li>
+</ul>
 <h2 id="additional-commands"><a href="#additional-commands" class="headerlink" title="additional commands"></a>additional commands</h2><p><code>dd / yy</code> 删除/复制当前行<br><code>D / C</code> 删除/change 到行尾<br><code>^ / $</code> 移动到行头/尾<br><code>I / A</code> 移动到行头/尾, 并进入编辑模式<br><code>o / O</code> 在本行下/上面添加一行, 并进入编辑模式</p>
 <ul>
 <li><code>ysiw&#39;</code>  在光标所在单词俩边加上’, 需要插件的支持</li>
@@ -529,7 +536,7 @@ motionsa 所有(all)i in">
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">67</span>
+              <span class="site-state-item-count">68</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -537,7 +544,7 @@ motionsa 所有(all)i in">
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-count">9</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -546,7 +553,7 @@ motionsa 所有(all)i in">
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">64</span>
+                <span class="site-state-item-count">66</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -604,7 +611,7 @@ motionsa 所有(all)i in">
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#常用命令"><span class="nav-number">1.</span> <span class="nav-text">常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#移动命令"><span class="nav-number">1.1.</span> <span class="nav-text">移动命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#text-object"><span class="nav-number">1.2.</span> <span class="nav-text">text object</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#motions"><span class="nav-number">1.3.</span> <span class="nav-text">motions</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#commands"><span class="nav-number">1.4.</span> <span class="nav-text">commands</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#"><span class="nav-number">1.5.</span> <span class="nav-text">.</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#additional-commands"><span class="nav-number">1.6.</span> <span class="nav-text">additional commands</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#macro-宏指令"><span class="nav-number">1.7.</span> <span class="nav-text">macro 宏指令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#plugins"><span class="nav-number">1.8.</span> <span class="nav-text">plugins</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ideaVim"><span class="nav-number">1.9.</span> <span class="nav-text">ideaVim</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#常用命令"><span class="nav-number">1.</span> <span class="nav-text">常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#移动命令"><span class="nav-number">1.1.</span> <span class="nav-text">移动命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#text-object"><span class="nav-number">1.2.</span> <span class="nav-text">text object</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#motions"><span class="nav-number">1.3.</span> <span class="nav-text">motions</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#commands"><span class="nav-number">1.4.</span> <span class="nav-text">commands</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重复操作"><span class="nav-number">1.5.</span> <span class="nav-text">. 重复操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#additional-commands"><span class="nav-number">1.6.</span> <span class="nav-text">additional commands</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#macro-宏指令"><span class="nav-number">1.7.</span> <span class="nav-text">macro 宏指令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#plugins"><span class="nav-number">1.8.</span> <span class="nav-text">plugins</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ideaVim"><span class="nav-number">1.9.</span> <span class="nav-text">ideaVim</span></a></li></ol></li></ol></div>
             
           </div>
         </section>
