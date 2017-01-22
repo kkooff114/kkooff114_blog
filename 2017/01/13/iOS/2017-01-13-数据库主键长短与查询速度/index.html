@@ -118,7 +118,7 @@ value(response)
 
 
 s">
-<meta property="og:updated_time" content="2017-01-17T15:22:16.000Z">
+<meta property="og:updated_time" content="2017-01-22T03:37:43.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="2017-01-12-数据库主键长短与查询速度">
 <meta name="twitter:description" content="问题之前在设计移动请求缓存的时候碰到这样一个问题: 
@@ -391,7 +391,103 @@ s">
 <p>以后每次请求的时候先去这张表中按key查找, 如果命中, 则直接返回, 如果没有命中, 则发送请求到后台.</p>
 <p>此时就有个疑问, key如果很长, 是不是会对查询的效率造成影响, 于是便有了下面的测试.</p>
 <h1 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h1><p>这里使用的移动数据库为<a href="https://realm.io" target="_blank" rel="external">Realm</a></p>
-<p>未完…</p>
+<p>1000个char为key</p>
+<table>
+<thead>
+<tr>
+<th>数据位置</th>
+<th>查询一次时间(ms)</th>
+<th>查询一万次时间(ms)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>前端</td>
+<td>5</td>
+<td>1365</td>
+</tr>
+<tr>
+<td>中端</td>
+<td>19</td>
+<td>6844</td>
+</tr>
+<tr>
+<td>后端</td>
+<td>30</td>
+<td>14936</td>
+</tr>
+<tr>
+<td>平均</td>
+<td>18</td>
+<td><strong>7715</strong></td>
+</tr>
+</tbody>
+</table>
+<p>1000个char的hashcode为key</p>
+<table>
+<thead>
+<tr>
+<th>数据位置</th>
+<th>查询一次时间(ms)</th>
+<th>查询一万次时间(ms)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>前端</td>
+<td>5</td>
+<td>1127</td>
+</tr>
+<tr>
+<td>中端</td>
+<td>6</td>
+<td>1845</td>
+</tr>
+<tr>
+<td>后端</td>
+<td>7</td>
+<td>2587</td>
+</tr>
+<tr>
+<td>平均</td>
+<td>6</td>
+<td><strong>1820</strong></td>
+</tr>
+</tbody>
+</table>
+<p>以下是不同char的查询时间</p>
+<p>50个char为key</p>
+<table>
+<thead>
+<tr>
+<th>数据位置</th>
+<th>查询一次时间(ms)</th>
+<th>查询一万次时间(ms)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>前端</td>
+<td>9</td>
+<td>1013</td>
+</tr>
+<tr>
+<td>中端</td>
+<td>10</td>
+<td>6122</td>
+</tr>
+<tr>
+<td>后端</td>
+<td>11</td>
+<td>18443</td>
+</tr>
+<tr>
+<td>平均</td>
+<td>10</td>
+<td><strong>7715</strong></td>
+</tr>
+</tbody>
+</table>
 
       
     </div>
