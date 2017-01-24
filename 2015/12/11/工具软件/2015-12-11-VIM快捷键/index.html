@@ -104,7 +104,7 @@ text objectw 单词(word)  , 下一个单词的开头e end, 单词的最后s 句
 H 移动到当前窗口的第一行M 移动到当前窗口的中间L 移动到当前窗口的底部
 * 匹配当前光标所在单词的下一个单词# 匹配当前光标所在单词的上一个单词
 text objectw 单词(word)  , 下一个单词的开头e end, 单词的最后s 句子(sentences)p 段落par">
-<meta property="og:updated_time" content="2017-01-10T08:22:21.000Z">
+<meta property="og:updated_time" content="2017-01-24T04:48:48.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="VIM快捷键">
 <meta name="twitter:description" content="常用命令移动命令^ E 向下滚动窗口一行^ Y 向上滚动窗口一行
@@ -424,6 +424,27 @@ text objectw 单词(word)  , 下一个单词的开头e end, 单词的最后s 句
 <hr>
 <p><code>ysiw&lt;em&gt;</code> 在外面包裹<code>&lt;em&gt;</code></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;em&gt;Hello&lt;/em&gt; world!</div></pre></td></tr></table></figure>
+<h2 id="寄存器"><a href="#寄存器" class="headerlink" title="寄存器"></a>寄存器</h2><p><code>:reg</code>可以查看寄存器列表</p>
+<ul>
+<li>未命名寄存器<code>&quot;&quot;</code>，用于缓存最后一次操作的内容</li>
+<li>数字名寄存器<code>&quot;{0-9}</code>，缓存最近操作内容，复制与删除是有区别的<ul>
+<li><code>&quot;0</code>称为复制（Yank）寄存器，因此如果像前面那个例子如果是复制而来的内容，我们在粘贴的时候可以使用”0P而无需多次键入带名称寄存器。</li>
+</ul>
+</li>
+<li>具名寄存器<code>&quot;{a-z}</code>，可以自己指定使用<ul>
+<li>如果是对应的大写字母，则在复制或剪切时不是覆盖，而是追加内容到对应的寄存器了</li>
+</ul>
+</li>
+<li>选择及拖拽寄存器：<code>&quot;*</code>、<code>&quot;+</code>和<code>&quot;~</code>，存取GUI选择文本，可用于与外部应用交互，使用前提为系统剪切板可用<ul>
+<li><code>&quot;+</code>即系统剪切板对应的寄存器，可用于和系统剪切板进行交互</li>
+</ul>
+</li>
+<li>模式寄存器<code>&quot;/</code>，缓存最近的搜索模式</li>
+<li>行内删除寄存器”-，缓存行内删除内容</li>
+<li>只读寄存器<code>&quot;:</code>、<code>&quot;.</code>、<code>&quot;%</code>和<code>&quot;#</code>，分别缓存最近命令、最近插入文本、当前文件名、当前交替文件名</li>
+<li>表达式寄存器<code>&quot;=</code>，只读，用于执行表达式命令</li>
+<li>黑洞寄存器<code>&quot;_</code>，不缓存操作内容（干净删除）</li>
+</ul>
 
       
     </div>
@@ -612,7 +633,7 @@ text objectw 单词(word)  , 下一个单词的开头e end, 单词的最后s 句
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#常用命令"><span class="nav-number">1.</span> <span class="nav-text">常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#移动命令"><span class="nav-number">1.1.</span> <span class="nav-text">移动命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#text-object"><span class="nav-number">1.2.</span> <span class="nav-text">text object</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#motions"><span class="nav-number">1.3.</span> <span class="nav-text">motions</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#commands"><span class="nav-number">1.4.</span> <span class="nav-text">commands</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重复操作"><span class="nav-number">1.5.</span> <span class="nav-text">. 重复操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#additional-commands"><span class="nav-number">1.6.</span> <span class="nav-text">additional commands</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#macro-宏指令"><span class="nav-number">1.7.</span> <span class="nav-text">macro 宏指令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#plugins"><span class="nav-number">1.8.</span> <span class="nav-text">plugins</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ideaVim"><span class="nav-number">1.9.</span> <span class="nav-text">ideaVim</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#常用命令"><span class="nav-number">1.</span> <span class="nav-text">常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#移动命令"><span class="nav-number">1.1.</span> <span class="nav-text">移动命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#text-object"><span class="nav-number">1.2.</span> <span class="nav-text">text object</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#motions"><span class="nav-number">1.3.</span> <span class="nav-text">motions</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#commands"><span class="nav-number">1.4.</span> <span class="nav-text">commands</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重复操作"><span class="nav-number">1.5.</span> <span class="nav-text">. 重复操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#additional-commands"><span class="nav-number">1.6.</span> <span class="nav-text">additional commands</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#macro-宏指令"><span class="nav-number">1.7.</span> <span class="nav-text">macro 宏指令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#plugins"><span class="nav-number">1.8.</span> <span class="nav-text">plugins</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ideaVim"><span class="nav-number">1.9.</span> <span class="nav-text">ideaVim</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#寄存器"><span class="nav-number">1.10.</span> <span class="nav-text">寄存器</span></a></li></ol></li></ol></div>
             
           </div>
         </section>
