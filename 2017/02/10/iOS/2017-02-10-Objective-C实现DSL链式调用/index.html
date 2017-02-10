@@ -1,0 +1,730 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|18:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="iOS," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.2" />
+
+
+
+
+
+
+<meta name="description" content="背景DSL(Domain Specific Language),用于解决特定领域的语言. 链式调用就是类似RxJava那样使用连续的.方法来调用, 这样可使得调用逻辑清晰, 减少代码量.
+比如Masonry的语法就是:
+1234567// Masonry[view1 mas_makeConstraints:^(MASConstraintMaker *make) &amp;#123;    make.top">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2017-01-12-Objective-C实现链式调用的DSL">
+<meta property="og:url" content="http://blog.loujiwei.cn/2017/02/10/iOS/2017-02-10-Objective-C实现DSL链式调用/index.html">
+<meta property="og:site_name" content="kkooff144`blog">
+<meta property="og:description" content="背景DSL(Domain Specific Language),用于解决特定领域的语言. 链式调用就是类似RxJava那样使用连续的.方法来调用, 这样可使得调用逻辑清晰, 减少代码量.
+比如Masonry的语法就是:
+1234567// Masonry[view1 mas_makeConstraints:^(MASConstraintMaker *make) &amp;#123;    make.top">
+<meta property="og:image" content="http://blog.loujiwei.cn/images/14866958205574.jpg">
+<meta property="og:updated_time" content="2017-02-10T08:12:23.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="2017-01-12-Objective-C实现链式调用的DSL">
+<meta name="twitter:description" content="背景DSL(Domain Specific Language),用于解决特定领域的语言. 链式调用就是类似RxJava那样使用连续的.方法来调用, 这样可使得调用逻辑清晰, 减少代码量.
+比如Masonry的语法就是:
+1234567// Masonry[view1 mas_makeConstraints:^(MASConstraintMaker *make) &amp;#123;    make.top">
+<meta name="twitter:image" content="http://blog.loujiwei.cn/images/14866958205574.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","iXiaoZhi":"http://ixiaozhi.com/"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://blog.loujiwei.cn/2017/02/10/iOS/2017-02-10-Objective-C实现DSL链式调用/"/>
+
+
+  <title> 2017-01-12-Objective-C实现链式调用的DSL | kkooff144`blog </title>
+</head>
+
+<body itemscope itemtype="//schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?7d5d2bb40c2c103a074272772bd720c0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">kkooff144`blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                2017-01-12-Objective-C实现链式调用的DSL
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-02-10T10:13:57+08:00" content="2017-02-10">
+              2017-02-10
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/02/10/iOS/2017-02-10-Objective-C实现DSL链式调用/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/02/10/iOS/2017-02-10-Objective-C实现DSL链式调用/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>DSL(Domain Specific Language),用于解决特定领域的语言. 链式调用就是类似<code>RxJava</code>那样使用连续的<code>.</code>方法来调用, 这样可使得调用逻辑清晰, 减少代码量.</p>
+<p>比如<code>Masonry</code>的语法就是:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">// Masonry</div><div class="line">[view1 mas_makeConstraints:^(MASConstraintMaker *make) &#123;</div><div class="line">    make.top.equalTo(superview.mas_top).with.offset(padding.top);</div><div class="line">    make.left.equalTo(superview.mas_left).with.offset(padding.left);</div><div class="line">    make.bottom.equalTo(superview.mas_bottom).with.offset(-padding.bottom);</div><div class="line">    make.right.equalTo(superview.mas_right).with.offset(-padding.right);</div><div class="line">&#125;];</div></pre></td></tr></table></figure>
+<h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p>现在拿实际项目中的例子说明<br><img src="/images/14866958205574.jpg" alt=""></p>
+<p>页面需要显示<code>订单头行</code>+<code>订单统计行</code>+<code>普通订单行</code>.</p>
+<p><strong>基本思路:</strong></p>
+<ol>
+<li>先往<code>list_all</code>中添加4行头item.</li>
+<li>将后台获取的产品列表<code>list_a</code>元素转成统一对象<code>OrderItemModel</code>生成<code>list_b</code></li>
+<li><code>list_b</code>排序(先本品, 再赠品)</li>
+<li>在产品列表<code>list_b</code>中添加统计头行</li>
+<li>将<code>list_b</code> append到<code>list_all</code>后面形成最终展示数据源</li>
+</ol>
+<p><strong>希望的调用方式:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">resultList = LoadPreList(list_a)  // 1.接受网络获取的数据列表list_a</div><div class="line">            .convertToOrderItemModel(rulesBlock)  // 2.将list_a&lt;T&gt;转成list_a&lt;OrderItemModel&gt;, 需外部自己实现</div><div class="line">            .sortAndAddTotalHeader()    // 3.将list按先本品, 后赠品的顺序排序, 再添加统计头信息;其实这一步对外可以省略, 因为无需传参</div><div class="line">            .appendTo(list_all);    // 4.将完成后的list追加到只包含订单头行的list_all后面</div></pre></td></tr></table></figure>
+<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><h3 id="1-初始化OrderUtil"><a href="#1-初始化OrderUtil" class="headerlink" title="1. 初始化OrderUtil"></a>1. 初始化OrderUtil</h3><p><code>LoadPreList</code>接收一个<code>NSMutableArray</code>类型的参数, 并直接返回</p>
+<p>OrderListUtils.h</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">#import &lt;UIKit/UIKit.h&gt;</div><div class="line"></div><div class="line">@class OrderListUtils;</div><div class="line"></div><div class="line">OrderListUtils *LoadPreList(NSMutableArray *list_a);</div><div class="line"></div><div class="line">@interface OrderListUtils : NSObject</div><div class="line"></div><div class="line">@property NSMutableArray *preList;</div><div class="line"></div><div class="line">@end</div></pre></td></tr></table></figure>
+<p>OrderListUtils.m</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">@implementation OrderListUtils</div><div class="line"></div><div class="line">OrderListUtils *LoadPreList(NSMutableArray *list_a) &#123;</div><div class="line"></div><div class="line">    OrderListUtils *orderListUtils = [[OrderListUtils alloc] init];</div><div class="line">    orderListUtils.preList = list_a;</div><div class="line"></div><div class="line">    return orderListUtils;</div><div class="line">&#125;</div><div class="line">@end</div></pre></td></tr></table></figure>
+<p>使用c的方式定义方法, 可以直接用<code>LoadPreList(list_a)</code>的方式调用.</p>
+<h3 id="2-实现任意对象转换到OrderItemModel"><a href="#2-实现任意对象转换到OrderItemModel" class="headerlink" title="2. 实现任意对象转换到OrderItemModel"></a>2. 实现任意对象转换到OrderItemModel</h3><p>只要让外部实现<code>id --&gt; OrderItemModel</code>即可.<br>要实现<code>.</code>调用方法, 并且使用<code>()</code>传参, 需使用<code>block</code>的方式实现.</p>
+<p><code>LoadPreList(list_a)</code>返回一个<code>OrderListUtils</code>对象, 所以我们在<code>OrderListUtils</code>里面定义一个名为<code>convertToOrderItemModel</code>的方法,这个方法返回一个<code>ConvertOrderItemModel</code>的block </p>
+<p>OrderListUtils.h</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">typedef id(^ruleBlock)(id item);</div><div class="line">typedef OrderListUtils *(^ConvertOrderItemModelBlock)(ruleBlock block);</div><div class="line"></div><div class="line">@interface OrderListUtils : NSObject</div><div class="line"></div><div class="line">// 将数据list里的item转成OrderItemModel的格式</div><div class="line">- (ConvertOrderItemModelBlock)convertToOrderItemModel;</div><div class="line"></div><div class="line">@end</div></pre></td></tr></table></figure>
+<p>OrderListUtils.m</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">// 将数据list里的item转成OrderItemModel的格式</div><div class="line">- (ConvertOrderItemModelBlock)convertToOrderItemModel &#123;</div><div class="line"></div><div class="line">    ConvertOrderItemModelBlock convertOrderItemModel = ^OrderListUtils *(ruleBlock block) &#123;</div><div class="line">        NSMutableArray *items = @[].mutableCopy;</div><div class="line">        for (id item in self.preList) &#123;</div><div class="line">            [items addObject:block(item)];</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        self.preList = items; //将preList指向转换好的列表</div><div class="line">        </div><div class="line">        return self;</div><div class="line">    &#125;;</div><div class="line"></div><div class="line">    return convertOrderItemModel;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>我们看这里的方法申明:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- (ConvertOrderItemModelBlock)convertToOrderItemModel;</div></pre></td></tr></table></figure>
+<p>这里方法名<code>convertToOrderItemModel</code> <em>等价于</em> 返回值block<code>ConvertOrderItemModelBlock</code>. 我们可以称返回值block<code>ConvertOrderItemModelBlock</code>为<strong><em>代替block</em></strong></p>
+<p>方法实现里面套用外部传入的block<code>ruleBlock</code>将<code>self.preList</code>的每个元素都转换成<code>OrderItemModel</code>的类型</p>
+<h3 id="3-对OrderItemModel类型的列表进行排序-并-添加统计行"><a href="#3-对OrderItemModel类型的列表进行排序-并-添加统计行" class="headerlink" title="3. 对OrderItemModel类型的列表进行排序 并 添加统计行"></a>3. 对OrderItemModel类型的列表进行排序 并 添加统计行</h3><p>由于这一步外部无需传入参数, 并且这一步是整个流程的必备步骤, 所以可以将这一步的操作放入<code>步骤4</code>里, 从而简化调用代码.</p>
+<h3 id="4-组装最终list"><a href="#4-组装最终list" class="headerlink" title="4. 组装最终list"></a>4. 组装最终list</h3><p>本步骤接受一个只包含4个订单头信息的列表, 并将上一步所得的列表append到这个列表后面</p>
+<p>定义出这个<strong><em>代替block</em></strong>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">typedef NSMutableArray&lt;OrderItemModel *&gt; *(^appendToBlock)(NSMutableArray&lt;OrderItemModel *&gt; *headerList);</div><div class="line"></div><div class="line">- (appendToBlock)appendTo;</div></pre></td></tr></table></figure>
+<p>实现</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">- (appendToBlock)appendTo &#123;</div><div class="line"></div><div class="line">    appendToBlock block = ^NSMutableArray&lt;OrderItemModel *&gt; *(NSMutableArray&lt;OrderItemModel *&gt; *headerList) &#123;</div><div class="line"></div><div class="line">        int beginIndex = [headerList count] - 1;</div><div class="line"></div><div class="line">        return [self convertToOrderMainList:headerList headerListOrderItemBeginIndex:beginIndex preList:self.preList];</div><div class="line"></div><div class="line">    &#125;;</div><div class="line"></div><div class="line">    return block;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h1><p>OrderItemUtils.h</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">@class OrderListUtils;</div><div class="line">@class OrderItemModel;</div><div class="line"></div><div class="line">typedef id(^ruleBlock)(id item);</div><div class="line"></div><div class="line">typedef OrderListUtils *(^ConvertOrderItemModelBlock)(ruleBlock block);</div><div class="line"></div><div class="line">typedef NSMutableArray&lt;OrderItemModel *&gt; *(^appendToBlock)(NSMutableArray&lt;OrderItemModel *&gt; *headerList);</div><div class="line"></div><div class="line">OrderListUtils *LoadPreList(NSMutableArray *list_a);</div><div class="line"></div><div class="line">@interface OrderListUtils : NSObject</div><div class="line"></div><div class="line">@property NSMutableArray *preList;</div><div class="line"></div><div class="line">// 将数据list里的item转成OrderItemModel的格式</div><div class="line">- (ConvertOrderItemModelBlock)convertToOrderItemModel;</div><div class="line"></div><div class="line">// 将网络列表 排序, 添加统计行, 并添加到只包含订单头信息的列表中</div><div class="line">- (appendToBlock)appendTo;</div><div class="line">@end</div></pre></td></tr></table></figure>
+<p>OrderItemUtils.m</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">@implementation OrderListUtils</div><div class="line"></div><div class="line"></div><div class="line">OrderListUtils *LoadPreList(NSMutableArray *list_a) &#123;</div><div class="line"></div><div class="line">    OrderListUtils *orderListUtils = [[OrderListUtils alloc] init];</div><div class="line">    orderListUtils.preList = list_a;</div><div class="line"></div><div class="line">    return orderListUtils;</div><div class="line">&#125;</div><div class="line"></div><div class="line">// 将数据list里的item转成OrderItemModel的格式</div><div class="line">- (ConvertOrderItemModelBlock)convertToOrderItemModel &#123;</div><div class="line"></div><div class="line">    ConvertOrderItemModelBlock convertOrderItemModel = ^OrderListUtils *(ruleBlock block) &#123;</div><div class="line">        NSMutableArray *items = @[].mutableCopy;</div><div class="line">        for (id item in self.preList) &#123;</div><div class="line">            [items addObject:block(item)];</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        self.preList = items; //将preList指向转换好的列表</div><div class="line"></div><div class="line">        return self;</div><div class="line">    &#125;;</div><div class="line"></div><div class="line">    return convertOrderItemModel;</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (appendToBlock)appendTo &#123;</div><div class="line"></div><div class="line">    appendToBlock block = ^NSMutableArray&lt;OrderItemModel *&gt; *(NSMutableArray&lt;OrderItemModel *&gt; *headerList) &#123;</div><div class="line"></div><div class="line">        int beginIndex = [headerList count] - 1;</div><div class="line"></div><div class="line">        return [self convertToOrderMainList:headerList headerListOrderItemBeginIndex:beginIndex preList:self.preList];</div><div class="line"></div><div class="line">    &#125;;</div><div class="line"></div><div class="line">    return block;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">// 将OrderItemModel格式的list排序 并添加统计头</div><div class="line">// beginIndex 为订单行项目开始的index</div><div class="line">- (NSMutableArray&lt;OrderItemModel *&gt; *)convertToOrderMainList:(NSMutableArray&lt;OrderItemModel *&gt; *)headerList headerListOrderItemBeginIndex:(int)beginIndex preList:(NSMutableArray&lt;OrderItemModel *&gt; *)preList &#123;</div><div class="line">    // pass</div><div class="line">&#125;</div><div class="line">@end</div></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag">#iOS</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/02/03/工具软件/mac/2017-02-03-Terminal增强-tree/" rel="next" title="Terminal增强-tree命令">
+                <i class="fa fa-chevron-left"></i> Terminal增强-tree命令
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/02/10/iOS/2017-02-10-Objective-C实现DSL链式调用/"
+           data-title="2017-01-12-Objective-C实现链式调用的DSL" data-url="http://blog.loujiwei.cn/2017/02/10/iOS/2017-02-10-Objective-C实现DSL链式调用/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Lou Jiwei" />
+          <p class="site-author-name" itemprop="name">Lou Jiwei</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">74</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">68</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/kkooff114" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/2028380403" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.zhihu.com/people/lou-jerry" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#问题"><span class="nav-number">2.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实现"><span class="nav-number">3.</span> <span class="nav-text">实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-初始化OrderUtil"><span class="nav-number">3.0.1.</span> <span class="nav-text">1. 初始化OrderUtil</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-实现任意对象转换到OrderItemModel"><span class="nav-number">3.0.2.</span> <span class="nav-text">2. 实现任意对象转换到OrderItemModel</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-对OrderItemModel类型的列表进行排序-并-添加统计行"><span class="nav-number">3.0.3.</span> <span class="nav-text">3. 对OrderItemModel类型的列表进行排序 并 添加统计行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-组装最终list"><span class="nav-number">3.0.4.</span> <span class="nav-text">4. 组装最终list</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#完整代码"><span class="nav-number">4.</span> <span class="nav-text">完整代码</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lou Jiwei</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.2"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"kkooff114"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
