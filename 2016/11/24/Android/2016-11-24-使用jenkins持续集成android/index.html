@@ -108,10 +108,10 @@ Build after other projects are built：在其他项目构建完成后再进行�
 
 
 Trigger only if build is stable：其他项目构建成功Trigger even if the build is unstable：其他项目不稳定Trigger even if the">
-<meta property="og:image" content="http://blog.loujiwei.cn/../../images/14802317923780.jpg">
-<meta property="og:image" content="http://blog.loujiwei.cn/../../images/14802329744607.jpg">
-<meta property="og:image" content="http://blog.loujiwei.cn/../../images/14813555031545.jpg">
-<meta property="og:updated_time" content="2016-12-24T14:28:29.000Z">
+<meta property="og:image" content="http://blog.loujiwei.cn/images/14802317923780.jpg">
+<meta property="og:image" content="http://blog.loujiwei.cn/images/14802329744607.jpg">
+<meta property="og:image" content="http://blog.loujiwei.cn/images/14813555031545.jpg">
+<meta property="og:updated_time" content="2017-02-22T10:34:10.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用Jenkins持续集成android项目">
 <meta name="twitter:description" content="Jenkins安装安装官网说明即可
@@ -121,7 +121,7 @@ Build after other projects are built：在其他项目构建完成后再进行�
 
 
 Trigger only if build is stable：其他项目构建成功Trigger even if the build is unstable：其他项目不稳定Trigger even if the">
-<meta name="twitter:image" content="http://blog.loujiwei.cn/../../images/14802317923780.jpg">
+<meta name="twitter:image" content="http://blog.loujiwei.cn/images/14802317923780.jpg">
 
 
 
@@ -376,7 +376,7 @@ Trigger only if build is stable：其他项目构建成功Trigger even if the bu
 
       
         <h1 id="Jenkins安装"><a href="#Jenkins安装" class="headerlink" title="Jenkins安装"></a>Jenkins安装</h1><p>安装官网说明即可</p>
-<h1 id="new-item"><a href="#new-item" class="headerlink" title="new item"></a>new item</h1><h2 id="触发器"><a href="#触发器" class="headerlink" title="触发器"></a>触发器</h2><p>每俩个小时检查一次<br><img src="../../images/14802317923780.jpg" alt=""></p>
+<h1 id="new-item"><a href="#new-item" class="headerlink" title="new item"></a>new item</h1><h2 id="触发器"><a href="#触发器" class="headerlink" title="触发器"></a>触发器</h2><p>每俩个小时检查一次<br><img src="/images/14802317923780.jpg" alt=""></p>
 <ul>
 <li>Build after other projects are built：在其他项目构建完成后再进行构建。</li>
 </ul>
@@ -398,14 +398,14 @@ Trigger only if build is stable：其他项目构建成功Trigger even if the bu
 <h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><ul>
 <li>问题1</li>
 </ul>
-<p><img src="../../images/14802329744607.jpg" alt=""><br>权限不够, 需要给Jenkins用户提升权限</p>
+<p><img src="/images/14802329744607.jpg" alt=""><br>权限不够, 需要给Jenkins用户提升权限</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo chown -R Jenkins /Users/Shared/Jenkins/</div></pre></td></tr></table></figure>
 <p>之后还是不行, 后来发现是要在服务器上安装<code>gradle</code>….<br>安装<code>gradle</code>之后, 重启Jenkins就可以了, 注意要用启动Jenkins的用户去安装gradle</p>
 <ul>
 <li>问题2</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[Cestbon-ManageHelper] $ gradle clean build</div><div class="line">Parallel execution is an incubating feature.</div><div class="line">Failed to notify ProjectEvaluationListener.afterEvaluate(), but primary configuration failure takes precedence.</div><div class="line">java.lang.RuntimeException: SDK location not found. Define location with sdk.dir in the local.properties file or with an ANDROID_HOME environment variable.</div></pre></td></tr></table></figure>
-<p>这是因为没有配置<code>ANDROID_HOME</code>, 上传android sdk到服务器某个路径, 然后在Jenkins -&gt; Manage Jenkins -&gt; Configure System -&gt;<br><img src="../../images/14813555031545.jpg" alt=""></p>
+<p>这是因为没有配置<code>ANDROID_HOME</code>, 上传android sdk到服务器某个路径, 然后在Jenkins -&gt; Manage Jenkins -&gt; Configure System -&gt;<br><img src="/images/14813555031545.jpg" alt=""></p>
 <ul>
 <li>问题3</li>
 </ul>
