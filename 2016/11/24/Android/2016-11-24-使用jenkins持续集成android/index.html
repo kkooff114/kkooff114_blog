@@ -109,9 +109,12 @@ Build after other projects are built：在其他项目构建完成后再进行�
 
 Trigger only if build is stable：其他项目构建成功Trigger even if the build is unstable：其他项目不稳定Trigger even if the">
 <meta property="og:image" content="http://blog.loujiwei.cn/images/14802317923780.jpg">
+<meta property="og:image" content="http://blog.loujiwei.cn/images/14878579475891.jpg">
+<meta property="og:image" content="http://blog.loujiwei.cn/images/14878581004673.jpg">
+<meta property="og:image" content="http://blog.loujiwei.cn/images/14878582561743.jpg">
 <meta property="og:image" content="http://blog.loujiwei.cn/images/14802329744607.jpg">
 <meta property="og:image" content="http://blog.loujiwei.cn/images/14813555031545.jpg">
-<meta property="og:updated_time" content="2017-02-22T10:34:10.000Z">
+<meta property="og:updated_time" content="2017-02-23T13:57:41.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用Jenkins持续集成android项目">
 <meta name="twitter:description" content="Jenkins安装安装官网说明即可
@@ -395,6 +398,10 @@ Trigger only if build is stable：其他项目构建成功Trigger even if the bu
 <blockquote>
 <p>例如：H/10 <em> </em> <em> </em>  （每10分钟检查一次源码变化，如果有更新才build）<br>H H/2 <em> </em> *(每2个小时检查一次源码变化)<br>第1列分钟1～59<br>第2列小时0～23<br>第3列日1～31<br>第4列月1～12<br>第5列星期0～7(0和7表示星期日)</p>
 </blockquote>
+<h2 id="SVN"><a href="#SVN" class="headerlink" title="SVN"></a>SVN</h2><p>添加<code>Invoke Gradle script</code></p>
+<p><img src="/images/14878579475891.jpg" alt=""><br>直接填写项目仓库地址到Repository URL即可</p>
+<h1 id="Build"><a href="#Build" class="headerlink" title="Build"></a>Build</h1><p><img src="/images/14878581004673.jpg" alt=""></p>
+<h1 id="Post-build-Actions"><a href="#Post-build-Actions" class="headerlink" title="Post-build Actions"></a>Post-build Actions</h1><p><img src="/images/14878582561743.jpg" alt=""></p>
 <h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><ul>
 <li>问题1</li>
 </ul>
@@ -540,7 +547,7 @@ Trigger only if build is stable：其他项目构建成功Trigger even if the bu
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">74</span>
+              <span class="site-state-item-count">75</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -557,7 +564,7 @@ Trigger only if build is stable：其他项目构建成功Trigger even if the bu
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">69</span>
+                <span class="site-state-item-count">70</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -615,7 +622,7 @@ Trigger only if build is stable：其他项目构建成功Trigger even if the bu
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Jenkins安装"><span class="nav-number">1.</span> <span class="nav-text">Jenkins安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#new-item"><span class="nav-number">2.</span> <span class="nav-text">new item</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#触发器"><span class="nav-number">2.1.</span> <span class="nav-text">触发器</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#问题"><span class="nav-number">3.</span> <span class="nav-text">问题</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Jenkins安装"><span class="nav-number">1.</span> <span class="nav-text">Jenkins安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#new-item"><span class="nav-number">2.</span> <span class="nav-text">new item</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#触发器"><span class="nav-number">2.1.</span> <span class="nav-text">触发器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SVN"><span class="nav-number">2.2.</span> <span class="nav-text">SVN</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Build"><span class="nav-number">3.</span> <span class="nav-text">Build</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Post-build-Actions"><span class="nav-number">4.</span> <span class="nav-text">Post-build Actions</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#问题"><span class="nav-number">5.</span> <span class="nav-text">问题</span></a></li></ol></div>
             
           </div>
         </section>
