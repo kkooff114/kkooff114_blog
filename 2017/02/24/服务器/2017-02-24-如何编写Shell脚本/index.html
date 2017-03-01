@@ -112,7 +112,7 @@ curl使用curl请求">
 12345678#!/bin/shcd ~mkdir shell_tutcd shell_tutfor ((i=0; i&amp;lt;10; i++)); do    touch test_$i.txtdone
 创建一个文件夹, 并在里面新建10个文件
 curl使用curl请求">
-<meta property="og:updated_time" content="2017-02-24T16:50:44.000Z">
+<meta property="og:updated_time" content="2017-03-01T08:38:05.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="如何编写Shell脚本">
 <meta name="twitter:description" content="问题
@@ -410,6 +410,11 @@ curl使用curl请求">
 <h2 id="shell文件读写"><a href="#shell文件读写" class="headerlink" title="shell文件读写"></a>shell文件读写</h2><h4 id="写"><a href="#写" class="headerlink" title="写"></a>写</h4><p>方式一:</p>
 <p>将<code>ll</code>的内容写入fileName这个文件中<br><code>&gt;</code>是覆盖, <code>&gt;&gt;</code>是在后面追加</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ll &gt;fileName</div></pre></td></tr></table></figure>
+<p>但是在书写.<code>sh</code>脚本的时候, 需要增加<code>echo</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">echo ll&gt;fileName</div></pre></td></tr></table></figure>
+<h4 id="读"><a href="#读" class="headerlink" title="读"></a>读</h4><p>方式一:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">while read LINE</div><div class="line">do</div><div class="line">echo $LINE</div><div class="line">done&lt;fileName</div></pre></td></tr></table></figure>
+<p><code>fileName</code>是即将读取的文件名</p>
 <h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="https://github.com/qinjx/30min_guides/blob/master/shell.md#curl" target="_blank" rel="external">Shell脚本编程30分钟入门</a></p>
 <p><a href="http://www.ruanyifeng.com/blog/2011/09/curl.html" target="_blank" rel="external">curl网站开发指南</a></p>
 
@@ -452,6 +457,10 @@ curl使用curl请求">
           </div>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/03/01/Android/2017-03-01-Linux安装android sdk/" rel="prev" title="Linux安装android sdk">
+                Linux安装android sdk <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -523,7 +532,7 @@ curl使用curl请求">
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">75</span>
+              <span class="site-state-item-count">76</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -598,7 +607,7 @@ curl使用curl请求">
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#问题"><span class="nav-number">1.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#开发准备"><span class="nav-number">2.</span> <span class="nav-text">开发准备</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#shell"><span class="nav-number">2.1.</span> <span class="nav-text">shell</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#curl"><span class="nav-number">2.2.</span> <span class="nav-text">curl</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#jq"><span class="nav-number">2.3.</span> <span class="nav-text">jq</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#安装"><span class="nav-number">2.3.0.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用"><span class="nav-number">2.3.0.2.</span> <span class="nav-text">使用</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#shell文件读写"><span class="nav-number">2.4.</span> <span class="nav-text">shell文件读写</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#写"><span class="nav-number">2.4.0.1.</span> <span class="nav-text">写</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">3.</span> <span class="nav-text">参考</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#问题"><span class="nav-number">1.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#开发准备"><span class="nav-number">2.</span> <span class="nav-text">开发准备</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#shell"><span class="nav-number">2.1.</span> <span class="nav-text">shell</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#curl"><span class="nav-number">2.2.</span> <span class="nav-text">curl</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#jq"><span class="nav-number">2.3.</span> <span class="nav-text">jq</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#安装"><span class="nav-number">2.3.0.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用"><span class="nav-number">2.3.0.2.</span> <span class="nav-text">使用</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#shell文件读写"><span class="nav-number">2.4.</span> <span class="nav-text">shell文件读写</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#写"><span class="nav-number">2.4.0.1.</span> <span class="nav-text">写</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#读"><span class="nav-number">2.4.0.2.</span> <span class="nav-text">读</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">3.</span> <span class="nav-text">参考</span></a></li></ol></div>
             
           </div>
         </section>
