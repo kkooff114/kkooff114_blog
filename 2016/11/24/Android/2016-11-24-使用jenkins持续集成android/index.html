@@ -98,7 +98,7 @@ Build after other projects are built：在其他项目构建完成后再进行�
 
 Trigger only if build is stable：其他项目构建成功Trigger even if the build is unstable：其他项目不稳定Trigger even if the">
 <meta property="og:type" content="article">
-<meta property="og:title" content="使用Jenkins持续集成android项目">
+<meta property="og:title" content="使用Jenkins持续集成android项目, 并自动发布bugly">
 <meta property="og:url" content="http://blog.loujiwei.cn/2016/11/24/Android/2016-11-24-使用jenkins持续集成android/index.html">
 <meta property="og:site_name" content="kkooff144`blog">
 <meta property="og:description" content="Jenkins安装安装官网说明即可
@@ -114,9 +114,9 @@ Trigger only if build is stable：其他项目构建成功Trigger even if the bu
 <meta property="og:image" content="http://blog.loujiwei.cn/images/14878582561743.jpg">
 <meta property="og:image" content="http://blog.loujiwei.cn/images/14802329744607.jpg">
 <meta property="og:image" content="http://blog.loujiwei.cn/images/14813555031545.jpg">
-<meta property="og:updated_time" content="2017-03-01T14:19:52.000Z">
+<meta property="og:updated_time" content="2017-03-04T11:51:07.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="使用Jenkins持续集成android项目">
+<meta name="twitter:title" content="使用Jenkins持续集成android项目, 并自动发布bugly">
 <meta name="twitter:description" content="Jenkins安装安装官网说明即可
 new item触发器每俩个小时检查一次
 
@@ -148,7 +148,7 @@ Trigger only if build is stable：其他项目构建成功Trigger even if the bu
   <link rel="canonical" href="http://blog.loujiwei.cn/2016/11/24/Android/2016-11-24-使用jenkins持续集成android/"/>
 
 
-  <title> 使用Jenkins持续集成android项目 | kkooff144`blog </title>
+  <title> 使用Jenkins持续集成android项目, 并自动发布bugly | kkooff144`blog </title>
 </head>
 
 <body itemscope itemtype="//schema.org/WebPage" lang="zh-Hans">
@@ -298,7 +298,7 @@ Trigger only if build is stable：其他项目构建成功Trigger even if the bu
             
             
               
-                使用Jenkins持续集成android项目
+                使用Jenkins持续集成android项目, 并自动发布bugly
               
             
           </h1>
@@ -351,7 +351,7 @@ Trigger only if build is stable：其他项目构建成功Trigger even if the bu
 
           
           
-             <span id="/2016/11/24/Android/2016-11-24-使用jenkins持续集成android/" class="leancloud_visitors" data-flag-title="使用Jenkins持续集成android项目">
+             <span id="/2016/11/24/Android/2016-11-24-使用jenkins持续集成android/" class="leancloud_visitors" data-flag-title="使用Jenkins持续集成android项目, 并自动发布bugly">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -420,20 +420,7 @@ Trigger only if build is stable：其他项目构建成功Trigger even if the bu
 <li><p>而我则是…使用了mac的<code>build tools</code>, 重新下载linux版的build tools解决</p>
 </li>
 </ul>
-<p>补充: 在linux环境下的android sdk安装</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">wget http://dl.google.com/android/android-sdk_r22.0.5-linux.tgz</div></pre></td></tr></table></figure>
-<p>直接修改对应的版本号即可.</p>
-<p>关于后续的sdk更新,可以使用命令行版本的sdkmanager</p>
-<p>直接更新到最新的sdk:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">tools/android update sdk --no-ui</div></pre></td></tr></table></figure>
-<p>显示所有的sdk版本</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">android list sdk --all</div></pre></td></tr></table></figure>
-<p>会得到:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">1- Android SDK Tools, revision 25.2.5</div><div class="line">  2- Android SDK Platform-tools, revision 25.0.3</div><div class="line">  3- Android SDK Build-tools, revision 25.0.2</div><div class="line">  4- Android SDK Build-tools, revision 25.0.1</div><div class="line">  5- Android SDK Build-tools, revision 25</div><div class="line">  6- Android SDK Build-tools, revision 24.0.3</div><div class="line">  7- Android SDK Build-tools, revision 24.0.2</div><div class="line">  8- Android SDK Build-tools, revision 24.0.1</div><div class="line">  9- Android SDK Build-tools, revision 24</div><div class="line"> 10- Android SDK Build-tools, revision 23.0.3</div><div class="line"> 11- Android SDK Build-tools, revision 23.0.2</div><div class="line"> 12- Android SDK Build-tools, revision 23.0.1</div><div class="line"> 13- Android SDK Build-tools, revision 23 (Obsolete)</div><div class="line"> 14- Android SDK Build-tools, revision 22.0.1</div><div class="line"> 15- Android SDK Build-tools, revision 22 (Obsolete)</div><div class="line"> 16- Android SDK Build-tools, revision 21.1.2</div><div class="line"> 17- Android SDK Build-tools, revision 21.1.1 (Obsolete)</div></pre></td></tr></table></figure>
-<p>然后选择想要更新的版本的编号:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">android update sdk -u -a -t &lt;package no.&gt;</div></pre></td></tr></table></figure>
-<p>如:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">android update sdk -u -a -t 1,2,3,4</div></pre></td></tr></table></figure>
+<p>补充: <a href="http://blog.loujiwei.cn/2017/03/01/Android/2017-03-01-Linux%E5%AE%89%E8%A3%85android%20sdk/">在linux环境下的android sdk安装</a></p>
 <h2 id="问题4"><a href="#问题4" class="headerlink" title="问题4"></a>问题4</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">FAILURE: Build failed with an exception.</div><div class="line"></div><div class="line">* What went wrong:</div><div class="line">Execution failed for task &apos;:app:lint&apos;.</div><div class="line">&gt; Lint found errors in the project; aborting build.</div><div class="line">  </div><div class="line">  Fix the issues identified by lint, or add the following to your build script to proceed with errors:</div><div class="line">  ...</div><div class="line">  android &#123;</div><div class="line">      lintOptions &#123;</div><div class="line">          abortOnError false</div><div class="line">      &#125;</div><div class="line">  &#125;</div><div class="line">  ...</div></pre></td></tr></table></figure>
 <p>Jenkins默认开启Lint检查<br>所以需要在build.gradle添加如下(每一个module都需要添加)</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">android &#123;</div><div class="line">      lintOptions &#123;</div><div class="line">          abortOnError false</div><div class="line">      &#125;</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
@@ -507,7 +494,7 @@ Trigger only if build is stable：其他项目构建成功Trigger even if the bu
   <div class="comments" id="comments">
     
       <div class="ds-thread" data-thread-key="2016/11/24/Android/2016-11-24-使用jenkins持续集成android/"
-           data-title="使用Jenkins持续集成android项目" data-url="http://blog.loujiwei.cn/2016/11/24/Android/2016-11-24-使用jenkins持续集成android/">
+           data-title="使用Jenkins持续集成android项目, 并自动发布bugly" data-url="http://blog.loujiwei.cn/2016/11/24/Android/2016-11-24-使用jenkins持续集成android/">
       </div>
     
   </div>
