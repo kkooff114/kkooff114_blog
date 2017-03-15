@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="iOS,规范,Android,项目," />
+  <meta name="keywords" content="项目,规范,Android,iOS," />
 
 
 
@@ -154,7 +154,7 @@ String(32)
 controller
 String(32)
 业务模块">
-<meta property="og:updated_time" content="2017-02-18T05:42:14.000Z">
+<meta property="og:updated_time" content="2017-03-15T03:32:21.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="移动接口安全规范">
 <meta name="twitter:description" content="接口结构接口一律采用https , 如: 
@@ -582,7 +582,7 @@ String(32)
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line">    * 对发送的json加密</div><div class="line">    *</div><div class="line">    * <span class="doctag">@param</span> jsonObject</div><div class="line">    * <span class="doctag">@param</span> uuid</div><div class="line">    * <span class="doctag">@param</span> serviceId</div><div class="line">    * <span class="doctag">@return</span></div><div class="line">    */</div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> JSONObject <span class="title">encryptJSON</span><span class="params">(JSONObject jsonObject, String uuid)</span> </span>&#123;</div><div class="line"></div><div class="line">       jsonObject.put(<span class="string">"sign"</span>, encode(jsonObject, uuid));</div><div class="line"></div><div class="line">       <span class="keyword">return</span> jsonObject;</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
 <p>校验服务器返回数据</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line">     * 检查客户的提交json是否正确</div><div class="line">     *</div><div class="line">     * <span class="doctag">@param</span> jsonObject</div><div class="line">     * <span class="doctag">@param</span> uuid, 和客户端约定的密钥, 一般可用用户密码</div><div class="line">     * <span class="doctag">@return</span></div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">checkEncrypt</span><span class="params">(JSONObject jsonObject, String uuid)</span> </span>&#123;</div><div class="line"></div><div class="line">        String checkNumService = jsonObject.getString(<span class="string">"sign"</span>);</div><div class="line">        jsonObject.remove(<span class="string">"sign"</span>);</div><div class="line"></div><div class="line">        <span class="keyword">return</span> checkNumService != <span class="keyword">null</span> &amp;&amp; checkNumService.equals(encode(jsonObject, uuid));</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
-<h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><p>由于iOS的<code>Dictionary</code>的无序性, 所以iOS暂时还没有实现按key排序, 单只要保证sign的元数据的key顺序 和 提交的数据的key的顺序一致就可以</p>
+<h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><p>由于iOS的<code>Dictionary</code>的无序性, 这里提供一个自己实现的OrderedDictionary, <a href="https://github.com/kkooff114/OrderedDictionary" target="_blank" rel="external">源码献上</a>.</p>
 
       
     </div>
@@ -605,13 +605,13 @@ String(32)
       
         <div class="post-tags">
           
-            <a href="/tags/iOS/" rel="tag">#iOS</a>
+            <a href="/tags/项目/" rel="tag">#项目</a>
           
             <a href="/tags/规范/" rel="tag">#规范</a>
           
             <a href="/tags/Android/" rel="tag">#Android</a>
           
-            <a href="/tags/项目/" rel="tag">#项目</a>
+            <a href="/tags/iOS/" rel="tag">#iOS</a>
           
         </div>
       
