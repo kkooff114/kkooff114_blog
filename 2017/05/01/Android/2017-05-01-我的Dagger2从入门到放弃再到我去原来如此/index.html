@@ -1,0 +1,888 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|18:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Android," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.2" />
+
+
+
+
+
+
+<meta name="description" content="首先简单理解, Dagger2帮我们做的就是下面这行代码
+1Presenter mPresenter = new Presenter();
+这里面分俩个步骤:
+
+实例化一个Presenter对象 new Presenter()
+将刚刚的对象赋值=
+
+1. 实例化对象dagger2中有俩种实例化对象的方式:
+
+通过构造函数上标注@Inject
+通过@Module标注类, 再通过@Provider标注">
+<meta property="og:type" content="article">
+<meta property="og:title" content="我的Dagger2从入门到放弃再到我去原来如此">
+<meta property="og:url" content="http://blog.loujiwei.cn/2017/05/01/Android/2017-05-01-我的Dagger2从入门到放弃再到我去原来如此/index.html">
+<meta property="og:site_name" content="kkooff144`blog">
+<meta property="og:description" content="首先简单理解, Dagger2帮我们做的就是下面这行代码
+1Presenter mPresenter = new Presenter();
+这里面分俩个步骤:
+
+实例化一个Presenter对象 new Presenter()
+将刚刚的对象赋值=
+
+1. 实例化对象dagger2中有俩种实例化对象的方式:
+
+通过构造函数上标注@Inject
+通过@Module标注类, 再通过@Provider标注">
+<meta property="og:updated_time" content="2017-05-01T06:24:43.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="我的Dagger2从入门到放弃再到我去原来如此">
+<meta name="twitter:description" content="首先简单理解, Dagger2帮我们做的就是下面这行代码
+1Presenter mPresenter = new Presenter();
+这里面分俩个步骤:
+
+实例化一个Presenter对象 new Presenter()
+将刚刚的对象赋值=
+
+1. 实例化对象dagger2中有俩种实例化对象的方式:
+
+通过构造函数上标注@Inject
+通过@Module标注类, 再通过@Provider标注">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","iXiaoZhi":"http://ixiaozhi.com/"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://blog.loujiwei.cn/2017/05/01/Android/2017-05-01-我的Dagger2从入门到放弃再到我去原来如此/"/>
+
+
+  <title> 我的Dagger2从入门到放弃再到我去原来如此 | kkooff144`blog </title>
+</head>
+
+<body itemscope itemtype="//schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?7d5d2bb40c2c103a074272772bd720c0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">kkooff144`blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                我的Dagger2从入门到放弃再到我去原来如此
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-05-01T11:12:50+08:00" content="2017-05-01">
+              2017-05-01
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/05/01/Android/2017-05-01-我的Dagger2从入门到放弃再到我去原来如此/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/05/01/Android/2017-05-01-我的Dagger2从入门到放弃再到我去原来如此/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2017/05/01/Android/2017-05-01-我的Dagger2从入门到放弃再到我去原来如此/" class="leancloud_visitors" data-flag-title="我的Dagger2从入门到放弃再到我去原来如此">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv"><i class="fa fa-file-o"></i>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>首先简单理解, Dagger2帮我们做的就是下面这行代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Presenter mPresenter = new Presenter();</div></pre></td></tr></table></figure>
+<p>这里面分俩个步骤:</p>
+<ol>
+<li>实例化一个Presenter对象 <code>new Presenter()</code></li>
+<li>将刚刚的对象赋值<code>=</code></li>
+</ol>
+<h2 id="1-实例化对象"><a href="#1-实例化对象" class="headerlink" title="1. 实例化对象"></a>1. 实例化对象</h2><p>dagger2中有俩种实例化对象的方式:</p>
+<ol>
+<li>通过构造函数上标注<code>@Inject</code></li>
+<li>通过<code>@Module</code>标注类, 再通过<code>@Provider</code>标注相关方法</li>
+</ol>
+<h3 id="1-1-构造方法标注-Inject"><a href="#1-1-构造方法标注-Inject" class="headerlink" title="1.1 构造方法标注@Inject"></a>1.1 构造方法标注@Inject</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">public class Presenter &#123;</div><div class="line"></div><div class="line">    @Inject</div><div class="line">    public Presenter() &#123;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这样当我们make project的时候, dagger2会帮我们在<code>/app/build/generated/apt/debug/</code>相同的package的位置生成一个关于Presenter的构造类<code>Presenter_Factory</code>, 内容如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">public final class Presenter_Factory implements Factory&lt;Presenter&gt; &#123;</div><div class="line">  private static final Presenter_Factory INSTANCE = new Presenter_Factory();</div><div class="line"></div><div class="line">  @Override</div><div class="line">  public Presenter get() &#123;</div><div class="line">    return new Presenter();</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  public static Factory&lt;Presenter&gt; create() &#123;</div><div class="line">    return INSTANCE;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>很清晰, 这里的<code>get()</code>方法就是通过我们刚刚的构造方法返回<code>Presenter</code>的实例, 关于<code>create()</code>方法我们下面再讲.</p>
+<h3 id="1-2-Module标注类"><a href="#1-2-Module标注类" class="headerlink" title="1.2 @Module标注类"></a>1.2 @Module标注类</h3><p>1.1讲述了一个普通类是如何通过dagger2实例化的, 但是有一些类,比如第三方类库，系统类，以及我们下面要说的View接口.<br>我们都知道<code>MVP</code>设计模式中, presenter都是需要依赖view接口的, 该view既是相关activity实例, 这个类只能通过外部传进来, 而不能自己<code>new</code></p>
+<p>于是, 我们便有了一个<code>OrderModule</code>, 不要在意<code>Order</code>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">@Module</div><div class="line">public class OrderModule &#123;</div><div class="line"></div><div class="line">    private IMainView mView;</div><div class="line"></div><div class="line">    public OrderModule(IMainView mView) &#123;</div><div class="line">        this.mView = mView;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Provides</div><div class="line">    IMainView provideMainView() &#123;</div><div class="line">        return this.mView;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这里面通过构造方法从外面传入一个IMainView的实例, 即我们的activity.<br>然后通过<code>@Provides</code>标注一个返回类型为<code>IMainView</code>的方法. 我们来看看dagger2帮我们生成的<code>OrderModule_ProvideMainViewFactory</code>类:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">public final class OrderModule_ProvideMainViewFactory implements Factory&lt;IMainView&gt; &#123;</div><div class="line">  private final OrderModule module;</div><div class="line"></div><div class="line">  public OrderModule_ProvideMainViewFactory(OrderModule module) &#123;</div><div class="line">    assert module != null;</div><div class="line">    this.module = module;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  @Override</div><div class="line">  public IMainView get() &#123;</div><div class="line">    return Preconditions.checkNotNull(</div><div class="line">        module.provideMainView(), &quot;Cannot return null from a non-@Nullable @Provides method&quot;);</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  public static Factory&lt;IMainView&gt; create(OrderModule module) &#123;</div><div class="line">    return new OrderModule_ProvideMainViewFactory(module);</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  /** Proxies &#123;@link OrderModule#provideMainView()&#125;. */</div><div class="line">  public static IMainView proxyProvideMainView(OrderModule instance) &#123;</div><div class="line">    return instance.provideMainView();</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>和1.1一样, 依然提供了<code>get()</code>和<code>create()</code>方法.</p>
+<blockquote>
+<p>提示: Module里面的<code>provideMainView</code>可以是任意的名字</p>
+</blockquote>
+<p>至此, 就是dagger2的俩种实例化类的方法, 他们都会产出相关的<code>xxxFactory</code>类, 提供<code>get()</code>与<code>create()</code>方法.</p>
+<h2 id="2-将对象赋值-即注入"><a href="#2-将对象赋值-即注入" class="headerlink" title="2. 将对象赋值, 即注入"></a>2. 将对象赋值, 即注入</h2><p>首先是注入到哪里呢?<br>在待注入的属性上面加上<code>@Inject</code>标注, 如:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">public class MainActivity extends AppCompatActivity implements IMainView&#123;</div><div class="line"></div><div class="line">    @Inject</div><div class="line">    Presenter mPresenter;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</div><div class="line">        super.onCreate(savedInstanceState);</div><div class="line">        setContentView(R.layout.activity_main);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这就结束了吗? 不!这只是告诉dagger2, mPresenter是待注入的属性, 而真正注入或者说赋值的动作, 即<code>=</code>, 就是我们接下来将的<code>Component</code>.<br>简单看下Component的代码:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">@Component(modules = &#123;OrderModule.class&#125;)</div><div class="line">public interface OrderComponent &#123;</div><div class="line">    void inject(MainActivity activity);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在接口上使用<code>@Component</code>标注, 并用modules指定相关Module类.<br>注意这里的inject方法的参数, 他就告诉的dagger2需要检查哪个类需要注入(这里一定是你要的具体类, 之前我这里写Activity, 搞了好久), 于是dagger2就去这个类里面寻找<code>@Inject</code>标注的属性, 并将他赋值. </p>
+<p>我们看下dagger2为我们生成的<code>DaggerOrderComponent</code>类:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">public final class DaggerOrderComponent implements OrderComponent &#123;</div><div class="line">  private MembersInjector&lt;MainActivity&gt; mainActivityMembersInjector;</div><div class="line"></div><div class="line">  private DaggerOrderComponent(Builder builder) &#123;</div><div class="line">    assert builder != null;</div><div class="line">    initialize(builder);</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  public static Builder builder() &#123;</div><div class="line">    return new Builder();</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  public static OrderComponent create() &#123;</div><div class="line">    return new Builder().build();</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  @SuppressWarnings(&quot;unchecked&quot;)</div><div class="line">  private void initialize(final Builder builder) &#123;</div><div class="line"></div><div class="line">    this.mainActivityMembersInjector =</div><div class="line">        MainActivity_MembersInjector.create(Presenter_Factory.create());</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  @Override</div><div class="line">  public void inject(MainActivity activity) &#123;</div><div class="line">    mainActivityMembersInjector.injectMembers(activity);</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  public static final class Builder &#123;</div><div class="line">    private Builder() &#123;&#125;</div><div class="line"></div><div class="line">    public OrderComponent build() &#123;</div><div class="line">      return new DaggerOrderComponent(this);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    /**</div><div class="line">     * @deprecated This module is declared, but an instance is not used in the component. This</div><div class="line">     *     method is a no-op. For more, see https://google.github.io/dagger/unused-modules.</div><div class="line">     */</div><div class="line">    @Deprecated</div><div class="line">    public Builder orderModule(OrderModule orderModule) &#123;</div><div class="line">      Preconditions.checkNotNull(orderModule);</div><div class="line">      return this;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这个类比较长, 但我们只看俩个方法, 一个是<code>initialize()</code>, 一个是<code>inject()</code></p>
+<p><strong>initialize():</strong><br>这个是个初始化的方法, 在这个里面我们看到了他调用了<code>Presenter_Factory.create()</code>方法, 我们上面已经看到了<code>create()</code></p>
+<p><strong>inject():</strong><br>这个方法比较有意思, 只有当显示的调用这个方法后:<br><code>DaggerOrderComponent</code>才会被初始化,<br><code>initialize()</code>才会被调用,<br><code>MainActivity</code>里面的<code>mPresenter</code>才会被赋值注入</p>
+<p>所以我们还需要在<code>MainActivity</code>里面调用一下<code>Inject()</code>方法:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">public class MainActivity extends AppCompatActivity implements IMainView&#123;</div><div class="line"></div><div class="line">    @Inject</div><div class="line">    Presenter mPresenter;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</div><div class="line">        super.onCreate(savedInstanceState);</div><div class="line">        setContentView(R.layout.activity_main);</div><div class="line">        </div><div class="line">        OrderComponent daggerBuild = DaggerOrderComponent</div><div class="line">                .builder()</div><div class="line">                .orderModule(new OrderModule(this))</div><div class="line">                .build();</div><div class="line"></div><div class="line">        daggerBuild.inject(this);</div><div class="line"></div><div class="line">        System.out.println(&quot;presenter: &quot; + mPresenter);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>至此, 完成了一个完整的dagger2的注入流程, 就是:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Presenter mPresenter = new Presenter();</div></pre></td></tr></table></figure>
+<hr>
+<p>这里还有个不错的文章可以加深理解:<br><a href="http://www.jianshu.com/p/39d1df6c877d" target="_blank" rel="external">http://www.jianshu.com/p/39d1df6c877d</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Android/" rel="tag">#Android</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/03/07/Android/2017-03-07-对自己做了三年的一个app的总结/" rel="next" title="对自己做了三年的一个app的总结">
+                <i class="fa fa-chevron-left"></i> 对自己做了三年的一个app的总结
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/05/01/Android/2017-05-01-我的Dagger2从入门到放弃再到我去原来如此/"
+           data-title="我的Dagger2从入门到放弃再到我去原来如此" data-url="http://blog.loujiwei.cn/2017/05/01/Android/2017-05-01-我的Dagger2从入门到放弃再到我去原来如此/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Lou Jiwei" />
+          <p class="site-author-name" itemprop="name">Lou Jiwei</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">79</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">72</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/kkooff114" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/2028380403" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.zhihu.com/people/lou-jerry" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-实例化对象"><span class="nav-number">1.</span> <span class="nav-text">1. 实例化对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-构造方法标注-Inject"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 构造方法标注@Inject</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-Module标注类"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 @Module标注类</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-将对象赋值-即注入"><span class="nav-number">2.</span> <span class="nav-text">2. 将对象赋值, 即注入</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lou Jiwei</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.2"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"kkooff114"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("Hlu4LmyrC38fkas5YyrJD87H-gzGzoHsz", "udF3A1fTUeRJHlezwNGWBCR9");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+
+</body>
+</html>
