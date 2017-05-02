@@ -116,7 +116,7 @@
 
 通过构造函数上标注@Inject
 通过@Module标注类, 再通过@Provider标注">
-<meta property="og:updated_time" content="2017-05-01T06:24:43.000Z">
+<meta property="og:updated_time" content="2017-05-01T12:28:57.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="我的Dagger2从入门到放弃再到我去原来如此">
 <meta name="twitter:description" content="首先简单理解, Dagger2帮我们做的就是下面这行代码
@@ -413,7 +413,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">public class MainActivity extends AppCompatActivity implements IMainView&#123;</div><div class="line"></div><div class="line">    @Inject</div><div class="line">    Presenter mPresenter;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</div><div class="line">        super.onCreate(savedInstanceState);</div><div class="line">        setContentView(R.layout.activity_main);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>这就结束了吗? 不!这只是告诉dagger2, mPresenter是待注入的属性, 而真正注入或者说赋值的动作, 即<code>=</code>, 就是我们接下来将的<code>Component</code>.<br>简单看下Component的代码:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">@Component(modules = &#123;OrderModule.class&#125;)</div><div class="line">public interface OrderComponent &#123;</div><div class="line">    void inject(MainActivity activity);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>在接口上使用<code>@Component</code>标注, 并用modules指定相关Module类.<br>注意这里的inject方法的参数, 他就告诉的dagger2需要检查哪个类需要注入(这里一定是你要的具体类, 之前我这里写Activity, 搞了好久), 于是dagger2就去这个类里面寻找<code>@Inject</code>标注的属性, 并将他赋值. </p>
+<p>在接口上使用<code>@Component</code>标注, 并用modules指定相关Module类.<br>注意这里的inject方法的参数, 他就告诉的dagger2需要检查哪个类需要注入<strong><em>(这里一定是你要的具体类, 之前我这里写Activity, 搞了好久,当然也不能写IMainView, 应为IMainView结构中是没有@Inject待注入的)</em></strong>, 于是dagger2就去这个类里面寻找<code>@Inject</code>标注的属性, 并将他赋值. </p>
 <p>我们看下dagger2为我们生成的<code>DaggerOrderComponent</code>类:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">public final class DaggerOrderComponent implements OrderComponent &#123;</div><div class="line">  private MembersInjector&lt;MainActivity&gt; mainActivityMembersInjector;</div><div class="line"></div><div class="line">  private DaggerOrderComponent(Builder builder) &#123;</div><div class="line">    assert builder != null;</div><div class="line">    initialize(builder);</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  public static Builder builder() &#123;</div><div class="line">    return new Builder();</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  public static OrderComponent create() &#123;</div><div class="line">    return new Builder().build();</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  @SuppressWarnings(&quot;unchecked&quot;)</div><div class="line">  private void initialize(final Builder builder) &#123;</div><div class="line"></div><div class="line">    this.mainActivityMembersInjector =</div><div class="line">        MainActivity_MembersInjector.create(Presenter_Factory.create());</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  @Override</div><div class="line">  public void inject(MainActivity activity) &#123;</div><div class="line">    mainActivityMembersInjector.injectMembers(activity);</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  public static final class Builder &#123;</div><div class="line">    private Builder() &#123;&#125;</div><div class="line"></div><div class="line">    public OrderComponent build() &#123;</div><div class="line">      return new DaggerOrderComponent(this);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    /**</div><div class="line">     * @deprecated This module is declared, but an instance is not used in the component. This</div><div class="line">     *     method is a no-op. For more, see https://google.github.io/dagger/unused-modules.</div><div class="line">     */</div><div class="line">    @Deprecated</div><div class="line">    public Builder orderModule(OrderModule orderModule) &#123;</div><div class="line">      Preconditions.checkNotNull(orderModule);</div><div class="line">      return this;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>这个类比较长, 但我们只看俩个方法, 一个是<code>initialize()</code>, 一个是<code>inject()</code></p>
@@ -463,6 +463,10 @@
           </div>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/05/02/Android/2017-05-02/" rel="prev" title="Jenkins持续集成Android发布bugly, 自动备份热部署">
+                Jenkins持续集成Android发布bugly, 自动备份热部署 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -534,7 +538,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">79</span>
+              <span class="site-state-item-count">80</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
