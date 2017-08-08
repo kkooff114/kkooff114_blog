@@ -1,0 +1,860 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|18:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="weex," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.2" />
+
+
+
+
+
+
+<meta name="description" content="基础环境安装脚手架工具
+1$npm install -g weex-toolkit
+创建项目
+1weex create projectName
+添加android &amp;amp; iOS 项目
+12weex platform add iosweex platform add android
+native部署时, 图片无法显示android需要实现IWXImgLoaderAdapter
+12345678">
+<meta property="og:type" content="article">
+<meta property="og:title" content="weex填坑记录">
+<meta property="og:url" content="http://blog.loujiwei.cn/2017/07/18/Android/2017-07-18-weex填坑记录/index.html">
+<meta property="og:site_name" content="kkooff144`blog">
+<meta property="og:description" content="基础环境安装脚手架工具
+1$npm install -g weex-toolkit
+创建项目
+1weex create projectName
+添加android &amp;amp; iOS 项目
+12weex platform add iosweex platform add android
+native部署时, 图片无法显示android需要实现IWXImgLoaderAdapter
+12345678">
+<meta property="og:updated_time" content="2017-08-03T01:47:43.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="weex填坑记录">
+<meta name="twitter:description" content="基础环境安装脚手架工具
+1$npm install -g weex-toolkit
+创建项目
+1weex create projectName
+添加android &amp;amp; iOS 项目
+12weex platform add iosweex platform add android
+native部署时, 图片无法显示android需要实现IWXImgLoaderAdapter
+12345678">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","iXiaoZhi":"http://ixiaozhi.com/"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://blog.loujiwei.cn/2017/07/18/Android/2017-07-18-weex填坑记录/"/>
+
+
+  <title> weex填坑记录 | kkooff144`blog </title>
+</head>
+
+<body itemscope itemtype="//schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?7d5d2bb40c2c103a074272772bd720c0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">kkooff144`blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                weex填坑记录
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-07-18T17:27:00+08:00" content="2017-07-18">
+              2017-07-18
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/07/18/Android/2017-07-18-weex填坑记录/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/07/18/Android/2017-07-18-weex填坑记录/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2017/07/18/Android/2017-07-18-weex填坑记录/" class="leancloud_visitors" data-flag-title="weex填坑记录">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv"><i class="fa fa-file-o"></i>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="基础环境安装"><a href="#基础环境安装" class="headerlink" title="基础环境安装"></a>基础环境安装</h2><p>脚手架工具</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$npm install -g weex-toolkit</div></pre></td></tr></table></figure>
+<p>创建项目</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">weex create projectName</div></pre></td></tr></table></figure>
+<p>添加android &amp; iOS 项目</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">weex platform add ios</div><div class="line">weex platform add android</div></pre></td></tr></table></figure>
+<h2 id="native部署时-图片无法显示"><a href="#native部署时-图片无法显示" class="headerlink" title="native部署时, 图片无法显示"></a>native部署时, 图片无法显示</h2><p>android需要实现<code>IWXImgLoaderAdapter</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div></pre></td><td class="code"><pre><div class="line">public class ImageAdapter implements IWXImgLoaderAdapter &#123;</div><div class="line"></div><div class="line">  public ImageAdapter() &#123;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  @Override</div><div class="line">  public void setImage(final String url, final ImageView view,</div><div class="line">                       WXImageQuality quality, final WXImageStrategy strategy) &#123;</div><div class="line"></div><div class="line">    WXSDKManager.getInstance().postOnUiThread(new Runnable() &#123;</div><div class="line"></div><div class="line">      @Override</div><div class="line">      public void run() &#123;</div><div class="line">        if(view==null||view.getLayoutParams()==null)&#123;</div><div class="line">          return;</div><div class="line">        &#125;</div><div class="line">        if (TextUtils.isEmpty(url)) &#123;</div><div class="line">          view.setImageBitmap(null);</div><div class="line">          return;</div><div class="line">        &#125;</div><div class="line">        String temp = url;</div><div class="line">        if (url.startsWith(&quot;//&quot;)) &#123;</div><div class="line">          temp = &quot;http:&quot; + url;</div><div class="line">        &#125;</div><div class="line">        if (temp.startsWith(&quot;/images/&quot;)) &#123;</div><div class="line">          //过滤掉所有相对位置</div><div class="line">          temp = temp.replace(&quot;../&quot;, &quot;&quot;);</div><div class="line">          temp = temp.replace(&quot;./&quot;, &quot;&quot;);</div><div class="line">          //替换asset目录的配置</div><div class="line">          temp = temp.replace(&quot;/images/&quot;, &quot;file:///android_asset/weex/images/&quot;);</div><div class="line">          Log.d(&quot;ImageAdapter&quot;, &quot;url:&quot; + temp);</div><div class="line">        &#125;</div><div class="line">        if (view.getLayoutParams().width &lt;= 0 || view.getLayoutParams().height &lt;= 0) &#123;</div><div class="line">          return;</div><div class="line">        &#125;</div><div class="line"></div><div class="line"></div><div class="line">        if(!TextUtils.isEmpty(strategy.placeHolder))&#123;</div><div class="line">          Picasso.Builder builder=new Picasso.Builder(WXEnvironment.getApplication());</div><div class="line">          Picasso picasso=builder.build();</div><div class="line">          picasso.load(Uri.parse(strategy.placeHolder)).into(view);</div><div class="line"></div><div class="line">          view.setTag(strategy.placeHolder.hashCode(),picasso);</div><div class="line">        &#125;</div><div class="line"></div><div class="line"></div><div class="line">        Picasso.with(WXEnvironment.getApplication())</div><div class="line">                .load(temp)</div><div class="line">                .into(view, new Callback() &#123;</div><div class="line">                  @Override</div><div class="line">                  public void onSuccess() &#123;</div><div class="line">                    if(strategy.getImageListener()!=null)&#123;</div><div class="line">                      strategy.getImageListener().onImageFinish(url,view,true,null);</div><div class="line">                    &#125;</div><div class="line"></div><div class="line">                    if(!TextUtils.isEmpty(strategy.placeHolder))&#123;</div><div class="line">                      ((Picasso) view.getTag(strategy.placeHolder.hashCode())).cancelRequest(view);</div><div class="line">                    &#125;</div><div class="line">                  &#125;</div><div class="line"></div><div class="line">                  @Override</div><div class="line">                  public void onError() &#123;</div><div class="line">                    if(strategy.getImageListener()!=null)&#123;</div><div class="line">                      strategy.getImageListener().onImageFinish(url,view,false,null);</div><div class="line">                    &#125;</div><div class="line">                  &#125;</div><div class="line">                &#125;);</div><div class="line">      &#125;</div><div class="line">    &#125;,0);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>并在<code>Application</code>初始化的时候设置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">InitConfig config = new InitConfig.Builder().setImgAdapter(new ImageAdapter()).build();</div></pre></td></tr></table></figure>
+<h2 id="weex-Module-not-found"><a href="#weex-Module-not-found" class="headerlink" title="weex Module not found:"></a>weex Module not found:</h2><p>vue的组件导入时请用<code>require(&#39;...&#39;)</code>的方式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">components: &#123;</div><div class="line">      myButton:require(&apos;../components/myButton.vue&apos;)</div><div class="line">    &#125;,</div></pre></td></tr></table></figure>
+<h2 id="weex-debug-或者-weex预览的时候-图片编译问题"><a href="#weex-debug-或者-weex预览的时候-图片编译问题" class="headerlink" title="weex debug 或者 weex预览的时候, 图片编译问题"></a>weex debug 或者 weex预览的时候, 图片编译问题</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"> [webpack errors]</div><div class="line"> ./src/assets/image/weex.png</div><div class="line">Module parse failed: /Users/LJW/Documents/workspace/cestbon3/HeathCheck2/web/src/assets/image/weex.png Unexpected character &apos;�&apos; (1:0)</div><div class="line">You may need an appropriate loader to handle this file type.</div><div class="line">SyntaxError: Unexpected character &apos;�&apos; (1:0)</div><div class="line">    at Parser.pp$4.raise (/Users/LJW/.xtoolkit/node_modules/webpack/node_modules/acorn/dist/acorn.js:2221:15)</div><div class="line">    at Parser.pp$7.getTokenFromCode (/Users/LJW/.xtoolkit/node_modules/webpack/node_modules/acorn/dist/acorn.js:2756:10)</div><div class="line">    at Parser.pp$7.readToken (/Users/LJW/.xtoolkit/node_modules/webpack/node_modules/acorn/dist/acorn.js:2477:17)</div><div class="line">    at Parser.pp$7.nextToken (/Users/LJW/.xtoolkit/node_modules/webpack/node_modules/acorn/dist/acorn.js:2468:15)</div><div class="line">    at Parser.parse (/Users/LJW/.xtoolkit/node_modules/webpack/node_modules/acorn/dist/acorn.js:515:10)</div><div class="line">    at Object.parse (/Users/LJW/.xtoolkit/node_modules/webpack/node_modules/acorn/dist/acorn.js:3098:39)</div><div class="line">    at Parser.parse (/Users/LJW/.xtoolkit/node_modules/webpack/lib/Parser.js:902:15)</div><div class="line">    at DependenciesBlock.&lt;anonymous&gt; (/Users/LJW/.xtoolkit/node_modules/webpack/lib/NormalModule.js:104:16)</div><div class="line">    at DependenciesBlock.onModuleBuild (/Users/LJW/.xtoolkit/node_modules/webpack-core/lib/NormalModuleMixin.js:310:10)</div><div class="line">    at nextLoader (/Users/LJW/.xtoolkit/node_modules/webpack-core/lib/NormalModuleMixin.js:275:25)</div><div class="line"> @ /Users/LJW/.xtoolkit/~/weex-vue-loader/lib/script-loader.js!/Users/LJW/.xtoolkit/~/babel-loader/lib!/Users/LJW/.xtoolkit/~/weex-vue-loader/lib/selector.js?type=script&amp;index=0!./src/views/Login.vue 15:13-48  </div><div class="line">@(    at /Users/LJW/.xtoolkit/node_modules/weex-devtool/lib/components/Builder.js:79:24</div></pre></td></tr></table></figure>
+<p>在<code>/Users/LJW/.xtoolkit/node_modules/weex-devtool/lib/components/Builder.js:79:24</code> 中增加<code>png</code>图片的loader</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">module: &#123;</div><div class="line">                loaders: [&#123;</div><div class="line">                   test: /\.we(\?[^?]+)?$/,</div><div class="line">                     loader: &apos;weex&apos;</div><div class="line">                &#125;, &#123;</div><div class="line">                    test: /\.vue(\?[^?]+)?$/,</div><div class="line">                   loader: &apos;weex&apos;</div><div class="line">                 &#125;,&#123;</div><div class="line">                     test: /\.(png|jpe?g|gif|svg)$/,</div><div class="line">                     loader: &apos;url-loader&apos;</div><div class="line">                 &#125;]</div><div class="line">            &#125;</div></pre></td></tr></table></figure>
+<h2 id="less的嵌套语法不支持"><a href="#less的嵌套语法不支持" class="headerlink" title="less的嵌套语法不支持"></a>less的嵌套语法不支持</h2><h2 id="weex-及weex-debug-不能支持import语法-但是require语法打包到手机会找不到模块"><a href="#weex-及weex-debug-不能支持import语法-但是require语法打包到手机会找不到模块" class="headerlink" title="weex 及weex debug 不能支持import语法, 但是require语法打包到手机会找不到模块"></a>weex 及weex debug 不能支持import语法, 但是require语法打包到手机会找不到模块</h2><h2 id="使用weex-plugin-add-安装市场的第三方插件的时候报-could-not-find-gradle-wrapper-within-android-sdk"><a href="#使用weex-plugin-add-安装市场的第三方插件的时候报-could-not-find-gradle-wrapper-within-android-sdk" class="headerlink" title="使用weex plugin add 安装市场的第三方插件的时候报: could not find gradle wrapper within android sdk"></a>使用weex plugin add 安装市场的第三方插件的时候报: could not find gradle wrapper within android sdk</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cp -r /Applications/Android\ Studio.app/Contents/plugins/android/lib/templates ~/Library/Android/sdk/tools</div></pre></td></tr></table></figure>
+<h3 id="Error-spawn-EACCES"><a href="#Error-spawn-EACCES" class="headerlink" title="Error: spawn EACCES"></a>Error: spawn EACCES</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">chmod a+x ~/Library/Android/sdk/tools/templates/gradle/wrapper/gradlew</div></pre></td></tr></table></figure>
+<h2 id="js缓存问题"><a href="#js缓存问题" class="headerlink" title="js缓存问题"></a>js缓存问题</h2><h2 id="单位换算问题"><a href="#单位换算问题" class="headerlink" title="单位换算问题"></a>单位换算问题</h2><p><a href="https://yq.aliyun.com/articles/134276?utm_content=m_26383" target="_blank" rel="external">https://yq.aliyun.com/articles/134276?utm_content=m_26383</a></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="http://www.jianshu.com/p/740431068ff5" target="_blank" rel="external">地球上最全的weex踩坑攻略-出自大量实践与沉淀</a><br><a href="http://www.jianshu.com/p/3160a0297345?utm_source=androidweekly.cn&amp;utm_medium=website" target="_blank" rel="external">Weex Android SDK源码分析</a><br><a href="https://zhuanlan.zhihu.com/p/25182677" target="_blank" rel="external">技术 | Weex入坑之旅-iOS</a><br><a href="https://open-doc.dingtalk.com/docs/doc.htm?spm=a219a.7629140.0.0.w1LNib&amp;treeId=357&amp;articleId=106828&amp;docType=1" target="_blank" rel="external">抹平差异的Utility库</a><br><a href="https://0error0warning.com/blog/14844846243667.html" target="_blank" rel="external">写给 iOS 程序员的 Weex 教程（3）：界面布局和业务逻辑开发</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/weex/" rel="tag">#weex</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/23/Google-Interview/必备知识/2017-06-23-算法-红黑树/" rel="next" title="算法-红黑树">
+                <i class="fa fa-chevron-left"></i> 算法-红黑树
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/02/Android/2017-08-02-大厂文章搜集/" rel="prev" title="大厂文章搜集">
+                大厂文章搜集 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/07/18/Android/2017-07-18-weex填坑记录/"
+           data-title="weex填坑记录" data-url="http://blog.loujiwei.cn/2017/07/18/Android/2017-07-18-weex填坑记录/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Lou Jiwei" />
+          <p class="site-author-name" itemprop="name">Lou Jiwei</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">87</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">77</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/kkooff114" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/2028380403" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.zhihu.com/people/lou-jerry" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#基础环境安装"><span class="nav-number">1.</span> <span class="nav-text">基础环境安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#native部署时-图片无法显示"><span class="nav-number">2.</span> <span class="nav-text">native部署时, 图片无法显示</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#weex-Module-not-found"><span class="nav-number">3.</span> <span class="nav-text">weex Module not found:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#weex-debug-或者-weex预览的时候-图片编译问题"><span class="nav-number">4.</span> <span class="nav-text">weex debug 或者 weex预览的时候, 图片编译问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#less的嵌套语法不支持"><span class="nav-number">5.</span> <span class="nav-text">less的嵌套语法不支持</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#weex-及weex-debug-不能支持import语法-但是require语法打包到手机会找不到模块"><span class="nav-number">6.</span> <span class="nav-text">weex 及weex debug 不能支持import语法, 但是require语法打包到手机会找不到模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用weex-plugin-add-安装市场的第三方插件的时候报-could-not-find-gradle-wrapper-within-android-sdk"><span class="nav-number">7.</span> <span class="nav-text">使用weex plugin add 安装市场的第三方插件的时候报: could not find gradle wrapper within android sdk</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Error-spawn-EACCES"><span class="nav-number">7.1.</span> <span class="nav-text">Error: spawn EACCES</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#js缓存问题"><span class="nav-number">8.</span> <span class="nav-text">js缓存问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#单位换算问题"><span class="nav-number">9.</span> <span class="nav-text">单位换算问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">10.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lou Jiwei</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.2"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"kkooff114"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("Hlu4LmyrC38fkas5YyrJD87H-gzGzoHsz", "udF3A1fTUeRJHlezwNGWBCR9");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+
+</body>
+</html>
