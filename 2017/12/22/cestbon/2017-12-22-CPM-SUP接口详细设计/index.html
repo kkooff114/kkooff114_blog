@@ -1,0 +1,3514 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|18:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.2" />
+
+
+
+
+
+
+<meta name="description" content="CPM SUP接口详细设计[TOC]
+0101. 活动列表读取请求Url:1/supv1/promotion/list
+入参:
+
+
+字段
+描述
+
+
+
+
+username
+业代编号
+
+
+
+出参:
+
+
+字段
+描述
+来源表
+
+
+
+
+tpList
+List, 活动列表, 详细见下
+
+
+
+tpStrategyList
+List, 活动策略列表, 详细见下
+
+
+
+displayPatternList
+List">
+<meta property="og:type" content="article">
+<meta property="og:title" content="kkooff144`blog">
+<meta property="og:url" content="http://blog.loujiwei.cn/2017/12/22/cestbon/2017-12-22-CPM-SUP接口详细设计/index.html">
+<meta property="og:site_name" content="kkooff144`blog">
+<meta property="og:description" content="CPM SUP接口详细设计[TOC]
+0101. 活动列表读取请求Url:1/supv1/promotion/list
+入参:
+
+
+字段
+描述
+
+
+
+
+username
+业代编号
+
+
+
+出参:
+
+
+字段
+描述
+来源表
+
+
+
+
+tpList
+List, 活动列表, 详细见下
+
+
+
+tpStrategyList
+List, 活动策略列表, 详细见下
+
+
+
+displayPatternList
+List">
+<meta property="og:updated_time" content="2017-12-24T10:30:48.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="kkooff144`blog">
+<meta name="twitter:description" content="CPM SUP接口详细设计[TOC]
+0101. 活动列表读取请求Url:1/supv1/promotion/list
+入参:
+
+
+字段
+描述
+
+
+
+
+username
+业代编号
+
+
+
+出参:
+
+
+字段
+描述
+来源表
+
+
+
+
+tpList
+List, 活动列表, 详细见下
+
+
+
+tpStrategyList
+List, 活动策略列表, 详细见下
+
+
+
+displayPatternList
+List">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","iXiaoZhi":"http://ixiaozhi.com/"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://blog.loujiwei.cn/2017/12/22/cestbon/2017-12-22-CPM-SUP接口详细设计/"/>
+
+
+  <title>  | kkooff144`blog </title>
+</head>
+
+<body itemscope itemtype="//schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?7d5d2bb40c2c103a074272772bd720c0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">kkooff144`blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-12-22T22:04:03+08:00" content="2017-12-22">
+              2017-12-22
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/12/22/cestbon/2017-12-22-CPM-SUP接口详细设计/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/12/22/cestbon/2017-12-22-CPM-SUP接口详细设计/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2017/12/22/cestbon/2017-12-22-CPM-SUP接口详细设计/" class="leancloud_visitors" data-flag-title="">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv"><i class="fa fa-file-o"></i>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="CPM-SUP接口详细设计"><a href="#CPM-SUP接口详细设计" class="headerlink" title="CPM SUP接口详细设计"></a>CPM SUP接口详细设计</h1><p>[TOC]</p>
+<h2 id="0101-活动列表读取"><a href="#0101-活动列表读取" class="headerlink" title="0101. 活动列表读取"></a>0101. 活动列表读取</h2><h4 id="请求Url"><a href="#请求Url" class="headerlink" title="请求Url:"></a>请求Url:</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/supv1/promotion/list</div></pre></td></tr></table></figure>
+<h4 id="入参"><a href="#入参" class="headerlink" title="入参:"></a>入参:</h4><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>username</td>
+<td>业代编号</td>
+</tr>
+</tbody>
+</table>
+<h4 id="出参"><a href="#出参" class="headerlink" title="出参:"></a>出参:</h4><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>描述</th>
+<th>来源表</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>tpList</td>
+<td>List, 活动列表, 详细见下</td>
+<td></td>
+</tr>
+<tr>
+<td>tpStrategyList</td>
+<td>List, 活动策略列表, 详细见下</td>
+<td></td>
+</tr>
+<tr>
+<td>displayPatternList</td>
+<td>List, 促销形式列表, 详细见下</td>
+<td></td>
+</tr>
+<tr>
+<td>tpRebateList</td>
+<td>List, 促销返还列表, 详细见下</td>
+<td></td>
+</tr>
+<tr>
+<td>distributorList</td>
+<td>List, 经销商列表, 详细见下</td>
+<td></td>
+</tr>
+<tr>
+<td>tpCostList</td>
+<td>List, 费用归属列表, 详细见下</td>
+</tr>
+</tbody>
+</table>
+<p>tpList (活动列表):</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>描述</th>
+<th>来源表</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>channelDesc</td>
+<td>渠道描述</td>
+<td>3</td>
+<td>取数说明1</td>
+</tr>
+<tr>
+<td>channelId</td>
+<td>渠道id</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>dgtlContractTemp</td>
+<td>电子合同模板id</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>hasCash</td>
+<td>现金</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>hasCoupon</td>
+<td>卡券</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>hasDgtlContract</td>
+<td>是否电子合同</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>hasProduct</td>
+<td>实物</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>manageModuleId</td>
+<td>管理模块id</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>officeId</td>
+<td>办事处id</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>officeSecondId</td>
+<td>二级办事处id</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>promotionId</td>
+<td>促销执行id</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>tpApplicationId</td>
+<td>促销申请id</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>tpDetail</td>
+<td>活动详情</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>tpEndDate</td>
+<td>活动结束时间</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>tpName</td>
+<td>促销活动名称</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>tpStartDate</td>
+<td>活动开始时间</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>tpStrategyList (活动策略列表):</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>描述</th>
+<th>来源表</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>controlGe</td>
+<td>&gt;=</td>
+<td>2</td>
+<td></td>
+</tr>
+<tr>
+<td>controlLe</td>
+<td>&lt;=</td>
+<td>2</td>
+<td></td>
+</tr>
+<tr>
+<td>controlPatternId</td>
+<td>指标类型编码</td>
+<td>2</td>
+<td></td>
+</tr>
+<tr>
+<td>promotionId</td>
+<td>活动id</td>
+<td>2</td>
+<td></td>
+</tr>
+<tr>
+<td>strategyId</td>
+<td>策略核对id</td>
+<td>2</td>
+<td></td>
+</tr>
+<tr>
+<td>strategyTypeId</td>
+<td>策略指标id</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+<p>displayPatternList (促销形式列表):</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>描述</th>
+<th>来源表</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>criteriaFrom</td>
+<td>限制数量范围</td>
+<td>4</td>
+<td></td>
+</tr>
+<tr>
+<td>criteriaTo</td>
+<td>限制数量范围</td>
+<td>4</td>
+<td></td>
+</tr>
+<tr>
+<td>displayId</td>
+<td>促销形式id</td>
+<td>4</td>
+<td></td>
+</tr>
+<tr>
+<td>displayName</td>
+<td>促销形式name</td>
+<td>???</td>
+<td></td>
+</tr>
+<tr>
+<td>promotionId</td>
+<td>活动id</td>
+<td>4</td>
+<td></td>
+</tr>
+<tr>
+<td>unitCode</td>
+<td>单位编码</td>
+<td>4</td>
+<td></td>
+</tr>
+<tr>
+<td>unitDesc</td>
+<td>单位描述</td>
+<td>5</td>
+<td>取数说明2</td>
+</tr>
+</tbody>
+</table>
+<p>tpRebateList (促销返还列表):</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>描述</th>
+<th>来源表</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>promotionId</td>
+<td>促销id</td>
+<td>6</td>
+<td></td>
+</tr>
+<tr>
+<td>rebateEstimated</td>
+<td>预计返还金额</td>
+<td>6</td>
+<td></td>
+</tr>
+<tr>
+<td>limitPerClient</td>
+<td>单店单月限制金额</td>
+<td>6</td>
+<td></td>
+</tr>
+<tr>
+<td>skuId</td>
+<td>sku</td>
+<td>6</td>
+<td></td>
+</tr>
+<tr>
+<td>skuName</td>
+<td>skuName</td>
+<td>7</td>
+<td>取数说明3</td>
+</tr>
+<tr>
+<td>skuEstimated</td>
+<td>sku预计返还箱数</td>
+<td>6</td>
+<td>是否需要?单位是?</td>
+</tr>
+</tbody>
+</table>
+<p>distributorList (经销商列表):</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>描述</th>
+<th>来源表</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>distributorId</td>
+<td>id</td>
+<td>8</td>
+<td></td>
+</tr>
+<tr>
+<td>distributorName</td>
+<td>name</td>
+<td>9</td>
+<td>取数说明4</td>
+</tr>
+<tr>
+<td>promotionId</td>
+<td>活动id</td>
+<td>8</td>
+</tr>
+</tbody>
+</table>
+<p>tpCostList(费用归属列表):</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>描述</th>
+<th>来源表</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>feePartition</td>
+<td>费用占比</td>
+<td>10</td>
+<td></td>
+</tr>
+<tr>
+<td>productGroupId</td>
+<td>品项编码</td>
+<td>10</td>
+<td></td>
+</tr>
+<tr>
+<td>promotionId</td>
+<td>活动id</td>
+<td>10</td>
+</tr>
+</tbody>
+</table>
+<h3 id="涉及相关表"><a href="#涉及相关表" class="headerlink" title="涉及相关表:"></a>涉及相关表:</h3><ol>
+<li>CPM_PROMOT_HEADER (促销活动抬头表)</li>
+<li>CPM_PROMOT_STRATEGY_CHECK (促销活动-营销策略核对)</li>
+<li>CPM_CRM_CUSTOMER_CHANNEL (CRM客户渠道表)</li>
+<li>CPM_PROMOT_DISPLAY_STANDARD (促销活动-陈列标准)</li>
+<li>CPM_CRM_PRODUCT_UNIT_EXCHANGE (CRM产品-单位换算)</li>
+<li>CPM_PROMOT_RETURN_TYPE (促销活动-返还形式)</li>
+<li>CPM_CRM_PRODUCT_BASE_INFO (CRM产品基本信息表)</li>
+<li>CPM_PROMOT_HEADER_DEALER (促销活动抬头表-经销商)</li>
+<li>CPM_CRM_DEALER_DISTRIBUTOR (CRM配送经销分销表)</li>
+<li>CPM_PROMOT_COST_ASCRIPTION (促销活动-费用归属)</li>
+<li>CPM_CRM_USER_BASE_INFO (CRM用户基本信息表)</li>
+</ol>
+<h3 id="接口逻辑"><a href="#接口逻辑" class="headerlink" title="接口逻辑:"></a>接口逻辑:</h3><ol>
+<li>到<code>表11</code>中根据入参<code>username &gt;&gt; employee_number</code>查找<code>office_code</code>与<code>secondary_office</code></li>
+<li>到<code>表1</code>中,用步骤1中的结果进行查找<code>where (步骤1.office_code == 表1.office_code and 表1.secondary_office == NULL) or 步骤1.secondary_office in 表1.secondary_office</code></li>
+<li>根据步骤2中返回的活动列表, 补全其他返回参数后, 返回</li>
+</ol>
+<h3 id="字段取数说明"><a href="#字段取数说明" class="headerlink" title="字段取数说明:"></a>字段取数说明:</h3><ol>
+<li><code>channelDesc</code>: 根据<code>channelId &gt;&gt;  customer_channel_id</code> 返回 <code>customer_channel_text</code></li>
+<li><code>unitDesc</code>: 根据<code>unitCode &gt;&gt; product_unit_of_measure</code> 返回 <code>product_unit_of_measure_text</code></li>
+<li><code>skuName</code>: 根据<code>skuId &gt;&gt; inventory_item_id</code> 返回 <code>product_description</code></li>
+<li><code>distributorName</code>: 根据<code>distributorId &gt;&gt; bussiness_partner_no</code> 返回 <code>customer_name</code></li>
+</ol>
+<h3 id="遗留问题"><a href="#遗留问题" class="headerlink" title="遗留问题:"></a>遗留问题:</h3><ul>
+<li>缺少促销形式配置表, <code>displayName</code>没有地方取</li>
+<li>表<code>CPM_PROMOT_RETURN_TYPE</code>中<code>促销类型</code>作用</li>
+<li>表<code>CPM_PROMOT_RETURN_TYPE</code>中缺少sku预计返还数量</li>
+<li>表<code>CPM_PROMOT_RETURN_TYPE</code>中<code>返还单位</code>作用</li>
+<li>费用归属在手机上的作用</li>
+</ul>
+<h2 id="0201-协议关联提交"><a href="#0201-协议关联提交" class="headerlink" title="0201. 协议关联提交"></a>0201. 协议关联提交</h2><h3 id="请求Url-1"><a href="#请求Url-1" class="headerlink" title="请求Url:"></a>请求Url:</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/supv1/agreement/relate</div></pre></td></tr></table></figure>
+<h3 id="入参-1"><a href="#入参-1" class="headerlink" title="入参:"></a>入参:</h3><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>描述</th>
+<th>存表</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>contractType</td>
+<td>合同类型</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>customerCode</td>
+<td>客户id</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>dgtlContractTemp</td>
+<td>电子合同模板id</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>endDate</td>
+<td>结束日期</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>estimateRebate</td>
+<td>预计返还总金额</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>isPaper</td>
+<td>是否纸质</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>promotionId</td>
+<td>活动id</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>startDate</td>
+<td>开始日期</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>tpApplicationId</td>
+<td>活动申请编号</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>username</td>
+<td>业代编号</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>rebatePattern</td>
+<td>返还方式编码</td>
+<td>1</td>
+<td>编码见数据字典</td>
+</tr>
+<tr>
+<td>controlCardList</td>
+<td>List, 返还卡券列表, 详细见下</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>controlCashList</td>
+<td>List, 返还现金列表, 详细见下</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>controlSkutList</td>
+<td>List, 返还sku列表, 详细见下</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>displayList</td>
+<td>List, 促销形式列表, 详细见下</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>controlCardList (返还卡券列表):</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>描述</th>
+<th>存表</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>month</td>
+<td>月份</td>
+<td>2</td>
+<td></td>
+</tr>
+<tr>
+<td>promotionId</td>
+<td>活动id</td>
+<td>2</td>
+<td></td>
+</tr>
+<tr>
+<td>rebateEstimate</td>
+<td>单月预计返还金额</td>
+<td>2</td>
+<td></td>
+</tr>
+<tr>
+<td>distributorId</td>
+<td>经销商id</td>
+<td>2</td>
+<td>经销商到月的???</td>
+</tr>
+</tbody>
+</table>
+<p>controlCashList (返还现金列表):</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>描述</th>
+<th>存表</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>month</td>
+<td>月份</td>
+<td>3</td>
+<td></td>
+</tr>
+<tr>
+<td>promotionId</td>
+<td>活动id</td>
+<td>3</td>
+<td></td>
+</tr>
+<tr>
+<td>rebateEstimate</td>
+<td>单月预计返还金额</td>
+<td>3</td>
+<td></td>
+</tr>
+<tr>
+<td>distributorId</td>
+<td>经销商id</td>
+<td>3</td>
+<td>经销商到月的???</td>
+</tr>
+</tbody>
+</table>
+<p>controlSkutList (返还sku列表):</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>描述</th>
+<th>存表</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>month</td>
+<td>月份</td>
+<td>4</td>
+<td></td>
+</tr>
+<tr>
+<td>promotionId</td>
+<td>活动id</td>
+<td>4</td>
+<td></td>
+</tr>
+<tr>
+<td>rebateEstimate</td>
+<td>单月预计返还数量</td>
+<td>4</td>
+<td></td>
+</tr>
+<tr>
+<td>skuCode</td>
+<td>sku</td>
+<td>4</td>
+<td></td>
+</tr>
+<tr>
+<td>unitCode</td>
+<td>单位</td>
+<td>4 ???</td>
+</tr>
+</tbody>
+</table>
+<p>displayList (促销形式列表)</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>描述</th>
+<th>存表</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>dispayId</td>
+<td>陈列形式编码</td>
+<td>5</td>
+<td></td>
+</tr>
+<tr>
+<td>displayCtreria</td>
+<td>执行标准</td>
+<td>5</td>
+<td></td>
+</tr>
+<tr>
+<td>month</td>
+<td>月份</td>
+<td>5</td>
+<td></td>
+</tr>
+<tr>
+<td>promotionId</td>
+<td>活动id</td>
+<td>5</td>
+</tr>
+</tbody>
+</table>
+<h3 id="出参-1"><a href="#出参-1" class="headerlink" title="出参:"></a>出参:</h3><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>描述</th>
+<th>来源表</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>agreementId</td>
+<td>协议id</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<h3 id="涉及相关表-1"><a href="#涉及相关表-1" class="headerlink" title="涉及相关表:"></a>涉及相关表:</h3><ol>
+<li>CPM_PROMOT_AGREEMNT_HEADER (促销协议抬头表)</li>
+<li>CPM_PROMOT_AGREEMNT_CONTROL_CARD (促销协议-内容控制-券)</li>
+<li>CPM_PROMOT_AGREEMNT_CONTROL_MONEY (促销协议-内容控制-现金)</li>
+<li>CPM_PROMOT_AGREEMNT_CONTROL_SKU (促销协议-内容控制-SKU)</li>
+<li>CPM_PROMOT_AGREEMNT_CONTROL_TYPE (促销协议-内容控制-促销形式)</li>
+<li>CPM_CRM_USER_BASE_INFO (CRM用户基本信息表)</li>
+</ol>
+<h3 id="接口逻辑-1"><a href="#接口逻辑-1" class="headerlink" title="接口逻辑:"></a>接口逻辑:</h3><ol>
+<li>到<code>表1</code> 中用入参<code>promotionId</code>, <code>customerCode</code>, <code>!del_flag</code> <code>comfirmStatus != CS03</code>查找, 如果命中见下三种情况, 否则进入<code>步骤2</code>:<ol>
+<li>若最新一条<code>comfirmStatus == CS01</code>, 返回<code>agreementId</code> status=<code>0001</code> ,msg=<code>该活动已有一条待确认的协议, 无需再次创建</code></li>
+<li>若最新一条<code>comfirmStatus == CS02</code>, 返回<code>agreementId</code> status=<code>0001</code> ,msg=<code>该活动已签订协议, 无需再次创建</code></li>
+<li>若最新一条<code>comfirmStatus == CS04</code>, 返回<code>agreementId</code> status=<code>0001</code> ,msg=<code>该活动已有一条待确认的补充协议, 无需再次创建</code></li>
+</ol>
+</li>
+<li>到<code>表6</code>中根据入参<code>username &gt;&gt; employee_number</code>查找<code>region_code</code>, <code>large_zone_code</code>, <code>local_code</code>, <code>city_code</code>, <code>office_code</code>与<code>secondary_office</code></li>
+<li>将入参及<code>步骤1</code>查找的协议相关字段存入相应的表, <code>confirmStatus</code>默认<code>CS01</code></li>
+<li>根据<code>rebatePattern</code>的取值: <code>RT01</code>存 <code>controlSkutList</code>; <code>RT02</code> 存<code>controlCardList</code>; <code>RT03</code>存<code>controlCashList</code></li>
+<li>调用合同中心接口<code>???</code>创建电子合同</li>
+<li>调用<code>微信推送协议</code>接口</li>
+</ol>
+<h3 id="遗留问题-1"><a href="#遗留问题-1" class="headerlink" title="遗留问题:"></a>遗留问题:</h3><ul>
+<li>表<code>CPM_PROMOT_AGREEMNT_HEADER</code>中<code>协议类型</code>作用</li>
+<li>经销商到月的? <code>CPM_PROMOT_AGREEMNT_CONTROL_CARD</code>缺少<code>经销商id</code></li>
+<li>经销商到月的? <code>CPM_PROMOT_AGREEMNT_CONTROL_MONEY</code>缺少<code>经销商id</code></li>
+<li><code>CPM_PROMOT_AGREEMNT_CONTROL_SKU</code>缺少<code>单位id</code></li>
+<li>未整理合同中心创建电子合同接口</li>
+<li>未整理<code>微信推送协议</code>接口</li>
+</ul>
+<h2 id="0202-协议修改提交"><a href="#0202-协议修改提交" class="headerlink" title="0202. 协议修改提交"></a>0202. 协议修改提交</h2><h3 id="请求Url-2"><a href="#请求Url-2" class="headerlink" title="请求Url:"></a>请求Url:</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/supv1/agreement/update</div></pre></td></tr></table></figure>
+<h3 id="入参-2"><a href="#入参-2" class="headerlink" title="入参:"></a>入参:</h3><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>描述</th>
+<th>存表</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>agreementId</td>
+<td>协议id</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>contractType</td>
+<td>合同类型</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>customerCode</td>
+<td>客户id</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>dgtlContractTemp</td>
+<td>电子合同模板id</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>endDate</td>
+<td>结束日期</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>estimateRebate</td>
+<td>预计返还总金额</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>isPaper</td>
+<td>是否纸质</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>promotionId</td>
+<td>活动id</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>startDate</td>
+<td>开始日期</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>tpApplicationId</td>
+<td>活动申请编号</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>username</td>
+<td>业代编号</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>rebatePattern</td>
+<td>返还方式编码</td>
+<td>1</td>
+<td>编码见数据字典</td>
+</tr>
+<tr>
+<td>controlCardList</td>
+<td>List, 返还卡券列表, 详细见下</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>controlCashList</td>
+<td>List, 返还现金列表, 详细见下</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>controlSkutList</td>
+<td>List, 返还sku列表, 详细见下</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>displayList</td>
+<td>List, 促销形式列表, 详细见下</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>contractSupplement</td>
+<td>协议补充字段, 详细见下</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>controlCardList (返还卡券列表):</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>描述</th>
+<th>存表</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>month</td>
+<td>月份</td>
+<td>2</td>
+<td></td>
+</tr>
+<tr>
+<td>promotionId</td>
+<td>活动id</td>
+<td>2</td>
+<td></td>
+</tr>
+<tr>
+<td>rebateEstimate</td>
+<td>单月预计返还金额</td>
+<td>2</td>
+<td></td>
+</tr>
+<tr>
+<td>distributorId</td>
+<td>经销商id</td>
+<td>2</td>
+<td>经销商到月的???</td>
+</tr>
+</tbody>
+</table>
+<p>controlCashList (返还现金列表):</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>描述</th>
+<th>存表</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>month</td>
+<td>月份</td>
+<td>3</td>
+<td></td>
+</tr>
+<tr>
+<td>promotionId</td>
+<td>活动id</td>
+<td>3</td>
+<td></td>
+</tr>
+<tr>
+<td>rebateEstimate</td>
+<td>单月预计返还金额</td>
+<td>3</td>
+<td></td>
+</tr>
+<tr>
+<td>distributorId</td>
+<td>经销商id</td>
+<td>3</td>
+<td>经销商到月的???</td>
+</tr>
+</tbody>
+</table>
+<p>controlSkutList (返还sku列表):</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>描述</th>
+<th>存表</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>month</td>
+<td>月份</td>
+<td>4</td>
+<td></td>
+</tr>
+<tr>
+<td>promotionId</td>
+<td>活动id</td>
+<td>4</td>
+<td></td>
+</tr>
+<tr>
+<td>rebateEstimate</td>
+<td>单月预计返还数量</td>
+<td>4</td>
+<td></td>
+</tr>
+<tr>
+<td>skuCode</td>
+<td>sku</td>
+<td>4</td>
+<td></td>
+</tr>
+<tr>
+<td>unitCode</td>
+<td>单位</td>
+<td>4 ???</td>
+</tr>
+</tbody>
+</table>
+<p>displayList (促销形式列表)</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>描述</th>
+<th>存表</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>dispayId</td>
+<td>陈列形式编码</td>
+<td>5</td>
+<td></td>
+</tr>
+<tr>
+<td>displayCtreria</td>
+<td>执行标准</td>
+<td>5</td>
+<td></td>
+</tr>
+<tr>
+<td>month</td>
+<td>月份</td>
+<td>5</td>
+<td></td>
+</tr>
+<tr>
+<td>promotionId</td>
+<td>活动id</td>
+<td>5</td>
+</tr>
+</tbody>
+</table>
+<p>contractSupplement (协议补充字段)</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>描述</th>
+<th>存表</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>待补充协议模板出来后确定字段与表结构</td>
+</tr>
+</tbody>
+</table>
+<h3 id="出参-2"><a href="#出参-2" class="headerlink" title="出参:"></a>出参:</h3><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>描述</th>
+<th>来源表</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>agreementId</td>
+<td>协议id</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<h3 id="涉及相关表-2"><a href="#涉及相关表-2" class="headerlink" title="涉及相关表:"></a>涉及相关表:</h3><ol>
+<li>CPM_PROMOT_AGREEMNT_HEADER (促销协议抬头表)</li>
+<li>CPM_PROMOT_AGREEMNT_CONTROL_CARD (促销协议-内容控制-券)</li>
+<li>CPM_PROMOT_AGREEMNT_CONTROL_MONEY (促销协议-内容控制-现金)</li>
+<li>CPM_PROMOT_AGREEMNT_CONTROL_SKU (促销协议-内容控制-SKU)</li>
+<li>CPM_PROMOT_AGREEMNT_CONTROL_TYPE (促销协议-内容控制-促销形式)</li>
+<li>CPM_CRM_USER_BASE_INFO (CRM用户基本信息表)</li>
+</ol>
+<h3 id="接口逻辑-2"><a href="#接口逻辑-2" class="headerlink" title="接口逻辑:"></a>接口逻辑:</h3><ol>
+<li>根据入参<code>agreementId</code>查找<code>表1</code><ol>
+<li>如最新一条的<code>comfirmStatus == CS01</code>, 则返还<code>status == 0001</code>, <code>msg=该协议已有一份待确认的修改记录, 请商户确认或拒绝后再修改</code>, 否则继续</li>
+<li>如最新一条的<code>comfirmStatus == CS04</code>, 则返还<code>status == 0001</code>, <code>msg=该协议已有一份待确认的修改记录, 请商户确认或拒绝后再修改</code>, 否则继续</li>
+</ol>
+</li>
+<li>存表: <ol>
+<li>逻辑与关联协议一致, 使用入参的<code>agreementId</code>字段存表, <code>confirmStatus</code>存<code>CS04</code></li>
+<li>多存<code>contractSupplement</code>表</li>
+</ol>
+</li>
+<li>调用合同中心接口<code>???</code>创建<strong>补充电子合同</strong></li>
+<li>调用<code>微信推送补充协议</code>接口</li>
+</ol>
+<h3 id="遗留问题-2"><a href="#遗留问题-2" class="headerlink" title="遗留问题:"></a>遗留问题:</h3><ul>
+<li>contractSupplement待补充协议模板出来后确定字段与表结构</li>
+<li>未整理合同中心创建补充电子合同</li>
+<li>未整理<code>微信推送补充协议</code>接口</li>
+<li>针对修改为确认的协议, 商户既没确认也没拒绝的情况下, 业代可否再次发起修改</li>
+</ul>
+<h2 id="0203-协议信息读取"><a href="#0203-协议信息读取" class="headerlink" title="0203. 协议信息读取"></a>0203. 协议信息读取</h2><h3 id="请求Url-3"><a href="#请求Url-3" class="headerlink" title="请求Url:"></a>请求Url:</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/supv1/agreement/list</div></pre></td></tr></table></figure>
+<h3 id="入参-3"><a href="#入参-3" class="headerlink" title="入参:"></a>入参:</h3><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>描述</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>agreementId</td>
+<td>协议编号, 为””时查询所有</td>
+<td></td>
+</tr>
+<tr>
+<td>username</td>
+<td>业代编号</td>
+<td></td>
+</tr>
+<tr>
+<td>customerCode</td>
+<td>客户编号, 为””时查询所有</td>
+</tr>
+</tbody>
+</table>
+<h3 id="出参-3"><a href="#出参-3" class="headerlink" title="出参:"></a>出参:</h3><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>描述</th>
+<th>来源表</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>agreementList</td>
+<td>List, 协议列表,详细见下</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>controlCardList</td>
+<td>List, 返还卡券控制列表, 详细见下</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>controlCashList</td>
+<td>List, 返还现金控制列表, 详细见下</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>controlSkutList</td>
+<td>List, 返还实物控制列表, 详细见下</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>displayList</td>
+<td>List, 促销形式控制列表, 详细见下</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>retCardList</td>
+<td>List, 卡券实际返还列表, 详细见下</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>retCashList</td>
+<td>List, 现金实际返还列表, 详细见下</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>retSkuList</td>
+<td>List, 实物实际返还列表, 详细见下</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>agreementList (协议列表):</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>描述</th>
+<th>来源表</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>agreementId</td>
+<td>协议编号</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>channelCode</td>
+<td>渠道类型编码</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>channelDesc</td>
+<td>渠道描述</td>
+<td>8</td>
+<td>取数说明1</td>
+</tr>
+<tr>
+<td>confirmDate</td>
+<td>确认日期</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>confirmStatus</td>
+<td>确认状态???数据库缺少该字段, 无法保存已拒绝</td>
+<td>1</td>
+<td>数据字典, 取数说明10</td>
+</tr>
+<tr>
+<td>createDate</td>
+<td>创建日期</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>currMoCount</td>
+<td>本月检查合格次数</td>
+<td>9</td>
+<td>取数说明2</td>
+</tr>
+<tr>
+<td>dgtlContractTemp</td>
+<td>电子合同模板</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>endDate</td>
+<td>协议结束时间yyyy-MM-dd</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>estimateRebate</td>
+<td>预计返还总金额</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>execDate</td>
+<td>上次执行日期</td>
+<td>9</td>
+<td>取数说明4</td>
+</tr>
+<tr>
+<td>isPaper</td>
+<td>是否纸质</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>lastMoCount</td>
+<td>上月检查合格次数</td>
+<td>9</td>
+<td>取数说明3</td>
+</tr>
+<tr>
+<td>modifiedDate</td>
+<td>修改日期</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>officeId</td>
+<td>办事处编码</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>officeSecondId</td>
+<td>二级办事处</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>promotionId</td>
+<td>活动id</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>rebatePattern</td>
+<td>返还方式编码</td>
+<td>1</td>
+<td>编码见数据字典</td>
+</tr>
+<tr>
+<td>salesId</td>
+<td>业代编号</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>startDate</td>
+<td>协议开始时间yyyy-MM-dd</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>tpApplicationId</td>
+<td>活动申请编号</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>tpName</td>
+<td>活动名称</td>
+<td>7</td>
+<td>取数说明5</td>
+</tr>
+</tbody>
+</table>
+<p>controlCardList (返还卡券控制列表)</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>描述</th>
+<th>来源表</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>month</td>
+<td>月份</td>
+<td>2</td>
+<td></td>
+</tr>
+<tr>
+<td>agreementId</td>
+<td>协议id</td>
+<td>2</td>
+<td></td>
+</tr>
+<tr>
+<td>rebateEstimate</td>
+<td>预计返还金额</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+<p>controlCashList (返还现金控制列表)</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>描述</th>
+<th>来源表</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>month</td>
+<td>月份</td>
+<td>3</td>
+<td></td>
+</tr>
+<tr>
+<td>agreementId</td>
+<td>协议id</td>
+<td>3</td>
+<td></td>
+</tr>
+<tr>
+<td>rebateEstimate</td>
+<td>预计返还金额</td>
+<td>3</td>
+<td></td>
+</tr>
+<tr>
+<td>granted</td>
+<td>是否可以返还</td>
+<td></td>
+<td>取数说明7</td>
+</tr>
+<tr>
+<td>grantedMsg</td>
+<td>不可返还原因说明</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>grantedQuickPay</td>
+<td>是否可以快捷支付</td>
+<td></td>
+<td>取数说明8</td>
+</tr>
+<tr>
+<td>grantedQuickPayMsg</td>
+<td>不可快捷支付原因说明</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>controlCashList (返还现金控制列表)</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>描述</th>
+<th>来源表</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>month</td>
+<td>月份</td>
+<td>4</td>
+<td></td>
+</tr>
+<tr>
+<td>agreementId</td>
+<td>协议id</td>
+<td>4</td>
+<td></td>
+</tr>
+<tr>
+<td>rebateEstimate</td>
+<td>预计返还数量</td>
+<td>4</td>
+<td></td>
+</tr>
+<tr>
+<td>skuCode</td>
+<td>sku</td>
+<td>4</td>
+<td></td>
+</tr>
+<tr>
+<td>unitCode</td>
+<td>单位</td>
+<td>4</td>
+<td></td>
+</tr>
+<tr>
+<td>granted</td>
+<td>是否可以返还</td>
+<td></td>
+<td>取数说明7</td>
+</tr>
+<tr>
+<td>grantedMsg</td>
+<td>不可返还原因说明</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>grantedQuickPay</td>
+<td>是否可以快捷支付</td>
+<td></td>
+<td>取数说明8</td>
+</tr>
+<tr>
+<td>grantedQuickPayMsg</td>
+<td>不可快捷支付原因说明</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>displayList (促销形式控制列表)</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>描述</th>
+<th>来源表</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>agreementId</td>
+<td>协议id</td>
+<td>5</td>
+<td></td>
+</tr>
+<tr>
+<td>dispayId</td>
+<td>陈列形式编码</td>
+<td>5</td>
+<td></td>
+</tr>
+<tr>
+<td>displayCtreria</td>
+<td>执行标准</td>
+<td>5</td>
+<td></td>
+</tr>
+<tr>
+<td>month</td>
+<td>月份</td>
+<td>5</td>
+<td></td>
+</tr>
+<tr>
+<td>promotionId</td>
+<td>活动id</td>
+<td>5</td>
+</tr>
+</tbody>
+</table>
+<p>retCardList (卡券实际返还列表)</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>描述</th>
+<th>来源表</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>agreementId</td>
+<td>协议编号</td>
+<td>10</td>
+<td></td>
+</tr>
+<tr>
+<td>bpId</td>
+<td>业代编号</td>
+<td>10</td>
+<td></td>
+</tr>
+<tr>
+<td>cardCode</td>
+<td>卡券编码</td>
+<td>10</td>
+<td></td>
+</tr>
+<tr>
+<td>customerCode</td>
+<td>客户编号</td>
+<td>10</td>
+<td></td>
+</tr>
+<tr>
+<td>distributorId</td>
+<td>配送商id</td>
+<td>10 ???</td>
+<td>是否需要</td>
+</tr>
+<tr>
+<td>month</td>
+<td>月份</td>
+<td>10</td>
+<td></td>
+</tr>
+<tr>
+<td>promotionId</td>
+<td>活动id</td>
+<td>10</td>
+<td></td>
+</tr>
+<tr>
+<td>rebateDate</td>
+<td>返还日期</td>
+<td>10</td>
+<td></td>
+</tr>
+<tr>
+<td>rebateMoney</td>
+<td>实际返还金额</td>
+<td>10</td>
+<td></td>
+</tr>
+<tr>
+<td>rebatePattern</td>
+<td>返还类型编码</td>
+<td>10 ???</td>
+<td>是否需要</td>
+</tr>
+<tr>
+<td>year</td>
+<td>年</td>
+<td>10</td>
+</tr>
+</tbody>
+</table>
+<p>retCashList (现金实际返还列表)</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>描述</th>
+<th>来源表</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>agreementId</td>
+<td>协议编号</td>
+<td>11</td>
+<td></td>
+</tr>
+<tr>
+<td>bpId</td>
+<td>业代编号</td>
+<td>11</td>
+<td></td>
+</tr>
+<tr>
+<td>customerCode</td>
+<td>客户编号</td>
+<td>11</td>
+<td></td>
+</tr>
+<tr>
+<td>distributorId</td>
+<td>配送商id</td>
+<td>11</td>
+<td></td>
+</tr>
+<tr>
+<td>month</td>
+<td>月份</td>
+<td>11</td>
+<td></td>
+</tr>
+<tr>
+<td>payChannel</td>
+<td>支付方式</td>
+<td>11</td>
+<td></td>
+</tr>
+<tr>
+<td>promotionId</td>
+<td>活动id</td>
+<td>11</td>
+<td></td>
+</tr>
+<tr>
+<td>rebateDate</td>
+<td>返还日期</td>
+<td>11</td>
+<td></td>
+</tr>
+<tr>
+<td>rebateMoney</td>
+<td>实际返还金额</td>
+<td>11</td>
+<td></td>
+</tr>
+<tr>
+<td>rebatePattern</td>
+<td>返还类型编码</td>
+<td>11 ???</td>
+<td>是否需要</td>
+</tr>
+<tr>
+<td>transactionDate</td>
+<td>交易日期</td>
+<td>11</td>
+<td></td>
+</tr>
+<tr>
+<td>transactionId</td>
+<td>交易单号</td>
+<td>11</td>
+<td></td>
+</tr>
+<tr>
+<td>transactionStatus</td>
+<td>交易状态</td>
+<td>11</td>
+<td>编码见数据字典</td>
+</tr>
+<tr>
+<td>transactionStatusDesc</td>
+<td>交易状态描述</td>
+<td>11</td>
+<td></td>
+</tr>
+<tr>
+<td>transactionTime</td>
+<td>交易时间</td>
+<td>11</td>
+<td></td>
+</tr>
+<tr>
+<td>wechatPayAmount</td>
+<td>微信支付金额</td>
+<td>11</td>
+<td></td>
+</tr>
+<tr>
+<td>wechatPayDate</td>
+<td>微信交易日期</td>
+<td>11</td>
+<td></td>
+</tr>
+<tr>
+<td>wechatPayTime</td>
+<td>微信交易时间</td>
+<td>11</td>
+<td></td>
+</tr>
+<tr>
+<td>wechatTrsNumber</td>
+<td>微信交易流水号</td>
+<td>11</td>
+<td></td>
+</tr>
+<tr>
+<td>year</td>
+<td>年</td>
+<td>11</td>
+</tr>
+</tbody>
+</table>
+<p>retSkuList (实物实际返还列表)</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>描述</th>
+<th>来源表</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>agreementId</td>
+<td>协议id</td>
+<td>12</td>
+<td></td>
+</tr>
+<tr>
+<td>bpId</td>
+<td>业代编号</td>
+<td>12</td>
+<td></td>
+</tr>
+<tr>
+<td>confirmStatus</td>
+<td>返还确认状态</td>
+<td>12</td>
+<td>编码见数据字典</td>
+</tr>
+<tr>
+<td>customerCode</td>
+<td>客户编号</td>
+<td>12</td>
+<td></td>
+</tr>
+<tr>
+<td>distributorId</td>
+<td>配送商id</td>
+<td>12</td>
+<td></td>
+</tr>
+<tr>
+<td>distributorName</td>
+<td>配送商名字</td>
+<td>14</td>
+<td>取数说明9</td>
+</tr>
+<tr>
+<td>feePartirion</td>
+<td>费用归属</td>
+<td>13</td>
+<td></td>
+</tr>
+<tr>
+<td>month</td>
+<td>月份</td>
+<td>12</td>
+<td></td>
+</tr>
+<tr>
+<td>promotionId</td>
+<td>活动id</td>
+<td>12</td>
+<td></td>
+</tr>
+<tr>
+<td>rebateDate</td>
+<td>返还日期</td>
+<td>12</td>
+<td></td>
+</tr>
+<tr>
+<td>rebateId</td>
+<td>返还配送编号</td>
+<td>12</td>
+<td></td>
+</tr>
+<tr>
+<td>rebatePattern</td>
+<td>返还类型编码</td>
+<td>12 ???</td>
+<td>是否需要</td>
+</tr>
+<tr>
+<td>skuCode</td>
+<td>sku</td>
+<td>13</td>
+<td></td>
+</tr>
+<tr>
+<td>skuNumber</td>
+<td>sku数量</td>
+<td>13</td>
+<td></td>
+</tr>
+<tr>
+<td>skuUnit</td>
+<td>sku单位</td>
+<td>13</td>
+<td></td>
+</tr>
+<tr>
+<td>year</td>
+<td>年</td>
+<td>12</td>
+</tr>
+</tbody>
+</table>
+<p><strong>涉及相关表:</strong></p>
+<ol>
+<li>CPM_PROMOT_AGREEMNT_HEADER (促销协议抬头表)</li>
+<li>CPM_PROMOT_AGREEMNT_CONTROL_CARD (促销协议-内容控制-券)</li>
+<li>CPM_PROMOT_AGREEMNT_CONTROL_MONEY (促销协议-内容控制-现金)</li>
+<li>CPM_PROMOT_AGREEMNT_CONTROL_SKU (促销协议-内容控制-SKU)</li>
+<li>CPM_PROMOT_AGREEMNT_CONTROL_TYPE (促销协议-内容控制-促销形式)</li>
+<li>CPM_CRM_USER_BASE_INFO (CRM用户基本信息表)</li>
+<li>CPM_PROMOT_HEADER (促销活动抬头表)</li>
+<li>CPM_CRM_CUSTOMER_CHANNEL (CRM客户渠道表)</li>
+<li>CPM_PROMOT_AGREEMNT_ACTION_DISPLAY_MONTH (促销协议-执行-陈列内容形式-月份)</li>
+<li>CPM_PROMOT_RETURN_CARD (促销返还记录表-卡券)</li>
+<li>CPM_PROMOT_RETURN_MONEY (促销返还记录表-现金)</li>
+<li>CPM_PROMOT_RETURN_SKU_HEADER (促销返还记录表-实物-抬头表)</li>
+<li>CPM_PROMOT_RETURN_SKU_LINER (促销返还记录表-实物-明细表)</li>
+<li>CPM_CRM_DEALER_DISTRIBUTOR (CRM配送经销分销表)</li>
+<li>CPM_PROMOT_STRATEGY_CHECK (促销活动-营销策略核对)</li>
+</ol>
+<h3 id="接口逻辑-3"><a href="#接口逻辑-3" class="headerlink" title="接口逻辑:"></a>接口逻辑:</h3><ol>
+<li>到<code>表6</code>中根据入参<code>username &gt;&gt; employee_number</code>查找<code>secondary_office</code></li>
+<li>到<code>表1</code>中使用入参<code>agreementId</code>, <code>customerCode</code> 及 <code>步骤1</code>中的<code>secondary_office</code> 查找结果集.<ol>
+<li>有<code>del_flag</code> 标记的不返回</li>
+<li>如最新一条<code>confirmStatus==CS01 || CS02</code>, 返回本条记录</li>
+<li>如最新一条<code>confirmStatus==CS04</code>, 倒数第二条<code>confirmStatus==CS02</code>, 本条记录不返还, 返回倒数第二条, 并将返回的倒数第二条协议的<code>confirmStatus</code>填充<code>CS04</code></li>
+<li>如最新一条<code>confirmStatus==CS04</code>, 倒数第二条<code>confirmStatus==CS02</code>, 返回本条记录</li>
+<li>如最新一条<code>confirmStatus==CS03</code>, 且只有一条, 返回本条记录</li>
+<li>如最新一条<code>confirmStatus==CS03</code>, 且有多条, 返回最近的<code>confirmStatus==CS02</code>的记录</li>
+</ol>
+</li>
+</ol>
+<h3 id="字段取数说明-1"><a href="#字段取数说明-1" class="headerlink" title="字段取数说明:"></a>字段取数说明:</h3><ol>
+<li><code>channelDesc</code>: 根据<code>channelId &gt;&gt;  customer_channel_id</code> 返回 <code>customer_channel_text</code></li>
+<li><code>currMoCount</code>: 到<code>表9</code>中统计<code>月份t_month==当前月</code>的结果集中<strong>所有的</strong><code>result == &quot;RS03&quot;</code>, 结果集按<code>检查日期check_date</code>去重统计次数</li>
+<li><code>lastMoCount</code>: 到<code>表9</code>中统计<code>月份t_month==上月</code>的结果集中<strong>所有的</strong><code>result == &quot;RS03&quot;</code>, 结果集按<code>检查日期check_date</code>去重统计次数</li>
+<li><code>execDate</code>: 到<code>表9</code>中按相应的<code>agreement_id</code>找最新的一条<code>检查日期check_date</code></li>
+<li><code>tpName</code>:根据<code>promotionId &gt;&gt; trade_promotion_id</code> 返回 <code>promotion_name</code></li>
+<li><code>distributorName</code>: 根据<code>distributorId &gt;&gt; bussiness_partner_no</code> 返回 <code>customer_name</code></li>
+<li><code>granted</code>:  <code>表15</code>中限制+经销商代垫状态??? 条件待确认</li>
+<li><code>grantedQuickPay</code>: ??? 条件待确认</li>
+<li><code>distributorName</code>: 根据<code>distributorId &gt;&gt; bussiness_partner_no</code> 返回 <code>customer_name</code></li>
+<li><code>confirmStatus</code>: <ol>
+<li>同一<code>agreementId</code>中最新的一条的<code>confirmStatus</code></li>
+<li>如<code>confirmStatus==CS04</code>, 即修改待确认, 本条记录不返还, 返回倒数第二条<code>confirmStatus==CS01</code>的协议, 并将返回的倒数第二条协议的<code>confirmStatus</code>填充<code>CS04</code></li>
+</ol>
+</li>
+</ol>
+<h3 id="遗留问题-3"><a href="#遗留问题-3" class="headerlink" title="遗留问题:"></a>遗留问题:</h3><ol>
+<li><code>CPM_PROMOT_RETURN_CARD</code>表中是否需要<code>配送商id</code>, <code>经销商id</code>? <code>返还类型编码</code>是否需要?</li>
+<li>现金返还与卡券返还 条件; 快捷支付条件</li>
+<li><code>CPM_PROMOT_AGREEMNT_HEADER</code>缺少<code>confirmStatus</code>字段, 无法保存已拒绝状态</li>
+</ol>
+<h2 id="0204-促销执行提交"><a href="#0204-促销执行提交" class="headerlink" title="0204. 促销执行提交"></a>0204. 促销执行提交</h2><h3 id="请求Url-4"><a href="#请求Url-4" class="headerlink" title="请求Url:"></a>请求Url:</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/supv1/agreement/exec</div></pre></td></tr></table></figure>
+<h3 id="入参-4"><a href="#入参-4" class="headerlink" title="入参:"></a>入参:</h3><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>描述</th>
+<th>存表</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>agreementId</td>
+<td>协议编号</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>customerCode</td>
+<td>客户编号</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>promotionId</td>
+<td>活动id</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>displayList</td>
+<td>List, 促销形式列表, 详细见下</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>displayPhotoList</td>
+<td>List, 执行检查照片列表, 详细见下</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>displayList (促销形式列表)</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>描述</th>
+<th>存表</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>agreementId</td>
+<td>协议id</td>
+<td>2</td>
+<td></td>
+</tr>
+<tr>
+<td>checkDate</td>
+<td>检查日期</td>
+<td>2</td>
+<td></td>
+</tr>
+<tr>
+<td>checkedBy</td>
+<td>检查业代编号</td>
+<td>2</td>
+<td></td>
+</tr>
+<tr>
+<td>customerCode</td>
+<td>客户编号</td>
+<td>2</td>
+</tr>
+<tr>
+<td>dispayId</td>
+<td>陈列形式编码</td>
+<td>2</td>
+<td></td>
+</tr>
+<tr>
+<td>displayCtreria</td>
+<td>执行标准</td>
+<td>2</td>
+<td></td>
+</tr>
+<tr>
+<td>month</td>
+<td>月份</td>
+<td>2</td>
+<td></td>
+</tr>
+<tr>
+<td>promotionId</td>
+<td>活动id</td>
+<td>2</td>
+<td></td>
+</tr>
+<tr>
+<td>remark</td>
+<td>执行备注</td>
+<td>2</td>
+<td></td>
+</tr>
+<tr>
+<td>result</td>
+<td>检查结果</td>
+<td>2</td>
+<td>编码见数据字典</td>
+</tr>
+<tr>
+<td>salesName</td>
+<td>业代名称</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+<p>displayPhotoList (执行检查照片列表)</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>描述</th>
+<th>存表</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>agreementId</td>
+<td>协议id</td>
+<td>3</td>
+<td></td>
+</tr>
+<tr>
+<td>checkDate</td>
+<td>检查日期</td>
+<td>3</td>
+<td></td>
+</tr>
+<tr>
+<td>checkedBy</td>
+<td>检查业代编号</td>
+<td>3</td>
+<td></td>
+</tr>
+<tr>
+<td>customerCode</td>
+<td>客户编号</td>
+<td>3</td>
+</tr>
+<tr>
+<td>dispayId</td>
+<td>陈列形式编码</td>
+<td>3</td>
+<td></td>
+</tr>
+<tr>
+<td>month</td>
+<td>月份</td>
+<td>3</td>
+<td></td>
+</tr>
+<tr>
+<td>photoId</td>
+<td>照片名称</td>
+<td>3</td>
+</tr>
+<tr>
+<td>photoTime</td>
+<td>照片时间</td>
+<td>3</td>
+</tr>
+<tr>
+<td>promotionId</td>
+<td>活动id</td>
+<td>3</td>
+<td></td>
+</tr>
+<tr>
+<td>remark</td>
+<td>执行备注</td>
+<td>3</td>
+<td></td>
+</tr>
+<tr>
+<td>result</td>
+<td>检查结果</td>
+<td>3</td>
+<td>编码见数据字典</td>
+</tr>
+<tr>
+<td>salesName</td>
+<td>业代名称</td>
+<td>3</td>
+</tr>
+</tbody>
+</table>
+<h3 id="出参-4"><a href="#出参-4" class="headerlink" title="出参:"></a>出参:</h3><p>无</p>
+<h3 id="涉及相关表-3"><a href="#涉及相关表-3" class="headerlink" title="涉及相关表:"></a>涉及相关表:</h3><ol>
+<li>CPM_PROMOT_AGREEMNT_ACTION (促销协议-执行)</li>
+<li>CPM_PROMOT_AGREEMNT_ACTION_DISPLAY_MONTH (促销协议-执行-陈列内容形式-月份)</li>
+<li>CPM_PROMOT_AGREEMNT_ACTION_PHOTO_MONTH (促销协议-执行-照片-月份)</li>
+</ol>
+<h3 id="接口逻辑-4"><a href="#接口逻辑-4" class="headerlink" title="接口逻辑:"></a>接口逻辑:</h3><ol>
+<li>直接存表</li>
+</ol>
+<h3 id="遗留问题-4"><a href="#遗留问题-4" class="headerlink" title="遗留问题:"></a>遗留问题:</h3><ul>
+<li>CPM_PROMOT_AGREEMNT_ACTION_PHOTO_MONTH表中<code>photo_local_id照片本地id</code>, <code>photo_serial_no照片序号</code>, <code>photo_type照片类型</code>, <code>ipaddrIP地址</code>作用</li>
+</ul>
+<h2 id="0204-促销返还提交"><a href="#0204-促销返还提交" class="headerlink" title="0204. 促销返还提交"></a>0204. 促销返还提交</h2><h3 id="请求Url-5"><a href="#请求Url-5" class="headerlink" title="请求Url:"></a>请求Url:</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/supv1/agreement/rebate</div></pre></td></tr></table></figure>
+<h3 id="入参-5"><a href="#入参-5" class="headerlink" title="入参:"></a>入参:</h3><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>描述</th>
+<th>存表</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>agreementId</td>
+<td>协议编号</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>customerCode</td>
+<td>客户编号</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>promotionId</td>
+<td>活动id</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>rebatePattern</td>
+<td>返还类型编码</td>
+<td></td>
+<td>编码见数据字典</td>
+</tr>
+<tr>
+<td>retCardList</td>
+<td>List, 卡券实际返还列表, 详细见下</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>retCashList</td>
+<td>List, 现金实际返还列表, 详细见下</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>retSkuList</td>
+<td>List, retSkuList, 详细见下</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>retCardList (卡券实际返还列表)</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>描述</th>
+<th>来源表</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>agreementId</td>
+<td>协议编号</td>
+<td>10</td>
+<td></td>
+</tr>
+<tr>
+<td>bpId</td>
+<td>业代编号</td>
+<td>10</td>
+<td></td>
+</tr>
+<tr>
+<td>customerCode</td>
+<td>客户编号</td>
+<td>10</td>
+<td></td>
+</tr>
+<tr>
+<td>month</td>
+<td>月份</td>
+<td>10</td>
+<td></td>
+</tr>
+<tr>
+<td>promotionId</td>
+<td>活动id</td>
+<td>10</td>
+<td></td>
+</tr>
+<tr>
+<td>rebateDate</td>
+<td>返还日期</td>
+<td>10</td>
+<td></td>
+</tr>
+<tr>
+<td>rebateMoney</td>
+<td>实际返还金额</td>
+<td>10</td>
+<td></td>
+</tr>
+<tr>
+<td>year</td>
+<td>年</td>
+<td>10</td>
+</tr>
+</tbody>
+</table>
+<p>retCashList (现金实际返还列表)</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>描述</th>
+<th>来源表</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>agreementId</td>
+<td>协议编号</td>
+<td>11</td>
+<td></td>
+</tr>
+<tr>
+<td>bpId</td>
+<td>业代编号</td>
+<td>11</td>
+<td></td>
+</tr>
+<tr>
+<td>customerCode</td>
+<td>客户编号</td>
+<td>11</td>
+<td></td>
+</tr>
+<tr>
+<td>month</td>
+<td>月份</td>
+<td>11</td>
+<td></td>
+</tr>
+<tr>
+<td>promotionId</td>
+<td>活动id</td>
+<td>11</td>
+<td></td>
+</tr>
+<tr>
+<td>rebateDate</td>
+<td>返还日期</td>
+<td>11</td>
+<td></td>
+</tr>
+<tr>
+<td>rebateMoney</td>
+<td>实际返还金额</td>
+<td>11</td>
+<td></td>
+</tr>
+<tr>
+<td>year</td>
+<td>年</td>
+<td>11</td>
+</tr>
+</tbody>
+</table>
+<p>retSkuList (实物实际返还列表)</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>描述</th>
+<th>来源表</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>agreementId</td>
+<td>协议id</td>
+<td>12</td>
+<td></td>
+</tr>
+<tr>
+<td>bpId</td>
+<td>业代编号</td>
+<td>12</td>
+<td></td>
+</tr>
+<tr>
+<td>customerCode</td>
+<td>客户编号</td>
+<td>12</td>
+<td></td>
+</tr>
+<tr>
+<td>feePartirion</td>
+<td>费用归属</td>
+<td>13</td>
+<td></td>
+</tr>
+<tr>
+<td>month</td>
+<td>月份</td>
+<td>12</td>
+<td></td>
+</tr>
+<tr>
+<td>promotionId</td>
+<td>活动id</td>
+<td>12</td>
+<td></td>
+</tr>
+<tr>
+<td>rebateDate</td>
+<td>返还日期</td>
+<td>12</td>
+<td></td>
+</tr>
+<tr>
+<td>skuCode</td>
+<td>sku</td>
+<td>13</td>
+<td></td>
+</tr>
+<tr>
+<td>skuNumber</td>
+<td>sku数量</td>
+<td>13</td>
+<td></td>
+</tr>
+<tr>
+<td>skuUnit</td>
+<td>sku单位</td>
+<td>13</td>
+<td></td>
+</tr>
+<tr>
+<td>year</td>
+<td>年</td>
+<td>12</td>
+</tr>
+</tbody>
+</table>
+<h3 id="出参-5"><a href="#出参-5" class="headerlink" title="出参:"></a>出参:</h3><p>无</p>
+<h3 id="涉及相关表-4"><a href="#涉及相关表-4" class="headerlink" title="涉及相关表:"></a>涉及相关表:</h3><ol>
+<li>CPM_PROMOT_RETURN_CARD (促销返还记录表-卡券)</li>
+<li>CPM_PROMOT_RETURN_MONEY (促销返还记录表-现金)</li>
+<li>CPM_PROMOT_RETURN_SKU_HEADER (促销返还记录表-实物-抬头表)</li>
+<li>CPM_PROMOT_RETURN_SKU_LINER (促销返还记录表-实物-明细表)</li>
+</ol>
+<h3 id="接口逻辑-5"><a href="#接口逻辑-5" class="headerlink" title="接口逻辑:"></a>接口逻辑:</h3><ol>
+<li>卡券 (rebatePattern == RT03):<ol>
+<li>主键<code>agreementId</code>, <code>month</code></li>
+<li>到<code>表1</code>中使用主键查找, 如果命中返还status=<code>0001</code>, msg=<code>该月已返还</code>; 否则继续</li>
+<li>调用卡券中心接口<code>/card/deposit</code> 发放卡券, 该接口返还包含卡券code的列表</li>
+<li>将<code>步骤3</code>中返回的卡券code列表结合入参 插入<code>表1</code></li>
+</ol>
+</li>
+<li>现金 (rebatePattern == RT02):<ol>
+<li>主键<code>agreementId</code>, <code>month</code></li>
+<li>到<code>表2</code>中使用主键查找, 如果命中返还status=<code>0001</code>, msg=<code>该月已返还</code>; 否则继续</li>
+<li>将入参数据插入<code>表2</code></li>
+</ol>
+</li>
+<li>实物 (rebatePattern == RT01):<ol>
+<li>主键<code>agreementId</code>, <code>month</code></li>
+<li>到<code>表3</code>中使用主键查找, 如果命中, 根据命中的<code>produt_rebate_id</code>到<code>表4</code>中查找后, 一并删除<code>表3</code> <code>表4</code>中的记录</li>
+<li>将入参插入<code>表3</code> <code>表4</code></li>
+</ol>
+</li>
+</ol>
+<h2 id="0301-业代基本信息"><a href="#0301-业代基本信息" class="headerlink" title="0301. 业代基本信息"></a>0301. 业代基本信息</h2><h3 id="请求Url-6"><a href="#请求Url-6" class="headerlink" title="请求Url:"></a>请求Url:</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/supv1/user/detail</div></pre></td></tr></table></figure>
+<h3 id="入参-6"><a href="#入参-6" class="headerlink" title="入参:"></a>入参:</h3><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>描述</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>username</td>
+<td>业代编号</td>
+</tr>
+</tbody>
+</table>
+<h3 id="出参-6"><a href="#出参-6" class="headerlink" title="出参:"></a>出参:</h3><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>描述</th>
+<th>来源表</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>grantedQuickPay</td>
+<td>是否快捷支付</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="遗留问题-5"><a href="#遗留问题-5" class="headerlink" title="遗留问题:"></a>遗留问题:</h3><ul>
+<li>取数逻辑未定</li>
+</ul>
+<h2 id="数据字典"><a href="#数据字典" class="headerlink" title="数据字典"></a>数据字典</h2><h3 id="业务编码"><a href="#业务编码" class="headerlink" title="业务编码"></a>业务编码</h3><p>rebatePattern 返还方式编码 </p>
+<table>
+<thead>
+<tr>
+<th>编码</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RT01</td>
+<td>实物</td>
+</tr>
+<tr>
+<td>RT02</td>
+<td>卡券</td>
+</tr>
+<tr>
+<td>RT03</td>
+<td>现金</td>
+</tr>
+</tbody>
+</table>
+<p>result 促销检查结果 </p>
+<table>
+<thead>
+<tr>
+<th>编码</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RS01</td>
+<td>业代未执行</td>
+</tr>
+<tr>
+<td>RS02</td>
+<td>客户未执行</td>
+</tr>
+<tr>
+<td>RS03</td>
+<td>合格</td>
+</tr>
+<tr>
+<td>RS04</td>
+<td>不合格</td>
+</tr>
+</tbody>
+</table>
+<p>transactionStatus 现金交易状态</p>
+<table>
+<thead>
+<tr>
+<th>编码</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>confirmStatus 协议确认状态</p>
+<table>
+<thead>
+<tr>
+<th>编码</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CS01</td>
+<td>待确认</td>
+</tr>
+<tr>
+<td>CS02</td>
+<td>已确认</td>
+</tr>
+<tr>
+<td>CS03</td>
+<td>已拒绝</td>
+</tr>
+<tr>
+<td>CS04</td>
+<td>修改待确认</td>
+</tr>
+</tbody>
+</table>
+<p>promotionStatus 促销协议状态</p>
+<table>
+<thead>
+<tr>
+<th>编码</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PS01</td>
+<td>进行中</td>
+</tr>
+<tr>
+<td>PS02</td>
+<td>已结束</td>
+</tr>
+<tr>
+<td>PS03</td>
+<td>未开始</td>
+</tr>
+</tbody>
+</table>
+<p>payChannel 支付渠道</p>
+<table>
+<thead>
+<tr>
+<th>编码</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PC01</td>
+<td>微信支付</td>
+</tr>
+<tr>
+<td>PC02</td>
+<td>银行卡</td>
+</tr>
+</tbody>
+</table>
+<p>cardType 卡券类型</p>
+<table>
+<thead>
+<tr>
+<th>编码</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CP01</td>
+<td>通用, 水</td>
+</tr>
+<tr>
+<td>CP02</td>
+<td>饮料</td>
+</tr>
+</tbody>
+</table>
+<p>cardStatus 卡券状态</p>
+<table>
+<thead>
+<tr>
+<th>编码</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>可使用</td>
+<td>1</td>
+</tr>
+<tr>
+<td>已使用</td>
+<td>2</td>
+</tr>
+<tr>
+<td>已兑付</td>
+<td>3</td>
+</tr>
+<tr>
+<td>已作废</td>
+<td>4</td>
+</tr>
+<tr>
+<td>已过期</td>
+<td>5</td>
+</tr>
+</tbody>
+</table>
+<p>promotionType 活动类型</p>
+<table>
+<thead>
+<tr>
+<th>编码</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>陈列促销活动</td>
+<td></td>
+</tr>
+<tr>
+<td>陈列生日</td>
+<td></td>
+</tr>
+<tr>
+<td>…</td>
+</tr>
+</tbody>
+</table>
+<p>returnComfirmStatus  实物返还签收状态</p>
+<table>
+<thead>
+<tr>
+<th>编码</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CS01</td>
+<td>待确认</td>
+</tr>
+<tr>
+<td>CS02</td>
+<td>已确认</td>
+</tr>
+</tbody>
+</table>
+<h3 id="接口返回"><a href="#接口返回" class="headerlink" title="接口返回"></a>接口返回</h3><table>
+<thead>
+<tr>
+<th>编码</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0000</td>
+<td>正常</td>
+</tr>
+<tr>
+<td>0001</td>
+<td>业务异常</td>
+</tr>
+<tr>
+<td>0002</td>
+<td>系统异常</td>
+</tr>
+<tr>
+<td>0003</td>
+<td>验签失败</td>
+</tr>
+<tr>
+<td>0009</td>
+<td>运行时异常</td>
+</tr>
+</tbody>
+</table>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/12/19/cestbon/2017-12-19-CPM-卡券中心接口详细设计/" rel="next" title="">
+                <i class="fa fa-chevron-left"></i> 
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/12/22/cestbon/2017-12-22-CPM-微信配送商接口详细设计/" rel="prev" title="">
+                 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/12/22/cestbon/2017-12-22-CPM-SUP接口详细设计/"
+           data-title="" data-url="http://blog.loujiwei.cn/2017/12/22/cestbon/2017-12-22-CPM-SUP接口详细设计/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Lou Jiwei" />
+          <p class="site-author-name" itemprop="name">Lou Jiwei</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">92</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">77</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/kkooff114" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/2028380403" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.zhihu.com/people/lou-jerry" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#CPM-SUP接口详细设计"><span class="nav-number">1.</span> <span class="nav-text">CPM SUP接口详细设计</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#0101-活动列表读取"><span class="nav-number">1.1.</span> <span class="nav-text">0101. 活动列表读取</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#请求Url"><span class="nav-number">1.1.0.1.</span> <span class="nav-text">请求Url:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#入参"><span class="nav-number">1.1.0.2.</span> <span class="nav-text">入参:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#出参"><span class="nav-number">1.1.0.3.</span> <span class="nav-text">出参:</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#涉及相关表"><span class="nav-number">1.1.1.</span> <span class="nav-text">涉及相关表:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#接口逻辑"><span class="nav-number">1.1.2.</span> <span class="nav-text">接口逻辑:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字段取数说明"><span class="nav-number">1.1.3.</span> <span class="nav-text">字段取数说明:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#遗留问题"><span class="nav-number">1.1.4.</span> <span class="nav-text">遗留问题:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0201-协议关联提交"><span class="nav-number">1.2.</span> <span class="nav-text">0201. 协议关联提交</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#请求Url-1"><span class="nav-number">1.2.1.</span> <span class="nav-text">请求Url:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#入参-1"><span class="nav-number">1.2.2.</span> <span class="nav-text">入参:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#出参-1"><span class="nav-number">1.2.3.</span> <span class="nav-text">出参:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#涉及相关表-1"><span class="nav-number">1.2.4.</span> <span class="nav-text">涉及相关表:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#接口逻辑-1"><span class="nav-number">1.2.5.</span> <span class="nav-text">接口逻辑:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#遗留问题-1"><span class="nav-number">1.2.6.</span> <span class="nav-text">遗留问题:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0202-协议修改提交"><span class="nav-number">1.3.</span> <span class="nav-text">0202. 协议修改提交</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#请求Url-2"><span class="nav-number">1.3.1.</span> <span class="nav-text">请求Url:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#入参-2"><span class="nav-number">1.3.2.</span> <span class="nav-text">入参:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#出参-2"><span class="nav-number">1.3.3.</span> <span class="nav-text">出参:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#涉及相关表-2"><span class="nav-number">1.3.4.</span> <span class="nav-text">涉及相关表:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#接口逻辑-2"><span class="nav-number">1.3.5.</span> <span class="nav-text">接口逻辑:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#遗留问题-2"><span class="nav-number">1.3.6.</span> <span class="nav-text">遗留问题:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0203-协议信息读取"><span class="nav-number">1.4.</span> <span class="nav-text">0203. 协议信息读取</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#请求Url-3"><span class="nav-number">1.4.1.</span> <span class="nav-text">请求Url:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#入参-3"><span class="nav-number">1.4.2.</span> <span class="nav-text">入参:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#出参-3"><span class="nav-number">1.4.3.</span> <span class="nav-text">出参:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#接口逻辑-3"><span class="nav-number">1.4.4.</span> <span class="nav-text">接口逻辑:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字段取数说明-1"><span class="nav-number">1.4.5.</span> <span class="nav-text">字段取数说明:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#遗留问题-3"><span class="nav-number">1.4.6.</span> <span class="nav-text">遗留问题:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0204-促销执行提交"><span class="nav-number">1.5.</span> <span class="nav-text">0204. 促销执行提交</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#请求Url-4"><span class="nav-number">1.5.1.</span> <span class="nav-text">请求Url:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#入参-4"><span class="nav-number">1.5.2.</span> <span class="nav-text">入参:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#出参-4"><span class="nav-number">1.5.3.</span> <span class="nav-text">出参:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#涉及相关表-3"><span class="nav-number">1.5.4.</span> <span class="nav-text">涉及相关表:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#接口逻辑-4"><span class="nav-number">1.5.5.</span> <span class="nav-text">接口逻辑:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#遗留问题-4"><span class="nav-number">1.5.6.</span> <span class="nav-text">遗留问题:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0204-促销返还提交"><span class="nav-number">1.6.</span> <span class="nav-text">0204. 促销返还提交</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#请求Url-5"><span class="nav-number">1.6.1.</span> <span class="nav-text">请求Url:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#入参-5"><span class="nav-number">1.6.2.</span> <span class="nav-text">入参:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#出参-5"><span class="nav-number">1.6.3.</span> <span class="nav-text">出参:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#涉及相关表-4"><span class="nav-number">1.6.4.</span> <span class="nav-text">涉及相关表:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#接口逻辑-5"><span class="nav-number">1.6.5.</span> <span class="nav-text">接口逻辑:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0301-业代基本信息"><span class="nav-number">1.7.</span> <span class="nav-text">0301. 业代基本信息</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#请求Url-6"><span class="nav-number">1.7.1.</span> <span class="nav-text">请求Url:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#入参-6"><span class="nav-number">1.7.2.</span> <span class="nav-text">入参:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#出参-6"><span class="nav-number">1.7.3.</span> <span class="nav-text">出参:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#遗留问题-5"><span class="nav-number">1.7.4.</span> <span class="nav-text">遗留问题:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据字典"><span class="nav-number">1.8.</span> <span class="nav-text">数据字典</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#业务编码"><span class="nav-number">1.8.1.</span> <span class="nav-text">业务编码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#接口返回"><span class="nav-number">1.8.2.</span> <span class="nav-text">接口返回</span></a></li></ol></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lou Jiwei</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.2"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"kkooff114"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("Hlu4LmyrC38fkas5YyrJD87H-gzGzoHsz", "udF3A1fTUeRJHlezwNGWBCR9");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+
+</body>
+</html>
