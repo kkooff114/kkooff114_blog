@@ -116,7 +116,7 @@
 
 通过构造函数上标注@Inject
 通过@Module标注类, 再通过@Provider标注">
-<meta property="og:updated_time" content="2017-05-01T12:28:57.000Z">
+<meta property="og:updated_time" content="2017-12-30T07:34:59.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="我的Dagger2从入门到放弃再到我去原来如此">
 <meta name="twitter:description" content="首先简单理解, Dagger2帮我们做的就是下面这行代码
@@ -400,7 +400,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">public final class Presenter_Factory implements Factory&lt;Presenter&gt; &#123;</div><div class="line">  private static final Presenter_Factory INSTANCE = new Presenter_Factory();</div><div class="line"></div><div class="line">  @Override</div><div class="line">  public Presenter get() &#123;</div><div class="line">    return new Presenter();</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  public static Factory&lt;Presenter&gt; create() &#123;</div><div class="line">    return INSTANCE;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>很清晰, 这里的<code>get()</code>方法就是通过我们刚刚的构造方法返回<code>Presenter</code>的实例, 关于<code>create()</code>方法我们下面再讲.</p>
 <h3 id="1-2-Module标注类"><a href="#1-2-Module标注类" class="headerlink" title="1.2 @Module标注类"></a>1.2 @Module标注类</h3><p>1.1讲述了一个普通类是如何通过dagger2实例化的, 但是有一些类,比如第三方类库，系统类，以及我们下面要说的View接口.<br>我们都知道<code>MVP</code>设计模式中, presenter都是需要依赖view接口的, 该view既是相关activity实例, 这个类只能通过外部传进来, 而不能自己<code>new</code></p>
-<p>于是, 我们便有了一个<code>OrderModule</code>, 不要在意<code>Order</code>:</p>
+<p>于是, 我们便有了一个<code>OrderModule</code>, 不要在意为什么是<code>Order</code>:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">@Module</div><div class="line">public class OrderModule &#123;</div><div class="line"></div><div class="line">    private IMainView mView;</div><div class="line"></div><div class="line">    public OrderModule(IMainView mView) &#123;</div><div class="line">        this.mView = mView;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Provides</div><div class="line">    IMainView provideMainView() &#123;</div><div class="line">        return this.mView;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>这里面通过构造方法从外面传入一个IMainView的实例, 即我们的activity.<br>然后通过<code>@Provides</code>标注一个返回类型为<code>IMainView</code>的方法. 我们来看看dagger2帮我们生成的<code>OrderModule_ProvideMainViewFactory</code>类:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">public final class OrderModule_ProvideMainViewFactory implements Factory&lt;IMainView&gt; &#123;</div><div class="line">  private final OrderModule module;</div><div class="line"></div><div class="line">  public OrderModule_ProvideMainViewFactory(OrderModule module) &#123;</div><div class="line">    assert module != null;</div><div class="line">    this.module = module;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  @Override</div><div class="line">  public IMainView get() &#123;</div><div class="line">    return Preconditions.checkNotNull(</div><div class="line">        module.provideMainView(), &quot;Cannot return null from a non-@Nullable @Provides method&quot;);</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  public static Factory&lt;IMainView&gt; create(OrderModule module) &#123;</div><div class="line">    return new OrderModule_ProvideMainViewFactory(module);</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  /** Proxies &#123;@link OrderModule#provideMainView()&#125;. */</div><div class="line">  public static IMainView proxyProvideMainView(OrderModule instance) &#123;</div><div class="line">    return instance.provideMainView();</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
@@ -538,7 +538,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">92</span>
+              <span class="site-state-item-count">90</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -546,7 +546,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-count">12</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -555,7 +555,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">77</span>
+                <span class="site-state-item-count">80</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -632,7 +632,7 @@
         <div class="copyright" >
   
   &copy;  2013 - 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
