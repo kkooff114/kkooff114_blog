@@ -1,0 +1,877 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|18:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="读书笔记,Android开发艺术探索," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.2" />
+
+
+
+
+
+
+<meta name="description" content="1.1 Activity的生命周期全面分析
+onPause必须执行完, 新的Android的onResume才会执行
+onStart时: Activity可见, 在前台; onResume时: Activity可见, 在前台
+onStop时: Activity不可见, 不出现在前台; onPause时: Activity可见, 不出现在前台
+
+异常情况下:
+
+onRestoreInstanceSt">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2018-05-07-Android开发艺术探索读书笔记-第1章-Android的生命周期和启动模式">
+<meta property="og:url" content="http://blog.loujiwei.cn/2018/05/07/读书笔记/Android开发艺术探索/2018-05-07-Android开发艺术探索读书笔记-第1章-Android的生命周期和启动模式/index.html">
+<meta property="og:site_name" content="kkooff144`blog">
+<meta property="og:description" content="1.1 Activity的生命周期全面分析
+onPause必须执行完, 新的Android的onResume才会执行
+onStart时: Activity可见, 在前台; onResume时: Activity可见, 在前台
+onStop时: Activity不可见, 不出现在前台; onPause时: Activity可见, 不出现在前台
+
+异常情况下:
+
+onRestoreInstanceSt">
+<meta property="og:updated_time" content="2018-05-07T16:16:56.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="2018-05-07-Android开发艺术探索读书笔记-第1章-Android的生命周期和启动模式">
+<meta name="twitter:description" content="1.1 Activity的生命周期全面分析
+onPause必须执行完, 新的Android的onResume才会执行
+onStart时: Activity可见, 在前台; onResume时: Activity可见, 在前台
+onStop时: Activity不可见, 不出现在前台; onPause时: Activity可见, 不出现在前台
+
+异常情况下:
+
+onRestoreInstanceSt">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","iXiaoZhi":"http://ixiaozhi.com/"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://blog.loujiwei.cn/2018/05/07/读书笔记/Android开发艺术探索/2018-05-07-Android开发艺术探索读书笔记-第1章-Android的生命周期和启动模式/"/>
+
+
+  <title> 2018-05-07-Android开发艺术探索读书笔记-第1章-Android的生命周期和启动模式 | kkooff144`blog </title>
+</head>
+
+<body itemscope itemtype="//schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?7d5d2bb40c2c103a074272772bd720c0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">kkooff144`blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                2018-05-07-Android开发艺术探索读书笔记-第1章-Android的生命周期和启动模式
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-05-07T21:54:55+08:00" content="2018-05-07">
+              2018-05-07
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/读书笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">读书笔记</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2018/05/07/读书笔记/Android开发艺术探索/2018-05-07-Android开发艺术探索读书笔记-第1章-Android的生命周期和启动模式/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/05/07/读书笔记/Android开发艺术探索/2018-05-07-Android开发艺术探索读书笔记-第1章-Android的生命周期和启动模式/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2018/05/07/读书笔记/Android开发艺术探索/2018-05-07-Android开发艺术探索读书笔记-第1章-Android的生命周期和启动模式/" class="leancloud_visitors" data-flag-title="2018-05-07-Android开发艺术探索读书笔记-第1章-Android的生命周期和启动模式">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv"><i class="fa fa-file-o"></i>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="1-1-Activity的生命周期全面分析"><a href="#1-1-Activity的生命周期全面分析" class="headerlink" title="1.1 Activity的生命周期全面分析"></a>1.1 Activity的生命周期全面分析</h2><ul>
+<li><code>onPause</code>必须执行完, 新的Android的<code>onResume</code>才会执行</li>
+<li>onStart时: Activity可见, 在前台; onResume时: Activity可见, 在前台</li>
+<li>onStop时: Activity不可见, 不出现在前台; onPause时: Activity可见, 不出现在前台</li>
+</ul>
+<p>异常情况下:</p>
+<ul>
+<li><code>onRestoreInstanceState</code>在<code>onStart</code>之后</li>
+<li><code>onSaveInstanceState</code> 在 <code>onPause</code>之后</li>
+<li><code>android: configChanges = &quot;orientation&quot;</code> 使屏幕旋转的时候Activity不会重新创建, 但是会调用<code>onConfigurationChanged</code></li>
+</ul>
+<h2 id="1-2-Activity-的启动模式"><a href="#1-2-Activity-的启动模式" class="headerlink" title="1.2 Activity 的启动模式"></a>1.2 Activity 的启动模式</h2><ul>
+<li>standard: 标准模式</li>
+<li>singleTop: 栈顶复用模式, 如果在栈顶, 不会重新创建<code>onNewIntent</code>被调用; 否则重新创建</li>
+<li>singleTask: 栈内复用模式, 只要Activity在他想要的栈中存在, 就不会重新创建<code>onNewIntent</code>被调用; 否则, 如果他想要的栈不存在, 就像创建该栈, 然后再创建Activity</li>
+<li>singleInstance: 单实例模式, 始终创建一个新的栈, 一个新的Activity</li>
+</ul>
+<p>任务栈:<br>默认所有Activity的任务栈的名字是应用的包名, 是String. 但是通过<code>TaskAffinity</code>可以指定任务栈的名字</p>
+<p><code>allowTaskReparenting</code>: 当一个应用A启动了应用B的某个Activity后, 如果这个Activity的<code>allowTaskReparenting</code>属性为true的话, 那么当应用B被启动后, 此Activity会直接从应用A的任务栈转义到应用B的任务栈中.</p>
+<h2 id="1-3-IntentFilter的匹配规则"><a href="#1-3-IntentFilter的匹配规则" class="headerlink" title="1.3 IntentFilter的匹配规则"></a>1.3 IntentFilter的匹配规则</h2><p>IntentFilter的过滤信息用action, category, data</p>
+<ol>
+<li>action: 只要Intent中有一个action能够和过滤规则中的任何一个action相同即可匹配成功, 即Intent必须要有至少一个action且必须和过滤规则中某个相同, </li>
+<li>category: 如果Intent中含有category, 那么所有的category都必须和过滤规则中的其中某一个category相同, 即Intent中可以没有category,但是如果有, 就必须在匹配规则中; 如果intent不写会默认<code>android.intent.category.DEFAULT</code>, 所以如果想要自己的activity隐式被调用就要在intent-filter写上default</li>
+<li>data: 由<code>mimeType</code>和<code>URI</code>组成. <code>mimeType</code>如image/jpeg, audio/mpeg4-generic. </li>
+</ol>
+<p>注意: </p>
+<ol>
+<li>如果要设置完整的<code>data</code>, 需要调用<code>intent.setDataAndType(Uri.parse(&quot;file://abc&quot;), &quot;image/png&quot;)</code>; 因为直接调用<code>setData(Uri data)</code> 或者 <code>setType(MimeType )</code> 这俩个方法会相互覆盖</li>
+<li>采用隐士调用如果匹配不上会报错, 有俩种方法判断<ol>
+<li>PackageManager的resolveActivity方法或者Intent的resolveActivity方法, 如果找到了, 返回最佳匹配; 如果找不到,他们会返回null</li>
+<li>PackageManager的queryIntentActivities, 返回所有匹配成功的Activity</li>
+</ol>
+</li>
+</ol>
+<p>举例:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">&lt;activity</div><div class="line">            android:name=&quot;com.ryg.chapter_1.ThirdActivity&quot;</div><div class="line">            android:configChanges=&quot;screenLayout&quot;</div><div class="line">            android:label=&quot;@string/app_name&quot;</div><div class="line">            android:launchMode=&quot;singleTask&quot;</div><div class="line">            android:taskAffinity=&quot;com.ryg.task1&quot; &gt;</div><div class="line">            &lt;intent-filter&gt;</div><div class="line">                &lt;action android:name=&quot;com.ryg.charpter_1.c&quot; /&gt;</div><div class="line">                &lt;action android:name=&quot;com.ryg.charpter_1.d&quot; /&gt;</div><div class="line"></div><div class="line">                &lt;category android:name=&quot;com.ryg.category.c&quot; /&gt;</div><div class="line">                &lt;category android:name=&quot;com.ryg.category.d&quot; /&gt;</div><div class="line">                &lt;category android:name=&quot;android.intent.category.DEFAULT&quot; /&gt;</div><div class="line"></div><div class="line">                &lt;data android:mimeType=&quot;text/plain&quot; /&gt;</div><div class="line">            &lt;/intent-filter&gt;</div><div class="line">        &lt;/activity&gt;</div></pre></td></tr></table></figure>
+<p>匹配的intent</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Intent intent = new Intent(&quot;com.ryg.charpter_1.c&quot;);</div><div class="line">intent.addCategory(&quot;com.ryg.category.c&quot;);</div><div class="line">intent.setDataAndType(Uri.parse(&quot;file://abc&quot;), &quot;text/plain&quot;);</div><div class="line">startActivity(intent);</div></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/读书笔记/" rel="tag">#读书笔记</a>
+          
+            <a href="/tags/Android开发艺术探索/" rel="tag">#Android开发艺术探索</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/02/读书笔记/Effective Java/2018-05-02-EffectiveJava读书笔记-第2章-创建和销毁对象/" rel="next" title="EffectiveJava读书笔记-第2章-创建和销毁对象">
+                <i class="fa fa-chevron-left"></i> EffectiveJava读书笔记-第2章-创建和销毁对象
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2018/05/07/读书笔记/Android开发艺术探索/2018-05-07-Android开发艺术探索读书笔记-第1章-Android的生命周期和启动模式/"
+           data-title="2018-05-07-Android开发艺术探索读书笔记-第1章-Android的生命周期和启动模式" data-url="http://blog.loujiwei.cn/2018/05/07/读书笔记/Android开发艺术探索/2018-05-07-Android开发艺术探索读书笔记-第1章-Android的生命周期和启动模式/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Lou Jiwei" />
+          <p class="site-author-name" itemprop="name">Lou Jiwei</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">91</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">81</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/kkooff114" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/2028380403" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.zhihu.com/people/lou-jerry" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-Activity的生命周期全面分析"><span class="nav-number">1.</span> <span class="nav-text">1.1 Activity的生命周期全面分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-Activity-的启动模式"><span class="nav-number">2.</span> <span class="nav-text">1.2 Activity 的启动模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-IntentFilter的匹配规则"><span class="nav-number">3.</span> <span class="nav-text">1.3 IntentFilter的匹配规则</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lou Jiwei</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.2"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"kkooff114"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("Hlu4LmyrC38fkas5YyrJD87H-gzGzoHsz", "udF3A1fTUeRJHlezwNGWBCR9");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+
+</body>
+</html>
