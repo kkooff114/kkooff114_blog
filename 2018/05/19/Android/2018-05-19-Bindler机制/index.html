@@ -1,0 +1,924 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|18:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="binder," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.2" />
+
+
+
+
+
+
+<meta name="description" content="1 引言Linux支持的IPC: 管道, 消息队列, 共享内存, 信号量, socket.Android选择Binder的原因:
+
+基于Client-Server通信模式，传输过程只需一次拷贝(共享内存0次, Socket/管道/消息队列 2次)
+为发送方添加UID/PID身份，既支持实名Binder也支持匿名Binder，安全性高. (传统IPC只能由用户在数据包里填入UID/PID)
+
+2 面">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android Binder机制">
+<meta property="og:url" content="http://blog.loujiwei.cn/2018/05/19/Android/2018-05-19-Bindler机制/index.html">
+<meta property="og:site_name" content="kkooff144`blog">
+<meta property="og:description" content="1 引言Linux支持的IPC: 管道, 消息队列, 共享内存, 信号量, socket.Android选择Binder的原因:
+
+基于Client-Server通信模式，传输过程只需一次拷贝(共享内存0次, Socket/管道/消息队列 2次)
+为发送方添加UID/PID身份，既支持实名Binder也支持匿名Binder，安全性高. (传统IPC只能由用户在数据包里填入UID/PID)
+
+2 面">
+<meta property="og:image" content="http://blog.loujiwei.cn/images/15268297010857.jpg">
+<meta property="og:updated_time" content="2018-05-28T14:34:38.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android Binder机制">
+<meta name="twitter:description" content="1 引言Linux支持的IPC: 管道, 消息队列, 共享内存, 信号量, socket.Android选择Binder的原因:
+
+基于Client-Server通信模式，传输过程只需一次拷贝(共享内存0次, Socket/管道/消息队列 2次)
+为发送方添加UID/PID身份，既支持实名Binder也支持匿名Binder，安全性高. (传统IPC只能由用户在数据包里填入UID/PID)
+
+2 面">
+<meta name="twitter:image" content="http://blog.loujiwei.cn/images/15268297010857.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","iXiaoZhi":"http://ixiaozhi.com/"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://blog.loujiwei.cn/2018/05/19/Android/2018-05-19-Bindler机制/"/>
+
+
+  <title> Android Binder机制 | kkooff144`blog </title>
+</head>
+
+<body itemscope itemtype="//schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?7d5d2bb40c2c103a074272772bd720c0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">kkooff144`blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Android Binder机制
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-05-19T21:53:45+08:00" content="2018-05-19">
+              2018-05-19
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2018/05/19/Android/2018-05-19-Bindler机制/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/05/19/Android/2018-05-19-Bindler机制/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2018/05/19/Android/2018-05-19-Bindler机制/" class="leancloud_visitors" data-flag-title="Android Binder机制">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv"><i class="fa fa-file-o"></i>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="1-引言"><a href="#1-引言" class="headerlink" title="1 引言"></a>1 引言</h2><p>Linux支持的IPC: 管道, 消息队列, 共享内存, 信号量, socket.<br>Android选择Binder的原因:</p>
+<ul>
+<li>基于Client-Server通信模式，传输过程只需一次拷贝(<code>共享内存</code>0次, <code>Socket/管道/消息队列</code> 2次)</li>
+<li>为发送方添加UID/PID身份，既支持实名Binder也支持匿名Binder，安全性高. (传统IPC只能由用户在数据包里填入UID/PID)</li>
+</ul>
+<h2 id="2-面向对象的-Binder-IPC"><a href="#2-面向对象的-Binder-IPC" class="headerlink" title="2 面向对象的 Binder IPC"></a>2 面向对象的 Binder IPC</h2><p>Binder使用了面向对象的思想来描述作为访问接入点的Binder及其在Client中的入口</p>
+<p>Client通过Binder(这个服务器的<code>引用</code>或者说<code>句柄</code>) 来访问Server. 其独特之处在于Binder对象是一个可以跨进程引用的对象，它的实体位于一个进程中，而它的引用却遍布于系统的各个进程之中</p>
+<h2 id="3-Binder通信模型"><a href="#3-Binder通信模型" class="headerlink" title="3 Binder通信模型"></a>3 Binder通信模型</h2><p>Binder框架定义了四个角色：Server，Client，ServiceManager（以后简称SMgr）以及Binder驱动。其中Server，Client，SMgr运行于用户空间，驱动运行于内核空间。这四个角色的关系和互联网类似：Server是服务器，Client是客户终端，SMgr是域名服务器（DNS），驱动是路由器。</p>
+<h3 id="3-1-Binder驱动"><a href="#3-1-Binder驱动" class="headerlink" title="3.1 Binder驱动"></a>3.1 Binder驱动</h3><p>尽管名叫‘驱动’，实际上和硬件设备没有任何关系, 是虚拟的驱动, 位于<code>/dev/binder</code></p>
+<ul>
+<li>驱动负责进程之间Binder通信的建立</li>
+<li>Binder在进程之间的传递</li>
+<li>Binder引用计数管理</li>
+<li>数据包在进程之间的传递和交互</li>
+<li>等一系列底层支持</li>
+</ul>
+<h3 id="3-2-ServiceManager-与实名Binder"><a href="#3-2-ServiceManager-与实名Binder" class="headerlink" title="3.2 ServiceManager 与实名Binder"></a>3.2 ServiceManager 与实名Binder</h3><p>和DNS类似，SMgr的作用是将字符形式的Binder名字转化成Client中对该Binder的引用, 使得Client能够通过Binder名字获得对Server中Binder实体的引用。<br>注册了名字的Binder叫实名Binder，就象每个网站除了有IP地址外还有自己的网址。</p>
+<p>过程:</p>
+<ol>
+<li>Server创建Binder实体，为其取一个字符形式，可读易记的名字</li>
+<li>将这个Binder连同名字以数据包的形式通过Binder驱动发送给SMgr，通知SMgr注册一个名叫张三的Binder，它位于某个Server中</li>
+<li>驱动为这个穿过进程边界的Binder创建位于内核中的实体节点以及SMgr对实体的引用，将名字及新建的引用打包传递给SMgr</li>
+<li>SMgr收数据包后，从中取出名字和引用填入一张查找表中</li>
+</ol>
+<p>以上过程中Server向SMgr注册Binder必然会涉及进程间通信(Server在一个进程, SMgr在一个进程)<br>Server</p>
+<ul>
+<li>SMgr和其它进程同样采用Binder通信，SMgr是Server端，有自己的Binder对象（实体），其它进程都是Client，需要通过这个Binder的引用来实现Binder的注册，查询和获取</li>
+<li>SMgr提供的Binder比较特殊，它没有名字也不需要注册，当一个进程使用BINDER_SET_CONTEXT_MGR命令将自己注册成SMgr时Binder驱动会自动为它创建Binder实体</li>
+<li>这个Binder的引用在所有Client中都固定为0, 也就是说，一个Server若要向SMgr注册自己Binder就必需通过0这个引用号和SMgr的Binder通信。类比网络通信，0号引用就好比域名服务器的地址，你必须预先手工或动态配置好</li>
+</ul>
+<h3 id="3-3-Client-获得实名Binder的引用"><a href="#3-3-Client-获得实名Binder的引用" class="headerlink" title="3.3 Client 获得实名Binder的引用"></a>3.3 Client 获得实名Binder的引用</h3><ol>
+<li>Client可以通过名字获得该Binder的引用。Client也利用保留的0号引用向SMgr请求访问某个Binder</li>
+<li>SMgr收到这个连接请求，从请求数据包里获得Binder的名字，在查找表里找到该名字对应的条目，从条目中取出Binder的引用</li>
+<li>将该引用作为回复发送给发起请求的Client</li>
+</ol>
+<p>以上动作后, 这个Binder对象现在有了两个引用：一个位于SMgr中，一个位于发起请求的Client中, 都属于<strong>强引用</strong></p>
+<h3 id="3-4-匿名-Binder"><a href="#3-4-匿名-Binder" class="headerlink" title="3.4 匿名 Binder"></a>3.4 匿名 Binder</h3><p>Server端可以通过已经建立的Binder连接将创建的Binder实体传给Client，当然这条已经建立的Binder连接必须是通过实名Binder实现。</p>
+<p><code>安全性:</code> 匿名Binder为通信双方建立一条私密通道，只要Server没有把匿名Binder发给别的进程，别的进程就无法通过穷举或猜测等任何方式获得该Binder的引用，向该Binder发送请求。</p>
+<p><img src="/images/15268297010857.jpg" alt=""></p>
+<h2 id="4-Binder-协议"><a href="#4-Binder-协议" class="headerlink" title="4 Binder 协议"></a>4 Binder 协议</h2><p>Binder协议基本格式是（命令+数据），使用ioctl(fd, cmd, arg)函数实现交互。命令由参数cmd承载，数据由参数arg承载，随cmd不同而不同。</p>
+<h3 id="4-1-BINDER-WRITE-READ-之写操作"><a href="#4-1-BINDER-WRITE-READ-之写操作" class="headerlink" title="4.1 BINDER_WRITE_READ 之写操作"></a>4.1 BINDER_WRITE_READ 之写操作</h3><h3 id="4-2-BINDER-WRITE-READ-：从Binder读出数据"><a href="#4-2-BINDER-WRITE-READ-：从Binder读出数据" class="headerlink" title="4.2 BINDER_WRITE_READ ：从Binder读出数据"></a>4.2 BINDER_WRITE_READ ：从Binder读出数据</h3><h3 id="4-3-struct-binder-transaction-data-：收发数据包结构"><a href="#4-3-struct-binder-transaction-data-：收发数据包结构" class="headerlink" title="4.3 struct binder_transaction_data ：收发数据包结构"></a>4.3 struct binder_transaction_data ：收发数据包结构</h3><h2 id="5-Binder-的表述"><a href="#5-Binder-的表述" class="headerlink" title="5 Binder 的表述"></a>5 Binder 的表述</h2><p>一次Binder通信的全过程会发现，Binder存在于系统以下几个部分中：</p>
+<ul>
+<li><p>应用程序进程：分别位于Server进程和Client进程中</p>
+</li>
+<li><p>Binder驱动：Server端的Binder实体, Client端的引用</p>
+</li>
+<li><p>传输数据：由于Binder可以跨进程传递，需要在传输数据中予以表述</p>
+</li>
+</ul>
+<h3 id="5-1-Binder-在应用程序中的表述"><a href="#5-1-Binder-在应用程序中的表述" class="headerlink" title="5.1 Binder 在应用程序中的表述"></a>5.1 Binder 在应用程序中的表述</h3><h4 id="5-1-1-Binder-在Server端的表述-–-Binder实体"><a href="#5-1-1-Binder-在Server端的表述-–-Binder实体" class="headerlink" title="5.1.1 Binder 在Server端的表述 – Binder实体"></a>5.1.1 Binder 在Server端的表述 – Binder实体</h4><p>Server端定义一个Binder抽象类处理来自Client的Binder请求数据包，其中最重要的成员是虚函数onTransact()。该函数分析收到的数据包，调用相应的接口函数处理请求.<br>然后用继承方式以接口类和Binder抽象类为基类构建Binder在Server中的实体.<br>在<code>onTransact()</code>中输入是来自Client的binder_transaction_data结构的数据包, 根据其中的请求函数编号调用相关的Server端的函数.函数执行完毕，如果需要返回数据就再构建一个binder_transaction_data包将返回数据包填入其中。</p>
+<h4 id="5-1-2-Binder-在Client端的表述-–-Binder引用"><a href="#5-1-2-Binder-在Client端的表述-–-Binder引用" class="headerlink" title="5.1.2 Binder 在Client端的表述 – Binder引用"></a>5.1.2 Binder 在Client端的表述 – Binder引用</h4><p>Client端的Binder同样要继承Server提供的公共接口类并实现公共函数。<br>但这不是真正的实现，而是对远程函数调用的包装：将函数参数打包，通过Binder向Server发送申请并等待返回值。为此Client端的Binder还要知道Binder实体的相关信息，即对Binder实体的引用。该引用或是由SMgr转发过来的，对实名Binder的引用或是由另一个进程直接发送过来的，对匿名Binder的引用。</p>
+<h3 id="5-2-Binder-在传输数据中的表述"><a href="#5-2-Binder-在传输数据中的表述" class="headerlink" title="5.2 Binder 在传输数据中的表述"></a>5.2 Binder 在传输数据中的表述</h3><p>Binder可以塞在数据包的有效数据中越进程边界从一个进程传递给另一个进程，这些传输中的Binder用结构<code>flat_binder_object</code>表示<br>无论是Binder实体还是对实体的引用在传输的过程中都必须经过<strong>驱动</strong>的翻译, 比如:</p>
+<ol>
+<li>当Server把Binder实体传递给Client时</li>
+<li>在发送数据流中，flat_binder_object中的type是BINDER_TYPE_BINDER，binder指向Server进程用户空间地址。</li>
+<li>如果透传给接收端将毫无用处，驱动必须对数据流中的这个Binder做修改：将type该成BINDER_TYPE_HANDLE；为这个Binder在接收进程中创建位于内核中的引用并将引用号填入handle中。</li>
+<li>对于发生数据流中引用类型的Binder也要做同样转换。经过处理后接收进程从数据流中取得的Binder引用才是有效的，才可以将其填入数据包binder_transaction_data的target.handle域，向Binder实体发送请求。</li>
+</ol>
+<p>以上做法处于安全考虑, 只有Binder驱动注册过的引用的能被Client合法的被使用</p>
+<h4 id="5-2-1-文件形式的-Binder"><a href="#5-2-1-文件形式的-Binder" class="headerlink" title="5.2.1 文件形式的 Binder"></a>5.2.1 文件形式的 Binder</h4><ol>
+<li>将文件看成Binder实体，进程打开的文件号看成Binder的引用。</li>
+<li>一个进程可以将它打开文件的文件号传递给另一个进程，从而另一个进程也打开了同一个文件，就象Binder的引用在进程之间传递一样。</li>
+</ol>
+<h3 id="5-3-Binder-在驱动中的表述"><a href="#5-3-Binder-在驱动中的表述" class="headerlink" title="5.3 Binder 在驱动中的表述"></a>5.3 Binder 在驱动中的表述</h3><ul>
+<li>驱动是Binder通信的核心，系统中所有的Binder实体以及每个实体在各个进程中的引用都登记在驱动中；</li>
+<li>驱动需要记录Binder引用-&gt;实体之间多对一的关系；为引用找到对应的实体；</li>
+<li>在某个进程中为实体创建或查找到对应的引用；</li>
+<li>记录Binder的归属地（位于哪个进程中）；</li>
+<li>通过管理Binder的强/弱引用创建/销毁Binder实体等等。</li>
+</ul>
+<p>Binder将对这些穿越进程边界的Binder做如下操作：</p>
+<ul>
+<li>检查传输结构的type域，如果是BINDER_TYPE_BINDER或BINDER_TYPE_WEAK_BINDER则创建Binder的实体；</li>
+<li>如果是BINDER_TYPE_HANDLE或BINDER_TYPE_WEAK_HANDLE则创建Binder的引用；</li>
+<li>如果是BINDER_TYPE_HANDLE则为进程打开文件，无须创建任何数据结构。</li>
+</ul>
+<h4 id="5-3-1-Binder-实体在驱动中的表述"><a href="#5-3-1-Binder-实体在驱动中的表述" class="headerlink" title="5.3.1 Binder 实体在驱动中的表述"></a>5.3.1 Binder 实体在驱动中的表述</h4><p>驱动中的Binder实体也叫‘节点’，隶属于提供实体的进程，由struct binder_node结构来表示<br>每个进程都有一棵红黑树用于存放创建好的节点</p>
+<h4 id="5-3-2-Binder-引用在驱动中的表述"><a href="#5-3-2-Binder-引用在驱动中的表述" class="headerlink" title="5.3.2 Binder 引用在驱动中的表述"></a>5.3.2 Binder 引用在驱动中的表述</h4><p>和实体一样，Binder的引用也是驱动根据传输数据中的flat_binder_object创建的</p>
+<h2 id="6-Binder-内存映射和接收缓存区管理"><a href="#6-Binder-内存映射和接收缓存区管理" class="headerlink" title="6 Binder 内存映射和接收缓存区管理"></a>6 Binder 内存映射和接收缓存区管理</h2><p>传统的IPC方式中数据是怎样从发送端到达接收端的呢</p>
+<ol>
+<li>发送方将准备好的数据存放在缓存区中，调用API通过系统调用进入内核中。</li>
+<li>内核服务程序在内核空间分配内存，将数据从发送方缓存区复制到内核缓存区中。</li>
+<li>接收方读数据时也要提供一块缓存区，内核将数据从内核缓存区拷贝到接收方提供的缓存区中并唤醒接收线程，完成一次数据发送。</li>
+</ol>
+<p>Binder采用一种全新策略</p>
+<ol>
+<li>通过<code>mmap()</code>将一个线程的内存地址映射到另一个线程中</li>
+<li>在数据从发送方向接收方拷贝时，驱动会根据发送数据包的大小，使用最佳匹配算法从缓存池中找到一块大小合适的空间，将数据从发送缓存区复制过来</li>
+</ol>
+<h2 id="7-Binder-接收线程管理"><a href="#7-Binder-接收线程管理" class="headerlink" title="7 Binder 接收线程管理"></a>7 Binder 接收线程管理</h2><h2 id="8-数据包接收队列与（线程）等待队列管理"><a href="#8-数据包接收队列与（线程）等待队列管理" class="headerlink" title="8 数据包接收队列与（线程）等待队列管理"></a>8 数据包接收队列与（线程）等待队列管理</h2><h2 id="9-总结"><a href="#9-总结" class="headerlink" title="9 总结"></a>9 总结</h2><p>Binder使用Client-Server通信方式，安全性好，简单高效，再加上其面向对象的设计思想，独特的接收缓存管理和线程池管理方式，成为Android进程间通信的中流砥柱。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://blog.csdn.net/universus/article/details/6211589" target="_blank" rel="external">Android Bander设计与实现 - 设计篇</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/binder/" rel="tag">#binder</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/08/读书笔记/Android开发艺术探索/2018-05-08-Android开发艺术探索读书笔记-第2章-IPC机制/" rel="next" title="2018-05-07-Android开发艺术探索读书笔记-第2章-IPC机制">
+                <i class="fa fa-chevron-left"></i> 2018-05-07-Android开发艺术探索读书笔记-第2章-IPC机制
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2018/05/19/Android/2018-05-19-Bindler机制/"
+           data-title="Android Binder机制" data-url="http://blog.loujiwei.cn/2018/05/19/Android/2018-05-19-Bindler机制/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Lou Jiwei" />
+          <p class="site-author-name" itemprop="name">Lou Jiwei</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">93</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">82</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/kkooff114" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/2028380403" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.zhihu.com/people/lou-jerry" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-引言"><span class="nav-number">1.</span> <span class="nav-text">1 引言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-面向对象的-Binder-IPC"><span class="nav-number">2.</span> <span class="nav-text">2 面向对象的 Binder IPC</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Binder通信模型"><span class="nav-number">3.</span> <span class="nav-text">3 Binder通信模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-Binder驱动"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 Binder驱动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-ServiceManager-与实名Binder"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 ServiceManager 与实名Binder</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-Client-获得实名Binder的引用"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 Client 获得实名Binder的引用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-匿名-Binder"><span class="nav-number">3.4.</span> <span class="nav-text">3.4 匿名 Binder</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Binder-协议"><span class="nav-number">4.</span> <span class="nav-text">4 Binder 协议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-BINDER-WRITE-READ-之写操作"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 BINDER_WRITE_READ 之写操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-BINDER-WRITE-READ-：从Binder读出数据"><span class="nav-number">4.2.</span> <span class="nav-text">4.2 BINDER_WRITE_READ ：从Binder读出数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-struct-binder-transaction-data-：收发数据包结构"><span class="nav-number">4.3.</span> <span class="nav-text">4.3 struct binder_transaction_data ：收发数据包结构</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-Binder-的表述"><span class="nav-number">5.</span> <span class="nav-text">5 Binder 的表述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-Binder-在应用程序中的表述"><span class="nav-number">5.1.</span> <span class="nav-text">5.1 Binder 在应用程序中的表述</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#5-1-1-Binder-在Server端的表述-–-Binder实体"><span class="nav-number">5.1.1.</span> <span class="nav-text">5.1.1 Binder 在Server端的表述 – Binder实体</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-1-2-Binder-在Client端的表述-–-Binder引用"><span class="nav-number">5.1.2.</span> <span class="nav-text">5.1.2 Binder 在Client端的表述 – Binder引用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-Binder-在传输数据中的表述"><span class="nav-number">5.2.</span> <span class="nav-text">5.2 Binder 在传输数据中的表述</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#5-2-1-文件形式的-Binder"><span class="nav-number">5.2.1.</span> <span class="nav-text">5.2.1 文件形式的 Binder</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-3-Binder-在驱动中的表述"><span class="nav-number">5.3.</span> <span class="nav-text">5.3 Binder 在驱动中的表述</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#5-3-1-Binder-实体在驱动中的表述"><span class="nav-number">5.3.1.</span> <span class="nav-text">5.3.1 Binder 实体在驱动中的表述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-3-2-Binder-引用在驱动中的表述"><span class="nav-number">5.3.2.</span> <span class="nav-text">5.3.2 Binder 引用在驱动中的表述</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-Binder-内存映射和接收缓存区管理"><span class="nav-number">6.</span> <span class="nav-text">6 Binder 内存映射和接收缓存区管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-Binder-接收线程管理"><span class="nav-number">7.</span> <span class="nav-text">7 Binder 接收线程管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-数据包接收队列与（线程）等待队列管理"><span class="nav-number">8.</span> <span class="nav-text">8 数据包接收队列与（线程）等待队列管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-总结"><span class="nav-number">9.</span> <span class="nav-text">9 总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">10.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lou Jiwei</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.2"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"kkooff114"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("Hlu4LmyrC38fkas5YyrJD87H-gzGzoHsz", "udF3A1fTUeRJHlezwNGWBCR9");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+
+</body>
+</html>
